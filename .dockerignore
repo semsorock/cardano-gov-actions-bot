@@ -1,0 +1,15 @@
+.git/
+.venv/
+.vscode/
+.DS_Store
+.flake8
+.gitignore
+.dockerignore
+docs/
+drafts/
+AGENTS.md
+README.md
+LICENSE
+pyproject.toml
+__pycache__/
+*.pyc

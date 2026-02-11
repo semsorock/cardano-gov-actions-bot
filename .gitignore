@@ -1,0 +1,8 @@
+.DS_Store
+.vscode/
+drafts/
+.venv/
+.env
+__pycache__/
+*.pyc
+*.pyo
