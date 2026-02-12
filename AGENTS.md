@@ -18,7 +18,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 
 ### Key Components
 
-- `gov_actions_bot.py`: Main cloud function handler with webhook processors (569 lines)
+- `main.py`: Main cloud function handler with webhook processors (569 lines)
 
 - `ipfs.py`: Standalone IPFS gateway fetcher (not integrated into main bot)
 

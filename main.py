@@ -197,7 +197,7 @@ def _process_gov_action(gov_action):
 
     # response = client.create_tweet(text=tweet_text)
 
-    print(f"Response: {response}")
+    # print(f"Response: {response}")
 
 
 def _get_cc_vote_records(block_number):
@@ -270,7 +270,7 @@ def _process_cc_vote_record(vote_record):
 
     # response = client.create_tweet(text=tweet_text)
 
-    print(f"Response: {response}")
+    # print(f"Response: {response}")
 
 
 def process_block(request_json):
@@ -408,7 +408,7 @@ def _process_ga_expiration(ga_expiration):
 
     # response = client.create_tweet(text=tweet_text)
 
-    print(f"Response: {response}")
+    # print(f"Response: {response}")
 
 
 def _get_treasury_donations(epoch_number):
@@ -458,7 +458,7 @@ def _process_treasury_donations(epoch_number):
 
         # response = client.create_tweet(text=tweet_text)
 
-        print(f"Response: {response}")
+        # print(f"Response: {response}")
 
 
 @functions_framework.http

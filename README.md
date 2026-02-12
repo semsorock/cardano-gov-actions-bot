@@ -60,7 +60,7 @@ export ACCESS_TOKEN=your_token
 export ACCESS_TOKEN_SECRET=your_token_secret
 export DB_SYNC_URL=postgresql://user:pass@host:5432/dbname
 
-# Run locally
+# Run locally (uses main.py by default)
 functions-framework --target=hello_http --debug
 # Server starts at http://localhost:8080
 # Routes: /block and /epoch
@@ -110,7 +110,7 @@ Every push to the `main` branch automatically triggers:
 ## Project Structure
 
 ```
-├── gov_actions_bot.py   # Main application (webhook handlers, DB queries, tweet logic)
+├── main.py              # Main application (webhook handlers, DB queries, tweet logic)
 ├── ipfs.py              # IPFS gateway utility
 ├── requirements.txt     # Python dependencies
 ├── Dockerfile           # Container image definition
