@@ -80,24 +80,29 @@ def _open_pr(repo, branch: str, title: str) -> None:
     logger.info("Opened PR #%d: %s", pr.number, title)
 
 
-def archive_gov_action(action: GovAction, metadata: dict | None) -> None:
-    """Archive a governance action rationale via GitHub PR."""
+def _archive_metadata(
+    action_id: str,
+    path: str,
+    metadata: dict | None,
+    raw_url: str,
+    commit_message: str,
+    exception_msg: str,
+) -> None:
+    """Internal helper to archive metadata to GitHub."""
     gh = _get_github()
     if gh is None:
         logger.debug("GitHub not configured — skipping rationale archive")
         return
 
     if metadata is None:
-        metadata = {"error": "Failed to fetch rationale", "url": action.raw_url}
+        metadata = {"error": "Failed to fetch rationale", "url": raw_url}
 
     try:
         repo = gh.get_repo(config.github_repo)
-        action_id = _action_dir(action)
         branch = f"rationale/{action_id}"
 
         _ensure_branch(repo, branch)
 
-        path = f"rationales/{action_id}/action.json"
         content = json.dumps(metadata, indent=2, ensure_ascii=False) + "\n"
 
         _create_or_update_file(
@@ -105,40 +110,34 @@ def archive_gov_action(action: GovAction, metadata: dict | None) -> None:
             branch,
             path,
             content,
-            message=f"Add rationale for gov action {action_id}",
+            message=commit_message,
         )
         _open_pr(repo, branch, f"Rationale: gov action {action_id}")
     except Exception:
-        logger.exception("Failed to archive gov action %s", action.tx_hash)
+        logger.exception(exception_msg)
+
+
+def archive_gov_action(action: GovAction, metadata: dict | None) -> None:
+    """Archive a governance action rationale via GitHub PR."""
+    action_id = _action_dir(action)
+    _archive_metadata(
+        action_id=action_id,
+        path=f"rationales/{action_id}/action.json",
+        metadata=metadata,
+        raw_url=action.raw_url,
+        commit_message=f"Add rationale for gov action {action_id}",
+        exception_msg=f"Failed to archive gov action {action.tx_hash}",
+    )
 
 
 def archive_cc_vote(vote: CcVote, metadata: dict | None) -> None:
     """Archive a CC vote rationale via GitHub PR."""
-    gh = _get_github()
-    if gh is None:
-        logger.debug("GitHub not configured — skipping vote archive")
-        return
-
-    if metadata is None:
-        metadata = {"error": "Failed to fetch rationale", "url": vote.raw_url}
-
-    try:
-        repo = gh.get_repo(config.github_repo)
-        action_id = f"{vote.ga_tx_hash}_{vote.ga_index}"
-        branch = f"rationale/{action_id}"
-
-        _ensure_branch(repo, branch)
-
-        path = f"rationales/{action_id}/cc_votes/{vote.voter_hash}.json"
-        content = json.dumps(metadata, indent=2, ensure_ascii=False) + "\n"
-
-        _create_or_update_file(
-            repo,
-            branch,
-            path,
-            content,
-            message=f"Add CC vote rationale: {vote.voter_hash[:8]} on {action_id}",
-        )
-        _open_pr(repo, branch, f"Rationale: gov action {action_id}")
-    except Exception:
-        logger.exception("Failed to archive CC vote for %s", vote.voter_hash)
+    action_id = f"{vote.ga_tx_hash}_{vote.ga_index}"
+    _archive_metadata(
+        action_id=action_id,
+        path=f"rationales/{action_id}/cc_votes/{vote.voter_hash}.json",
+        metadata=metadata,
+        raw_url=vote.raw_url,
+        commit_message=f"Add CC vote rationale: {vote.voter_hash[:8]} on {action_id}",
+        exception_msg=f"Failed to archive CC vote for {vote.voter_hash}",
+    )
