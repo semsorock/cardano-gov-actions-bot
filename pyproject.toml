@@ -8,12 +8,12 @@ license = { text = "MIT" }
 
 dependencies = [
     "functions-framework>=3,<4",
-    "tweepy>=4.15,<5",
     "psycopg2-binary>=2.9,<3",
     "requests>=2.32,<3",
     "tenacity>=9,<10",
     "python-dotenv>=1.2.1",
     "pygithub>=2,<3",
+    "xdk>=0.8.1",
 ]
 
 [dependency-groups]

@@ -1,4 +1,5 @@
-import tweepy
+from xdk import Client
+from xdk.oauth1_auth import OAuth1
 
 from bot.config import config
 from bot.logging import get_logger
@@ -6,13 +7,15 @@ from bot.logging import get_logger
 logger = get_logger("twitter.client")
 
 
-def _get_client() -> tweepy.Client:
-    return tweepy.Client(
-        consumer_key=config.twitter.api_key,
-        consumer_secret=config.twitter.api_secret_key,
+def _get_client() -> Client:
+    oauth1 = OAuth1(
+        api_key=config.twitter.api_key,
+        api_secret=config.twitter.api_secret_key,
+        callback="oob",
         access_token=config.twitter.access_token,
         access_token_secret=config.twitter.access_token_secret,
     )
+    return Client(auth=oauth1)
 
 
 def post_tweet(text: str) -> None:
@@ -24,5 +27,5 @@ def post_tweet(text: str) -> None:
         return
 
     client = _get_client()
-    response = client.create_tweet(text=text)
+    response = client.posts.create(text=text)
     logger.info("Tweet posted: %s", response)
