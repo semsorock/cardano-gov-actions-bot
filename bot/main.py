@@ -15,6 +15,7 @@ from bot.db.repository import (
 from bot.logging import get_logger, setup_logging
 from bot.metadata.fetcher import fetch_metadata, sanitise_url
 from bot.rationale_archiver import archive_cc_vote, archive_gov_action
+from bot.rationale_validator import validate_cc_vote_rationale, validate_gov_action_rationale
 from bot.twitter.client import post_tweet
 from bot.twitter.formatter import (
     format_cc_vote_tweet,
@@ -45,6 +46,12 @@ def _process_gov_actions(block_no: int) -> None:
     for action in actions:
         url = sanitise_url(action.raw_url)
         metadata = fetch_metadata(url)
+
+        # Validate rationale (non-blocking).
+        warnings = validate_gov_action_rationale(metadata)
+        for w in warnings:
+            logger.warning("CIP-0108 validation [%s#%s]: %s", action.tx_hash[:8], action.index, w)
+
         tweet = format_gov_action_tweet(action, metadata)
         post_tweet(tweet)
         archive_gov_action(action, metadata)
@@ -60,6 +67,12 @@ def _process_cc_votes(block_no: int) -> None:
     for vote in votes:
         url = sanitise_url(vote.raw_url)
         metadata = fetch_metadata(url)
+
+        # Validate rationale (non-blocking).
+        warnings = validate_cc_vote_rationale(metadata)
+        for w in warnings:
+            logger.warning("CIP-0136 validation [%s]: %s", vote.voter_hash[:8], w)
+
         tweet = format_cc_vote_tweet(vote, metadata)
         post_tweet(tweet)
         archive_cc_vote(vote, metadata)
