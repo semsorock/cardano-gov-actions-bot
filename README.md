@@ -14,7 +14,7 @@ Blockfrost Webhook → Cloud Run (`/`) → Query DB-Sync → Fetch IPFS metadata
 2. The bot queries a **Cardano DB-Sync** PostgreSQL database for governance actions, CC votes, and epoch donations
 3. Metadata is fetched from **IPFS** and validated (CIP-0108 / CIP-0136 warnings only)
 4. Formatted summaries are posted to **Twitter/X** via `xdk`
-5. Rationale JSON is archived to GitHub through an automated branch + PR flow
+5. Rationale JSON is archived to GitHub through automated direct commits to `main`
 
 ### What It Monitors
 
@@ -43,7 +43,7 @@ The bot loads `.env` locally (`python-dotenv`) and can also read from Cloud Run 
 | `DB_SYNC_URL` | PostgreSQL connection string (e.g. `postgresql://user:pass@host:5432/dbname`) |
 | `BLOCKFROST_WEBHOOK_AUTH_TOKEN` | Shared secret used to verify `Blockfrost-Signature` |
 | `TWEET_POSTING_ENABLED` | Set to `true` to enable posting tweets (default: `false`) |
-| `GITHUB_TOKEN` | GitHub token for rationale archiving PRs (optional) |
+| `GITHUB_TOKEN` | GitHub token for rationale archiving commits (optional) |
 | `GITHUB_REPO` | Repository in `owner/name` format for rationale archives (optional) |
 
 ## Local Development
@@ -130,7 +130,7 @@ Every push to the `main` branch automatically triggers:
 │   ├── logging.py               # Structured logging setup
 │   ├── main.py                  # Unified webhook handler
 │   ├── models.py                # Domain dataclasses
-│   ├── rationale_archiver.py    # GitHub rationale archiving (branch + PR)
+│   ├── rationale_archiver.py    # GitHub rationale archiving (direct commits to main)
 │   ├── rationale_validator.py   # CIP-0108/CIP-0136 warning-only validation
 │   ├── webhook_auth.py          # Blockfrost HMAC signature verification
 │   ├── db/                      # SQL constants + repository layer

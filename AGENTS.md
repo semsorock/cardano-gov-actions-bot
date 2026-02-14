@@ -2,7 +2,7 @@
 
 ## Project Purpose
 
-This is a **Cardano blockchain governance monitoring bot** that watches for new governance actions and Constitutional Committee (CC) votes, then automatically posts summaries to Twitter/X. It also archives governance rationale files to GitHub via automated PRs. It's deployed as a Google Cloud Run service that responds to webhook events from Blockfrost.
+This is a **Cardano blockchain governance monitoring bot** that watches for new governance actions and Constitutional Committee (CC) votes, then automatically posts summaries to Twitter/X. It also archives governance rationale files to GitHub via direct commits to `main`. It's deployed as a Google Cloud Run service that responds to webhook events from Blockfrost.
 
 ## Architecture Overview
 
@@ -20,7 +20,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
    - **Gov Actions**: Posted as new tweets. Tweet ID is stored in GitHub `tweet_id.txt`.
    - **CC Votes**: Posted as **quote-retweets** of the original action (if ID found), or regular tweets (fallback).
 
-6. **Archive rationale** to GitHub (branch + PR flow).
+6. **Archive rationale** to GitHub (direct commit to `main`).
 
 ### Project Structure
 
@@ -35,7 +35,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │   ├── links.py                 # External link builders (AdaStat, GovTools, CExplorer)
 │   ├── main.py                  # Unified webhook handler (handle_webhook entry point)
 │   ├── webhook_auth.py          # Blockfrost HMAC-SHA256 signature verification
-│   ├── rationale_archiver.py    # Archive rationales to GitHub via PR (PyGithub)
+│   ├── rationale_archiver.py    # Archive rationales to GitHub via direct commits (PyGithub)
 │   ├── rationale_validator.py   # CIP-0108/CIP-0136 metadata validation
 │   ├── db/
 │   │   ├── __init__.py
@@ -92,7 +92,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 
 - `bot/main.py`: Unified webhook handler — single `/` endpoint processes blocks, detects epoch transitions, validates rationales, archives to GitHub.
 
-- `bot/rationale_archiver.py`: Archives rationale JSON to GitHub via PyGithub (create branch → commit file → open PR). Skips gracefully if `GITHUB_TOKEN` not set.
+- `bot/rationale_archiver.py`: Archives rationale JSON to GitHub via PyGithub (create/update files directly on `main`). Skips gracefully if `GITHUB_TOKEN` not set.
 
 - `bot/rationale_validator.py`: Non-blocking CIP-0108/CIP-0136 validation. Returns warning lists — tweets always sent regardless.
 
@@ -203,7 +203,7 @@ ACCESS_TOKEN, ACCESS_TOKEN_SECRET  # Twitter access credentials
 TWEET_POSTING_ENABLED              # "true" to enable tweet posting (default: false)
 
 # GitHub (optional — rationale archiving)
-GITHUB_TOKEN                       # Personal access token for PR creation
+GITHUB_TOKEN                       # Personal access token for direct commits
 GITHUB_REPO                        # e.g. "semsorock/cardano-gov-actions-bot"
 ```
 
