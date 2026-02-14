@@ -52,8 +52,15 @@ def format_cc_vote_tweet(
     metadata: dict | None,
     *,
     quote_tweet_id: str | None = None,
+    voter_x_handle: str | None = None,
 ) -> str:
-    voted_by_line = _authors_line(metadata, label="Voted by")
+    voted_by_line = ""
+    if voter_x_handle:
+        voted_by_line = f"Voted by: {voter_x_handle}\n"
+    else:
+        voted_by_line = _authors_line(metadata, label="Voted by")
+        if not voted_by_line:
+            voted_by_line = f"Voted by: CC member ({vote.voter_hash[:8]})\n"
 
     if quote_tweet_id:
         # Quote-tweet: no GA link needed (it's embedded in the quoted tweet).

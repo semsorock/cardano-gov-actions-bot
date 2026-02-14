@@ -5,6 +5,7 @@ import json
 import flask
 import functions_framework
 
+from bot.cc_profiles import get_x_handle_for_voter_hash
 from bot.config import config
 from bot.db.repository import (
     get_block_epoch,
@@ -75,7 +76,16 @@ def _process_cc_votes(block_no: int) -> None:
 
         # Look up the original gov action tweet for quote-tweeting.
         quote_id = get_action_tweet_id(vote.ga_tx_hash, vote.ga_index)
-        tweet = format_cc_vote_tweet(vote, metadata, quote_tweet_id=quote_id)
+        voter_x_handle = get_x_handle_for_voter_hash(vote.voter_hash)
+        if not voter_x_handle:
+            logger.warning("No X handle mapping for CC voter hash: %s", vote.voter_hash)
+
+        tweet = format_cc_vote_tweet(
+            vote,
+            metadata,
+            quote_tweet_id=quote_id,
+            voter_x_handle=voter_x_handle,
+        )
 
         if quote_id:
             post_quote_tweet(tweet, quote_id)

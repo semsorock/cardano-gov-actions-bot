@@ -63,6 +63,13 @@ class TestFormatCcVoteTweet:
         assert "Cardano Foundation" in tweet
         assert len(tweet) <= MAX_TWEET_LENGTH
 
+    def test_with_x_handle_prefers_handle_over_metadata(self):
+        vote = self._make_vote()
+        metadata = {"authors": [{"name": "Cardano Foundation"}]}
+        tweet = format_cc_vote_tweet(vote, metadata, voter_x_handle="@ExampleCC")
+        assert "Voted by: @ExampleCC" in tweet
+        assert "Cardano Foundation" not in tweet
+
     def test_no_vote(self):
         vote = self._make_vote(vote="NO")
         tweet = format_cc_vote_tweet(vote, None)
@@ -72,6 +79,11 @@ class TestFormatCcVoteTweet:
         vote = self._make_vote(vote="ABSTAIN")
         tweet = format_cc_vote_tweet(vote, None)
         assert "Abstain" in tweet
+
+    def test_without_handle_or_metadata_uses_hash_fallback(self):
+        vote = self._make_vote(voter_hash="deadbeef00112233")
+        tweet = format_cc_vote_tweet(vote, None)
+        assert "Voted by: CC member (deadbeef)" in tweet
 
 
 class TestFormatGaExpirationTweet:
