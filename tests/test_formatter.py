@@ -19,7 +19,7 @@ class TestFormatGovActionTweet:
         action = self._make_action()
         metadata = {"body": {"title": "Test Proposal"}}
         tweet = format_gov_action_tweet(action, metadata)
-        assert "NEW GOVERNANCE ACTION ALERT" in tweet
+        assert "Governance Action Update" in tweet
         assert "Test Proposal" in tweet
         assert "Parameter Change" in tweet
         assert "adastat.net" in tweet
@@ -29,7 +29,7 @@ class TestFormatGovActionTweet:
     def test_without_metadata(self):
         action = self._make_action()
         tweet = format_gov_action_tweet(action, None)
-        assert "NEW GOVERNANCE ACTION ALERT" in tweet
+        assert "Governance Action Update" in tweet
         assert "Parameter Change" in tweet
         assert "Test Proposal" not in tweet
         assert len(tweet) <= MAX_TWEET_LENGTH
@@ -58,7 +58,7 @@ class TestFormatCcVoteTweet:
         vote = self._make_vote()
         metadata = {"authors": [{"name": "Cardano Foundation"}]}
         tweet = format_cc_vote_tweet(vote, metadata)
-        assert "CC MEMBER VOTE ALERT" in tweet
+        assert "CC Vote Update" in tweet
         assert "Constitutional" in tweet
         assert "Cardano Foundation" in tweet
         assert len(tweet) <= MAX_TWEET_LENGTH
@@ -78,7 +78,7 @@ class TestFormatGaExpirationTweet:
     def test_basic(self):
         exp = GaExpiration(tx_hash="aabb", index=0)
         tweet = format_ga_expiration_tweet(exp)
-        assert "EXPIRY ALERT" in tweet
+        assert "Expiry Notice" in tweet
         assert "adastat.net" in tweet
         assert len(tweet) <= MAX_TWEET_LENGTH
 
@@ -87,8 +87,8 @@ class TestFormatTreasuryDonationsTweet:
     def test_single_donation(self):
         donations = [TreasuryDonation(block_no=1, tx_hash="aabb", amount_lovelace=5_000_000)]
         tweet = format_treasury_donations_tweet(donations)
-        assert "TREASURY DONATIONS" in tweet
-        assert "Donations Count: 1" in tweet
+        assert "Treasury Donations Summary" in tweet
+        assert "Transactions: 1" in tweet
         assert "5" in tweet
         assert len(tweet) <= MAX_TWEET_LENGTH
 
@@ -98,5 +98,5 @@ class TestFormatTreasuryDonationsTweet:
             TreasuryDonation(block_no=2, tx_hash="ccdd", amount_lovelace=2_000_000),
         ]
         tweet = format_treasury_donations_tweet(donations)
-        assert "Donations Count: 2" in tweet
+        assert "Transactions: 2" in tweet
         assert "3" in tweet  # 1 + 2 = 3 ADA

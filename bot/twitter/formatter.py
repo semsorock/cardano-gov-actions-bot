@@ -16,10 +16,10 @@ def _vote_display(vote: str) -> str:
     return VOTES_MAPPING.get(vote.upper(), vote)
 
 
-def _authors_line(metadata: dict | None, *, label: str = "Authors", emoji: str = "👥") -> str:
+def _authors_line(metadata: dict | None, *, label: str = "Authors", emoji: str = "") -> str:
     """Extract author names from CIP-100 metadata.
 
-    Returns a formatted line like '👥 Authors: Name1, Name2\n' or empty string.
+    Returns a formatted line like 'Authors: Name1, Name2\n' or empty string.
     """
     if not metadata:
         return ""
@@ -30,13 +30,14 @@ def _authors_line(metadata: dict | None, *, label: str = "Authors", emoji: str =
     names = [n for n in names if n]  # filter blanks
     if not names:
         return ""
-    return f"{emoji} {label}: {', '.join(names)}\n"
+    emoji_prefix = f"{emoji} " if emoji else ""
+    return f"{emoji_prefix}{label}: {', '.join(names)}\n"
 
 
 def format_gov_action_tweet(action: GovAction, metadata: dict | None) -> str:
     title = metadata.get("body", {}).get("title") if metadata else None
-    title_line = f"📢 Title: {title}\n" if title else ""
-    authors_line = _authors_line(metadata, label="Authors", emoji="👥")
+    title_line = f"Title: {title}\n" if title else ""
+    authors_line = _authors_line(metadata, label="Authors")
 
     return templates.GOV_ACTION.format(
         title_line=title_line,
@@ -52,7 +53,7 @@ def format_cc_vote_tweet(
     *,
     quote_tweet_id: str | None = None,
 ) -> str:
-    voted_by_line = _authors_line(metadata, label="Voted by", emoji="👥")
+    voted_by_line = _authors_line(metadata, label="Voted by")
 
     if quote_tweet_id:
         # Quote-tweet: no GA link needed (it's embedded in the quoted tweet).

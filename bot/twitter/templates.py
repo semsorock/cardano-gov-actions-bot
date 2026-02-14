@@ -5,46 +5,49 @@ Use Python str.format() placeholders — see formatter.py for available variable
 """
 
 GOV_ACTION = """\
-🚨 NEW GOVERNANCE ACTION ALERT! 🚨
+Governance Action Update
 
-{title_line}{authors_line}🏷️ Type: {action_type}
-🔗 Details: {link}
+{title_line}{authors_line}Type: {action_type}
+Action: {link}
 
-#Cardano #Blockchain #Governance"""
+@IntersectMBO
+#Cardano #Governance"""
 
 CC_VOTE = """\
-📜 CC MEMBER VOTE ALERT! 📜
+CC Vote Update
 
-🗳️ The vote is: {vote_display}
-{voted_by_line}🔗 The vote rationale: {rationale_url}
+Decision: {vote_display}
+{voted_by_line}Rationale: {rationale_url}
 
-#Cardano #Blockchain #Governance"""
+@IntersectMBO
+#Cardano #Governance"""
 
 CC_VOTE_NO_QUOTE = """\
-📜 CC MEMBER VOTE ALERT! 📜
+CC Vote Update
 
-🗳️ The vote is: {vote_display}
-{voted_by_line}🔗 Gov Action: {ga_link}
-🔗 The vote rationale: {rationale_url}
+Decision: {vote_display}
+{voted_by_line}Governance Action: {ga_link}
+Rationale: {rationale_url}
 
-#Cardano #Blockchain #Governance"""
+@IntersectMBO
+#Cardano #Governance"""
 
 GA_EXPIRATION = """\
-⏳ GOVERNANCE ACTION EXPIRY ALERT! ⏳
+Governance Action Expiry Notice
 
-Heads up! There is only 1 epoch (5 days) left to vote on this GA:
+1 epoch (5 days) left to vote on this action.
 
-🔗 {link}
-Make sure to review and participate if applicable!
+Action: {link}
+Review and vote if applicable.
 
-#Cardano #Blockchain #Governance"""
+@IntersectMBO
+#Cardano #Governance"""
 
 TREASURY_DONATIONS = """\
-💸 PREVIOUS EPOCH TREASURY DONATIONS! 💸
+Treasury Donations Summary (Previous Epoch)
 
-Here are the Cardano Treasury donation stats for the last epoch:
-📈 Donations Count: {count}
-💰 Total Donated: {total_ada} ADA
-Thank you to everyone supporting the growth of #Cardano!
+Transactions: {count}
+Total Donated: {total_ada} ADA
 
-#Treasury #Blockchain #Governance"""
+@IntersectMBO
+#Cardano #Treasury #Governance"""
