@@ -4,6 +4,8 @@ from psycopg2 import pool
 
 from bot.config import config
 from bot.db.queries import (
+    QUERY_ALL_CC_VOTES,
+    QUERY_ALL_GOV_ACTIONS,
     QUERY_BLOCK_EPOCH,
     QUERY_CC_VOTES,
     QUERY_GA_EXPIRATIONS,
@@ -84,3 +86,25 @@ def get_block_epoch(block_hash: str) -> int | None:
     """Return the epoch number for a block identified by its hex hash."""
     rows = _query(QUERY_BLOCK_EPOCH, (block_hash,))
     return rows[0][0] if rows else None
+
+
+def get_all_gov_actions() -> list[GovAction]:
+    """Return all governance actions (for backfill)."""
+    rows = _query(QUERY_ALL_GOV_ACTIONS, ())
+    return [GovAction(tx_hash=row[0], action_type=row[1], index=row[2], raw_url=row[3]) for row in rows]
+
+
+def get_all_cc_votes() -> list[CcVote]:
+    """Return all CC member votes (for backfill)."""
+    rows = _query(QUERY_ALL_CC_VOTES, ())
+    return [
+        CcVote(
+            ga_tx_hash=row[0],
+            ga_index=row[1],
+            vote_tx_hash=row[2],
+            voter_hash=row[3],
+            vote=row[4],
+            raw_url=row[5],
+        )
+        for row in rows
+    ]

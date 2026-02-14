@@ -1,7 +1,12 @@
 import os
 from dataclasses import dataclass, field
 
+from dotenv import load_dotenv
+
 from bot.logging import get_logger
+
+# Load .env if present — values override system env vars.
+load_dotenv(override=True)
 
 logger = get_logger("config")
 
