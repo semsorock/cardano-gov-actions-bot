@@ -6,8 +6,8 @@ from bot.twitter.formatter import (
     format_treasury_donations_tweet,
 )
 
-
 MAX_TWEET_LENGTH = 280
+
 
 class TestFormatGovActionTweet:
     def _make_action(self, **overrides):
@@ -91,7 +91,6 @@ class TestFormatTreasuryDonationsTweet:
         assert "Donations Count: 1" in tweet
         assert "5" in tweet
         assert len(tweet) <= MAX_TWEET_LENGTH
-
 
     def test_multiple_donations(self):
         donations = [
