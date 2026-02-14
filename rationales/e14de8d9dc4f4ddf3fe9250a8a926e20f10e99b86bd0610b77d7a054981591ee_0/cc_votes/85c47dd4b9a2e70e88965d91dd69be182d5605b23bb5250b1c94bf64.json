@@ -1,0 +1,83 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVoting": "CIP136:againstVoting"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The Intersect Constitutional Council votes that the budget info action, “e14de8d9dc4f4ddf3fe9250a8a926e20f10e99b86bd0610b77d7a054981591ee”, to be Constitutional.",
+    "rationaleStatement": "In accordance with Article III Section 4, this budget info action is in connection with a proposed ecosystem budget and as permitted in Article IV Section 1, this proposal relates to the maintenance and future development of the Cardano blockchain ecosystem.\n\nThe proposal is submitted on behalf of Intersect and the Cardano Budget Committee and proposes a Cardano Blockchain Ecosystem Budget of 275,269,340 ada with a duration of 73 epochs spanning from the date that it is approved, should it be approved. This is also in-line with the currently active net change limit of 350 million ada.\n\nThe proposal meets the standardized and legible format requirements as outlined in Article III Section 5. The rationale contains a title, abstract, reason for the proposal and relevant supporting materials.\n\nThis budget info action is representative of 39 different projects budget proposals, aggregated through a series of off-chain processes. 194 projects applied through the initial process, which in turn were narrowed down to 40 projects following a vote using live DRep stake and the newly developed Ekklesia platform. 1 of these projects did not name Intersect as their administrator and so is not included in the final list proposed here. The process by which the proposer has arrived at their selection proposed here can be seen as in support of Article III Section 6, whereby “the Cardano Community is expected to support the creation, maintenance and ongoing administration of off-chain governance processes as may be necessary to give effect to this Constitution and to ensure that there is awareness of and an opportunity to debate and shape all future governance actions for the Cardano Blockchain”.\n\nThe proposal outlines robust budget administration processes, including future treasury withdrawals and fund management, meeting Article IV Section 2 requirements. It is proposed in advance of any potential treasury withdrawal request, as per Article IV Section 3 “No withdrawals from the Cardano Blockchain treasury shall be permitted unless such withdrawals have been authorized and are being made pursuant to a budget for the Cardano Blockchain that is then in effect”.\n\nAs part of the outlined administration processes the proposal acknowledges that although included in this budget, budgetary designations are not automatically guaranteed and as such, all projects listed remain subject to due diligence including KYC/KYB checks among others.",
+    "precedentDiscussion": "This is the first budget info action of this size to ever be submitted. It establishes a clear timeline duration and represents a potential budget of 275 million ada, within the currently active net change limit of 350 million ada. The proposal does acknowledge the fluid nature of Cardano governance and in particular the value set for the net change limit and provides an explanation of the potential impact on treasury withdrawals against this particular budget should the net change limit change during its lifespan.",
+    "counterargumentDiscussion": "While some questions have been raised about the extent of the off-chain processes that have been employed to inform this proposal, the Council does note that the Constitution does provide provision for this in Article III Section 6, as mentioned previously.",
+    "conclusion": "The Intersect Constitutional Council considers this budget info action to be Constitutional. It is a thoroughly thought out submission, informed by a multi-stage off-chain process involving the Cardano community and proposes robust safeguards for any future treasury withdrawals and fund management requirements on any withdrawals made against this budget should it pass.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 2,
+      "againstVoting": 0
+    },
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Cardano Blockchain Ecosystem Constitution",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Intersect Constitutional Council"
+    }
+  ]
+}

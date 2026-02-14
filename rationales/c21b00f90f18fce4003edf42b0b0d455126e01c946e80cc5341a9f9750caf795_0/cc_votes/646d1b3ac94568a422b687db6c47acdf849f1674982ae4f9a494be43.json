@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1cgdsp7g0rr7wgqp7maptpvx525fxuqwfgm5qe3f5r20ew5x2772sq0m5y83",
+    "summary": "Tingvard judges this protocol parameter update governance action constitutional.",
+    "rationaleStatement": "This governance action is properly framed as a “Protocol Parameter Changes” action and concerns adjustments to critical protocol parameters governing Plutus script memory execution limits. The proposal increases maxTxExecutionUnits[memory] and maxBlockExecutionUnits[memory] in a correlated manner, consistent with the requirements for network and execution-budget parameters under the Constitution.\nThe action satisfies the procedural and substantive requirements of Article II, § 6. The proposal is presented in a standardized format, includes immutable off-chain metadata with a corresponding hash, and provides a comprehensive technical rationale, benchmarking evidence, and guardrail analysis. The metadata demonstrates that the proposed changes were preceded by extended off-chain discussion, formal consideration by the Intersect Parameter Committee, and subsequent ratification by the Technical Steering Committee, satisfying expectations of transparency and technical scrutiny.\nThe proposed parameter values remain within all mandatory guardrails set out in the Cardano Blockchain Guardrails Appendix. The increases do not exceed maximum bounds, do not reduce existing limits, and respect the recommended per-epoch change constraints. The proposal explicitly acknowledges the critical nature of the affected parameters and correctly relies on the additional SPO voting threshold required for such changes, in accordance with PARAM-03a.\nFrom a constitutional perspective, the action advances the Tenets set out in Article I. In particular, it promotes Tenet 3 by ensuring that developers are not unreasonably prevented from deploying applications as intended, and Tenet 8 by enabling more efficient use of existing block capacity without wasteful fragmentation or artificial constraints. Real-world development experience has demonstrated that current memory limits force developers to choose between reducing supported functionality or abandoning features that are standard on competing platforms, even after extensive optimization and use of advanced tooling. This update removes such artificial barriers while remaining within safe and benchmarked performance limits.\nThe proposal also considers potential trade-offs. Increasing memory execution limits marginally raises hardware requirements for block-producing nodes. However, benchmarking confirms that Praos timing guarantees remain intact, and the resulting requirements remain well within the capacity of the vast majority of existing stake pool operators. The Constitution does not require preservation of minimum-spec operation where doing so would unnecessarily impede the evolution and competitiveness of the ecosystem.",
+    "precedentDiscussion": "This decision affirms that incremental, benchmark-driven increases to Plutus execution limits are constitutionally permissible when they are supported by rigorous testing, comply with guardrails, and are introduced through a transparent, staged process. It reinforces the principle that protocol parameters may evolve to reflect real-world usage and developer needs, provided that security, performance, and decentralization requirements are respected.",
+    "counterargumentDiscussion": "A potential counterargument is that increasing execution limits may gradually raise the baseline hardware requirements for SPOs, potentially affecting decentralization. However, the Constitution does not mandate static operational requirements, and the evidence presented demonstrates that the change preserves network performance guarantees and remains within practical operational norms. No constitutional provision is violated by such an increase when it is justified, proportionate, and technically validated.",
+    "conclusion": "For these reasons, Tingvard finds this protocol parameter update governance action constitutional. It complies with Article II, § 6, adheres to all applicable Guardrails, respects the Cardano Blockchain Tenets, and represents a measured, evidence-based evolution of the protocol in support of long-term sustainability and developer usability.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Tingvard"
+    }
+  ]
+}

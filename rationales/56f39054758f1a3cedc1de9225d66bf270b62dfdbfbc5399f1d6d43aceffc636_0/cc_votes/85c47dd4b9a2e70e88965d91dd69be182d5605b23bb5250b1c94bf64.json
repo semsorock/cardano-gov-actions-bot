@@ -1,0 +1,92 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The Intersect Constitutional Council votes that the roadmap vision Info Action governance action gov_action12meeq4r43udremwpm6fzt4nt7fctvt0ah7798x036m2r4nhlccmqqhmr9wx (56f39054758f1a3cedc1de9225d66bf270b62dfdbfbc5399f1d6d43aceffc636#0) is not constitutional, with a vote split of 4-0-1.",
+    "rationaleStatement": "The governance action proposes an Info Action to gather sentiment from DReps on the Product Committee’s proposed 2025 Cardano roadmap and long-term vision. The roadmap outlines strategic priorities and development initiatives intended to guide ecosystem direction and inform future governance and funding activities.\n\nWhile the proposal is non-binding, the Council recognizes the importance of such sentiment-gathering mechanisms as part of the broader democratic process. The Council supports efforts to consult the community early on significant initiatives. However, the submission’s reliance on mutable documentation raises constitutional concerns.\n\nThe proposal references a publicly hosted roadmap at https://product.cardano.intersectmbo.org/vision-roadmap-2025, alongside an IPFS anchor (ipfs://bafkreiada4nn5eaezg43esieduks6l57vzkjdo2yfby7yxv6jrat7ilrdq). Not all critical components of the roadmap appear to be captured in the immutable metadata, introducing the potential for post-submission changes that could affect voter understanding or interpretation.\n\nUnder Article III Section 5 of the Constitution, proposed governance actions are expected to follow a standardised and legible format, including a URL and hash of all supporting content anchored to the Cardano blockchain. Although the language does not impose an absolute requirement, the lack of immutable documentation in this case compromises the integrity of the action.\n\nThe Council found no elements within the substantive content of the roadmap to be unconstitutional. However, because the primary reference is subject to change, the action does not meet the expectations set forth in the Constitution for transparency, consistency, and permanence.",
+    "precedentDiscussion": "The Council has previously flagged mutable documentation as a material concern, including in the Treasury Tax and Plutus V3 Cost Model parameter update proposals. This determination reinforces the emerging standard that all governance actions, including Info Actions, should be accompanied by complete immutable documentation to ensure their constitutionality.",
+    "counterargumentDiscussion": "Some members noted that Info Actions are non-binding and may be held to a different standard than binding governance actions. However, the Constitution does not distinguish between action types in its expectations for transparency and accountability. The Council believes that sentiment-gathering actions must adhere to the same principles to maintain trust in the governance process.\n\nWhile the roadmap’s intent and content are not in question, the mutable nature of its primary reference prevents the Council from confirming its constitutionality. The Council encourages the proposer to resubmit the action with comprehensive immutable documentation that includes all referenced material.",
+    "conclusion": "The Council finds this Info Action to be not constitutional due to the absence of complete immutable documentation. The content of the proposal, as submitted and reviewed on March 25, 2025, was not found to contain anything unconstitutional. However, because it cannot be guaranteed that the referenced material will remain unchanged, the Council cannot confirm the constitutionality of the action as a whole.\n\nThis decision reflects the Council’s position that all governance actions should include complete and immutable references. Proposers are encouraged to anchor all relevant materials using IPFS or similar decentralized storage solutions when submitting future proposals.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 4,
+      "abstain": 1,
+      "didNotVote": 2
+    }
+  },
+  "references": [
+    {
+      "@type": "Other",
+      "label": "Cardano Blockchain Ecosystem Constitution",
+      "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+    },
+    {
+      "@type": "Other",
+      "label": "Roadmap Vision Governance Action on GovTool",
+      "uri": "https://gov.tools/governance_actions/56f39054758f1a3cedc1de9225d66bf270b62dfdbfbc5399f1d6d43aceffc636#0"
+    },
+    {
+      "@type": "Other",
+      "label": "Roadmap Metadata Anchor (IPFS)",
+      "uri": "ipfs://bafkreiada4nn5eaezg43esieduks6l57vzkjdo2yfby7yxv6jrat7ilrdq"
+    },
+    {
+      "@type": "Other",
+      "label": "Product Roadmap Reference (Mutable)",
+      "uri": "https://product.cardano.intersectmbo.org/vision-roadmap-2025"
+    }
+  ],
+  "authors": []
+}

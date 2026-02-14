@@ -1,0 +1,86 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We have determined that this Info Action does not meet the criteria deemed necessary for the Constitutional Committee to assess its constitutionality.",
+    "rationaleStatement": "Following the same rationale provided for the governance action with ID \"15f82a365bdee483a4b03873a40d3829cc88c048ff3703e11bd01dd9e035c916#0\" and title \"Name the next hard fork HOSKY Hard Fork\", the Interim Constitution does not empower the Constitutional Committee to assess the constitutionality of an \"Info\" action if it is not gauging the sentiment towards another governance action which can be enacted on-chain.\n\nThe governance action with ID \"59fd353253eb177e2104e8f23ea4c63e3d32ef95c7865d03e90d3884424dc1db#0\" and title \"Cardanoの生きがい - Ikigai -\" does not gauge sentiment towards a future governance action which can be enacted on-chain.  This governance action therefore does not meet the constitutionality assessment criteria, so we must Abstain.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "conclusion": "We abstain from assessing the constitutionality of this governance action as it is not enforceable.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 0,
+      "abstain": 6,
+      "didNotVote": 0
+    },
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Eastern Cardano Council Governance Action Response to \"GA01\"",
+        "uri": "https://github.com/Eastern-Cardano-Council/icc-ga-rationales/blob/main/ga01/ga01-rationale.md"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Eastern Cardano Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "a12e0d6516828fd47afc70e2eccdfa11a4f4c76cb5eca55bdc9349865a70e4fe",
+        "signature": "20aa7e2739a38c115fe7efcf0487113130962e4cb714409cd1ebc54d84685d70512197b67478c69a00da14e828b82045db4df309838866242832bf0454fa0409"
+      }
+    }
+  ]
+}

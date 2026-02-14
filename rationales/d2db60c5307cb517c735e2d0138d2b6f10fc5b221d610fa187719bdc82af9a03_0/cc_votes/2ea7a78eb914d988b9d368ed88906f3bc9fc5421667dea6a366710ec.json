@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We have determined that this treasury withdrawal governance action is unconstitutional.",
+    "rationaleStatement": "The governance action with ID \"gov_action16tdkp3fs0j6303e4utgp8rftdug0ckezr4sslgv8wxdaeq40ngpsq5sr06h\" and title \"Withdraw ₳1,150,000 for GovTool 12 months active maintenance and development\" is a Treasury Withdrawal, so is subject to the following sections and guardrails in the Cardano Constitution.\n\nARTICLE III, Section 5 - This governance action includes a valid URL and hash, which matches the hash of the off-chain documentation referenced. The rationale also meets the minimum content specified in this section.\n\nARTICLE IV, Section 3, Paragraph 1 - This governance action would not \"cause the Cardano Blockchain treasury balance to violate the then applicable net change limit\".\n\nARTICLE VII, Section 6 - This governance action specifies a withdrawal address, which at the time of assessment is not delegated to an SPO and is delegated to the auto abstain voting option.\n\nGuardrails TREASURY-01a, TREASURY-02a, TREASURY-03a and TREASURY-04a - This governance action fulfils the requirements specified in these guardrails.\n\nHowever; ARTICLE IV, Section 4 states \"Any governance action requesting ada from the Cardano Blockchain treasury shall require an allocation of ada as a part of such funding request to cover the cost of periodic independent audits and the implementation of oversight metrics as to the use of such ada. Contractual obligations governing the use of ada received from the Cardano Blockchain treasury pursuant to a Cardano Blockchain ecosystem budget shall include dispute resolution provisions.\"\n\nThis governance action does NOT specify \"an allocation of ada as a part of such funding request to cover the cost of periodic independent audits and the implementation of oversight metrics\", so does NOT fulfil the requirements of this section.\n\nWe therefore find this governance action **Unconstitutional**.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "conclusion": "This governance action does NOT sufficiently fulfil the criteria specified for treasury withdrawals in the Cardano Constitution, so is deemed unconstitutional.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 7,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Eastern Cardano Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "a12e0d6516828fd47afc70e2eccdfa11a4f4c76cb5eca55bdc9349865a70e4fe",
+        "signature": "3a10320ab8dca2eb6c0de128a49b9080021961ae210d3ce13c2fdeb7aea4fb90178471411c5d7ae18bc49778209828e32fc018a05b75322618bf785dd4e2f90e"
+      }
+    }
+  ]
+}

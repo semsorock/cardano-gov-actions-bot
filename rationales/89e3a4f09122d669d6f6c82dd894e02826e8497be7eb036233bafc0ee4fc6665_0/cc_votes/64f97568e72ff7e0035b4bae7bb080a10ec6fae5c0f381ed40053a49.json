@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action13836fuy3yttxn4hkeqka398q9qnwsjtmul4sxc3nht7qae8uvejsqm7ukh8",
+    "summary": "LGTM 👍",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/QmSCcPtk3dXHF4cSMSXjHprx3EEYpLQ7crQQEUKaq2t9km\n\nThe (budget) proposal is well structured and does not appear to violate the constitution whatsoever. \n\nI regret the lack of authors (and signatures from them) in the attached rationale making it hard to then tie the budget proposal back to the (future) withdrawals.\n\nVisible efforts are being done to provide additional details in a *somewhat immutable* fashion (website source given, with verifiable commit hash and history). \n\nNote also that the proposal mentions a provision for an independent auditor, which is indeed reflected in the budget advertised on that companion website.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmSCcPtk3dXHF4cSMSXjHprx3EEYpLQ7crQQEUKaq2t9km"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "KtorZ",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "ce0e80c60a0e16a9254d613dfadbcbdca2ac60ec105dc2f136636807d75dab01",
+        "signature": "fe198dfb88777f8f04de6d635893ee210e117705051162dfb23b720538a274ed35f10d3af410bb0ceb009542a329919960e0b3148b0f617c46d350ff22de9701"
+      }
+    }
+  ]
+}

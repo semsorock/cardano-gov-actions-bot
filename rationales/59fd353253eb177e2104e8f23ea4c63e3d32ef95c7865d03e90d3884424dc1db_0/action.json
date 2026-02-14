@@ -1,0 +1,182 @@
+{
+  "@context": {
+    "@language": "ja",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Cardanoの生きがい - Ikigai -",
+    "abstract": "この瞬間、私たちは心からの感謝と敬意を、Charles Hoskinson率いるInput Output、EMURGO、そしてCardano財団に捧げます。彼らはCardanoを世界にもたらし、その献身、ビジョン、そして揺るぎない努力によって、私たちが今立っている土台を築き上げてくれました。彼らは「生きがい(Ikigai)」の本質を体現し、自身の仕事に喜びと意味を見出しながら、より大きな善のために貢献する力を示したのです。\n次のステージに向かう私たちは、少数の努力から多くの力へと移行します。共通の目的意識を持ち、Cardanoコミュニティとして、この土台を集団の知恵、情熱、そしてエネルギーでさらに築き上げていくことを誓います。私たち一人ひとりがCardanoの未来の一端を担い、共通の目的と、共に大きなことを成し遂げられるという信念によって結ばれています。",
+    "motivation": "CharlesがTEDトークやホワイトボードビデオで示した夢は、私たちがこの旅を始めた理由を思い起こさせる灯台のような存在です。私たちは、金融システムの変革だけでなく、すべての人類に自由と繁栄をもたらす可能性を秘めたビジョンの実現に向けて動いています。この大きな変革の一翼を担い、人々が共通の目的で団結したときに何を成し遂げられるかという証を残すことができるというチャンスに、私たちはつき動かされているのです。",
+    "rationale": "この瞬間を振り返りながら、私たちはこの約束を、先人たちだけでなく、自分自身や未来の人々に対しても誓います。分散型ガバナンスの時代に、このガバナンスアクションを提出することで、私たちの目的-Cardanoの「生きがい(Ikigai)」を再確認するのです。\nこのガバナンスアクションは祝意を表すものであり、Cardanoエコシステムに関してオンチェーンに対してもオフチェーンに対しても、直接的にも間接的にも、変更を求めるものではありません。DRepやSPOは、この感情に共感する場合は「YES」に投票し、共感しない場合は「NO」、または確信が持てない場合は「棄権」を選んでください。",
+    "references": [
+      {
+        "@language": "ar",
+        "@type": "Other",
+        "label": "العربية",
+        "uri": "ipfs://QmXZUBLuUV3V8e46N9AvCJJU9y5maZ3qkiaSCuKMEECsGV"
+      },
+      {
+        "@language": "bn",
+        "@type": "Other",
+        "label": "বাংলা",
+        "uri": "ipfs://QmWeKwFYfc47K2NKYt2h4oudHk3RG7HzyCtwrwPo99Uayj"
+      },
+      {
+        "@language": "de",
+        "@type": "Other",
+        "label": "Deutsch",
+        "uri": "ipfs://QmYuLWBiZzNdxjzMcVmyGbpw5UGTvMfDH1sHDqrfw7pZqJ"
+      },
+      {
+        "@language": "el",
+        "@type": "Other",
+        "label": "Ελληνικά",
+        "uri": "ipfs://QmW6XKvnqT57FWhXVAzALVqYvFnVeyM8cTu6HFQe5JicQr"
+      },
+      {
+        "@language": "en",
+        "@type": "Other",
+        "label": "English",
+        "uri": "ipfs://QmfB28eTYeBsVV4WQ1WdSyZrGmrRcFQumgMDbJfhDPcnQs"
+      },
+      {
+        "@language": "es",
+        "@type": "Other",
+        "label": "español",
+        "uri": "ipfs://QmPT9f5yBQEmTxkx36HsNMAagiquYnHA3jfEumwM1M3EjG"
+      },
+      {
+        "@language": "fr",
+        "@type": "Other",
+        "label": "français",
+        "uri": "ipfs://QmbvXamvY3VgE8eMfzUUxJ4LqcenPyWLLCQrHPJfb2BZgb"
+      },
+      {
+        "@language": "hi",
+        "@type": "Other",
+        "label": "हिंदी",
+        "uri": "ipfs://QmdMbc1PkdwhXMHcPs2EATq7w3JHTkK5bpddtmjgU4r2Dj"
+      },
+      {
+        "@language": "id",
+        "@type": "Other",
+        "label": "Bahasa Indonesia",
+        "uri": "ipfs://QmdVueQ5EckVhKyeUdSAnE9WFo6qT5zX8ycS9zBWjh2bR9"
+      },
+      {
+        "@language": "it",
+        "@type": "Other",
+        "label": "italiano",
+        "uri": "ipfs://QmR3tAYR6w9tVKskYcv4XeNwqCYCoLvM3c7jafi97La1Ax"
+      },
+      {
+        "@language": "ko",
+        "@type": "Other",
+        "label": "한국어",
+        "uri": "ipfs://QmWGxfcfZUiMNgy7T2SLFEMS9FdWc6TbsocdJhckczJ6S2"
+      },
+      {
+        "@language": "mi",
+        "@type": "Other",
+        "label": "Te Reo Māori",
+        "uri": "ipfs://QmNbGsjePLT9kD1rL2z8z3gWHDuhd7C1j5AE8JTsgTJrE4"
+      },
+      {
+        "@language": "pt",
+        "@type": "Other",
+        "label": "português",
+        "uri": "ipfs://QmamVhdtn4UitFNb2isFqhrPhpHMNSDKQHon8toUB6na3v"
+      },
+      {
+        "@language": "ru",
+        "@type": "Other",
+        "label": "русский",
+        "uri": "ipfs://QmQSVXMEztL5AgiF4aRD9PMbTXsEnZoatx7RhWid4kqw2R"
+      },
+      {
+        "@language": "sw",
+        "@type": "Other",
+        "label": "Kiswahili",
+        "uri": "ipfs://QmTVaWmhUVWsKZcknBVmMDeN5fkdZKpszLxM8tN65op4vX"
+      },
+      {
+        "@language": "tr",
+        "@type": "Other",
+        "label": "Türkçe",
+        "uri": "ipfs://QmTY9odd2hsJgPXCKVPSiYv48M8BDZWyuzJq5oy8kj9NBL"
+      },
+      {
+        "@language": "ur",
+        "@type": "Other",
+        "label": "اُردو",
+        "uri": "ipfs://QmTLQZBJwYo8EhuwMSKM8FNEoLv1EECjiUBDchrETRoUkU"
+      },
+      {
+        "@language": "vi",
+        "@type": "Other",
+        "label": "Tiếng Việt",
+        "uri": "ipfs://QmbxNiEbVhyKhbycfztG18WJxCRFWn6GjF9EeoZY2eFYKj"
+      },
+      {
+        "@language": "zh",
+        "@type": "Other",
+        "label": "中文",
+        "uri": "ipfs://QmenMXtpbZUGJ17uWNg2r6qmxy1fKFyqzkcoN1LMf6rRhs"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano コミュニティ",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "fda2a51fcdfefc31161ca70f05140f679f64262f9a3e9620291de296219f099a",
+        "signature": "6db937c0eb8ff4efced92f2ffd02854b8771b53993e6d5173eec312980b5dc06362b540efc0d4f790d265d2c6c97029f54f57e8cb7a8307a139cef0c72bbc80e"
+      }
+    }
+  ]
+}

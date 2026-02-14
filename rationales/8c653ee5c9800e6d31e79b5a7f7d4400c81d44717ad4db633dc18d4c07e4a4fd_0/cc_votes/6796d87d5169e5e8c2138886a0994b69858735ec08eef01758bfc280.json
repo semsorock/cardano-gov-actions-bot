@@ -1,0 +1,117 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The governance action to replace the Interim Constitution with the delegate-approved Cardano Constitution is constitutional. It fulfills all procedural requirements, ensures comprehensive ada holder participation, and adheres to the established CIP-1694 governance framework and Interim Constitution guardrails. Please find a pdf version of this here: ipfs://QmbnirCJsbS1dJAjEhheDW3wU1mGDK8xS7DEzbAg1PTuVh",
+    "rationaleStatement": "**Understanding the Governance Actions** This governance action, with Action ID `gov_action133jnaewfsq8x6v08ndd87l2yqryp63r30t2dkceacxx5cply5n7sqzlcyqf`, aims to replace the Interim Constitution with the delegate-approved Cardano Constitution, which was endorsed by 95% of Constitutional delegates during the December 2024 Convention in Argentina and Kenya. **Role of the Constitutional Committee** As Article VI, Section 1 of the Interim Constitution outlines, the Constitutional Committee's primary responsibility is to assess the constitutionality of governance actions and vote accordingly. This includes ensuring that all procedural requirements are met to maintain the integrity of the governance process. **Constitutional Compliance** 1. **Procedural and Formal Requirements:** - The governance action adheres to Article III, Section 6 by providing standardized documentation, a comprehensive rationale, and consistent on-chain submission records. - The verified matching hash, confirmed via cardano-cli, demonstrates that the version submitted on-chain with hash digest `2a61e2f4b63442978140c77a70daab3961b22b12b63b13949a390c097214d1c5` is identical to the delegate-approved Cardano Constitution document from the Constitutional Convention. - The governance action complies with the transitional requirements laid out in Article VIII, Section 1 and Appendix II of the Interim Constitution, ensuring a proper and timely transition to a Final Constitution. 2. **Participation and Decentralization:** - In accordance with Article II, Section 2, the delegate-approved Cardano Constitution preserves the full spectrum of ada holder participation by maintaining the established three-body governance model. This ensures that ada holders retain their decision-making rights and that the governance process remains decentralized. 3. **Transition and Guardrails:** - By securing timely delegate approval and completing the on-chain submission with a verified matching hash, the action adheres to the transitional provisions in Article VIII and Appendix II. - The action meets the specific guardrails set forth in Appendix I of the Interim Constitution, including: - NEW-CONSTITUTION-01: No new or conflicting parameters have been introduced beyond those already established, ensuring consistency with the existing constitutional framework. - INTERIM-04: The proposed constitution has undergone the process as specified in Appendix II (Section 1). No other governance action is being proposed before this governance action to ratify a Final Constitution, thus this guardrail is also fulfilled. - The action meets the requirements set forth in Appendix II of the Interim Constitution, including: - Appendix II(1): The global workshop series with 63 workshops in 52 countries fulfilled this requirement. Each workshop elected one delegate and an alternate who traveled to the constitutional convention held in December 2024. - Appendix II(2): The Constitutional Convention was held between December 4–6, 2024 in Buenos Aires, Argentina, and Nairobi, Kenya. - Appendix II(3): The delegates approved a constitution draft with 95% approval at the convention, and the delegate-approved Cardano Constitution, which was proposed in this governance action, was successfully submitted on-chain on January 30, 2025, meeting the required deadline of January 31, 2025.",
+    "precedentDiscussion": "none",
+    "counterargumentDiscussion": "A key concern is that if the newly proposed constitution is implemented, the system as currently implemented might violate TENET 5 of the newly proposed constitution. TENET 5 stipulates that ada holders’ value should not be locked without their consent. However, since the Plomin hard fork, ada holders are obliged to delegate their voting power to a DRep in order to access their accrued staking rewards. Consequently, existing ada holders have their staking rewards locked until they delegate to a DRep. This could imply that any future node version that does not remove this rule would have to be considered unconstitutional. Additionally, there is an inherent contradiction within the delegate-approved Cardano Constitution. While it asserts that the blockchain’s security must not be endangered, it also mandates that funds withdrawn from the treasury and held by an administrator “shall not be delegated to an SPO.” This restriction on delegation may compromise protocol security if administrators hold ada for prolonged periods, potentially undermining the safeguards the constitution aims to enforce. This is mitigated given that administrators shall not hold ada for prolonged periods and the amount held will be relatively low considering total ada in circulation. Despite these concerns, the governance improvements justify our continued support for the governance action.",
+    "conclusion": "The governance action to ratify the delegate-approved Cardano Constitution is constitutional. It satisfies all procedural, participatory, and technical requirements as set forth by the Interim Constitution. The process ensures the integrity and transparency of the constitutional transition.",
+    "internalVote": {
+      "constitutional": 7,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "relevantArticles",
+        "label": "Article I section 1.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article II section 2.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article III section 6.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article VIII section 1.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article VI section 1, 4.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Appendix I - NEW-CONSTITUTION-01, INTERIM-04",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Appendix II - Section 1, 2 and 3",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale pdf",
+        "uri": "ipfs://QmbnirCJsbS1dJAjEhheDW3wU1mGDK8xS7DEzbAg1PTuVh"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Foundation"
+    }
+  ]
+}

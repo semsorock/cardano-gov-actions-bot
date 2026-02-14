@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We have determined that this governance action is unconstitutional, due to the absence of sufficient rationale to justify the change.",
+    "rationaleStatement": "Article III Section 6 Paragraph 1 of the Interim Constitution states \"Any governance action submitted to Ada holders for approval shall require a standardized and legible format including a URL and hash linked to documented off-chain content. Sufficient rationale shall be provided to justify the requested change to the Cardano Blockchain.\"\n\nThe anchor URL included on-chain for the governance action with ID \"51f495aa23f4b3b3aa90afde4a0e67823bb7ac4ac65f5ffbb138373b863f2f74#0\" is https://raw.githubusercontent.com/IntersectMBO/governance-actions/refs/heads/main/mainnet/2024-10-21-ppu/metadata.jsonld.  At the time of submission of this vote on-chain, the anchor URL did not return a document with sufficient rationale for the requested change.  Instead returning \"404: Not Found\".  As this violates Article III Section 6 Paragraph 1 of the Interim Constitution, we find this governance action **Unconstitutional**.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "conclusion": "We determined that this governance action is unconstitutional because it violates Article III Section 6 Paragraph 1 of the Interim Constitution.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 6,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Eastern Cardano Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "a12e0d6516828fd47afc70e2eccdfa11a4f4c76cb5eca55bdc9349865a70e4fe",
+        "signature": "7854ff3255fded1fa0862a28f634da09b0861686d5780f8972ff9df02d505120166f5f58feeca6345255f58e4f1349dae100c3ac6c409b90a4a1a28d4c71240c"
+      }
+    }
+  ]
+}

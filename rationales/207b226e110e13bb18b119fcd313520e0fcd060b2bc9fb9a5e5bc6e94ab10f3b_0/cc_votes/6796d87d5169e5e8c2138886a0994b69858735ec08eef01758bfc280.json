@@ -1,0 +1,107 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1g7sw0f8e8qa34lppj2erksvzf4j6e9udwaq6efslc8apdqeazygsq2spyyt",
+    "summary": "The proposed New Constitution Governance Action “CARDANO BLOCKCHAIN ECOSYSTEM CONSTITUTION v2.0” is constitutional.",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/QmeMQkSY9Jv1tittarStXdosbSx64nWCC3LE7QwFTtg2WD\n\nThis governance action ('gov_action1ypajyms3pcfmkx93r87dxy6jpc8u6pst90ylhxj7t0rwjj43puasq0x9jrw') proposes an update to the Cardano Blockchain Ecosystem Constitution. Because the current constitution is set up as a living document for community review and amendment, this proposal properly uses that mechanism. The changes aim to improve clarity, remove unused provisions, and refine the treasury withdrawal process.\n\n## Constitutional Alignment\nThe proposal aligns with the current constitutional provisions on amendments to the constitution for the following reasons:\n\n- **Amendment Process (Article VIII):** Article VIII of the current constitution requires that amendments be approved via an on-chain governance action supported by a specific threshold of the active voting stake. This proposal correctly uses the \"New Constitution or Guardrails Script\" governance action type, adhering to the formal on-chain process for amendments. This same Article states that “The Cardano Community is encouraged to periodically review and debate its provisions, and when so desired, come together in such forums as the Cardano Community may deem appropriate, to propose amendments to this Constitution”. This provision does not prescribe any mandatory process for amendment, e.g. time periods for comment or particular forums for debate/review. Thus, this governance action is a valid and procedurally sound use of the mechanisms designed for evolving the constitution.\n\n- **Procedural Requirements (Article III, Section 5):** This section mandates that all governance actions follow a standardized format and include a verifiable \"URL and hash of all documented off-chain content\" along with \"Sufficient rationale... and relevant supporting materials\". The proposal meets these standards by providing a clear rationale and, crucially, immutable IPFS links to both the full text of the proposed constitution and a detailed \"diff checker\" document that lists every change. This ensures voters have all necessary materials to make a fully informed decision.\n\n- **Preservation of Core Principles:** The proposed constitution upholds the Cardano Blockchain Tenets and the tripartite governance model of DReps, SPOs, and the Constitutional Committee, ensuring the continuity of Cardano's core governance structure. The changes primarily focus on simplification and clarification, such as removing unused clauses about DRep Codes of Conduct, rather than altering the fundamental balance of power or the core values of the ecosystem.\n\n- **Guardrail Modifications:** The changes to the Guardrails Appendix are primarily for simplification, such as standardizing time measurements from \"months\" to \"days\" for greater precision. The most significant change modifies **TREASURY-04a** to replace the \"budget\" requirement with a \"roadmap\" requirement for treasury withdrawals. Since this Guardrail, along with the others that were modified, is not enforced by the on-chain Guardrails Script, the proposal correctly leaves the Guardrails Script hash unchanged, as no update to its logic is necessary.",
+    "counterargumentDiscussion": "One governance advisory team member voted \"No,\" arguing that while no specific article was violated, a change of this magnitude should involve more extensive community engagement, such as working sessions organized by Intersects Civics Committee, rather than relying solely on social media for input. While the desire for broader off-chain consultation is a valid governance concern, it does not constitute a formal violation of the procedural requirements laid out in the current constitution. Additionally, a minor procedural issue was noted in the naming of the updated Guardrail **TREASURY-04a**, which ideally should have been versioned as **TREASURY-04b**. However, this labeling inconsistency is not a substantive flaw and does not impact the proposal's constitutional standing.",
+    "conclusion": "Due to its adherence to the constitutional amendment process under Article VIII and procedural requirements under Article III, this \"Update to the Constitution\" Governance Action is constitutional.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 1,
+      "abstain": 0,
+      "didNotVote": 1,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "RelevantArticles",
+        "label": "Constitution",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor URL",
+        "uri": "ipfs://bafkreig4vjv636y7yhc3va6u4u6euluzs7wxwas5ntwqrvyzafjnnbcsgu"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor Hash",
+        "uri": "37669749785f79cb3eb5005779095fbd733156bdaf9e20e55f7d233cb5946874"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "New Constitution",
+        "uri": "ipfs://bafkreiat3w662d6jnsuz2kpra2h5ve4xxij4jkl7kylf7jk6gw43q5b5ny"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "New Constitution Anchor Hash",
+        "uri": "170379f4c41a1833743837770e5bdb034c089a8edc835174e73a9c5b692676cc"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmeMQkSY9Jv1tittarStXdosbSx64nWCC3LE7QwFTtg2WD"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Foundation"
+    }
+  ]
+}

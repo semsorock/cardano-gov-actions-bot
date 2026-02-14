@@ -1,0 +1,119 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "We propose to update the Plutus V3 Cost Model via a Parameter Update governance action to enable the new Plutus primitives that will be available following the Chang#2 hard fork (to Protocol Version 10).  Existing Plutus cost model settings will not be changed.  Note that the primitives will not be enabled in Protocol version 9 (as enabled by the Chang hard fork).",
+    "motivation": "Following the hard fork to Protocol Version 10, 12 new Plutus primitives will be available for bitwise and cryptographic operations. This governance action provides cost model settings so that these primitives can be used following the Chang#2 hard fork.",
+    "rationale": "We propose to update the Plutus V3 Cost Model via a Parameter Update governance action to enable the new Plutus primitives that will be available following the Chang #2 hard fork (to Protocol Version 10).  Existing Plutus cost model settings will not be changed.  Note that the new primitives will not be enabled in Protocol version 9 (as enabled by the Chang hard fork). \n\n## Technical Evaluation\n\nThe changes described in this governance action have been recommended by Intersect’s Parameter Committee on 2024-10-10, as evidenced by [this post in the Cardano Forum](https://forum.cardano.org/t/oct-10-2024-voltaire-era-parameter-committee-intermediate-state/137361), and subsequently ratified unanimously by Intersect's Technical Steering Committee on 2024-10-18.\n\n\n### Functionality\n\nAs described below, 12 new Plutus v3 primitives will be enabled following the Chang#2 hard fork. These will provide new bitwise and cryptographic hashing functions that have a variety of uses, and which will enhance interoperability with BitCoin and Ethereum.  The revised Plutus v3 cost model will enable those new primitives.  The changes are all additions to the existing Plutus V3 cost model.  No changes will be made to the cost model values for any existing Plutus primitives or to the Plutus V1 and V2 cost nodels.\n### Security\n\n\nNo specific security concerns are raised by this change. A security report will be provided for the new Plutus primitives to support the Chang#2 hard fork.\n\n\n### Performance\n\nIn line with [Plutus benchmarking procedures](https://github.com/IntersectMBO/plutus/blob/master/plutus-core/cost-model/CostModelGeneration.md), [standard benchmarking has been undertaken on a reference machine](https://github.com/IntersectMBO/plutus/blob/master/plutus-core/cost-model/data/benching-conway.csv) to determine these cost model settings and to align them with existing Plutus primitives.  Since Plutus script execution times and memory usage are bounded by `maxBlockExecutionUnits[steps/memory]` and `maxTxExecutionUnits[steps/memory]`, there will be no overall performance impact on the node from these new cost model settings.\n\n### Sustainability\n\nThe upgrade provides new Plutus functionality that will enhance its bitwise and cryptographic capabilities and provide better interoperability with BitCoin and Ethereum.\n\n## New Plutus Primitives that will be Enabled after the Chang#2 Hard Fork\n\n\nThe new Plutus primitives are defined in three CIPs: [CIP-0122](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0122), [CIP-0123](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0123) and [CIP-0127](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0127).\n\n### CIP-0122\nBitwise operations, both over fixed-width and variable-width blocks of bits, have a range of uses, including data structures (especially succinct ones) and cryptography. Currently, operations on individual bits in Plutus Core are difficult, or outright impossible, while also keeping within the tight constraints required on-chain. While it is possible to some degree to work with individual bytes over BuiltinByteStrings, this isn't sufficient, or efficient, when bit manipulations are required.\n\nThe new Plutus primitives defined by CIP-0122 are:\n\n- Bitwise logical AND, OR, XOR and complement;\n- Reading a bit value at a given index;\n- Setting bits value at given indices; and\n- Replicating a byte a given number of times.\n\n> ``\n> andByteString, orByteString, xorByteString, complementByteString, readBit, writeBits, replicateByte\n> ``\n\n### CIP-0123\nThe new bitwise operations that are defined in CIP-0123 extend the set that is provided by CIP-0123 to provide a usefully 'complete' set of bitwise operations.\n\nThe new Plutus primitives defined by CIP-0123 are:\n\n- Bit shifts and rotations\n- Counting the number of set bits (popcount)\n- Finding the first set bit\n\n> ``\n> shiftByteString,\n> rotateByteString,\n> countSetBits,\n> findFirstSetBit\n> ``\n\n\n### CIP-0127\nThe integration of the ECDSA and Schnorr signatures over the secp256k1 curve into Plutus was a significant step towards interoperability with the Ethereum and Bitcoin ecosystems. However, full compatibility is still impossible due to the absence of the RIPEMD-160 hashing algorithm in the Plutus interpreter. This is a fundamental component of Bitcoin's cryptographic framework.\n\nAdding RIPEMD-160 support to Plutus enhances the potential for cross-chain solutions between Cardano and Bitcoin blockchains and complements the set of primitives which are already available. It will allow for the verification of Bitcoin addresses and transactions on-chain. This addition also enables the verification of signed messages that identify the signer by the public key hash, which has not yet been witnessed on the Bitcoin blockchain.\n\nThe new Plutus primitive defined by CIP-0127 is:\n\n- [RIPEMD-160 hashing](https://homes.esat.kuleuven.be/~bosselae/ripemd160/pdf/AB-9601/AB-9601.pdf)\n\n> ``\n> ripemd_160\n> ``\n\nEach of the new primitives has both CPU and memory unit cost models.\n\n\n## Differences to the current Plutus cost model that will be enacted by this governance action.\n\n\nThe full difference from the current on-chain Plutus V3 cost model settings is shown below.  These changes are all additions to the existing Plutus V3 cost model.  There are no changes to the Plutus V1 or V2 cost models.\n\n\n    \"andByteString\": {\n       \"cpu\": {\n           \"arguments\": {\n               \"intercept\": 100181,\n               \"slope1\": 726,\n               \"slope2\": 719\n           },\n           \"type\": \"linear_in_y_and_z\"\n       },\n       \"memory\": {\n           \"arguments\": {\n               \"intercept\": 0,\n               \"slope\": 1\n           },\n           \"type\": \"linear_in_max_yz\"\n       }\n    },\n    \"orByteString\": {\n       \"cpu\": {\n           \"arguments\": {\n               \"intercept\": 100181,\n               \"slope1\": 726,\n               \"slope2\": 719\n           },\n           \"type\": \"linear_in_y_and_z\"\n       },\n       \"memory\": {\n           \"arguments\": {\n               \"intercept\": 0,\n               \"slope\": 1\n           },\n           \"type\": \"linear_in_max_yz\"\n       }\n    },\n    \"xorByteString\": {\n       \"cpu\": {\n           \"arguments\": {\n               \"intercept\": 100181,\n               \"slope1\": 726,\n               \"slope2\": 719\n           },\n           \"type\": \"linear_in_y_and_z\"\n       },\n       \"memory\": {\n           \"arguments\": {\n               \"intercept\": 0,\n               \"slope\": 1\n           },\n           \"type\": \"linear_in_max_yz\"\n       }\n    },\n    \"complementByteString\": {\n       \"cpu\": {\n           \"arguments\": {\n              \"intercept\": 107878,\n               \"slope\": 680\n           },\n           \"type\": \"linear_in_x\"\n       },\n       \"memory\": {\n           \"arguments\": {\n              \"intercept\": 0,\n               \"slope\": 1\n           },\n           \"type\": \"linear_in_x\"\n       }\n    },\n    \"readBit\": {\n       \"cpu\": {\n          \"arguments\": 95336,\n           \"type\": \"constant_cost\"\n       },\n       \"memory\": {\n          \"arguments\": 1,\n           \"type\": \"constant_cost\"\n       }\n    },\n    \"writeBits\": {\n       \"cpu\": {\n           \"arguments\": {\n               \"intercept\": 281145,\n               \"slope\": 18848\n           },\n           \"type\": \"linear_in_y\"\n       },\n       \"memory\": {\n           \"arguments\": {\n               \"intercept\": 0,\n               \"slope\": 1\n           },\n           \"type\": \"linear_in_x\"\n       }\n    },\n    \"replicateByte\": {\n       \"cpu\": {\n           \"arguments\": {\n               \"intercept\": 180194,\n               \"slope\": 159\n           },\n           \"type\": \"linear_in_x\"\n       },\n       \"memory\": {\n           \"arguments\": {\n               \"intercept\": 1,\n               \"slope\": 1\n           },\n           \"type\": \"linear_in_x\"\n       }\n    },\n    \"shiftByteString\": {\n       \"cpu\": {\n           \"arguments\": {\n               \"intercept\": 158519,\n               \"slope\": 8942\n           },\n           \"type\": \"linear_in_x\"\n       },\n       \"memory\": {\n           \"arguments\": {\n               \"intercept\": 0,\n               \"slope\": 1\n           },\n           \"type\": \"linear_in_x\"\n       }\n    },\n    \"rotateByteString\": {\n       \"cpu\": {\n           \"arguments\": {\n               \"intercept\": 159378,\n               \"slope\": 8813\n           },\n           \"type\": \"linear_in_x\"\n       },\n       \"memory\": {\n           \"arguments\": {\n               \"intercept\": 0,\n               \"slope\": 1\n           },\n           \"type\": \"linear_in_x\"\n       }\n    },\n    \"countSetBits\": {\n       \"cpu\": {\n           \"arguments\": {\n               \"intercept\": 107490,\n               \"slope\": 3298\n           },\n           \"type\": \"linear_in_x\"\n       },\n       \"memory\": {\n           \"arguments\": 1,\n           \"type\": \"constant_cost\"\n       }\n    },\n    \"findFirstSetBit\": {\n       \"cpu\": {\n           \"arguments\": {\n               \"intercept\": 106057,\n               \"slope\": 655\n           },\n           \"type\": \"linear_in_x\"\n       },\n       \"memory\": {\n           \"arguments\": 1,\n           \"type\": \"constant_cost\"\n       }\n    },\n    \"ripemd_160\": {\n       \"cpu\": {\n           \"arguments\": {\n               \"intercept\": 1964219,\n               \"slope\": 24520\n           },\n           \"type\": \"linear_in_x\"\n       },\n       \"memory\": {\n           \"arguments\": 3,\n           \"type\": \"constant_cost\"\n       }\n    }\n\n\n## Consistency with Guardrails\n\n\nThe relevant guardrails in the Interim Constitution are:\n\n\n- **PCM-01:** \"Cost model values must be set by benchmarking on a reference architecture\"\n- **PCM-02:** \"The cost model must be updated if new primitives are introduced or a new Plutus language version is added\"\n- **PCM-03:** \"Cost model values should not be negative\"\n\n\nThis governance action is consistent with all three guardrails.  None of these guardrails can be checked by the automated guardrails script.\n\n\n### Consistency with PCM-01\n\nThe new cost model settings have been validated by the IO Engineering Plutus Core developer team against the same reference machine and implementation as the existing mainnet Plutus cost model settings.\n\n\n### Consistency with PCM-02\n\nThe cost model has been updated because new Plutus primitives will be introduced following the upgrade to Protocol Version 10.\n\n\n### Consistency with PCM-03\n\nNone of the new cost model values is negative.\n\n\n\n\n## Reversion Plan\n\n\nThe changes can be reversed if necessary by reinstating the current set of Plutus cost model values, omitting any settings for the new primitives.\n",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Public Cardano Forum Post from the Parameter Committee Describing the Proposal",
+        "uri": "https://forum.cardano.org/t/oct-10-2024-voltaire-era-parameter-committee-intermediate-state/137361"
+      },
+      {
+        "@type": "Other",
+        "label": "CIP-0122",
+        "uri": "https://github.com/cardano-foundation/CIPs/tree/master/CIP-0122"
+      },
+      {
+        "@type": "Other",
+        "label": "CIP-0123",
+        "uri": "https://github.com/cardano-foundation/CIPs/tree/master/CIP-0123"
+      },
+      {
+        "@type": "Other",
+        "label": "CIP-0127",
+        "uri": "https://github.com/cardano-foundation/CIPs/tree/master/CIP-0127"
+      },
+      {
+        "@type": "Other",
+        "label": "RIPEMD-160 hashing",
+        "uri": "https://homes.esat.kuleuven.be/~bosselae/ripemd160/pdf/AB-9601/AB-9601.pdf"
+      },
+      {
+        "@type": "Other",
+        "label": "Overview of the Plutus Primitve Benchmarking Process",
+        "uri": "https://github.com/IntersectMBO/plutus/blob/master/doc/cost-model-overview/cost-model-overview.pdf"
+      },
+      {
+        "@type": "Other",
+        "label": "Generating and Updating the Plutus Cost Model",
+        "uri": "https://github.com/IntersectMBO/plutus/blob/master/plutus-core/cost-model/CostModelGeneration.md"
+      },
+      {
+        "@type": "Other",
+        "label": "Plutus Primitive Benchmarking Code",
+        "uri": "https://github.com/IntersectMBO/plutus/tree/master/plutus-core/cost-model/create-cost-model"
+      },
+      {
+        "@type": "Other",
+        "label": "Plutus Primitive Performance Results (CSV)",
+        "uri": "https://github.com/IntersectMBO/plutus/blob/master/plutus-core/cost-model/data/benching-conway.csv"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Node 10.1.1 Performance Report",
+        "uri": "https://updates.cardano.intersectmbo.org/reports/2024-10-performance-10.1.1/"
+      },
+      {
+        "@type": "Other",
+        "label": "All Cardano Node Performance Reports",
+        "uri": "https://updates.cardano.intersectmbo.org/reports/tags/benchmarking-reports"
+      },
+      {
+        "@type": "Other",
+        "label": "Technical Steering Committee Meeting Minutes 204-10-23",
+        "uri": "https://committees.docs.intersectmbo.org/intersect-technical-steering-committee/tsc-meeting-minutes/23rd-october"
+      }
+    ],
+    "title": "Plutus V3 Cost Model Parameter Changes Prior to Chang#2"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We consider this governance action to be constitutional.",
+    "rationaleStatement": "This determination was primarily based on Articles 3 and 8, both of which were judged to be constitutional. (Article 3, Section 5) Reasons were provided for numerous changes, and off-chain content URLs and supplementary materials were attached. Based on these, it was determined that there were no formal issues. (Article 8, Section 1) This provision encourages proposing amendments following discussion as necessary. The necessity of the amendments and the discussion process since the previous proposal were clearly documented, presenting no issues. Furthermore, the added definitions and the provisions of Article 2, Paragraphs 6 and 7 were accompanied by clear justifications, which also presented no issues.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "(Article 3, Section 5 “Sufficient rationale”) While we understand that many DRep opinions have been incorporated since the previous v2.0 proposal, as before, attempting to make numerous changes at once means not all changes are accompanied by stated reasons. Furthermore, the sheer number of changes combined with only brief summaries of the reasons means DReps and Constitution Committee members still cannot thoroughly examine each individual change. For example, there is no explanation for naming this version v2.3 despite it being the first constitutional amendment, nor for changing the preamble. Unless proposals focus on specific issues, such as preamble changes or definition additions, the result will be a constitutional amendment that fails to sufficiently reflect the careful deliberation of DReps and Constitution Committee members. Rather than such comprehensive amendments, proposing changes step by step, issue by issue, is more constructive. (Article 3, Section 5 “Legible format”) While the comparison document for changes highlights relevant sections with color coding, evaluators must still independently discern how the text has changed. This cannot be considered a legible format.",
+    "conclusion": "Upon review of the proposed amendments, we note that while certain concerns remain, no clear or decisive violations of the current Constitution were identified. Accordingly, the proposal is considered constitutional.",
+    "internalVote": {
+      "constitutional": 4,
+      "unconstitutional": 1,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Cardano Japan Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "833ddc6eedc272e763c33b9e6ed91efea5f0a5161f05bf72c83326a9b11507de",
+        "signature": "f8ee12917e0900d1ccce55888db563b34da636dd188988684409ddfabff84cee6a03b9e4164c057dda81dc1252698b2824031077d0365a1a63fc03612ae78f0a"
+      }
+    }
+  ]
+}

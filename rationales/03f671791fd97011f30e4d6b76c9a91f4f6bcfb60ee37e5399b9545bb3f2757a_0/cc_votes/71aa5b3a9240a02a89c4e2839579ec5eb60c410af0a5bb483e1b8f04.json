@@ -1,0 +1,103 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1q0m8z7glm9cprucwf44hdjdfra8khnakpm3hu5ueh929hvljw4aqqzuxfxz",
+    "summary": "We abstain on the “Loan ₳5,000,000 to Expand Cardano’s Global Listings” TWGA because of direct involvement in shaping the off-chain loan contract between Snek Foundation and Intersect.",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/QmaH9sTp68R6c1s7rmM55MovMwvB66R7rpxwuB7D9U6XXQ\n\nAce Alliance is abstaining on the “Loan ₳5,000,000 to Expand Cardano’s Global Listings” Treasury Withdrawal Governance Action because members of our consortium have been directly involved in shaping the off-chain loan contract between the Snek Foundation and Intersect.\n\nOne of the largest constitutional questions raised around this governance action pertains to whether the final loan agreement properly implements the terms described in the on-chain Budget Info Action (gov\\_action1jr84r96lnsvu9yd6c0jhxe9gj5r7vnd2pgkntc6klplxdpyzz4tqqc9uldx)  and Treasury Withdrawal, and whether it satisfies requirements such as:\n\n* The identity between on-chain content and final off-chain implementation (Article III, Section 5); and\n\n* The requirement that contractual obligations govern the use of ada received from the Treasury under the approved budget (Article IV, Section 4).\n\nThose questions are not abstract. They turn on the specific language, structure, and enforcement mechanics of the very contract that several Ace Alliance members have helped discuss, review, or shape in collaboration with the Snek Foundation, Intersect and other Cardano institutions.\n\nIn that context, we do not believe it is appropriate for Ace Alliance to:\n\n* Participate deeply in crafting or refining the legal instrument, and then\n\n* Turn around and present ourselves as an independent constitutional reviewer of that same instrument.\n\nEven if we could, in principle, draw a sharp internal line between our “participant” role and our “reviewer” role, we are concerned that this would undermine the perceived integrity of the constitutional process. The Cardano community should not have to guess where our institutional involvement ends and our constitutional judgment begins when they are, in this particular case, so tightly intertwined.",
+    "precedentDiscussion": "Cardano governance does anticipate that many of the people and organizations most qualified to contribute to governance actions will also be involved in designing, funding, or executing them. There are governance actions where this kind of involvement is normal and expected, such as:\n\n* Budgets or Treasury Withdrawals that fund the Constitutional Committee or broader governance infrastructure;\n\n* Ecosystem budgets that fund tools or services developed by organizations where governance participants are active.\n\nIn those cases, a CC member or DRep can often participate in both the design and the constitutional evaluation of an action, as long as the conflict is clear, properly disclosed, and the constitutional criteria are reasonably straightforward.\n\nHowever, the nature of involvement in this particular governance action is different. We must consider the core constitutional question of whether the off-chain loan contract truly reflects and enforces the on-chain Budget Info Action and Treasury Withdrawal. \n\nWe therefore see this abstention as a narrow, fact-specific precedent:\n\n* It does *not* say that any involvement in a governance action automatically requires abstention.\n\n* It *does* say that when a significant number of Ace Alliance members have been substantively involved in crafting the exact legal instrument whose conformity to the Constitution is being judged, we should err on the side of recusal.\n\nThis is the situation we face with the Snek–Intersect loan contract, and it is why we abstain here even though we might not abstain in other governance actions that also touch organizations we are part of.",
+    "counterargumentDiscussion": "None",
+    "conclusion": "Ace Alliance will abstain on the “Loan ₳5,000,000 to Expand Cardano’s Global Listings” Treasury Withdrawal Governance Action because our members have been substantively involved in shaping the final loan contract between the Snek Foundation and Intersect, and we do not consider it appropriate to conduct the constitutional analysis of a legal instrument we had influence over. Our abstention is a procedural decision rooted in conflict-of-interest and process integrity, and should not be interpreted as either support for or opposition to the constitutional merits of the governance action itself.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 1,
+      "abstain": 4,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "RelevantArticles",
+        "label": "Cardano Constitution (IPFS)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy "
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor URL (IPFS)",
+        "uri": "ipfs://bafkreidl43ghacdpczaims63glq5kepaa63d63cr5mrpznv56jdm7e2eny"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor Hash",
+        "uri": "2c630b0662c474e69d40bae4a0619d6bf4947e3d6edc8e53c891b427299fbf10"
+      },
+      {
+        "@type": "Other",
+        "label": "Constitutional clarifications and guidance for the Snek loan governance action (PDF)",
+        "uri": "ipfs://bafkreigpgbzmflz3y2hz2mbpwkynaeuatff4wy2auczuvzgwdaecwpdphi"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmaH9sTp68R6c1s7rmM55MovMwvB66R7rpxwuB7D9U6XXQ"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Ace Alliance"
+    }
+  ]
+}

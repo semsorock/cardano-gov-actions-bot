@@ -1,0 +1,110 @@
+{
+  "@context": {
+    "@context": {
+      "@language": "en",
+      "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+      "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+      "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+      "hashAlgorithm": "CIP100:hashAlgorithm",
+      "body": {
+        "@id": "CIP108:body",
+        "@context": {
+          "references": {
+            "@id": "CIP108:references",
+            "@container": "@set",
+            "@context": {
+              "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+              "Other": "CIP100:OtherReference",
+              "label": "CIP100:reference-label",
+              "uri": "CIP100:reference-uri",
+              "referenceHash": {
+                "@id": "CIP108:referenceHash",
+                "@context": {
+                  "hashDigest": "CIP108:hashDigest",
+                  "hashAlgorithm": "CIP100:hashAlgorithm"
+                }
+              }
+            }
+          },
+          "title": "CIP108:title",
+          "abstract": "CIP108:abstract",
+          "motivation": "CIP108:motivation",
+          "rationale": "CIP108:rationale",
+          "onChain": {
+            "@id": "intersectSpec:onChain",
+            "@context": {
+              "governanceActionType": "intersectSpec:governanceActionType",
+              "depositReturnAddress": "intersectSpec:depositReturnAddress",
+              "withdrawals": {
+                "@id": "intersectSpec:withdrawals",
+                "@container": "@set",
+                "@context": {
+                  "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                  "withdrawalAmount": "intersectSpec:withdrawalAmount"
+                }
+              }
+            }
+          }
+        }
+      },
+      "authors": {
+        "@id": "CIP100:authors",
+        "@container": "@set",
+        "@context": {
+          "name": "http://xmlns.com/foaf/0.1/name",
+          "witness": {
+            "@id": "CIP100:witness",
+            "@context": {
+              "witnessAlgorithm": "CIP100:witnessAlgorithm",
+              "publicKey": "CIP100:publicKey",
+              "signature": "CIP100:signature"
+            }
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Cardano Foundation",
+      "witness": {
+        "witnessAlgorithm": "CIP-0008",
+        "publicKey": "a535adf6786e2f8cd4bb7451e9f5b6368a037b8ed42f35b8446fb8946b7d153d",
+        "signature": "845846a201276761646472657373583901acb2792c1cb10724327852ac8d03f870732c5bc8e10c22a8b80991411ef0ec112a3c73539566bde6b6abe41bb79191c1baa69edfcb0581f2a166686173686564f45820365b88ab14451ab057845f697ab4c7aa78ce82c26a6dad092db0e3fe48c468e858400825fe66ad9f2f9f003b345336004fd9a4e6d1c9d4b3677e47563b23132fc3879829fc2e2c300cf459cb92c5282daa46230122055528166253715e74024ae20c"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Securing  Generic Top-Level Domains for the Cardano Ecosystem",
+    "abstract": "The Cardano Foundation is seeking community support to apply for the registration of the .ada and .cardano gTLDs with the Internet Corporation for Assigned Names and Numbers (ICANN) during the next application window in Q1 2026. This initiative will only use the Foundation’s own financial resources and aims to secure a competitive digital presence for Cardano, unlock innovations and strategically position Cardano as a digital infrastructure.",
+    "motivation": "The upcoming gTLD application window in Q1 2026 provides a critical and unique opportunity to register .ada and .cardano as new gTLDs for the benefit of the Cardano ecosystem. This step is essential for increasing Cardano’s visibility and strengthening its digital presence. Beyond that, being able to buy .ada and .cardano domains (such as such as .org or .xyz) will allow the Cardano ecosystem to leverage them for innovations as well as bridge the Web2 to Web3 divide.",
+    "rationale": "The Cardano Foundation is committed to managing the gTLDs for the collective benefit of the Cardano ecosystem. To ensure that the .ada and .cardano gTLDs will be operated in the interest of the ecosystem and the community, the Cardano Foundation will regularly publish figures about the gTLDs’ operation. \nFurthermore, the Cardano Foundation plans to establish a dedicated Community Advisory Group to guide the development of the gTLDs. \nThanks to the Cardano ecosystem governance mechanisms, we have the unique opportunity to assess community sentiment and support for this initiative. For this purpose, and to simultaneously show community endorsement in the context of the gTLDs application, the Cardano Foundation is submitting this Info Action.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Forum Post",
+        "uri": "https://forum.cardano.org/t/securing-generic-top-level-domains-for-the-cardano-ecosystem/150520"
+      },
+      {
+        "@type": "Other",
+        "label": "Translation-Japanese.pdf",
+        "uri": "https://ipfs.io/ipfs/QmbWGWE8JAK79oftaVyMvDbbb7bwuwuVzfTSqaEeAzs9ut"
+      },
+      {
+        "@type": "Other",
+        "label": "Translation-Portuguese.pdf",
+        "uri": "https://ipfs.io/ipfs/QmQBDvuYFzr9TkmhMQLJvVc4KKYrbFVU6RxxaE785vbXCJ"
+      },
+      {
+        "@type": "Other",
+        "label": "Translation-Spanish.pdf",
+        "uri": "https://ipfs.io/ipfs/QmWh5U1924pnWM331RTzaNGeWrNPq5Km4S291yWe4siZCy"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "info",
+      "depositReturnAddress": "stake1uy00pmq39g78x5u4v677dd4tusdm0yv3cxa2d8klevzcrusqrj9v6"
+    }
+  }
+}

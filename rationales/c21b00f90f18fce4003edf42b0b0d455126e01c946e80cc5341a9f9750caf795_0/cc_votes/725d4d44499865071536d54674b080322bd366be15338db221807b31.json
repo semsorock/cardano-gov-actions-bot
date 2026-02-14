@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We consider this governance action to be constitutional.",
+    "rationaleStatement": "This proposal is a governance action concerning a protocol parameter change that adjusts the per-transaction and per-block memory execution limits for Plutus scripts. The proposal satisfies the relevant guardrails set forth in the amended Cardano Constitution, including those relating to maximum limits, the magnitude of change, voting requirements, advance notice periods, and verification requirements. No clear conflict with the constitutional principles or provisions has been identified. For these reasons, the proposal is determined to be consistent with the Constitution.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "However, as a supplementary opinion, the following view was expressed. While the main off-chain document supporting this governance action is immutable through the use of an IPFS CID, the core technical justification presented in the rationale—including performance evaluation, benchmarking evidence, and records of technical approval—relies on external web resources that are mutable and may be altered or become unavailable after submission. Article II, Section 6 of the amended Cardano Constitution requires that documents providing the additional context necessary to evaluate a governance action be immutable and verifiable after submission. From this perspective, reliance on mutable external references may undermine the long-term verifiability of key technical claims contained in the proposal. Accordingly, while the formal requirements of the Article are satisfied, this view holds that stricter standards for ensuring the immutability of substantively supporting materials would more closely align with the underlying intent of the Constitution, particularly with respect to verifiability and accountability.",
+    "conclusion": "For the reasons stated above, we determine that it is constitutional.",
+    "internalVote": {
+      "constitutional": 3,
+      "unconstitutional": 1,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Cardano Japan Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "833ddc6eedc272e763c33b9e6ed91efea5f0a5161f05bf72c83326a9b11507de",
+        "signature": "c6344b616b5b07d3b9b331caab7f0276d2c8dc2de20ca635a777b5b54a7f1a45c56e2bb8f98e9a32a663a7d497eee2fb235ad5a0e310ddf7bda4bc3ce0d66b02"
+      }
+    }
+  ]
+}

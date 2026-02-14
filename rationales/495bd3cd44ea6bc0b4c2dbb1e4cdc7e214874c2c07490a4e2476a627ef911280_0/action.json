@@ -1,0 +1,57 @@
+{
+  "@context": {
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "authors": {
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@context": {
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature",
+            "witnessAlgorithm": "CIP100:witnessAlgorithm"
+          },
+          "@id": "CIP100:witness"
+        }
+      },
+      "@id": "CIP100:authors"
+    },
+    "body": {
+      "@context": {
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "references": {
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "referenceHash": {
+              "@context": {
+                "hashAlgorithm": "CIP100:hashAlgorithm",
+                "hashDigest": "CIP108:hashDigest"
+              },
+              "@id": "CIP108:referenceHash"
+            },
+            "uri": "CIP100:reference-uri"
+          },
+          "@id": "CIP108:references"
+        },
+        "title": "CIP108:title"
+      },
+      "@id": "CIP108:body"
+    },
+    "hashAlgorithm": "CIP100:hashAlgorithm"
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "Tempo.Vote was developed out of passion to support Cardano decentralized mission. We aim to make Cardano governance easily accessible, especially on mobile phone & wallet to ADA holder can vote on-chain anytime, anywhere.",
+    "motivation": "Tempo.Vote runs our own Cardano node, backend indexer independently to ensure we have the most accurate governance voting data so that we are not reliant on any 3rd party centralized provider. However this independent infrastructure comes at significant running cost.\n\nIn order to ensure Tempo.Vote will continue running smoothly to service Cardano community, we are seeking to withdraw from Treasury 380k ADA for the 6 month period (1 Aug 2025 - 31 Jan 2026) with the following breakdown:\n- Infrastructure Cost: 200k ADA\n- Development Cost: 180k ADA",
+    "rationale": "In the next 6 months, Tempo aim to deliver the following features to support Cardano Governance:\n- Optimize Governance Action Voting & Display\n- Improve UX for submitting Governance Action\n- Support Lending Pool to allow anyone to pay a small fee and borrow 100k ADA from Lending Pool to submit a new governance action.\n\nIf Approved, this budget and associated Treasury Withdrawal will be administered by **Selfdriven** (https://selfdriven.fyi/services)",
+    "references": [],
+    "title": "Tempo for Cardono Governance - Maintenance & Development Budget for 2025"
+  }
+}

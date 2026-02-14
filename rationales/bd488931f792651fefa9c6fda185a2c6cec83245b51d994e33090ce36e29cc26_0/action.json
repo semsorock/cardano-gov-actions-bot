@@ -1,0 +1,116 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "abailly <arnaud@pankzsoft.com>",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "d5e27eee7d4970317fd1b36e54aefac95c31154e1b20637f7e2ca1eb52dd0746",
+        "signature": "690ba80a50d96fc2ec47d9c17fe956d81ba0122feb70a63daae7e104c94c8b08cfe26d3620cf26105e5b03f84054355ecfcb01ca33912253700f6ebf70840f09"
+      }
+    },
+    {
+      "name": "Dam_CZ <damien.czapla@openthelead.com>",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "f127c0824564745561896c3ce3e6e5961f2acaab5f5f149c65f2e81ff549360a",
+        "signature": "0f31661b2bedb7b952b99edc3296a5df63e104b3f18f84e336c0ed4f4d2f30d2fd146e4d5de12a3c81459248a47c8f7616d2fd79dad86493fdad598d734b250d"
+      }
+    },
+    {
+      "name": "Pi Lanningham <pi@sundae.fi>",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "c6089a76a380b282b078189f011dc53b05df1ea4804558444128d4849ad88e5b",
+        "signature": "5258822099b20983412ab2586ce0673a820ceebea017f7aa8bd643ee8b2f96ebd54ecb804c992a8cd08845ef4e0c4bfbe4ef87f20dceafac4d561c6bc93d930a"
+      }
+    },
+    {
+      "name": "KtorZ <matthias.benkort@cardanofoundation.org>",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "ce0e80c60a0e16a9254d613dfadbcbdca2ac60ec105dc2f136636807d75dab01",
+        "signature": "b5f02317952ed2f70a18150870b331e66743d06da85c04157010cd62cc29042fa3b450b1ba5a7af9900f85fdd221af168701bd9098c27397945b2368199fd30a"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Cardano Blockchain Ecosystem Budget: Amaru Node Development 2025",
+    "abstract": "[Amaru](https://github.com/pragma-org/amaru) is an open-source project implementing a new fully interoperable block-producing node for Cardano. It aims to improve the network's overall accessibility and robustness without compromising its safety and security.\n\n[Amaru](https://github.com/pragma-org/amaru) provides another perspective and solution for stake pool operators and developers alike, prioritizing a modular approach, a seamless user experience, and low hardware requirements. Additionally, the project is implemented mainly in Rust, which is well-equipped for high assurance to attract new contributors to the core maintenance of the ecosystem.",
+    "motivation": "## Who we are\n\n[Amaru](https://github.com/pragma-org/amaru) is a multi-entity effort that currently sits under [PRAGMA](https://pragma.io): a member-based, not-for-profit open-source association for blockchain software projects. Five members with equal power currently drive PRAGMA's strategy and operations: Blink Labs, Cardano Foundation, dcSpark, Sundae Labs, and TxPipe. Each of them has a proven track record of building on Cardano and supporting our ecosystem.\n\n[Amaru](https://github.com/pragma-org/amaru) itself is managed by an appointed maintainer committee in charge of different scopes. The current maintainer committee comprises of:\n\n- [Arnaud Bailly](https://github.com/abailly) responsible for the consensus and simulation testing.\n- [Matthias Benkort](https://github.com/ktorz) responsible for the ledger & overall architecture.\n- [Pi Lanningham](https://github.com/Quantumplation) responsible for the ad hoc work and middleware integrations.\n- [Santiago Carmuega](https://github.com/scarmuega) responsible for the p2p networking.\n- [Damien Czapla](https://github.com/Dam-CZ) responsible for the project management, public relations & marketing.\n\nEach member of the maintainer committee is in charge of a scope and has oversight on its delivery, which includes managing an associated budget.\n\n## Why build another node\n\nOne of Cardano's key assets is its legendary robustness and stability, which is mainly attributed to the existing Haskell node, which has been working without significant disruption for about five years now (counting since the Byron reboot, circa February 2020).\n\nSo why bother with another node? The answer is, of course, plural:\n\n#### 1. **Better resource usage**\n\nSoftware is ultimately a collection of design decisions and trade-offs. Some of those trade-offs in the Haskell node have led to rather high resource usages (e.g., resident memory), thus leading to the creation of specific protocol parameters (e.g., min-utxo-value) as countermeasures to ensure resource usage remains somewhat bounded. Our analysis is that different (albeit acceptable) trade-offs would yield better resource usage.\n\n#### 2. **Industry-grade observability**\n\nObservability is challenging, and it is even more so when rolling your own solution. With [Amaru](https://github.com/pragma-org/amaru), we intend to embrace industry standards for monitoring, tracing, and logging to drastically enhance the user experience for operators seeking insights into their node's behaviour.\n\n#### 3. **Enhanced interoperability**\n\n[Amaru](https://github.com/pragma-org/amaru) being primarily written in Rust means that we can more easily leverage an existing and thriving ecosystem of blockchain solutions and aim at multiple target platforms (e.g. web-assembly, RISC-V). This opens up not only to a wide variety of potential contributors but also to many new use cases that are much harder (not to say unrealistic) to achieve with a Haskell node.\n\n#### 4. **Higher-assurance & robustness**\n\nDeveloping a new implementation of existing software means dissecting every part of the original implementation. Along the way, bugs and discrepancies with the specification are commonly found through conformance testing. Gaps in the documentation can also be identified and addressed. The development of [Amaru](https://github.com/pragma-org/amaru) has already proven this on several occasions. In the long run, more node implementations can be a synonym for reduced development time by allowing all implementations to converge faster towards better designs and more robust implementations.\n\n#### 5. **Decentralization**\n\nIn a world where Byzantine fault tolerance is at the centre and where decentralization is a paramount value, we believe that a single-node implementation presents a single point of failure and a central point of control. A new node not only increases the overall resilience of the network but also provides perspectives in terms of a roadmap and use cases.\n\n---\n\nWith [Amaru](https://github.com/pragma-org/amaru), we believe that we can reconcile these goals while preserving Cardano's focus on security and robustness. Like Haskell, Rust is a statically typed language that provides strong compile-time guarantees and fine-grained memory management. Its ecosystem is also well-equipped for high assurance, making it a sane choice for implementing blockchain solutions.",
+    "rationale": "## Executive summary\n\n> **NOTE**\n>\n> All the scopes described are estimated in FTE (Full Time Employee) valued at $200k per annum.\n\n[Amaru](https://github.com/pragma-org/amaru) is an ongoing project that is already a few months old, and resources have initially been allocated to bootstrap its development. Given the core nature of [Amaru](https://github.com/pragma-org/amaru) and in order to avoid becoming financially dependent on a single entity for its development, we are seeking **₳1.5M** of additional funding for the **second half of 2025**.\n\nThe table below breaks down the current/estimated effort, the fraction of resources already secured from other sources of funding, and the resources needed. It covers the whole of 2025.\n\n| Scope                                            | Owner    | Estimated effort | Resources already secured | Resources needed |\n| ---                                              | ---      | ---              | ---                       | ---              |\n| Ledger                                           | Matthias | 2.5 FTEs         | 1 FTE                     | 1.5 FTEs         |\n| Consensus and simulation                         | Arnaud   | 2.5 FTEs         | 1 FTE                     | 1.5 FTEs         |\n| Networking                                       | Santiago | 1 FTE            | 1 FTE                     | 0 FTEs           |\n| Ad-hoc Mercenaries                               | Pi       | 2.5 FTEs         | 0 FTEs                    | 2.5 FTEs         |\n| Project Management, Public Relations & Marketing | Damien   | 0.5 FTEs         | 0 FTEs                    | 0.5 FTEs         |\n\nThe total resources without funding for 2025 adds up to **6 FTEs**. Considering this budget ask is only for **the second half of 2025**, it halves to `$600,000` (600K) once converted to USD (`$`). We then add a 25% contingency budget to cope with our optimistic bias: we are aware that our forecast is subject to underestimating complexity, overlooking challenges, and undervaluing the time and cost required to deliver.\n\nWith this contingency, we end up at **`$750,000` (750K)**. Finally, using a conservative conversion rate of 0.5 ADA (`₳`) per USD (`$`) at the date of the withdrawal, we formulate a budget of **`₳1,500,000` (1.5M)**.\n\n> **NOTE**\n>\n> The Networking scope described in our [design documentation](https://github.com/pragma-org/amaru/blob/main/engineering-decision-records/006-design-phase-documentation.md) is included in our proposal for reference but is already covered by a [Catalyst proposal](https://projectcatalyst.io/funds/12/cardano-open-developers/amaru-p2p-networking-component-by-txpipe). It is fully managed by Santiago.\n\n## Administration of the budget\n\nThe [Amaru](https://github.com/pragma-org/amaru) maintainer committee will ensure **direct administration** of the budget, assisted with **an on-chain smart contract** (developed in open source, still incomplete, but aimed to be done and fully audited by the time of the first withdrawal).\n\nThe fund management, responsibilities and remuneration of contributors will follow PRAGMA's legal framework provided in annex under [PRAGMA Maintainer Committee Framework](https://ipfs.io/ipfs/bafkreiabxyva5lfm6zztg7tnktxvvbbucljrce7hlrp4p6hropqzfaip3y).\n\nIn addition, the smart contract's role is to ensure that the expenditure of funds is done in accordance with the scope defined in this budget and authorized by the relevant scope owners.\n\nWe recognize the following capabilities of this contract:\n\n1. **Standard withdrawal**: A scope owner asks other scope owners for money to be withdrawn from his scope.\n2. **Contingency withdrawal**: A scope owner asks other scope owners to withdraw an amount from the contingency funds.\n3. **Scope reconciliation**: A scope owner asks other scope owners for a change of ownership (or a reallocation of budget).\n4. **Contingency refund/closing**: scope owners ask to send the leftovers from the contingency budget to be sent back to the Cardano treasury.\n5. **Credential rotation**: In case of lost credentials or the departure of a scope owner, a mechanism allows the rotation of credentials to a new scope owner upon approval by all (5 out of 5) PRAGMA members (effectively capturing PRAGMA's board decision to appoint new maintainers).\n6. **Failsafe**: In the extreme scenario where credentials would be irremediably lost, thus preventing any further decision, a failsafe mechanism allows all unconsumed funds to be sent back to the Cardano treasury.\n\n## Reporting\n\n#### Quarterly reports\n\nFollowing [PRAGMA's Decision Record 006](https://github.com/pragma-org/PDRs/tree/main/PDR-0006-Project-Reporting), progress on [Amaru](https://github.com/pragma-org/amaru) shall be **at least reported quarterly**. The content of [these reports](https://pragma.io/projects/amaru#quarterly-reports) is straightforward and includes the following:\n\n- Problems that require board attention (infrastructure, trademarks, etc.)\n- Project status (active, inactive, initiating, etc.)\n- A changelog (last committer addition)\n- Next planned steps (new releases, significant changes, etc.)\n- Reflection & Performances\n\nThis recurrent interaction will provide an overview of the project with a long-term perspective and support the maintainers' committee in aligning priorities and identifying the next steps. The outcome of these reviews will be publicly available as documentation in [Amaru](https://github.com/pragma-org/amaru)'s GitHub repository.\n\n#### Regular demos\n\nAmaru is demo-driven. We strive to integrate early and provide runnable examples showcasing the latest features as the project is being developed. The cadence for these demos is around 4 to 6 weeks, as illustrated on the [existing track record](https://pragma.io/projects/amaru#demos).\n\nWe will naturally continue to **record and post demos regularly**.\n\n## Constitutionality checklist\n\nBeing one of the first proposals of this nature ever submitted, it is easy to get things wrong. In an effort to convince ourselves of its constitutionality, we thought relevant to include a checklist of the points we cover and for each, our interpretation of the Cardano Constitution.\n\n#### Purpose\n\n- [x] This proposal is for work intended to enhance the security, decentralization and long-term sustainability of Cardano.\n\n#### Article III.5: the process of on-chain governance\n\n- [x] We have submitted this proposal in a standardized, legible format, which includes a URL and hash of all documented off-chain content. We believe our rationale to be detailed and sufficient. The proposal contains a title, abstract, reason for the proposal and relevant supporting materials.\n\n#### Article IV.1: proposing budgets\n\n- [x] This proposal accords with the provisions of this article as it is intended to cover the maintenance and future development of the Cardano Blockchain.\n\n- [x] This proposal covers a shorter period than 73 epochs, which is permitted in this section of the Constitution, to match the Net-Change Limit period.\n\n#### Article IV.2: funds administration\n\n- [x] This proposal specifies an administrator in accordance with this provision. It also specifies an internal administration process using smart contracts and an off-chain overseeing committee, meeting the requirements of this clause, which requires a process that may include an administrator.\n\n#### Article IV.3: Net-Change Limit\n\n- [x] Being of ₳1.5M and covering the second half of 2025, this proposal and the treasury withdrawals it would enable do not violate the currently agreed upon Net-Change Limit.\n\n#### Article IV.4: Auditor\n\n- [x] This proposal makes provisions for an auditor (covered by the _Ad-hoc mercenaries_ scope).\n\n#### Guardrails\n\n- [x] This proposal is subject to _TREASURY-04a_ in that it defines a Cardano blockchain ecosystem budget. It requires a threshold greater than 50% of the DReps' active voting stake to be considered approved and enable subsequent withdrawals pertaining to this budget.\n\n# Conclusion\n\nThe [Amaru](https://github.com/pragma-org/amaru) project represents a major step towards node diversity through the development of a modular, high-performance, and interoperable block-producing node for Cardano. Our approach, rooted in openness, innovation, and operational resilience, aims to deliver significant advancements in blockchain technology without compromising on security.\n\nIn addition to this budget, we provide a detailed document outlining:\n\n- explicit assumptions about the project, the valuation and the scopes covered;\n- comparisons to similar projects of developing blockchain nodes; and\n- the methodology used for managing the project, its deliveries, its finance and its governance.\n\nThrough rigorous design and execution phases, we have outlined actionable scopes, realistic timelines, and comprehensive resource allocations. The detailed breakdown of scopes, funding and resources already secured reflects our commitment to transparency and efficiency. While we remain optimistic about our forecasts, we acknowledge the complexities involved and have incorporated contingencies to address unforeseen challenges.\n\nMore than a mere budget, this proposal is an invitation to collaborate and innovate together. The [Amaru](https://github.com/pragma-org/amaru) project is ambitious yet achievable through the collective effort of our contributors and the broader Cardano community. By focusing on building, learning, and demonstrating tangible progress, [Amaru](https://github.com/pragma-org/amaru) paves the way for a more resilient and decentralized Cardano ecosystem, ensuring long-term reliability and innovation.\n\nLet's build the future of Cardano together.",
+    "references": [
+      {
+        "@language": "en",
+        "@type": "Other",
+        "label": "PRAGMA Maintainer Committee Framework",
+        "uri": "ipfs://bafkreiabxyva5lfm6zztg7tnktxvvbbucljrce7hlrp4p6hropqzfaip3y"
+      },
+      {
+        "@language": "en",
+        "@type": "Other",
+        "label": "Amaru Detailed Budget Proposal for 2025",
+        "uri": "ipfs://bafybeicyqwjcg4x52l4ml5ocjlqnproqdjgfbguxdge4saxxvu2hidzvpq"
+      },
+      {
+        "@language": "ja",
+        "@type": "Other",
+        "label": "Cardanoブロックチェーン・エコシステム予算：Amaru 2025年度",
+        "uri": "ipfs://bafybeihigkjin5njp7fgpehzfh6n4dtzv2xetpxwkwmskzl2xv2zx2fjfu"
+      },
+      {
+        "@language": "ja",
+        "@type": "Other",
+        "label": "Amaruノード開発2025年度",
+        "uri": "ipfs://bafybeig7w6zfv5zuxrtgmxlr7bzyftjbrsc5pormmjaeg2aqgzx53a5ppq"
+      }
+    ]
+  }
+}

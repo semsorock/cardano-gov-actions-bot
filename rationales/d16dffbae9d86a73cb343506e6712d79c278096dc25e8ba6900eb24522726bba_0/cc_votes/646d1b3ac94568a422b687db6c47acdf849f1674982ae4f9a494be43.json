@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action169kllwhfmp488je5x5rwvufd08p8sztdcf0ghf5sp6ey2gnjdwaqql47xry",
+    "summary": "Tingvard records this vote to express its position for future assessments.",
+    "rationaleStatement": "This governance action proposes an extension of the previously adopted 2025 Net Change Limit (NCL) for an additional eight epochs. Under Article IV, § 3 of the Cardano Constitution, withdrawals from the Treasury may not exceed the “applicable net change limit,” and a valid NCL must be in effect for any treasury withdrawal to be constitutionally enacted. Extending the NCL therefore directly supports the constitutional framework governing treasury operations by ensuring that this mandatory constraint remains continuously applicable.\n\nWhile the Constitution does not mandate a binding vote by the Constitutional Committee on Net Change Limit Info Actions, Tingvard records its vote in order to clearly state its constitutional interpretation of this proposed NCL in accordance with Article VII, § 4. Because the ledger does not enforce Net Change Limits and because their applicability must be assessed off-chain when reviewing treasury withdrawals, articulating a clear position at the NCL stage provides important context for future constitutional evaluations under Article IV, § 3.\n\nThe proposal clearly explains the temporal boundary of the existing NCL, the enactment mechanics governing treasury withdrawals, and the reason an extension is required to avoid a governance gap. It preserves the originally approved limit of 350,000,000,000,000 lovelace while extending only the period during which that limit applies. Article IV, § 3 imposes no restriction on defining or extending an NCL period, requiring only that a “period of time” be specified and that treasury withdrawals do not exceed the community-approved limit. This governance action satisfies those conditions.\n\nThe submission meets the requirements of Article III, § 5 by presenting a complete and legible rationale with sufficient supporting detail to allow DReps and the Constitutional Committee to understand its purpose and intended effect. It also reflects the correct constitutional procedure for establishing an NCL, which requires agreement by more than 50% of the active voting DRep stake.\n\nBy extending the established NCL without altering the previously approved numerical limit, this governance action maintains continuity in treasury constraints and avoids ambiguity in fiscal oversight. Nothing in the Constitution prohibits extending an NCL, and the structure and intent of this action align fully with the design of Article IV.",
+    "precedentDiscussion": "This recorded position clarifies that Net Change Limits may be extended without modifying the underlying limit, and that the community may redefine the applicable NCL period as needed, provided constitutional procedure is followed. It also establishes that CC members may appropriately use NCL Info Actions to document their constitutional interpretation in advance of future treasury withdrawal reviews, where the applicability of the NCL becomes determinative.",
+    "counterargumentDiscussion": "There is no constitutional counterargument applicable to this governance action.",
+    "conclusion": "Tingvard records this vote to document its constitutional assessment of the proposed Net Change Limit Extension. The action satisfies Articles III, § 5 and IV, § 3 of the Cardano Constitution and supports uninterrupted application of the Net Change Limit required for future treasury withdrawals. This position is expressed to provide clarity and consistency when assessing the constitutionality of subsequent treasury withdrawal governance actions that rely on this NCL.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Tingvard"
+    }
+  ]
+}

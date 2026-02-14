@@ -1,0 +1,82 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "authors": [
+    {
+      "name": "Cardano Japan Council"
+    }
+  ],
+  "body": {
+    "summary": "39 Treasury Withdrawals – Constitutional",
+    "rationaleStatement": "[Constitutional] We have concluded that the series of 39 treasury withdrawal governance actions are constitutional. We reviewed the governance actions with a particular focus on Article IV, Sections 1 through 4, and Appendix 1-3 Guardrails and Guidelines on Treasury Withdrawal Actions. As a result, we have determined that the concerns raised regarding the transparency of activities and audit oversight when the INFO action was proposed have been addressed through Intersect's involvement in all 39 cases, and there is no direct violation of the Constitution.\n\nThe specific confirmation details are as follows:\n\nArticle IV, Section 1: This treasury withdrawal case is based on the previously approved on-chain budget information action (Cardano Blockchain Ecosystem Budget - 275M ADA administered by Intersect ID:gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh).\nArticle IV, Section 2: The fund manager responsible for this proposal is designated as Intersect and will be subject to audit.\nArticle IV, Section 3: The total amount of the 39 claims submitted in this consolidated proposal is within the previously approved 275M ADA limit and is within the net change limit of 350M ADA.\nArticle IV, Section 4: Intersect will utilize external audit committees or similar entities to perform an audit equivalent to an \"independent audit.\"\nArticle IV, Section 5: Each proposal presents a separate, auditable, independent account, which will be integrated with budget management tools.\n\nAppendix 1-3:\nTREASURY-02a: Does not exceed the 2025 net change limit of 350M ADA.\nTREASURY-03a: All are billed in ADA.\nTREASURY-04a: Governance actions for the 2025 budget of 275M ADA have been approved.\n\nWhile there are several areas for improvement, such as the absence of detailed budget breakdowns, or breakdowns that are too general (e.g., in millions of dollars), and insufficient transparency, as well as the lack of publicly available supporting documents, no clear constitutional violations were identified.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": [
+      {
+        "label": "Governance Action - 39 Treasury Withdrawals",
+        "uri": "https://gov.tools/governance_actions/0b3b82d0166fbe1c22de12cb8c59aa812665bda631cf5d3ddca04bdfb4a19fcb#0",
+        "GovernanceMetadata": true
+      },
+      {
+        "label": "Cardano Constitution – Article IV",
+        "uri": "https://constitution.gov.tools/en/constitution#article-iv",
+        "RelevantArticles": [
+          "IV.1",
+          "IV.2",
+          "IV.3",
+          "IV.4",
+          "IV.5"
+        ]
+      },
+      {
+        "label": "Appendix 1-3 Guardrails",
+        "uri": "https://constitution.gov.tools/en/constitution#appendix-1",
+        "RelevantArticles": [
+          "TREASURY-02a",
+          "TREASURY-03a",
+          "TREASURY-04a"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We consider this governance action to be constitutional.",
+    "rationaleStatement": "This INFO action seeks community feedback on Cardano's strategic vision for 2030. It does not deviate from the purposes specified in Article 3, Section 4, nor from the format requirements of Section 5. Therefore, no conflict with the Constitution is apparent, and it is constitutional.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "Regarding the concretization of the roadmap, we believe it is necessary to incorporate funding plans early on, also from the perspective of the Constitution.",
+    "conclusion": "As an informational action, it is deemed constitutional and poses no issue.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Cardano Japan Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "833ddc6eedc272e763c33b9e6ed91efea5f0a5161f05bf72c83326a9b11507de",
+        "signature": "a9f0c76dc62d794f66c440ba8e9c2d64f18763d7c654bec1171d3c16e80741cfc07507b315b287654b1f8d29db45c266eacc1c5666c384002b6ac108ad62cb02"
+      }
+    }
+  ]
+}

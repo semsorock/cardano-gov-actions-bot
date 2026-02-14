@@ -1,0 +1,149 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "onChain": {
+          "@id": "intersectSpec:onChain",
+          "@context": {
+            "governanceActionType": "intersectSpec:governanceActionType",
+            "depositReturnAddress": "intersectSpec:depositReturnAddress",
+            "withdrawals": {
+              "@id": "intersectSpec:withdrawals",
+              "@container": "@set",
+              "@context": {
+                "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                "withdrawalAmount": "intersectSpec:withdrawalAmount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "d4d384badf2986b381eed9703f73d3379acc5cf701dfff07fb44627478875ddbbdd4f64462cc45c16ec4e26665fa2b6d7a4c50307b1c354704852a487c382907"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Withdraw ₳26,840,000 for Input Output Research (IOR): Cardano Vision - Wor...",
+    "abstract": "This treasury withdrawal funds **Input Output Research (IOR): Cardano Vision - Work Program 2025** which will provide the following services:\n\nThe IOR proposal for Work Program 2025 consists of 20 research streams and 6 technology validation streams from Cardano Vision, a five-year program consisting of 34 research streams across 9 thematic focus areas. Over a five-year period, this funnel approach is expected to generate over 100 high-quality research outputs and provide the foundation for 30 or more technology validation streams, to be implemented into Cardano's Testnet and Mainnet by engineers and developers from the Cardano community.\n\nThis Treasury Withdrawal is submitted by Intersect on behalf of the vendor. The following sections; Abstract, Motivation, Rationale and Vendor Profile have been sourced from the approved proposal submitted by the Vendor as part of the Intersect budget process.\n\nThis treasury withdrawal funds one of 39 proposals to give effect to the approved budget info action for ₳275,269,340, administered by Intersect via gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh. The information provided herein is intended to fulfill the spirit of the constitutional requirement for a treasury withdrawal info action by also providing the details of the proposed solution, alignment to the budget, and amount to be withdrawn from the Cardano Treasury.\n\nNote: This withdrawal request has been reduced on request by the Vendor from the Budget Info Action approved ₳26,848,000 to ₳26,840,000.",
+    "motivation": "This proposal aims to solve the following problem:\n\nThe Input Output Research (IOR) proposal aims to support research initiatives that deliver value over 3-5 years for the continued growth of the Cardano ecosystem. Building on Cardano's robust foundation---including a proven record of 100% uptime---the proposal is guided by a Strategic Research Agenda rooted in an Evidence-Based Methodology. With a focus on scalability, sustainability, and interoperability, this approach ensures a rigorous, market readiness methodology. It covers conceptual design through to implementation, resulting in a consistent pipeline of high-quality, validated innovations that provide enduring benefit to the Cardano platform.\n\nCardano Vision is an ambitious five-year research initiative spanning nine thematic focus areas, organized into structured annual work programs. Its purpose is to solidify Cardano's position as a leader in blockchain innovation. Achieving this vision requires breakthroughs in critical technologies, including next-generation consensus protocols like Ouroboros Omega, zero-knowledge proofs, quantum-resistant cryptography, and advanced smart contract capabilities. These advancements will equip Cardano to address global challenges while upholding the highest standards of security, efficiency, and innovation.\n\nThis strategic approach delivers broad impact---strengthening Cardano's global research leadership and producing tangible outputs such as academic papers, technical recommendations, and validated prototypes. Commercializing deep technologies like Web3 cannot rely solely on market demand; it depends on sustained scientific and technical excellence. Without proactive investment, valuable opportunities may be lost. Critical infrastructure must also undergo rigorous research and validation, as flaws can compromise network security or endanger user assets. By focusing on high-potential R&D areas, this initiative builds a strong foundation for innovation, accelerates time to market, and drives meaningful economic and societal outcomes.",
+    "rationale": "### Project Solution\n\nSince 2017, IOR has published over 200 research papers, demonstrating its commitment to advancing blockchain science for the benefit of Cardano.\n\nEach year, IOR aims to generate a pipeline of at least 20 high-impact research initiatives for the Cardano ecosystem at SRL2*, supported by peer-reviewed research papers and technical reports. From this funnel, 6 of these initiatives will be validated and prioritized for implementation at SRL4/5*, reinforcing Cardano's leadership in blockchain R&D.\n\n* **Fundamental Research**\n\nResearch outputs vary in complexity and significance, with the average paper taking at least two years to complete due to the rigorous academic peer-review process.\n\nAs research conferences grow increasingly competitive, underscoring the need for excellence and relevance, we remain committed to delivering at least 20 high-quality publications and technical artefacts each year.\n\nTo maximize visibility and impact, we are strengthening dissemination efforts across academic and Cardano-specific channels to boost citations, engagement, and impact.\n\n* **Technology Validation**\n\nTechnology Validation will validate 6 research initiatives annually, including technical reports, formal specifications, prototypes, simulations, Cardano Problem Statements (CPSs), and Cardano Improvement Proposals (CIPs). Prototypes and technical documentation. Please note, workstreams starting in the second half of the year will be delivered the following year.\n\nTechnical reports provide in-depth analysis and implementation guidance, while prototypes demonstrate real-world application for product teams within the Cardano ecosystem.\n\nCPSs and CIPs play a key role in driving transparency, collaboration, and community-driven enhancements.\n\nSoftware Readiness Levels (SRLs) outline the lifecycle of a technology, from basic principles to commercial readiness, using an internationally accepted scale of 1-9.\n\n### Vendor Profile\n\nIOR is the leading blockchain academic group in the worldwide research community. Currently, the Input Output Research library contains over 200 peer-reviewed, published papers, involving more than 150 academics.\n\nAround 50 of these papers are core to Cardano's five development phases, providing the foundational research and innovation that has helped shape Cardano into its current form. Input Output Global has also contributed to more than 40 CIPs and 6 CPSs.\n\n### Contract Management\n\nA written off-chain Legal Contract will be created between the Vendor and the Cardano Development Holdings (CDH), as mandated by the constitution, and will be administered by Intersect. This will include details of the project delivery schedule and dispute resolution.\n\n### Project Delivery \n\nAll milestones, acceptance criteria, payment amounts and expected delivery dates will be agreed between the Vendor and Intersect, acting on behalf of the CDH. The vendor will deliver according to the agreed-upon project schedule within the Legal Contract, of which the necessary information will be made public via the budget management platform via transaction metadata.\n\nDefined by the milestones within a Legal Contract, the vendor will submit and attest milestone acceptance to the community, Intersect or 3rd Party Assurer.\n\nProject progress will be monitored via Intersect's delivery assurance function which will be communicated to the community.\n\nAcceptance of the above work is expected to be supported by a 3rd Party Assurer, who will be responsible for reviewing and signing off the work completed at each project milestone against the corresponding milestone deliverables detailed within the Legal Contract. This work is funded from a portion of this treasury withdrawal.\n\n### Budget Management Tooling\n\nTo administrate treasury funds on-chain, Intersect will utilize the treasury management smart contract framework developed by Sundae Labs. The smart contracts have been [extensively tested](https://github.com/SundaeSwap-finance/treasury-contracts/tree/main/offchain/tests) including audits from TxPipe and MLabs. Examples of the usage of these contracts can be seen across mainnet described across Intersect authored [Blog 1](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-a-step-toward-on-chain-treasury-withdrawals), [Blog 2](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-two-update) and [Blog 3](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-three-update).\n\nFinal mainnet validation test can be seen via the Disburse action within transaction: 0f591dc544ae14102dbb4a74d5311a6acffc1772b163d8b7a9656b9525950b17\n\nWith the confirmed treasury reserve contract address being: stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr\n\n#### Specifics\n\nIntersect will utilize a single Treasury Reserve Smart Contract (TRSC), with many Project-Specific Smart Contracts (PSSC), managed by Intersect. Intersect's management consists of three 'admin' and two Intersect 'leadership' roles. An Oversight Committee consisting of five external, independent third-party entities will provide checks and balances on Intersect, and safeguard against errors and unilateral control. The administration of both TRSC and PSSCs will be managed by Intersect, with external oversight on certain actions from the Oversight Committee.\n\nThe Oversight Committee consists of Sundae Labs, Cardano Foundation, Dquadrant, Xerberus and NMKR. Their role is to independently verify key administrative actions using on-chain logic, ensuring accuracy and consistency without exercising discretion over governance decisions.\n\nFor all details on Intersect's configuration please see the **[Smart Contract Guide](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-budget/intersect-administration-services/smart-contracts-as-part-of-our-administration)** on the knowledgebase.\n\nThe high level permissions are as follows:\n\n- TRSC Fund and PSSC Modify\n\n  - Two of the three Intersect admins, two of the five trusted entities and one of the two Intersect leadership sign-off must authorize\n\n- TRSC Disperse\n\n  - Two of three Intersect admins, three of five trusted entities and two of two Intersect leadership sign-off must authorize\n\n- TRSC Pause and Resume\n\n  - Two of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Sweep\n\n  - One of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Reorganize\n\n  - Two of three Intersect admins and three of five trusted entities must authorize\n\n#### Processes\n\nUpon enactment of this governance action, funding for this project will be directed into the TRSC's stake account. All instances of TRSC and PSSC can not be staked with a SPO and will be delegated to the auto-abstain predefined DRep. From here funds will be withdrawn into a UTxO remaining at the TRSC.\n\nWhen the Legal contract is prepared and the vendor is ready, funding for this project will be transferred using the Fund action to a PSSC. All milestones will be outlined within the metadata.\n\nA dashboard will be available for the community to audit the TRSC or PSSC and track metrics related to this withdrawn ada as well as being immutably verifiable on chain.\n\nThe subsections; Contract Management, Project Delivery, and Budget Management Tooling described above cover the constitutional requirements specified in Article IV section 4 and 5.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Input Output Research (IOR): Cardano Vision - Work Program 2025 Proposal v1.0 (PDF)",
+        "uri": "ipfs://bafybeif7iuv7k37vz4wm2ylaunuxq2fnpsqksyh4xrebdc2n4hzwwvjica"
+      },
+      {
+        "@type": "Other",
+        "label": "Input Output Research (IOR): Work Program 2025 - Proposed Fundamental Research Streams v1.0",
+        "uri": "https://docs.google.com/spreadsheets/d/1XtragK8dfzXbdVruo5X063ziBVd_R8Tz_05DapRt380/edit?gid=1979892956#gid=1979892956"
+      },
+      {
+        "@type": "Other",
+        "label": "Input Output Research (IOR): Work Program 2025 - Proposed Technology Validation Streams v1.0",
+        "uri": "https://docs.google.com/spreadsheets/d/1BRPJoJ0s2Q1C1uswIejYmvUNAPIcnPohrh8ITT97my0/edit?gid=0#gid=0"
+      },
+      {
+        "@type": "Other",
+        "label": "25.04 Intersect - Product Committee - Research Working Group - Cardano Vision v1.06",
+        "uri": "https://docs.google.com/presentation/d/1B2MX1BlYJu5xa6KRix2vd_inTAAQLmoVINVrIb2oYzw/edit#slide=id.g314bec4086b_0_904"
+      },
+      {
+        "@type": "Other",
+        "label": "Project Proposal In Ekklesia",
+        "uri": "https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b63565577986442d20e"
+      },
+      {
+        "@type": "Other",
+        "label": "Approved Budget Info Action submitted by Intersect via GovTool",
+        "uri": "https://gov.tools/outcomes/governance_actions/e14de8d9dc4f4ddf3fe9250a8a926e20f10e99b86bd0610b77d7a054981591ee#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Details of all successful proposals (CSV)",
+        "uri": "ipfs://bafybeicwrop4q7xvnyjdd5drumbe56sqtm5lbe2ul3c262zt4hgguzdycm"
+      },
+      {
+        "@type": "Other",
+        "label": "Automating Accountability: Cardano's Smart Contract Framework Blog",
+        "uri": "ipfs://bafybeihqx4ae72z7suqfnxrpqpqithp43cai7o2uuewnqtezgaoyc3ptyq"
+      },
+      {
+        "@type": "Other",
+        "label": "Sundae Labs Budget Management Smart Contracts Github Repository",
+        "uri": "https://github.com/SundaeSwap-finance/treasury-contracts"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts TxPipe Audit Report",
+        "uri": "ipfs://bafybeiccnwejbgj43wo6hrlseckkkmprtoqc5cfuy2hesm6c6yealwho3e"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts MLabs Audit Report",
+        "uri": "ipfs://bafybeiah5fnjhda5hemj3qvaehc4mre3qllqzw2l7mkdsguytn4ftgafw4"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "treasuryWithdrawals",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp",
+      "withdrawals": [
+        {
+          "withdrawalAddress": "stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr",
+          "withdrawalAmount": 26840000000000
+        }
+      ]
+    }
+  }
+}

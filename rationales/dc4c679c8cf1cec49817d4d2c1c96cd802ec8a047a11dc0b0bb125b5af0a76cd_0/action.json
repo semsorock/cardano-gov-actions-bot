@@ -1,0 +1,115 @@
+{
+  "@context": {
+    "@context": {
+      "@language": "en",
+      "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+      "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+      "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+      "hashAlgorithm": "CIP100:hashAlgorithm",
+      "body": {
+        "@id": "CIP108:body",
+        "@context": {
+          "references": {
+            "@id": "CIP108:references",
+            "@container": "@set",
+            "@context": {
+              "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+              "Other": "CIP100:OtherReference",
+              "label": "CIP100:reference-label",
+              "uri": "CIP100:reference-uri",
+              "referenceHash": {
+                "@id": "CIP108:referenceHash",
+                "@context": {
+                  "hashDigest": "CIP108:hashDigest",
+                  "hashAlgorithm": "CIP100:hashAlgorithm"
+                }
+              }
+            }
+          },
+          "title": "CIP108:title",
+          "abstract": "CIP108:abstract",
+          "motivation": "CIP108:motivation",
+          "rationale": "CIP108:rationale",
+          "onChain": {
+            "@id": "intersectSpec:onChain",
+            "@context": {
+              "governanceActionType": "intersectSpec:governanceActionType",
+              "depositReturnAddress": "intersectSpec:depositReturnAddress",
+              "withdrawals": {
+                "@id": "intersectSpec:withdrawals",
+                "@container": "@set",
+                "@context": {
+                  "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                  "withdrawalAmount": "intersectSpec:withdrawalAmount"
+                }
+              }
+            }
+          }
+        }
+      },
+      "authors": {
+        "@id": "CIP100:authors",
+        "@container": "@set",
+        "@context": {
+          "name": "http://xmlns.com/foaf/0.1/name",
+          "witness": {
+            "@id": "CIP100:witness",
+            "@context": {
+              "witnessAlgorithm": "CIP100:witnessAlgorithm",
+              "publicKey": "CIP100:publicKey",
+              "signature": "CIP100:signature"
+            }
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "2276da21f115a4dd1be2ed81ed8d66d5ea2db40db095e41b96de9a7dc22f2943873c347158c0d0c3fa0e45e9c75ff03ab7f087972dd6e14eb413762a43e0eb04"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Net Change Limit (Epoch 613 to Epoch 713)",
+    "abstract": "The Cardano Constitution requires the establishment of a Net Change Limit (NCL), which defines the maximum amount of lovelace that can be withdrawn from the treasury during an outlined period of time. This governance action serves as an opportunity for all governance stakeholders to formally express their positions regarding the proposed Net Change Limit, ensuring transparency, accountability, and alignment across the ecosystem.\n\nThe Net Change Limit will begin at the start of **Epoch 613** (13 February 2026) and conclude at the end of **Epoch 713** (3 July 2027). The Net Change Limit will be **350,000,000,000,000 lovelace** (350M ada). Unless superseded by a new NCL, this is the maximum amount that can be withdrawn from the treasury during this specific period and shall not be exceeded.\n\nThe Net Change Limit will be used when reviewing treasury withdrawal actions to ensure constitutionality as required by Article IV of the Cardano Constitution and the Treasury Withdrawal Guardrails outlined in Appendix I.\n\nThis action has been submitted on the behalf of the Cardano Budget Committee at Intersect, following community feedback.",
+    "motivation": "Prior to the submission of any treasury withdrawal, a Net Change Limit must be formally agreed upon by delegated representatives (Article IV Section 3 of the Constitution). Failure to establish a Net Change Limit shall render any such treasury withdrawal action unconstitutional and, therefore, inapplicable.\n\nThe Net Change Limit will be effective for the period specified in this action.",
+    "rationale": "### Period and Amount\n\nThe Net Change Limit (NCL) shall begin at the start of **Epoch 613** (13 February 2026) and conclude at the end of **Epoch 713** (3 July 2027).\n\nThe Net Change Limit shall be set at **350,000,000,000,000 lovelace** (350 million ada).\n\nAn approximately **16-month 20 day NCL period** is proposed to realign the NCL cycle with the mid-year budget season rather than year-end holidays, aiming to improve governance participation and downstream ecosystem impact. This timing also ensures that, when setting the subsequent NCL, a fully completed prior year of treasury inflow data is available, enabling more accurate modeling and clearer justification.\n\n### Calculation and Methodology\n\nNet Income for 2025 is defined as the sum of treasury inflows from **Epoch 532** through **Epoch 604**. These inflows totaled **306,940,195 ada**.\n\nTo recognize existing approved budgets, the withdrawal limit is set at **350 million ada**, representing approximately **115%** of the realized Net Income. This elevated cap was primarily driven by the inclusion of the 2025 Stablecoin DeFi Liquidity Budget (Gov Action ID: gov_action1u4jrcvlkppjzuv5j9z5ksacwtvv77h6glu0knpcjut8gvjjfu0cqqt3alsy).\n\nAlthough DReps approved this **50 million ada** allocation, the proposers have not requested the funds via a treasury withdrawal/s at time of this NCL submission. However, to respect the will of the DReps and their demonstrated willingness to fund this initiative in 2025, we deemed it responsible to incorporate this approved amount into our NCL projection. Consequently, the current financial projection reflects both the inclusion of this 2025 budget and an evaluation of the anticipated development load for 2026.\n\n### Application and Compliance\n\nThis limit shall be applied in assessing **treasury withdrawal actions** to ensure compliance with Article IV of the Cardano Constitution and the Treasury Withdrawal Guardrails specified in Appendix I.\n\n### Voting and Thresholds\n\nA vote in favor of this proposal indicates agreement with the proposed Net Change Limit, allowing for the submission of treasury withdrawal governance actions. However, the maximum amount that can be withdrawn from the treasury during this specific period shall not exceed the total sum outlined herein.\n\nPer the Cardano Constitution, the approval of a Net Change Limit requires a threshold of **greater than 50%** of the active voting DRep stake. Therefore, this Net Change Limit will be considered passed if, at the time the governance action expires, the DRep **YES** votes represent **more than 50%** of the active voting stake. While not obligated, Constitutional Committee members are encouraged to provide their opinion via a rationale on this Net Change Limit.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Treasury Inflows in 2025",
+        "uri": "ipfs://bafkreia3aviaid224ntcujdy4amfg66rtk22d5nkc7kiysfkuhrfdwy2ji"
+      },
+      {
+        "@type": "Other",
+        "label": "Data Model",
+        "uri": "ipfs://bafkreihoyhfdt4eimzmsxjpchghtutzeglp76f4mnxrfcffi3ehwahgqfm"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Constitution",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "Other",
+        "label": "Definitions for the Cardano Constitution",
+        "uri": "ipfs://bafkreiewp5bgrdiesq6ft3qypykgcjhvfgpp4s5o4yrjrvko4wuhi4iecu"
+      },
+      {
+        "@type": "Other",
+        "label": "Ratification Methodology",
+        "uri": "ipfs://bafkreid73y3piatznscr4g2kvyf2cefmedtpurgcad6nnfhqnvlzkbmuei"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "info",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The Intersect Constitutional Council votes to abstain on the “Update Constitution” governance action, “207b226e110e13bb18b119fcd313520e0fcd060b2bc9fb9a5e5bc6e94ab10f3b#0”.",
+    "rationaleStatement": "At the end of this epoch 578 of the Cardano blockchain, it appears that the “Update Constitutional Committee” governance action (“47a0e7a4f9383b1afc2192b23b41824d65ac978d7741aca61fc1fa16833d1111#0”) will be ratified and subsequently enacted at the boundary of epoch 579/580. The Intersect Constitutional Council acknowledges the likelihood that their vote here will be recorded, although ultimately not counted following the enactment of the new committee on-chain prior to the expiration or enactment of this “Update Constitution” governance action, and so records this vote to chain as a formality and as our last act as Interim Constitutional Committee members.",
+    "precedentDiscussion": "This is the first “Update Constitution” governance action to be submitted following the enactment of the first community-ratified Cardano Blockchain Ecosystem Constitution at the start of 2025. The Interim Constitution being replaced at that time outlined a specific process for the creation and ratification of the community-approved constitution. The current Constitution provides much less structured requirements for the amendment process in Article VIII and as such leaves open the possibility for much more subjective interpretation. The Council has tried its best to remain objective in its approach and we outline the areas of our discussions in the counter argument discussion section below.\n\nThis is also the first governance action to have its govActionLifetime span two sides of an “Update Constitutional Committee” governance action. As such it appears as though any vote submitted by an outgoing Constitutional Committee member shall be recorded on-chain but ultimately not counted once the Constitutional Committee update has been enacted on-chain. At the time of the writing of this rationale, it would appear that there will be one epoch remaining for this “Update Constitution” governance action where it will fall under the purview of the newly-elected Constitutional Committee. As such, this vote is primarily submitted for the purpose of records.",
+    "counterargumentDiscussion": "During discussions surrounding the constitutionality of updating the Constitution, topics covered included but were not limited to:\n- Socialisation - What level of community input is required for legitimacy? Which forums are deemed “appropriate”? (Article VIII Section 1)\n- Content - Does the new wording remove any previous safeguards in any way?\n- Scale - When does an amendment become considered a wholesale rewrite? What precedent would be set by approving large scale changes?\n- Frequency - How often should the Constitution be amended and what impact does frequent updates have upon the legitimacy of the Constitution?\n- Technical - Does the updated text conform to CIP-120 which outlines a specification for the Constitution text (found here: https://github.com/cardano-foundation/CIPs/blob/master/CIP-0120/README.md) and would deviation from this spec impact current tooling with regards to correctly displaying the Constitution text? Do any of the Guardrail text alterations impact any technical settings or are they merely textual alterations?\n- Role of the ICC/CC - Some members felt that evaluating the constitutionality of a Constitution update to be an unusual role for the ICC/CC to carry out, given that their role is to enforce the currently active constitution and felt that voting on such actions would be better suited to DReps and SPOs, much like the “Update Constitutional Committee” action, allowing for a maximum level of legitimacy for any community-approved Constitution.",
+    "conclusion": "As our last act as the Intersect Constitutional Council we would like to thank Intersect for the opportunity to carry out this role. As community members selected to fulfill the duties of what is often seen as an “institutional” seat, we have to acknowledge the level of independence that Intersect has allowed us to operate with, none more so than when we were even allowed to vote against an Intersect-submitted governance action. It has been an experience and an honour in this most foundational year for Cardano on-chain governance. Thank you all.\n\nThe Intersect Constitutional Council votes to abstain on this governance action.",
+    "internalVote": {
+      "constitutional": 1,
+      "unconstitutional": 1,
+      "abstain": 4,
+      "didNotVote": 1,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Cardano Blockchain Ecosystem Constitution",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "Other",
+        "label": "CIP-120 Constitution Specification",
+        "uri": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0120/README.md"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Intersect Constitutional Council"
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The Intersect Constitutional Council votes the treasury withdrawal governance action, “1d6aea56e6a523b13e03ae30ff24ebf9852543b4f7d415c7e50f55f6baaa4e3d#0”, to be unconstitutional.",
+    "rationaleStatement": "This is the second of two governance actions submitted on August 2 2025 requesting a treasury withdrawal of 5 million ada. These treasury withdrawal actions were submitted without a previously approved budget info action as mandated by Article IV Section 3. “No withdrawals from the Cardano Blockchain treasury shall be permitted unless such withdrawals have been authorized and are being made pursuant to a budget for the Cardano Blockchain that is then in effect as required by the Cardano Blockchain Guardrails Appendix, and which has not been determined by the Constitutional Committee to be unconstitutional.” This immediately renders both actions unconstitutional but there were other areas where the proposals failed and we outline those areas here to help inform the proposers ahead of any future proposals that they may be considering to put forth.\n\nThis second proposal was submitted almost an hour after the first proposal and appears to have been submitted in order to fix an error in the previous proposal where 5 ada had been entered as the on-chain amount requested instead of 5 million ada. The Council’s rationale for the previous  proposal noted that the probable cause for this was a mix up between ada and lovelace denominations of value when entered on-chain.\n\nThe proposal contains a section titled “Governance and Oversight” and lists a “Board of Advisors” along with their responsibilities, however it fails to “specify a process for overseeing use of funds from Cardano Blockchain treasury withdrawals including designating one or more administrators who shall be responsible for such oversight” as mandated by Article IV Section 2.",
+    "precedentDiscussion": "This is the first time that two treasury withdrawal proposals have been submitted without a previously approved budget info action and in quick succession. It would have been advisable to at least wait a short while to see if the initial proposal raised any other constitutional issues in addition to the requested on-chain amount before rushing to submit this second proposal so soon and face the situation of having 200,000 ada locked up in governance action deposits for proposals that are unconstitutional.\n\nPrior to these proposals, there have been; 15 info actions (5 general, 4 NCL and 6 budget), 3 protocol parameter update actions, 1 update constitution action, 1 hard fork initiation action, 40 treasury withdrawal actions and 1 update constitutional committee action. This Council highly encourages new governance action proposers to take the time to assess these previous proposals in order to inform their own and improve their chances of being constitutional. With the upcoming update committee action there is also soon to be a wealth of outgoing-ICC experience on-hand for proposers to tap into prior to committing the governance action deposit.",
+    "counterargumentDiscussion": "This treasury withdrawal action did still manage to meet some constitutional requirements. For example, it provided a rationale that included a title, abstract and reason for the proposal as mandated by Article III Section 5. The rationale metadata hash did match the off-chain content although it did utilise the more mutable method of GItHub and the Council would encourage the use of more immutable storage methods, even if it is a GitHub permanent link as a minimum. While not a constitutional requirement, it has become perceived as good practice over the course of 61 combined governance actions to date.\n\nWith the correction of the on-chain requested amount to match the 5 million ada requested in the proposal, this action also further meets the requirement that “the content of every on-chain governance action must be identical to the final off-chain version of the proposed action” from Article III Section 5.\n\nAs stated in the Council’s previous action rationale the provided treasury withdrawal stake address was also not delegated to an SPO and DRep delegation was moved to abstain later on August 2 2025 at 18:13:19 (UTC+1) having initially been delegated to a DRep at 13:14:12. At the time of writing this rationale the withdrawal address currently meets the conditions laid out in Article IV Section 5.",
+    "conclusion": "The Intersect Constitutional Council considers this governance action to be unconstitutional.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 6,
+      "abstain": 1,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Cardano Blockchain Ecosystem Constitution",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "Other",
+        "label": "Currently applicable NCL of 350M ada",
+        "uri": "ipfs://bafkreiaqno22swabd3kcqt2awtgwaucdzaagacoemxwadm3exrchhnfite"
+      },
+      {
+        "@type": "Other",
+        "label": "Provided Stake Address 1 (checked for SPO/DRep delegation)",
+        "uri": "https://cardanoscan.io/stakekey/e128e35801c889b56600b218e29080235e3172f6da9fa06b0d6e0cb049"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Intersect Constitutional Council"
+    }
+  ]
+}

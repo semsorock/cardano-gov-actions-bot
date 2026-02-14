@@ -1,0 +1,84 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Decrease Treasury Tax from 20% to 10%",
+    "abstract": "This governance proposal seeks to reduce the treasury cut from 20% to 10% to enhance staking incentives, improve decentralization, and align economic sustainability with the Cardano ecosystem's long term growth. The adjustment aims to optimize staking rewards without compromising the financial health of the treasury, ensuring a balanced economic model that incentivizes participation and network security.",
+    "motivation": "The initial 20% treasury cut was set arbitrarily at the launch of Shelley and has never been reassessed. With Cardano's ecosystem maturing and a more structured governance framework in place, it is now possible to refine economic parameters to better align with network incentives. A lower treasury cut increases staking rewards, encourages broader participation, and strengthens security while maintaining a sustainable treasury. This adjustment ensures that governance decisions support long term ecosystem growth.",
+    "rationale": "## Rationale\n\nThe proposal seeks to reduce the treasury cut from 20% to 10%, increasing staking rewards and incentivizing greater participation in governance. This adjustment strengthens decentralization and network security while maintaining a sustainable treasury.\n\n## Precedent: Plutus V3 Cost Model Update\n\nThe Plutus V3 cost model update demonstrates how governance-driven parameter adjustments can optimize Cardano's economic and technical framework. That update enabled new cryptographic primitives without disrupting existing functionality. This proposal follows a similar structured approach to fine-tune economic incentives while adhering to governance protocols.\n\nRather than equating this action with the Plutus cost model update, it should be framed as a governance-driven economic refinement. The similarity lies in their procedural approach. Both actions modify key parameters through structured governance processes to optimize Cardano's functionality and incentive structures.\n\n## Mathematical Justification\n\nCardano's staking reward system is governed by the formula:\n\n$$ R_{\\text{epoch}} = M \\times (\\text{monetaryExpansion}) + T $$\n\nwhere $`R_{\\text{epoch}}`$ is the total rewards distributed per epoch, $`M`$ represents the remaining ADA reserves, and $`T`$ is the total transaction fees collected in that epoch. The treasury cut is applied before distribution:\n\n$$ R_{\\text{stakers}} = (1 - \\text{treasuryCut}) \\times R_{\\text{epoch}} $$\n\nUnder the current 20% tax:\n\n$$ R_{\\text{stakers}} = 0.80 \\times R_{\\text{epoch}} $$\n\nReducing the tax to 10% results in:\n\n$$ R_{\\text{stakers}} = 0.90 \\times R_{\\text{epoch}} $$\n\nThis equates to a 12.5% increase in staking rewards across the network. Assuming a baseline staking APY of 4.0%, the reduction would increase APY to approximately 4.5%.\n\n## Constitutional Alignment\n\nThe new constitution explicitly permits treasury cuts between 10% and 30% (Appendix I, Section 2.1: TC-01, TC-02). The interim constitution also establishes governance guidelines that align with maintaining financial stability (Article III, Section 3). This governance action remains within those limits and upholds fiscal sustainability principles. It does not alter governance structures but optimizes staking incentives.\n\n## Justification Based on Cardano's Economic Landscape\n\nThis proposal should be justified by Cardano's staking participation rates, treasury utilization, and historical transaction volume. Rather than relying on direct comparisons to external blockchains, the focus should be on positioning Cardano as a highly competitive ecosystem that maximizes staking incentives and treasury efficiency. Ensuring an optimal balance between treasury funding and staking rewards will attract users and developers, particularly during the most competitive phases of market cycles, reinforcing Cardano's long-term adoption and growth.\n\n## Governance Transition Considerations\n\nThe new constitution introduces improved treasury oversight and decentralized decision-making (Article IV, Sections 1-3). This proposal aligns with those mechanisms. It acknowledges the strengthened governance framework and ensures compliance with voting requirements for economic parameter changes.\n\n## Referencing Constitutional Guardrails\n\nThe original 20% treasury cut was an arbitrary level set at the beginning of Shelley and has never been reassessed. It was not based on economic modeling or sustainability projections but rather as a starting point in the early phases of the network. Now, with a more mature ecosystem, this governance action proposes an adjustment to align with long-term realities.\n\nThe primary mechanism that ensures treasury sustainability is **ADA price appreciation** rather than relying solely on transaction volume growth. At significantly higher ADA valuations, the treasury will remain well-funded even with a lower tax rate. This can be expressed as:\n\n$$ T_{\\text{future}} = T_{\\text{current}} \\times \\frac{P_{\\text{future}}}{P_{\\text{current}}} $$\n\nwhere $`T_{\\text{future}}`$ represents the future treasury value, $`T_{\\text{current}}`$ is the current treasury balance, and $`P_{\\text{future}}`$ and $`P_{\\text{current}}`$ represent the future and current price of ADA, respectively.\n\nAt higher ADA valuations, treasury reserves will remain sufficient to fund governance, development, and long-term initiatives without over-relying on a high tax rate. This adjustment strikes a balance between incentivizing participation and ensuring treasury sustainability.\n\n## Benefits to the Ecosystem\n\nReducing the treasury cut increases direct staking incentives, strengthening security by encouraging wider participation in staking. Higher staking rewards improve decentralization, as more ADA holders are motivated to delegate, reducing centralization risks among stake pools.\n\nThis change strengthens staking incentives and decentralization while ensuring the treasury remains well-funded under a sustainable long-term model. The original 20% treasury cut was set arbitrarily at the start of Shelley and has never been adjusted. Now that Cardano has matured, a lower treasury cut realigns incentives with network security and participant rewards.\n\nAt higher ADA prices, the treasury retains substantial purchasing power even with a reduced cut. This can be expressed as:\n\n$$ T_{\\text{future}} = T_{\\text{current}} \\times \\frac{P_{\\text{future}}}{P_{\\text{current}}} + \\sum_{i=1}^{n} \\alpha \\cdot T_0 \\cdot (1 + g)^i $$\n\nwhere $`T_{{future}}`$ represents the future treasury value, $`T_{\\text{current}}`$ is the current treasury balance, $`P_{\\text{future}}`$ and $`P_{\\text{current}}`$ represent the future and current price of ADA, and the second term accounts for treasury inflows from transaction fees, where $`\\alpha`$ is the proportion allocated to the treasury, $`T_0`$ is the initial transaction revenue, and $`g`$ is the growth rate of transaction volume.\n\nA lower treasury cut not only increases staking rewards but also shifts economic incentives toward sustainable growth. Developers and projects will be encouraged to build products that drive real transaction activity rather than focusing on treasury allocations as a primary funding source. While increased transaction volume contributes to treasury inflows, the most significant long-term driver of treasury sustainability remains **ADA price appreciation**.\n\nThis adjustment enhances network security, incentivizes ecosystem participation, and promotes a more organic and sustainable approach to funding, ensuring that Cardano remains competitive while maintaining financial stability.\n\n## Governance Efficiency and Competitive Resource Allocation\n\nA leaner treasury encourages competitive grant proposals and more strategic allocation of resources. With a more dynamic and utility-driven economic model, Cardano strengthens its position as an attractive environment for developers and enterprises looking to build scalable blockchain applications.\n\n## Ensuring Continuity and Preventing Disruptions\n\nTo prevent conflicts with the governance transition, this proposal recognizes the role of **DReps, SPOs, and the Constitutional Committee** in treasury management (Article III, Section 2). It remains within the guardrails and economic sustainability principles of both the interim and new constitutional frameworks. A structured review mechanism can be introduced to assess its impact over time and make future adjustments if needed.\n\n## Review and Governance Compliance\n\nThis proposal follows past governance action formats, incorporates economic impact analysis, and ensures alignment with constitutional parameters. It prioritizes Cardano's staking and treasury ecosystem without introducing unnecessary external references. The focus remains on sustainable network incentives and broad economic viability.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Cardano Interim Constitution",
+        "uri": "https://github.com/IntersectMBO/draft-constitution/blob/main/2024-12-04/draft-constitution-converted.md"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano New Constitution",
+        "uri": "https://github.com/IntersectMBO/draft-constitution/blob/main/2024-12-05/draft-constitution-converted.md"
+      },
+      {
+        "@type": "Other",
+        "label": "Staking and Rewards Mechanics:",
+        "uri": "https://docs.cardano.org/about-cardano/learn/delegation"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Shelley Genesis File",
+        "uri": "https://github.com/IntersectMBO/cardano-world/blob/51f271a3d6fb1142b167868c506048226ab2021c/docs/environments/mainnet/shelley-genesis.json"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Treasury with Kevin Hammond",
+        "uri": "https://quality-assurance-dao.gitbook.io/community-governance-oversight/catalyst-parameters/governance-parameters/cardano-treasury-with-kevin-hammond"
+      }
+    ]
+  }
+}

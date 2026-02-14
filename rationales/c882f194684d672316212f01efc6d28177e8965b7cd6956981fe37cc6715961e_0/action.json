@@ -1,0 +1,74 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "# Three-line summary:\n1. Cardano Constitution v2.3 removes non-binding expectations, the Budget Info Action mechanism, and mandatory CC conduct rules, streamlining governance.\n2. It adds clear definitions, enforces immutability of proposal documents, and applies treasury audit/accountability safeguards to all withdrawals.\n3. Community review of v2.0 had 86.23% DRep participation, and v2.3 incorporates feedback and improvements, addressing prior concerns to reinforce legitimacy and broad input.\n\n# Three helpful links\n\n1. CARDANO BLOCKCHAIN ECOSYSTEM CONSTITUTION v2.3\nhttps://ipfs.io/ipfs/bafkreihjgclyeemuvvn27mil5whoexjsuhn3fuwgjefawwbonmwo6hsxsq\n\n2. List of changes from v1.0 to v2.3.pdf\nhttps://ipfs.io/ipfs/ipfs/bafybeigshlsvztihfem32ei2n7ijucbmiqzr5ulxoyezvckvzisqiee3fa\n\n3. List of changes from v2.0 to v2.3.pdf\nhttps://ipfs.io/ipfs/bafybeihjegoita5u67sr6q2cplb33zglytwdo7355u6f2wn4wayhq6uy4e",
+    "motivation": "# The proposed changes aim to:\n1. Simplify governance by removing non-binding expectations and redundant mechanisms like Budget Info Action.\n2. Improve clarity and consistency through unified terminology, added definitions, and streamlined provisions.\n3. Strengthen accountability by applying treasury audit safeguards universally and ensuring proposal documents remain immutable.\n\nPlease see the \"Rationale\" section for details.",
+    "rationale": "# I.Simple summary of the changes and their rationale from Cardano Constitution v1.0 to v2.3\n\n## 1. Items Removed from Constitution v1.0\n\n### (a) Expectations and Encouragement clauses\n\nExpectations: ARTICLE III. Section 6 (off-chain governance management), ARTICLE V. Section 3 (DRep code of conduct), ARTICLE V. Section 4 (DRep selection tool), ARTICLE VII. Section 1 (CC expertise), ARTICLE VII. Section 7 (CC tool support)\n\nEncouragement: ARTICLE VI. Section 3 (SPO code of conduct), ARTICLE VIII. Section 1 (constitutional discussion)\n\nRationale: These provisions were aspirational or advisory in nature (expectations/encouragements), not enforceable constitutional rules.\n\n### (b) Budget Info Action Provisions (ARTICLE III. Section 4, ARTICLE IV, ARTICLE VII. Section 4)\n\nRationale: The Budget Info Action mechanism was removed to simplify governance. Its requirements have been absorbed into Treasury Withdrawal Governance Actions.\n\n### \\(c\\) Obligation to Create a CC Code of Conduct (ARTICLE VII. Section 6)\n\nRationale: This was considered an operational detail better left to community practice rather than a constitutional mandate. The CC may still adopt codes of conduct, but it is no longer a constitutional requirement.\n\n## 2. Changes and additions (excluding deletions)\n\n### (a) Overall - Fixed typos, simplified wording, and unified terminology.\n\nRationale: Improves readability and ensures consistency\n\n### (b) Defined Terms: - Added definitions such as Active Voting Stake, Ada Holders, DRep, SPO, Net Change Limit, Treasury Withdrawal Recipient.\n\nRationale: Eliminates ambiguity and ensures consistency in interpretation\n\n### \\(c\\) ARTICLE II, Section 6 – Introduced requirement that “The document hosted by such a URL shall be immutable.”\n\nRationale: ensure proposals cannot be altered after submission, protecting integrity and trust\n\n### (d) ARTICLE II Section 7 :Reassigned conditions previously tied to the Budget Info Action, making them mandatory at the time of Treasury Withdrawals after its removal\n\nRationale: strengthen accountability and transparency in the use of Treasury funds and preserve oversight and audit safeguards after removing the Budget Info Action mechanism\n\n# II.Simple summary of changes and reasons from Cardano Constitution v2.0 to v2.3\n\n## 1. Editorial & Structural Improvements\n\n* Terminology: Standardized terms like “Cardano Community Member”, “Ada Holders”.\n* Definitions: Definitions: Clarified the “Net Change Limit” (maximum treasury withdrawal per period) and refined the definition of “Stake Pool Operator” (the entity controlling cold keys).\n\n## 2. Section-Specific Revisions\n\n* ARTICLE II Section 1: Clarifies no formal membership is needed to use or benefit from Cardano.\n* ARTICLE II Section 5: Simplifies redundant provisions regarding SPOs.\n* ARTICLE II Section 6: Simplification of wording in some provisions.\n* ARTICLE II Section 7: (1) Removed: The requirement to include the “location and identity of the recipient” in withdrawal terms, the explicit requirement to budget for audit costs, and the explicit statement that “withdrawals shall be used for the purpose set out in paragraph 1” (2) Changed: The special requirements that previously applied only to withdrawals exceeding 1,000,000 ADA in a two-year period (i.e., appointing independent auditors and publishing annual reports, designating administrators to oversee funds, and keeping funds in auditable separate accounts delegated to abstain) now apply as general requirements for all withdrawals.\n* TREASURY-04a (x): Deletes requirement for treasury withdrawal roadmaps to be approved via Info Action.\n\n# III.Evidence of widespread community reviews:\n\nConstitution v2.0 received review and voting by 86.23% of total DRep voting power, including both Yes/No/Abstain votes.\nMany DReps submitted detailed analyses publicly.\nv2.3 builds on v2.0 with rational improvements and direct incorporation of on-chain feedback.\nConcerns regarding insufficient discussion of the constitution have been reasonably addressed in v2.3.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "List of changes from v1.0 to v2.3.pdf",
+        "uri": "ipfs://bafybeigshlsvztihfem32ei2n7ijucbmiqzr5ulxoyezvckvzisqiee3fa"
+      },
+      {
+        "@type": "Other",
+        "label": "List of changes from v2.0 to v2.3.pdf",
+        "uri": "ipfs://bafybeihjegoita5u67sr6q2cplb33zglytwdo7355u6f2wn4wayhq6uy4e"
+      },
+      {
+        "@type": "Other",
+        "label": "CARDANO BLOCKCHAIN ECOSYSTEM CONSTITUTION v2.3",
+        "uri": "ipfs://bafkreihjgclyeemuvvn27mil5whoexjsuhn3fuwgjefawwbonmwo6hsxsq"
+      }
+    ],
+    "title": "CARDANO BLOCKCHAIN ECOSYSTEM CONSTITUTION v2.3"
+  }
+}

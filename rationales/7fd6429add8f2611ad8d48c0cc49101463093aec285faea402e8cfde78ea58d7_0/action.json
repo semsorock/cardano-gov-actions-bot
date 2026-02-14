@@ -1,0 +1,73 @@
+{
+  "@context": {
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "The K parameter was created to limit the total number of ADA staked to one pool. The K parameter determines the saturation of stakepools. To calculate the saturation of stakepools you can take the total number of ADA and divide it by K. K is currently 500, and pool saturation is currently 74,551,771.86 ADA. Pool saturate will increase slightly each epoch as more ADA is minted each epoch from staking rewards.\n\nK also has a large effect on a0. a0 is another Cardano protocol paramter that determines ADA staking rewards per epoch. a0 is currently set at .3. If a stakepool operator pledges the enough ADA to saturate their pool they earn 30% more ADA rewards per epoch. If you pledge half of the pools saturation then any delegates earn 15% more ADA rewards after SPO fees. Smaller pledges have a higher impact on staking rewards with a k parameter that's higher.",
+    "motivation": "This governance action is by no means a suggestion of what Cardano protocol parameters should be modified to or if they should be modified at this time. The goal of this governance action is to increase governance participation before the next hardfork. You can register to be a dRep now with your own wallet, or delegate to another dRep today.",
+    "rationale": "We believe that it's important to submit governance info actions to encourage community participation in Cardano's governance before larger, and potentially more serious proposals are introduced. It's also important that people have a good understanding of what protocol parameters can be changed.\n\nYou can use this official link to learn more about Cardano protocol parameters.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Find our proposal thread if you're interested in joining the discussion.",
+        "uri": "https://x.com/atrium_lab"
+      },
+      {
+        "@type": "Other",
+        "label": "Our introduction to Cardano governance video.",
+        "uri": "https://x.com/atrium_lab/status/1838654833806446773"
+      },
+      {
+        "@type": "Other",
+        "label": "Link to our full Cardano education portal.",
+        "uri": "https://alpha.atrium.io/education/what-is-cryptocurrency"
+      }
+    ],
+    "title": "Should K increased?"
+  }
+}

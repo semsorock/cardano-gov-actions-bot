@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1jxne7hynfd7frcczwumd2eggps4kvy0msjztz9t0mutpy870ksgqqp6vp3p",
+    "summary": "Tingvard judges this governance action constitutional.",
+    "rationaleStatement": "This governance action proposes an update to the Cardano Blockchain Ecosystem Constitution, introducing version 2.4. The proposal is properly framed as a constitutional amendment and follows the procedures set out for modifying the Constitution. The changes are clearly articulated, well-documented, and presented in a structured and legible format, satisfying the requirements of Article III, §5.\nThe removal of non-binding “expectation” and “encouragement” clauses streamlines the Constitution by distinguishing enforceable constitutional rules from aspirational guidance. This aligns with the role of the Constitution as a binding governance framework rather than a policy or best-practice document. Removing these provisions does not weaken governance, but rather clarifies where authority and obligations formally reside.\nThe elimination of the Budget Info Action mechanism further simplifies governance by consolidating treasury-related requirements into Treasury Withdrawal Governance Actions. This change preserves constitutional safeguards by ensuring that auditability, oversight, and accountability requirements continue to apply at the point where funds are actually withdrawn, while avoiding redundancy and procedural complexity. The reassignment of these requirements strengthens clarity without reducing protections.\nThe introduction of additional definitions and unified terminology improves interpretability and reduces ambiguity in constitutional application. Explicitly defining terms such as Net Change Limit, Active Voting Stake, and Treasury Withdrawal Recipient supports consistent interpretation across governance actors and reduces the risk of divergent readings.\nThe requirement that proposal documents referenced by URL be immutable enhances procedural integrity by ensuring that governance actions are assessed based on fixed, verifiable texts. This change directly supports transparency, trust, and legal certainty in governance processes.\nFinally, the reversion of specific wording changes introduced in v2.3, in response to feedback from EMURGO, reflects a pragmatic and consensus-oriented approach to constitutional evolution. Restoring the original wording for custodial and audit-related provisions preserves established interpretations while maintaining continuity with earlier constitutional intent.",
+    "precedentDiscussion": "This decision affirms that the Constitution may be refined to remove non-binding language, consolidate governance mechanisms, and clarify definitions without altering its fundamental principles. It establishes precedent for treating the Constitution as a concise, enforceable framework, with operational practices and advisory processes handled outside the constitutional text.",
+    "counterargumentDiscussion": "Definitions in constitutions can carry inherent risks in understanding as language, technology, and societal norms evolve. Fixed definitions can become outdated or misaligned with contemporary realities, potentially leading to legal ambiguity, judicial overreach, or the need for frequent amendments. However, blockchain-based constitutions can mitigate these risks by enabling transparent, auditable, and efficient revisions, reducing the barriers to keeping definitions current and relevant.",
+    "conclusion": "Tingvard judges this governance action constitutional. The proposed Constitution v2.4 improves clarity, enforceability, and coherence while preserving essential safeguards for treasury governance, accountability, and oversight. The changes are procedurally sound, substantively consistent with constitutional intent, and represent a constructive evolution of the Cardano governance framework.",
+    "internalVote": {
+      "constitutional": 4,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 1,
+      "againstVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Tingvard"
+    }
+  ]
+}

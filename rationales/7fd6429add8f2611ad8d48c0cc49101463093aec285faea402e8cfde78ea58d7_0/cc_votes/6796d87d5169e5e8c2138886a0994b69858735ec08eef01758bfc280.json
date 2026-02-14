@@ -1,0 +1,96 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The governance action, 'Should K increased?', is deemed unconstitutional due to insufficient rationale to justify the action and the provision of irrelevant supporting materials, which contravene Article III, Section 6 of the Interim Constitution. This vote solely assesses the constitutionality of the action and does not indicate support or express any opinion regarding the underlying proposal of increasing the K parameter (stakePoolTargetNum). Voicing an opinion is the duty of the Delegated Representatives (DReps) and Stake Pool Operators (SPOs) and remains outside the scope of the Interim Constitutional Committee (iCC).",
+    "rationaleStatement": "**Understanding Info Governance Actions** While Info Actions do not enact changes on-chain, they are official governance actions and must comply with the constitutional requirements to maintain the integrity of the governance process. As per Article III, Section 5 of the Interim Constitution, Info Actions are intended to capture the community's sentiment towards a particular proposal. They have no on-chain impact other than recording the votes from the three governance roles: DReps, SPOs, and the Constitutional Committee (CC). Info Actions, which can include statements, questions, or other forms to express sentiment, are never enacted on-chain and serve solely to record votes. **Role of the Constitutional Committee** As outlined by Article VI, Section 1 of the Interim Constitution, the CC's primary responsibility is to assess the constitutionality of governance actions, and vote respectively, regardless of its type or intent. This responsibility includes info actions, ensuring consistency and maintaining the integrity of the governance process. Therefore, it is imperative for the CC to assess every governance action, including Info Actions, for constitutional compliance. **Why the Constitutional Committee Should Assess the Constitutionality of Info Governance Actions** Assessing the constitutionality of all governance actions is crucial to uphold the principles outlined in the Interim Constitution. By diligently assessing all governance actions, the CC sets a standard for future submissions, encouraging proposers to meet constitutional requirements and contribute constructively to the governance ecosystem. This ensures that: - All proposals meet the required standards of transparency, relevance, and responsibility. - The governance platform is not misused for promotional or non-substantive purposes. - A precedent is set for high-quality submissions, maintaining the integrity and effectiveness of the governance system. **Summary of the Governance Action** The governance action titled 'Should K be increased?' aims to initiate a discussion on increasing the K parameter (stakePoolTargetNum), which determines the optimal number of stake pools in the Cardano network. The K parameter influences the saturation threshold of stake pools, effectively creating a 'soft cap' on pool size. This saturation point is calculated by dividing the total active stake by the K parameter, setting a limit on how much stake a pool can have before it becomes saturated and rewards start to diminish. Adjusting the K parameter impacts decentralization and stake distribution by influencing the economic attractiveness for new stake pools to form. However, the provided rationale focuses on encouraging governance participation rather than addressing the implications of changing the K parameter. Additionally, the supporting materials are not relevant to the question posed, raising concerns about the action's adherence to constitutional requirements. **Voting Decision and Explanation** We deem this governance action to be unconstitutional because it does not comply with the requirements of Article III, Section 6 of the Interim Constitution. This article stipulates that sufficient rationale and relevant supporting materials shall be provided for all governance actions. The proposed governance action does not sufficiently meet these requirements, due to the following: - **Insufficient Rationale:** The action fails to provide a coherent argument or detailed analysis. In particular, the action does not adequately address potential effects of changing the K parameter and fails to demonstrate consideration of critical issues. It further lacks the provision of an appropriate justification and arguments for the proposed action. - **Irrelevant Supporting Materials:** The links included do not pertain to the K parameter or its implications, and they do not provide relevant context or arguments for the proposed action: First Link: An X (formerly Twitter) profile of Atrium Lab, unrelated to the K parameter. (https://x.com/atrium_lab) Second Link: A post on X (formerly Twitter) about Cardano's governance model, not directly connected to the K parameter discussion. (https://x.com/atrium_lab/status/1838654833806446773) Third Link: An article explaining 'what is a cryptocurrency,' which is irrelevant to the specific issue. (https://alpha.atrium.io/education/what-is-cryptocurrency) Based on this, we deem this governance action to be unconstitutional. Furthermore, the misalignment with relevant requirements raises concerns about the potential misuse of the governance platform for promotional purposes. **Key Constitutional Non-compliance:** Article III, Section 6: - Requirement: Governance actions must provide sufficient rationale to justify the requested change, including a title, abstract, reason for the proposal, and relevant supporting materials. - Issue: The action fails to present a coherent rationale centered on the proposed change and includes supporting materials that are not relevant to the K parameter discussion. **Article I, Section 1:** - Principle: Upholding transparency, openness, and responsible governance. - Issue: The lack of relevant content and potential promotional nature of the links do not align with responsible governance practice **Importance of Voting as a Constitutional Committee Member:** Voting is a fundamental responsibility of a CC member, ensuring that governance actions align with the foundational principles established by the Interim Constitution. By casting a 'No' vote when a proposal is deemed unconstitutional, the CC member upholds the integrity of the governance process and reinforces trust within the Cardano ecosystem. This participation reinforces the CC's role in safeguarding the ecosystem's governance processes and maintaining community trust. **Actionable Recommendation** We suggest the following to help the proposal align with the constitutional requirements: - The proposal should comprise a sufficient rationale, including a due assessment of the action’s implications, a balanced and substantiated explanation, and relevant context information, in order to facilitate an informed discussion among the community and contribute constructively to the governance process. - The proposal should include relevant background materials, supporting the action and its rationale by providing essential references, arguments or context. The material should be explained and properly referenced in the rationale, if indicated (e.g. if the content of the background materials is not self-explanatory, or lacks obvious reference to the proposed action).",
+    "precedentDiscussion": "Approving governance actions with inadequate rationale and irrelevant supporting materials could encourage a decline in the quality of proposals and open the door for misuse of the platform for self-promotion. Establishing a precedent of strict adherence to constitutional requirements promotes a culture of responsibility and focus within the governance framework.",
+    "counterargumentDiscussion": "Some may argue that, since Info Actions do not result in immediate changes, strict compliance with all constitutional requirements might be unnecessary. However, maintaining consistent standards across all types of governance actions is crucial to preserve the effectiveness and credibility of the governance system. Applying these standards leniently could lead to ambiguity and diminish the community's trust in the governance process.",
+    "conclusion": "We conclude as follows: The ‘Should K increased?’ Info Governance Action is unconstitutional. It fails to meet the requirements of Article III, Section 6 of the Interim Constitution, specifically lacking sufficient rationale and relevant supporting materials. Therefore, the Cardano Foundation, as an iCC member, deems this action to be unconstitutional, without endorsing or expressing any opinion regarding the underlying message of increasing the K parameter. We encourage the proposer to revise the submission with a focused rationale and pertinent links directly addressing the K parameter and its impact on the Cardano ecosystem.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 4,
+      "abstain": 1,
+      "didNotVote": 2
+    },
+    "references": [
+      {
+        "@type": "relevantArticles",
+        "label": "Article I sections 1.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article III sections 6.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article VI sections 1.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale pdf",
+        "uri": "ipfs://QmRo3rYvwpTd2AxH3kK6jTBdr1VtPbe855MRYwHLEqi9ww"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Foundation"
+    }
+  ]
+}

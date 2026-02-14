@@ -1,0 +1,98 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1u4jrcvlkppjzuv5j9z5ksacwtvv77h6glu0knpcjut8gvjjfu0cqqt3alsy",
+    "summary": "Ace Alliance finds the proposed “Stablecoin DeFi Liquidity Budget” Constitutional.",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/QmSZxNCN9U9W2CY3oeyEpnnCHebC5yUNUeh7BzU2FUkDf1\n\nThis Budget Info Action (gov\\_action1u4jrcvlkppjzuv5j9z5ksacwtvv77h6glu0knpcjut8gvjjfu0cqqt3alsy) seeks 50 Million ada (50,000,000) to increase stablecoin liquidity through the creation of a fund for deployment into decentralized finance (DeFi) protocols. Fund assets would consist only of ada, fiat-backed stablecoins, and DeFi protocol liquidity tokens, and a nine-person committee would administer funds utilizing smart contracts. An overseeing treasury DAO would have the ability to impeach or elect committee members, and may wind down the fund to return the assets to the Cardano Treasury.   \n\nThe proposed governance action does not violate relevant procedural requirements. It includes title, abstract, reason, supporting materials, and utilizes hashing for off-chain references (Art. III, Sections 4-5). It would contribute to developing the ecosystem (Art. IV, Section 1), and specifies a sufficient budget duration of 73 epochs, approximately one (1) year, for corresponding treasury withdrawal(s) (Art. IV, Section 2). As explained in the Precedent Discussion section below, we reserve evaluation of constitutionality on Net Change Limit grounds for Treasury Withdrawal Governance Actions. The proposal would facilitate transparent on-chain audit, integrates accountability, and commits to delegate auto-abstain and refrain from SPO delegation (Art. IV, Sections 4-5).",
+    "precedentDiscussion": "The Constitution's Net Change Limit requirements apply exclusively to Treasury Withdrawal Governance Actions (Article IV, Section 3 and guardrails TREASURY-01a through TREASURY-04a). Moreover, we cannot assess a Budget Info Action today, against an undetermined Net Change Limit in force on some future day, when a corresponding Treasury Withdrawal Governance Action might be evaluated. We have a Net Change Limit, and no Treasury Change results from either possible outcome of a proposed Budget Info Action. For these reasons, we reserve evaluation of constitutionality on Net Change Limit grounds for Treasury Withdrawal Governance Actions.",
+    "counterargumentDiscussion": "None",
+    "conclusion": "Due to its adherence to constitutional provisions under Articles III and IV, this Budget Info Action is Constitutional.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "RelevantArticles",
+        "label": "Cardano Constitution (IPFS)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy "
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor URL (IPFS)",
+        "uri": "ipfs://bafkreihk5qt5tgbojnno7eymbm2urm6y6jkt4yqfxdzh3agnj47zuv7lpe"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor Hash",
+        "uri": "0e219503c6731b471ed8e5b21165a25cb5aa7fcc585277abad5d0a84251b3168"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmSZxNCN9U9W2CY3oeyEpnnCHebC5yUNUeh7BzU2FUkDf1"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Ace Alliance"
+    }
+  ]
+}

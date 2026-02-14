@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We consider this governance action to be constitutional.",
+    "rationaleStatement": "This proposal constitutes an information governance action premised on a treasury withdrawal. Although certain elements lack specificity, the proposal generally satisfies the relevant constitutional provisions and is therefore considered constitutional. Article III, Section 5: While some information remains undisclosed due to NDAs, the submission requirements are met. Article IV, Section 2: The proposal identifies the administrator and provides a degree of explanation regarding operational methods to ensure transparency. Article IV, Section 3: The proposal falls within the current Net Change Limit (NCL). Article IV, Section 4: Budgets related to audits and dispute resolution are also considered. Article IV, Section 5: The plan specifies the preparation of segregated addresses that are auditable by the community and delegated to the auto-abstain option rather than to any SPO.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "Although the proposal addresses the necessary items, several concerns were raised regarding its lack of specificity. In particular, the financial breakdown is insufficiently detailed; while this is understandable given the nature of an information governance action, the more detailed budget breakdown to be submitted in the subsequent governance action will require careful examination. Furthermore, while operational processes are described, no concrete decisions have been presented, and goal-setting remains abstract. Additionally, the justification for urgency—specifically the need to act within 2025—is not clearly articulated, leading some to argue that the matter would be more appropriately proposed as an individual project under the 2026 plan.",
+    "conclusion": "For the reasons stated above, we determine that it is constitutional.",
+    "internalVote": {
+      "constitutional": 3,
+      "unconstitutional": 0,
+      "abstain": 1,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Cardano Japan Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "833ddc6eedc272e763c33b9e6ed91efea5f0a5161f05bf72c83326a9b11507de",
+        "signature": "4fae36f94147cb121e9210e8ae69051fa6577adc43e50e1c5dfc6793534eea78d6572eff93f9d5cd3b002cc50301180c84d56c4a0b1e47f5644a54859dad2e04"
+      }
+    }
+  ]
+}

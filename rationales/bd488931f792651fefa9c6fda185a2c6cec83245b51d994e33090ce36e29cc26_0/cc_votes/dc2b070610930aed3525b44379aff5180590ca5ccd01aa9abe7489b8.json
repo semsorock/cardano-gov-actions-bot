@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md",
+    "CIP136": "https://github.com/Ryun1/CIPs/tree/e56f704918061e63ce2076cc3644a946b286c8d1/CIP-governance-metadata-cc-rationale/README.md",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP136:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "EMURGO concludes to vote in favour of this Info Action, based on the rationale provided below.\n",
+    "rationaleStatement": "After reviewing the proposal in light of the Cardano Blockchain Ecosystem Constitution, we find it compliant with the constitutional requirements:\n\nArticle III, Section 5: The proposal is presented in a standardized and legible format, including all necessary off-chain documentation, URLs, and supporting materials. The rationale provided is detailed and sufficient, justifying the requested funding in alignment with governance transparency standards.\n\n\nArticle IV, Section 1: This proposal is designed to cover the ongoing maintenance and future development of the Cardano Blockchain. It complies with the constitutional guidelines for budget proposals, as it is intended to facilitate the long-term development of Cardano’s ecosystem.\n\n\nArticle IV, Section 4: The proposal includes provisions for an auditor to ensure that the funds are used appropriately, and this is consistent with the constitutional requirements for oversight in treasury withdrawals.\n\n\nArticle IV, Section 2: The Amaru proposal includes a specified administrator and outlines a clear fund administration process, utilizing smart contracts and an off-chain overseeing committee, which meets the necessary standards set forth in this section.\n\n\nArticle II, Section 4: The Amaru project directly supports this constitutional principle by contributing to the ongoing development of the Cardano Blockchain, expanding its infrastructure with a new alternative node implementation that enhances decentralization and fosters innovation in the ecosystem.\n\nIn conclusion, we confirm that the Amaru proposal is constitutional, as it adheres to the principles of decentralized governance, transparent fund management, and ongoing development outlined in the Cardano Blockchain Ecosystem Constitution.\n",
+    "conclusion": "EMURGO concludes to vote in favour of this Info Action",
+    "internalVote": {
+      "constitutional": 3,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Emurgo",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "30288ff913de8ae9ce8b914e262b41fbb2a92bac74e4756fa0454dbdd4ad8ff1",
+        "signature": "0badc44f4ec712680048064ada272466af79525d3d3f8bac57f3ffe5e7ca045d91e6573e093d68162476f6d5730d2469a342eca2c8bb3ddb7b112600b46db905"
+      }
+    }
+  ]
+}

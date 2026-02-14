@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We have determined that this budget Info governance action is constitutional.",
+    "rationaleStatement": "Article IV, Section 2 of the Cardano Constitution states \"Cardano Blockchain budgets shall specify a process for overseeing use of funds from Cardano Blockchain treasury withdrawals including designating one or more administrators who shall be responsible for such oversight.\"\n\nThe governance action with ID \"gov_action1f9da8n2yaf4updxzmwc7fnw8ug2gwnpvqays5n3yw6nz0mu3z2qqq6ggge9\" and title \"Tempo for Cardono Governance - Maintenance & Development Budget for 2025\", as a budget Info governance action, designates \"Selfdriven\" as the administrator responsible for overseeing the use of funds. While the governance action does not explicitly specify a process for overseeing the use of funds, it could be implied that the process is delegated to Selfdriven.\n\nBy way of a split decision we find this governance action **Constitutional**.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "As stated in the Rationale Statement, the Cardano Constitution requires that budget Info governance actions \"shall specify a process for overseeing use of funds\" which **includes** \"designating one or more administrators\". This suggests that designating an administrator is only part of the information that needs to be provided.\n\nAs this governance action does not explicitly state what process will be used, it could be considered unconstitutional.",
+    "conclusion": "This governance action was determined by a majority of the Eastern Cardano Council to have sufficiently fulfilled the criteria specified for budgets in the Cardano Constitution, so is deemed constitutional.",
+    "internalVote": {
+      "constitutional": 4,
+      "unconstitutional": 1,
+      "abstain": 0,
+      "didNotVote": 1
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Eastern Cardano Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "a12e0d6516828fd47afc70e2eccdfa11a4f4c76cb5eca55bdc9349865a70e4fe",
+        "signature": "81f321ccd24a4440a4fb046e175ad79ade2d43398b064a976774c8f9e8c4115df27a242391a9eda7931a5dd45ea173e70090a7a0265beb464702fc8c9f3b3104"
+      }
+    }
+  ]
+}

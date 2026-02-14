@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We consider this governance action to be constitutional.",
+    "rationaleStatement": "This proposal was a withdrawal GA, so we primarily focused our review on Article 4 of the Constitution and concluded it is constitutional. (Article 3, Section 5) This proposal clearly states its purpose as 12 months of full active maintenance and development of GovTool, with appropriate justification and content URLs provided. There are no issues from a formal standpoint. (Article 4, Section 1) This proposal concerns a one-year governance process and does not deviate from this clause. (Article 4, Section 2) Budget management is delegated to Intersect, utilizing the Treasury Reserve Smart Contract (TRSC) and the Project-Specific Smart Contract (PSSC), which we deem acceptable. (Article 4, Section 3) It does not exceed the NCL at this time. (Article 4, Section 4) It is deemed compliant as Intersect manages it and a written off-chain legal contract is created. (Article 4, Section 5) The designated account is not delegated to the SPO, and DRep delegation is auto-abstain type, so it is acceptable.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "conclusion": "For the reasons stated above, we unanimously determined that it is constitutional.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Cardano Japan Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "833ddc6eedc272e763c33b9e6ed91efea5f0a5161f05bf72c83326a9b11507de",
+        "signature": "286674c2c5536129d8ea29fae1dfc722b3bca0686d400329fb720e68f3823b4212c597a89f2dc3ce3b6e134b57b1ead2ed0d01fe3e8bb49f1e6cbd7af50c8b06"
+      }
+    }
+  ]
+}

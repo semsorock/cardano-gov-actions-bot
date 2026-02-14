@@ -1,0 +1,73 @@
+{
+  "@context": {
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "authors": {
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@context": {
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature",
+            "witnessAlgorithm": "CIP100:witnessAlgorithm"
+          },
+          "@id": "CIP100:witness"
+        }
+      },
+      "@id": "CIP100:authors"
+    },
+    "body": {
+      "@context": {
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "references": {
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "referenceHash": {
+              "@context": {
+                "hashAlgorithm": "CIP100:hashAlgorithm",
+                "hashDigest": "CIP108:hashDigest"
+              },
+              "@id": "CIP108:referenceHash"
+            },
+            "uri": "CIP100:reference-uri"
+          },
+          "@id": "CIP108:references"
+        },
+        "title": "CIP108:title"
+      },
+      "@id": "CIP108:body"
+    },
+    "hashAlgorithm": "CIP100:hashAlgorithm"
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "The Cardano in Oceania 2025–2026 strategy and budget is a comprehensive plan designed to ignite Cardano’s growth in a strategically important region. By investing in people (capacity building and community), projects (hackathons and pilots), and promotion (marketing and storytelling), we create a virtuous cycle: more talent and awareness leads to more projects, which lead to real adoption and success stories, which in turn attract even more talent and partnerships. This aligns closely with Cardano’s mission of building a world-changing ecosystem – starting locally in Oceania, with ripples globally.",
+    "motivation": "This initiative is aligned with the principles of the Cardano Constitution and directly contributes to the network’s growth and adoption. By expanding Cardano’s presence in Oceania, the project strengthens decentralisation, reduces reliance on specific geographic regions, and enhances the network’s global resilience.\n\nOceania provides a unique and valuable testbed for piloting community-driven growth and adoption strategies. Its diversity of cultures, economies, and geographies allows for experimentation with scalable models of grassroots activation that can later be replicated in other regions worldwide. By engaging local communities, universities, businesses, and civic organisations, Cardano in Oceania demonstrates how decentralised technologies can deliver tangible impact at the community level.\n\nThis initiative promotes inclusion by welcoming underrepresented voices into Cardano’s governance and innovation processes, making the ecosystem more diverse and representative. It ensures transparency by openly publishing plans, progress, and evidence, reinforcing accountability and trust. It fosters collaboration by linking developers, educators, and enthusiasts locally with the broader global Cardano community, in line with the Constitution’s call for cooperative, community-driven development.\n\nFinally, it prioritises sustainability by investing in durable community structures, education programs, and partnerships that will support Cardano’s growth and adoption for generations to come.\n\n**In short, Oceania is where Cardano can prove that decentralised, community-driven growth and adoption works.**",
+    "rationale": "\n## Executive summary\n\nCardano in Oceania will deliver a practical engine for adoption by building a regional business-development track — training and mentoring local advocates, aligning efforts with global ecosystem teams, and pursuing real pilots with enterprises, startups, academia, and public agencies. In parallel, it will map the people, projects, and capabilities across the region into an interactive network, then use that map to convene roundtables, spot gaps, and actively match talent to opportunities so Cardano projects ship faster.\n\nMomentum comes from hands-on community activation and clear storytelling: a stronger presence at major tech events, a flagship hackathon, a cadence of local meetups and governance workshops, and an integrated marketing push that empowers community content creators, surfaces regional case studies, and localises outreach for Oceania audiences. Together, these streams turn strategy into visible outcomes and a repeatable model other regions can adopt.\n\nWe request that DReps and other assessors review the full details of our strategic plan, which includes the program of work, budget breakdown, milestones and KPIs, available at https://cardano-in-oceania.github.io. To ensure the immutability of the content on this website, the hash of the Git commit for the markdown and other files used to build the website (using the GitHub Pages feature) is available in the “References” section of this metadata and in the footer of the website. By including the website hash in this metadata, it is included as part of generating the metadata hash submitted with this governance action on-chain.\n\n## Amount\n\nThe total amount requested through this budget is 778,000 ada.\n\n## Administration of the Cardano Funds\n\nThe administration of funds for this proposal will be conducted in a transparent, accountable, and constitutionally aligned manner. To ensure proper oversight, the following processes and roles are defined:\n\n\n### Administrator\n\nThe budget will be administered by **selfdriven Services**, acting in good faith on behalf of the Cardano community. The administrator will manage disbursements, verify milestone evidence, and uphold the principles of fairness and transparency. All administration activities will be traceable, with references to GitHub commits and IPFS hashes to guarantee immutability.\n\n### Milestone Processing\n\nFunds will be released on a milestone-by-milestone basis. For each milestone, the proposer must submit clear evidence of completion to the GitHub repository maintained by selfdriven Services. Evidence may include documentation, educational resources, participation data, or other relevant deliverables. Milestones will be processed efficiently, and funds will not be unduly withheld once requirements have been met.\n\n### Dispute Resolution\n\nIn the event of disagreement regarding milestone delivery, determinations made by the selfdriven Services Financial Administrator will be considered final and binding in the first instance. However, proposers retain the right to escalate disputes to the Cardano community by submitting an Info-Action to the DReps, including all relevant evidence. If more than 50% of DReps vote in favour of the appeal, the administrator will recognise this decision and co-sign the transaction accordingly. This ensures that ultimate oversight remains with the decentralised governance process, in line with the Constitution.\n\n### Cardano Addresses\n\n* Treasury funds will be received into addresses specifically designated for this proposal. To safeguard neutrality and accountability:\n* The addresses will be delegated to the **Auto-Abstain DRep**, ensuring they are not used to influence governance decisions.\nThey will also remain **unstaked to any Stake Pool Operator (SPO)**, ensuring that funds cannot generate staking rewards or confer advantage to specific pools.\n\nThrough these measures, administration of the budget ensures that funds are responsibly managed, that milestones are verifiable and tied to real outcomes, and that disputes can be resolved transparently within Cardano’s governance framework.\nMore information about selfdriven Services is available at https://selfdriven.services.  A link to the document and hash available in the Reference.\n\n## Reporting\n\nAll reporting for this initiative will be conducted in a transparent, open, and verifiable manner, directly tied to the obligations and milestone processes outlined above.\n\n### Milestone Evidence\n\nIn accordance with the Processing of Milestones obligation, evidence for each milestone will be submitted to the GitHub repository maintained by selfdriven Services. This evidence will include reports, educational materials, event records, governance engagement summaries, and other outputs relevant to the stated objectives.\n\n### Frequency of Reports\n\nReports will be provided at the completion of each milestone. Each report will contain:\n* A description of activities undertaken and alignment with the proposal’s objectives.\n* A summary of outcomes, including metrics such as participation numbers, partnerships formed, or educational content delivered.\n* Links and hashes to all supporting evidence, stored in GitHub and/or IPFS.\n* A financial statement showing allocation and expenditure for the reporting period.\n* Community Oversight.\n\nReports will be made publicly available, enabling the Cardano community to review and provide feedback. Any disputes regarding reported outcomes will follow the Dispute Resolution process described earlier, whereby appeals may be made through the DReps Info-Action mechanism.\n\n### Auditing\n\nIn alignment with Article IV.4 of the Constitution, provision is made for an independent auditor to verify reporting accuracy, compliance with milestones, and adherence to governance principles.\n\n## Constitutionality checklist\n\n### Purpose\n\nThis proposal establishes a **community-led** regional budget that catalyses real-world Cardano adoption throughout Oceania — standing up a business-development track, mapping and convening the ecosystem, and scaling hands-on community engagement, governance, and education. The goal is to deepen decentralisation and inclusion while turning strategy into visible, real-world pilots and a **repeatable model** other regions can adapt for sustainable, long-term growth.\n\n### Article III.5: The process of on-chain governance\n\n* The proposal has been submitted in a standardised, legible format.\n* All supporting documentation is published with URLs and hashes (GitHub commits and IPFS references) to ensure immutability and verifiability.\n* The proposal includes a clear title, abstract, rationale, and supporting materials sufficient for governance decision-making.\n\n### Article IV.2: Funds administration\n\n* An administrator (selfdriven Services) is specified, fulfilling the requirements of this provision.\n* The proposal defines an internal process for fund administration using milestone submissions, dispute resolution mechanisms, and transparent reporting, all consistent with decentralised governance principles.\n\n### Article IV.3: Net-Change Limit\n\n* The requested amount does not exceed the current Net-Change Limit.\n* Treasury withdrawals under this budget are therefore constitutional and compliant with the safeguard against excessive expenditure.\n\n### Article IV.4: Auditor\n\n* The proposal makes provision for an independent auditor to verify milestone evidence and financial accountability.\n* This ensures compliance with constitutional audit requirements.\n\n### Guardrails\n\n* This proposal is subject to TREASURY-04a, as it defines a Cardano blockchain ecosystem budget.\n* Approval requires a threshold of >50% of the DReps’ active voting stake.\n* Once approved, subsequent withdrawals pertaining to this budget will proceed only in accordance with the reporting, obligation, and dispute resolution processes set out in this proposal.\n\n## Conclusion\n\nCardano in Oceania represents a forward-looking investment in decentralisation, inclusion, and sustainability. By extending Cardano’s reach into Oceania, this initiative strengthens the network’s global resilience, broadens representation in governance, and builds durable structures for education and collaboration.\n\n### This proposal embeds accountability and constitutional alignment through:\n\n* Obligations that define responsibilities for milestone delivery.\n* Milestone Processing that ensures evidence is submitted, reviewed, and publicly verifiable.\n* Dispute Resolution that offers community-based appeals via DReps.\n* Reporting that ensures transparency and financial accountability.\n* Auditing that provides an independent safeguard.\n\nTogether, these mechanisms provide a strong framework of checks and balances. By approving this budget, the Cardano community affirms its commitment to an inclusive and globally distributed ecosystem, ensuring Oceania’s voices, talents, and ideas contribute to Cardano’s long-term growth and success.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Strategic Plan Website (Git Commit Hash: 1ae5f51eadc7a6b8def18a169791280284111340)",
+        "uri": "https://cardano-in-oceania.github.io"
+      },
+      {
+        "@type": "Other",
+        "label": "Strategic Plan Website - GitHub Repository Commit",
+        "uri": "https://github.com/cardano-in-oceania/cardano-in-oceania.github.io/tree/1ae5f51eadc7a6b8def18a169791280284111340"
+      },
+      {
+        "@type": "Other",
+        "label": "selfdriven Services – Cardano Governance Administration Services",
+        "uri": "https://ipfs.io/ipfs/bafybeicyhy4hfmy72xrnpalqhe4zn4xz4lpqtzvlc4qdgs6lhjhkteum6u"
+      }
+    ],
+    "title": "Cardano in Oceania: A community-led strategic plan for investing in growth."
+  }
+}

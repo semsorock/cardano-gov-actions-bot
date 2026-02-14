@@ -1,0 +1,84 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action13836fuy3yttxn4hkeqka398q9qnwsjtmul4sxc3nht7qae8uvejsqm7ukh8",
+    "summary": "Tingvard judge the Oceania 2025–2026 budget Info action constitutional.",
+    "rationaleStatement": "This proposal is properly classified as a budget Info action (Article III.4, Article IV.1). It specifies duration, objectives, and supporting materials, with hashes and URLs provided for immutability in line with Article III.5. The budget administration process identifies an accountable administrator (Selfdriven Services), sets out milestone-based disbursement, transparent reporting, dispute resolution, and provision for independent audits, thereby meeting Articles IV.2–IV.4. Custody requirements are met by delegating treasury addresses to the Auto-Abstain DRep and abstaining from SPO delegation (Article IV.5). The proposal does not exceed constitutional boundaries and aligns with the Tenets of Article I by promoting decentralisation, inclusion, fairness, and sustainability.",
+    "precedentDiscussion": "This decision affirms that budget Info actions spanning longer than one year remain constitutional when explicitly safeguarded by milestone checks and audits. Article IV.1 anticipates budgets of 73 epochs (~1 year) but does not forbid longer periods; this proposal’s two-year span is thus acceptable precedent. It also confirms that regional ecosystem budgets fall within the scope of Article IV.1, as the Constitution does not restrict budgets to global or single-domain initiatives.",
+    "counterargumentDiscussion": "A potential counterargument could be that a longer-term budget might restrict adaptability if conditions change. However, Article IV.1 explicitly permits budgets of shorter or longer periods, and milestone-based disbursement plus dispute resolution mechanisms ensure adaptability in practice. Any potential concerns about treasury limits are premature; Article IV.3 and Appendix I (Treasury Guardrails) govern withdrawals, not the budget proposal itself. This budget does not authorize withdrawals directly, but sets the framework for them.",
+    "conclusion": "Tingvard finds this governance action constitutional. It conforms to Articles III.4, III.5, and IV.1–5, respects the Cardano Blockchain Tenets of fairness, sustainability, and decentralisation, and complies with the budget Info action framework.",
+    "internalVote": {
+      "constitutional": 6,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Cardano Blockchain Ecosystem Constitution",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Tingvard"
+    }
+  ]
+}

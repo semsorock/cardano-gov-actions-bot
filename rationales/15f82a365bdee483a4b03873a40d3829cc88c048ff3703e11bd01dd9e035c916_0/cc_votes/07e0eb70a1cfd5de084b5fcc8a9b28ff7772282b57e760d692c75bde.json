@@ -1,0 +1,103 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIPXXX": "https://github.com/Ryun1/CIPs/tree/e56f704918061e63ce2076cc3644a946b286c8d1/CIP-governance-metadata-cc-rationale/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIPXXX:body",
+      "@context": {
+        "references": {
+          "@id": "CIPXXX:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "relevantArticles": "CIPXXX:references"
+          }
+        },
+        "summary": "CIPXXX:summary",
+        "rationaleStatement": "CIPXXX:rationaleStatement",
+        "precedentDiscussion": "CIPXXX:precedentDiscussion",
+        "counterargumentDiscussion": "CIPXXX:counterargumentDiscussion",
+        "conclusion": "CIPXXX:conclusion",
+        "internalVote": {
+          "@id": "CIPXXX:internalVote",
+          "@context": {
+            "constitutional": "CIPXXX:constitutional",
+            "unconstitutional": "CIPXXX:unconstitutional",
+            "abstain": "CIPXXX:abstain",
+            "didNotVote": "CIPXXX:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The interim constitution does not place restrictions, procedures, or requirements on the naming of hard forks. The interim constitution does specify that: 'utilizes wherever possible and beneficial blockchain technology in the governance process'. Ergo, proposing the naming of a hard fork via an Info Action is constitutional.",
+    "rationaleStatement": "The interim constitution does not place restrictions, procedures, or\n  requirements on the naming of hard forks. The interim constitution does\n  specify that: 'utilizes wherever possible and beneficial blockchain technology\n  in the governance process'. Ergo, proposing the naming of a hard fork via an\n  _Info Action_ is constitutional. **[Preamble, Paragraph 3]**",
+    "precedentDiscussion": "## Considerations\n* There are no established standards amongst the community or within the interim\n  constitution for determining the name of a hard fork.\n  **[Appendix I, Section 9]**\n* The proposal provides little justification for the decision, however, the\n  minimum requirements are provided and thus should be judged at the discretion\n  of the voting and representative bodies (SPOs and dReps).\n  **[Article III, Section 6, Paragraph 1, Sentence 2]**\n* The Constitution does not provide details of the process or procedure for\n  documents to be hashed, for example: compliance with CIP-100 is not a\n  constitutional requirement. Given that the file was published via IPFS which\n  itself already includes a hash of the document, and the provided hash is\n  reproducible and verifiable **[Document Hashing & Validation]**, we consider this aligned with the intent\n  of the constitution. **[Article III, Section 6, Paragraph 1, Sentence 1]**",
+    "counterargumentDiscussion": "N/A",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 1,
+      "didNotVote": 0
+    },
+    "references": [
+      {
+        "@type": "Other",
+        "label": "CardanoScan Governance Action Page",
+        "uri": "https://cardanoscan.io/govAction/gov_action1zhuz5djmmmjg8f9s8pe6grfc98xg3szglums8cgm6qwancp4eytqqmpu0pr"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Preamble Paragraph 3",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/75155526ce850118898bd5eacf460f5d68ceb083/cardano-constitution-0.txt#L67"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Appendix I, Section 9",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/75155526ce850118898bd5eacf460f5d68ceb083/cardano-constitution-0.txt#L1590"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article III, Section 6, Paragraph 1",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/75155526ce850118898bd5eacf460f5d68ceb083/cardano-constitution-0.txt#L200"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Document Hashing & Validation",
+        "uri": "https://github.com/Crypto2099/cardano-governance/blob/5114dba76ac9ad23870c2bbb3fd042ecafb1f186/actions/gov_action1zhuz5djmmmjg8f9s8pe6grfc98xg3szglums8cgm6qwancp4eytqqmpu0pr.md"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Atlantic Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "91333b40b6dbb4c47e5f30fde21b7d5b38dcad87d27c621b8b7fe61f108c1b0a",
+        "signature": "de053f3d554488de10d9c5d98ed5056bb2749d64c22bf6253f149e76fe3f74b5bf55473efbaf2be9fead225a6f7e4b3d20d3f8b7b6934746778377abe7f64c04"
+      }
+    }
+  ]
+}

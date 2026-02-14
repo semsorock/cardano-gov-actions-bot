@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action18fd7jwa06fksmwumlcvlft8v4guvaa672qsp6xgenekvs4kmvcqsq8cqks4",
+    "summary": "Tingvard vote abstain on this Info Action while expressing support for its intent and the process behind it.",
+    "rationaleStatement": "This governance action is correctly submitted as an Info Action under Article VII, §4 of the Cardano Constitution. As such, it has no on-chain effect, creates no binding obligations, and cannot alter governance thresholds, treasury authority, or constitutional interpretation. For this reason, Tingvard does not treat this action as a constitutional matter requiring a “constitutional” or “unconstitutional” determination.\nThe proposal presents a comprehensive, community-led articulation of a long-term Vision, Mission, Strategy Framework, and associated KPIs for the Cardano ecosystem. Tingvard recognizes and supports the extensive and inclusive process followed by the Product Committee, including broad community engagement, structured feedback loops, and transparent documentation. The outcome provides a coherent strategic narrative that may serve as a useful reference point for ecosystem discussions, governance deliberations, and future proposals.\nAt the same time, because this action is informational in nature, Tingvard considers it inappropriate to express approval or rejection through a binding governance signal. Strategic visions derive practical significance only through subsequent governance actions—such as budgets, treasury withdrawals, or parameter updates—which must each be evaluated independently on their own merits and constitutional compliance. Abstention therefore reflects a neutral constitutional posture, rather than opposition or lack of support.",
+    "precedentDiscussion": "This decision reinforces the distinction between informational guidance and binding governance authority within the Cardano governance framework. Info Actions may be used to socialize ideas, strategies, and long-term direction, but they do not constrain future decision-making or create obligations for DReps, SPOs, or the Constitutional Committee. Abstaining in such cases preserves flexibility and avoids attaching unintended constitutional or procedural weight to non-binding documents.",
+    "counterargumentDiscussion": "There is no constitutional counterargument applicable to this governance action. As an Info Action, it is neither constitutional nor unconstitutional, and Tingvard’s abstention reflects this classification rather than any substantive concern with the content.",
+    "conclusion": "Tingvard abstains from voting on this Info Actions constitutionality. The proposal is appropriately framed as informational, demonstrates a strong and inclusive community process, and offers a useful strategic reference for future governance discussions. Abstention reflects Tingvard’s view that strategic direction should inform, but not preempt or bind, future governance decisions, which must each be assessed independently under the Cardano Constitution.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 0,
+      "abstain": 4,
+      "didNotVote": 1,
+      "againstVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Tingvard"
+    }
+  ]
+}

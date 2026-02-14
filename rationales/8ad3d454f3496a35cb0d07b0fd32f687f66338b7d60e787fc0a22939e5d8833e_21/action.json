@@ -1,0 +1,159 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "onChain": {
+          "@id": "intersectSpec:onChain",
+          "@context": {
+            "governanceActionType": "intersectSpec:governanceActionType",
+            "depositReturnAddress": "intersectSpec:depositReturnAddress",
+            "withdrawals": {
+              "@id": "intersectSpec:withdrawals",
+              "@container": "@set",
+              "@context": {
+                "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                "withdrawalAmount": "intersectSpec:withdrawalAmount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "bf11c2965ab24056401783368b58318dd249341e4daf5c5c440e278b8e7fe743e27ecb20f8770375fbc0ae35aa7e8aff46a710d10f3ecfb70f5ef77507d4fe05"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Withdraw ₳15,750,000 for a MBO for the Cardano ecosystem: Intersect",
+    "abstract": "This treasury withdrawal funds **A member-based organization for the Cardano ecosystem: Intersect** which will provide the following services:\n\nIntersect exists to serve as a neutral, nonprofit coordination layer that bridges decentralized governance and decentralized infrastructure. Our mission is not to direct the network, but to enable it. By stewarding core systems, supporting community-led processes, and facilitating safe, transparent delivery.\n\nSpecifically, this proposal will fund Intersect to:\n\n- Steward core infrastructure\n\n- Execute the Administrator role\n\n- Support participation and coordination\n\n- Facilitate roadmap and budget processes\n\n- Expand ecosystem capacity\n\nNote: Intersect's original proposal submitted early in the off-chain process was updated after recent leadership changes. However, this proposal reflects the approved Budget Info Action and new strategic direction.\n\nThis treasury withdrawal funds one of 39 proposals to give effect to the approved budget info action for ₳275,269,340, administered by Intersect via gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh. The information provided herein is intended to fulfill the spirit of the constitutional requirement for a treasury withdrawal info action by also providing the details of the proposed solution, alignment to the budget, and amount to be withdrawn from the Cardano Treasury.",
+    "motivation": "This proposal aims to solve the following problem:\n\nAs Cardano enters the age of Voltaire, governance is transitioning from a small number of founding organizations to a decentralized global community. While the introduction of a constitution and on-chain voting forms the structural backbone, these mechanisms alone are not enough to sustain a functional decentralized system. What's needed in parallel is community-aligned coordination - infrastructure that enables participation, promotes continuity, and supports informed decision-making across the network.\n\nIntersect is also responsible for the stewardship of Cardano's core Haskell codebases, including the repositories that power the core Cardano node. This role involves more than maintenance - it includes coordinating new releases, aligning contributors around engineering best practices, and ensuring that upgrades are ready for safe deployment. Intersect acts as a neutral facilitator in this process, helping translate new feature proposals from ecosystem vendors into stable, tested releases that can be confidently adopted across the network.\n\nIntersect has played a central role in coordinating ecosystem-wide upgrades, including the successful deployment of the Chang and Plomin hard forks. These upgrades required aligning infrastructure providers, SPOs, dApps, and exchanges globally - a process demanding deep technical coordination, ecosystem trust, and communications capacity.\n\nBeyond technical infrastructure, Intersect provides a collaborative space for governance to mature and grow, supporting over 30 working groups and eight elected committees made up of Cardano community members. These committees focus on key areas such as budgeting, product development, open source, membership, growth, and technical standards - offering non-binding recommendations and practical insight to on-chain actors like DReps and SPOs.",
+    "rationale": "### Project Solution\n\nThis proposal enables Intersect to continue providing essential infrastructure, coordination, and governance support for Cardano during a pivotal 12-month period from June 2025 to June 2026.\n\nSpecifically, this proposal will fund Intersect to:\n\nSteward core infrastructure\n\n- Maintain and govern the open-source Cardano node repositories, including the Haskell codebases\n\n- Coordinate and release upgrades proposed by ecosystem contributors, ensuring safe deployment, roadmap alignment, and stakeholder readiness\n\n- Provide stability and continuity across key engineering practices and upgrade cycles\n\nExecute the Administrator role\n\n- Continue fulfilling the responsibilities of the \"Administrator\" role defined in the Constitution.\n\n- Provide contract and oversight support, including proposal vetting, operational execution, smart contract development, and compliance monitoring\n\n- Act as a reliable counterparty for Treasury-funded initiatives, offering arbitration routes while supporting increased transparency and decentralization\n\nSupport participation and coordination\n\n- Deliver stipends to elected committee members --- beginning formal recognition of their time and expertise\n\n- Facilitate an election process to confirm a new Constitutional Committee\n\n- Provide professional operational and coordination support to 8 committees and 30+ working groups\n\n- Provide through our members, onboarding, tools, and resources for DReps, SPOs, and the Constitutional Committee\n\nFacilitate roadmap and budget processes\n\n- Via the Product Committee, facilitating product roadmap development and long-term ecosystem vision\n\n- Rebuilding a budget process for 2026 and coordinating the delivery and on-chain submission of a 2026 budget\n\n- Conceptualize and operationalize a scalable RFP process for committee-aligned budget proposals (example the Open Source Committee proposal)\n\nExpand Ecosystem Capacity\n\n- Support the emergence of new MBOs, associations, and working groups\n\n- Recognize and reinforce the need for multiple Administrators in the future to support a plural and scalable governance model\n\n### Vendor Profile\n\nIntersect is a non-profit member-based organization incorporated in Wyoming, USA. The team at Intersect represents a broad mix of experience and domain expertise, spanning open source, governance, infrastructure, fintech, and decentralized systems. Many of our team members are long-standing contributors to Cardano and are deeply embedded in the ecosystem - both professionally and as community participants.\n\nOur leadership:\n\nJack Briggs - Interim Executive Director\n\n- As of April 25, 2025, Jack now leads Intersect as our Interim Executive Director and will be reaffirming Intersect's mission and core purpose --- bringing Intersect back to serve the community as a lean, accountable, and principled enabler of open collaboration, where decisions are transparent, power is distributed, and progress is driven by those who build and contribute.\n\n- Jack brings over a decade of experience leading large teams for global organizations such as Vodafone and Three Mobile, as well as multiple technology startups, including those focused on open source. Outside of technology, he was twice elected Chairman of a large residents' association representing over 150 households, and in 2018, he stood as a candidate in the UK local elections for a national party.\n\n- Passionate about blockchain, Jack started with Bitcoin in 2012, Ethereum in 2017, and Cardano in 2019. From 2021, he was one of the earliest contributors to Cardano's governance design, including collaborating on the first version of CIP-1694.\n\nNick Cook - Interim Director of Operations\n\n- Nick is an experienced, driven and energetic leader with a proven history of working in the Web3, blockchain, fintech and AI space. Nick has played a critical part in establishing community hubs for Intersect, linking the company with the wider Cardano community. His work has been invaluable for engaging members with our broader mission.\n\nThe Board of Directors are now working on an open recruitment strategy with members at the forefront in confirming a permanent Executive Director.\n\n### Contract Management\n\nA written off-chain Legal Contract will be created between the Vendor and Cardano Development Holdings (CDH), as mandated by the Constitution. Intersect will administer the contract on behalf of its members and in alignment with governance actions approved by DReps. This includes coordinating project delivery schedules, reporting progress transparently to our members and the community, and escalating any disputes to the Governing Board and membership for resolution in accordance with established procedures.\n\n### Project Delivery \n\nAll milestones, acceptance criteria, payment amounts and expected delivery dates will be agreed between the Governing Board and Executive team at Intersect, with a Legal Contract established between Intersect and the CDH. Intersect will deliver according to the agreed-upon project schedule within the Legal Contract, of which the necessary information will be made public via the SundaeSwap platform. These details will be shared as part of the budget management tooling process.\n\nDefined by the milestones within a Legal Contract, the vendor will submit and attest milestone acceptance to the community, Intersect or 3rd Party Assurer.\n\nProject progress will be monitored and reported by Intersect's Executive team and will be communicated to the community.\n\nAcceptance of the above work is expected to be supported by a 3rd Party Assurer, who will be responsible for reviewing and signing off the work completed at each project milestone against the corresponding milestone deliverables detailed within the Legal Contract. This work is funded from a portion of this treasury withdrawal.\n\n### Budget Management Tooling\n\nTo administrate treasury funds on-chain, Intersect will utilize the treasury management smart contract framework developed by Sundae Labs. The smart contracts have been [extensively tested](https://github.com/SundaeSwap-finance/treasury-contracts/tree/main/offchain/tests) including audits from TxPipe and MLabs. Examples of the usage of these contracts can be seen across mainnet described across Intersect authored [Blog 1](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-a-step-toward-on-chain-treasury-withdrawals), [Blog 2](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-two-update) and [Blog 3](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-three-update).\n\nFinal mainnet validation test can be seen via the Disburse action within transaction: 0f591dc544ae14102dbb4a74d5311a6acffc1772b163d8b7a9656b9525950b17\n\nWith the confirmed treasury reserve contract address being: stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr\n\n#### Specifics\n\nIntersect will utilize a single Treasury Reserve Smart Contract (TRSC), with many Project-Specific Smart Contracts (PSSC), managed by Intersect. Intersect's management consists of three 'admin' and two Intersect 'leadership' roles. An Oversight Committee consisting of five external, independent third-party entities will provide checks and balances on Intersect, and safeguard against errors and unilateral control. The administration of both TRSC and PSSCs will be managed by Intersect, with external oversight on certain actions from the Oversight Committee.\n\nThe Oversight Committee consists of Sundae Labs, Cardano Foundation, Dquadrant, Xerberus and NMKR. Their role is to independently verify key administrative actions using on-chain logic, ensuring accuracy and consistency without exercising discretion over governance decisions.\n\nFor all details on Intersect's configuration please see the **[Smart Contract Guide](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-budget/intersect-administration-services/smart-contracts-as-part-of-our-administration)** on the knowledge base.\n\nThe high level permissions are as follows:\n\n- TRSC Fund and PSSC Modify\n\n  - Two of the three Intersect admins, two of the five trusted entities and one of the two Intersect leadership sign-off must authorize\n\n- TRSC Disperse\n\n  - Two of three Intersect admins, three of five trusted entities and two of two Intersect leadership sign-off must authorize\n\n- TRSC Pause and Resume\n\n  - Two of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Sweep\n\n  - One of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Reorganize\n\n  - Two of three Intersect admins and three of five trusted entities must authorize\n\n#### Processes\n\nUpon enactment of this governance action, funding for this project will be directed into the TRSC's stake account. All instances of TRSC and PSSC can not be staked with a SPO and will be delegated to the auto-abstain predefined DRep. From here funds will be withdrawn into a UTxO remaining at the TRSC.\n\nWhen the Legal contract is prepared and the vendor is ready, funding for this project will be transferred using the Fund action to a PSSC. All milestones will be outlined within the metadata.\n\nA dashboard will be available for the community to audit the TRSC or PSSC and track metrics related to this withdrawn ada as well as being immutably verifiable on chain.\n\nThe subsections; Contract Management, Project Delivery, and Budget Management Tooling described above cover the constitutional requirements specified in Article IV section 4 and 5.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Intersect Development Update 2024 (PDF)",
+        "uri": "ipfs://bafybeib6z3yueyblhr6nlzszxphcjljmse2uhahnpp2hrueodhbha4xonq"
+      },
+      {
+        "@type": "Other",
+        "label": "Intersect and CDH 2024 Financial Report (PDF)",
+        "uri": "ipfs://bafybeianvsd4avrdn6r4ietmv6vnv6ocfeqptc4k76ifs27c3i6p5nf6mm"
+      },
+      {
+        "@type": "Other",
+        "label": "Intersect Knowledge Base",
+        "uri": "https://docs.intersectmbo.org/"
+      },
+      {
+        "@type": "Other",
+        "label": "Intersect Website",
+        "uri": "https://www.intersectmbo.org/"
+      },
+      {
+        "@type": "Other",
+        "label": "Intersect Committees via Knowledge Base",
+        "uri": "https://committees.docs.intersectmbo.org/"
+      },
+      {
+        "@type": "Other",
+        "label": "Intersect Board via Knowledge Base",
+        "uri": "https://board.docs.intersectmbo.org/"
+      },
+      {
+        "@type": "Other",
+        "label": "Project Proposal In Ekklesia",
+        "uri": "https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b63565577986442d1ec"
+      },
+      {
+        "@type": "Other",
+        "label": "Approved Budget Info Action submitted by Intersect via GovTool",
+        "uri": "https://gov.tools/outcomes/governance_actions/e14de8d9dc4f4ddf3fe9250a8a926e20f10e99b86bd0610b77d7a054981591ee#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Details of all successful proposals (CSV)",
+        "uri": "ipfs://bafybeicwrop4q7xvnyjdd5drumbe56sqtm5lbe2ul3c262zt4hgguzdycm"
+      },
+      {
+        "@type": "Other",
+        "label": "Automating Accountability: Cardano's Smart Contract Framework Blog",
+        "uri": "ipfs://bafybeihqx4ae72z7suqfnxrpqpqithp43cai7o2uuewnqtezgaoyc3ptyq"
+      },
+      {
+        "@type": "Other",
+        "label": "Sundae Labs Budget Management Smart Contracts Github Repository",
+        "uri": "https://github.com/SundaeSwap-finance/treasury-contracts"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts TxPipe Audit Report",
+        "uri": "ipfs://bafybeiccnwejbgj43wo6hrlseckkkmprtoqc5cfuy2hesm6c6yealwho3e"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts MLabs Audit Report",
+        "uri": "ipfs://bafybeiah5fnjhda5hemj3qvaehc4mre3qllqzw2l7mkdsguytn4ftgafw4"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "treasuryWithdrawals",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp",
+      "withdrawals": [
+        {
+          "withdrawalAddress": "stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr",
+          "withdrawalAmount": 15750000000000
+        }
+      ]
+    }
+  }
+}

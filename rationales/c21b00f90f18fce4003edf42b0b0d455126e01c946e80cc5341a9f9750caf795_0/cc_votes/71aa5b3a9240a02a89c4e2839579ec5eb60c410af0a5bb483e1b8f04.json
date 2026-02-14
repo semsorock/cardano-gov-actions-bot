@@ -1,0 +1,98 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1cgdsp7g0rr7wgqp7maptpvx525fxuqwfgm5qe3f5r20ew5x2772sq0m5y83",
+    "summary": "Ace Alliance finds the Parameter Update Governance Action “Increase Transaction and Block Memory Units (Part 1 of 2)” Constitutional.",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/QmTaGSXMcGm2sGGB2rgyhxq6u6cfukH9Rgfv45TCtM5ZKo\n\nThe proposed increase to maxTxExecutionUnits\\[memory\\] and maxBlockExecutionUnits\\[memory\\] is a strategic enhancement designed to advance the Cardano Blockchain’s mission of providing foundational infrastructure for decentralized systems. By raising the per-transaction limit from 14,000,000 to 16,500,000 units and the per-block limit to 72,000,000 units, this action directly addresses community feedback regarding resource constraints that currently hinder DApp development. These changes align with Tenet 3 of the Cardano Constitution, ensuring that developers are not \"unreasonably prevented\" from deploying sophisticated applications. This 17.9% increase in transaction headroom provides the immediate flexibility required for more complex smart contracts while maintaining the long-term sustainability and viability of the ecosystem. The increase in the memory units per transaction and per block adheres to all relevant guardrails from MTEU-M-01 to MTEU-M-03 and MBEU-M-01 to MBEU-M-04a.\n\nFrom a technical perspective, this proposal is rigorously supported by performance data from Node 10.6, ensuring compliance with Article I, Section 2 regarding safeguarding implementation of guardrails. Detailed benchmarking indicates that even with a theoretical 100% increase in the memory budget, block diffusion remains highly predictable and well within the 5-second target for 95% propagation. Specifically, the analysis shows that while allocation rates increase, the impact on critical system resources like Kernel RSS and CPU usage is negligible. This empirical evidence satisfies the requirements of MBEU-M-04a, confirming that the change does not endanger the security, functionality, or performance of the Cardano Blockchain.\n\nFurthermore, this governance action adheres to all constitutional process guardrails, including the 90-day notice period specified in PARAM-04a. By grouping the per-transaction and per-block limits into a single action, the proposal follows the correlation guidelines in NETWORK-02, ensuring a streamlined and transparent update process. This update represents a responsible, data-driven step toward scaling Cardano’s smart contract throughput, balancing the desire for increased capacity with the foundational need for network stability and decentralization.",
+    "precedentDiscussion": "The Cardano Constitution designates the CC as the constitutional gatekeeper for governance actions being implemented on-chain, with only narrow exceptions, and it expressly treats “Parameter Update” as a recognized governance action type governed by defined roles and guardrails, including an expectation of heightened scrutiny for security, functionality, performance, and sustainability impacts. \n\nEven where parts of the guardrails can be enforced automatically (for example, via a guardrails script at submission), the constitutional design still relies on accountable human judgment for requirements that are contextual, normative, or otherwise not purely machine-checkable, and it expects reasoned determinations that cite the relevant constitutional provisions or guardrails when an action is found unconstitutional. On this basis we reserve the right to pass judgement on all Parameter Update Governance Actions.",
+    "counterargumentDiscussion": "None",
+    "conclusion": "For these reasons, we find this Info Action constitutional.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "RelevantArticles",
+        "label": "Cardano Constitution",
+        "uri": "ipfs://bafkreieyuknozbtewyurfqoagvplvykadn6a4u6wglupavdz46bbsnnl6e"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Proposal Metadata Anchor URI",
+        "uri": "ipfs://bafkreifwx5z25x6bh5vcwgvzrajy7qlgisukglywjjduwfsrsnp752pqca"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Proposal Metadata Anchor Hash",
+        "uri": "f7e237031c174ba58190950350cc8c3ed940d4268bcc75e7f29080370ad34a55"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmTaGSXMcGm2sGGB2rgyhxq6u6cfukH9Rgfv45TCtM5ZKo"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Ace Alliance"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "# Three-line summary:\n1. Cardano Constitution v2.4 removes non-binding expectations, the Budget Info Action mechanism, and mandatory CC conduct rules, streamlining governance.\n2. It adds clear definitions, enforces immutability of proposal documents, and applies treasury audit/accountability safeguards to all withdrawals.\n3. This version also incorporates feedback from EMURGO.\n\n# Three helpful links\n\n1. CARDANO BLOCKCHAIN ECOSYSTEM CONSTITUTION v2.4\nhttps://ipfs.io/ipfs/bafkreih62pydt57supou6dn5lqbf5klr7xu4xi2rrs7tl3thaufiqmvo24\n\n2. List of changes from v1.0 to v2.4.pdf\nhttps://ipfs.io/ipfs/bafybeihsv7crutk4xrwut5p5fdvgeum45hioazn2dldnqk2ljiv7sp3oda\n\n3. List of changes from v2.3 to v2.4.pdf\nhttps://ipfs.io/ipfs/bafybeibu2v7l6z3k5jhhdtzv74fcrlaedxwdwtxu2ogwudykyfjjfreppu",
+    "motivation": "# The proposed changes aim to:\n1. Simplify governance by removing non-binding expectations and redundant mechanisms like Budget Info Action.\n2. Improve clarity and consistency through unified terminology, added definitions, and streamlined provisions.\n3. Strengthen accountability by applying treasury audit safeguards universally and ensuring proposal documents remain immutable.\n\nPlease see the \"Rationale\" section for details.",
+    "rationale": "# I. Summary of Changes and Rationale (v1.0 → v2.4)\n\n## 1. Items Removed from the Constitution (v1.0)\n\n### (a) Expectations and Encouragement clauses\n\nExpectations: ARTICLE III. Section 6 (off-chain governance management), ARTICLE V. Section 3 (DRep code of conduct), ARTICLE V. Section 4 (DRep selection tool), ARTICLE VII. Section 1 (CC expertise), ARTICLE VII. Section 7 (CC tool support)\n\nEncouragement: ARTICLE VI. Section 3 (SPO code of conduct), ARTICLE VIII. Section 1 (constitutional discussion)\n\nRationale: These provisions were aspirational or advisory in nature (expectations/encouragements), not enforceable constitutional rules.\n\n### (b) Budget Info Action Provisions (ARTICLE III. Section 4, ARTICLE IV, ARTICLE VII. Section 4)\n\nRationale: The Budget Info Action mechanism was removed to simplify governance. Its requirements have been absorbed into Treasury Withdrawal Governance Actions.\n\n### \\(c\\) Obligation to Create a CC Code of Conduct (ARTICLE VII. Section 6)\n\nRationale: This was considered an operational detail better left to community practice rather than a constitutional mandate. The CC may still adopt codes of conduct, but it is no longer a constitutional requirement.\n\n## 2. Changes and additions (excluding deletions)\n\n### (a) Overall - Fixed typos, simplified wording, and unified terminology.\n\nRationale: Improves readability and ensures consistency\n\n### (b) Defined Terms: - Added definitions such as Active Voting Stake,  DRep, SPO, Net Change Limit, Treasury Withdrawal Recipient.\n\nRationale: Eliminates ambiguity and ensures consistency in interpretation\n\n### \\(c\\) ARTICLE II, Section 6 – Introduced requirement that “The document hosted by such a URL shall be immutable.”\n\nRationale: Ensure proposals cannot be altered after submission, protecting integrity and trust\n\n### (d) ARTICLE II Section 7 :Reassigned conditions previously tied to the Budget Info Action, making them mandatory at the time of Treasury Withdrawals after its removal\n\nRationale: Strengthen accountability and transparency in the use of Treasury funds and preserve oversight and audit safeguards after removing the Budget Info Action mechanism\n\n# II. Summary of Changes and Rationale (v2.3 → v2.4)\n\nEMURGO expressed concerns regarding three specific wording changes introduced in Constitution v2.3 and voted NO on its adoption.\nSince EMURGO is the largest DRep, and changing the Constitution without its consent would be highly impractical, these three modifications are reverted to the wording used in the original Constitution (v1.0).\n\n1. Change \"Ada Holder\" to \"ada owner\" and remove this definition.\n\n2. Revert the wording of provisions related to custodians to the form used in v1.0.\n\n3. Revert the wording of provisions related to independent audits to the form used in v1.0.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "List of changes from v1.0 to v2.4.pdf",
+        "uri": "ipfs://bafybeihsv7crutk4xrwut5p5fdvgeum45hioazn2dldnqk2ljiv7sp3oda"
+      },
+      {
+        "@type": "Other",
+        "label": "List of changes from v2.3 to v2.4.pdf",
+        "uri": "ipfs://bafybeibu2v7l6z3k5jhhdtzv74fcrlaedxwdwtxu2ogwudykyfjjfreppu"
+      },
+      {
+        "@type": "Other",
+        "label": "CARDANO BLOCKCHAIN ECOSYSTEM CONSTITUTION v2.4 (PDF)",
+        "uri": "ipfs://bafkreih62pydt57supou6dn5lqbf5klr7xu4xi2rrs7tl3thaufiqmvo24"
+      }
+    ],
+    "title": "CARDANO BLOCKCHAIN ECOSYSTEM CONSTITUTION v2.4"
+  }
+}

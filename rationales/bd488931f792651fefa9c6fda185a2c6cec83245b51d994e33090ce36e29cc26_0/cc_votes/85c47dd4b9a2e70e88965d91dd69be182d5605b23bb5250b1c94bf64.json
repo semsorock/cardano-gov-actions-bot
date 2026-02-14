@@ -1,0 +1,75 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVoting": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The Intersect Constitutional Council votes that the budget info action, “bd488931f792651fefa9c6fda185a2c6cec83245b51d994e33090ce36e29cc26#0”, to be constitutional.",
+    "rationaleStatement": "In accordance with Article III Section 4, this “info” action is in connection with a proposed ecosystem budget and as permitted in Article IV Section 1, this proposal relates to the maintenance and future development of the Cardano Blockchain ecosystem.\n \nThe proposal meets the standardized and legible format requirements as outlined in Article III Section 5. The rationale contains a title, abstract, reason for the proposal and relevant supporting materials, meeting the minimum requirements of Article III Section 5.\n\nThe proposal outlines proposed budget administration processes, meeting Article IV Section 2 requirements and is proposed in advance of any potential treasury withdrawal request, as per Article IV Section 3 “No withdrawals from the Cardano Blockchain treasury shall be permitted unless such withdrawals have been authorized and are being made pursuant to a budget for the Cardano Blockchain that is then in effect”. The budget proposal also accounts for an allocation of funds to cover independent audits as mandated by Article IV Section 4.\n\nThe proposal is well written and makes excellent use of markdown and while this may not be a Constitutional requirement, its use and the impact of making such a technical proposal more readable does so in keeping with the ethos of open and accessible governance. The proposal even provides supporting material in 2 languages.",
+    "precedentDiscussion": "This is the first submission of a proposed budget following a number of net change limits proposals and while outside of what has to-date largely been an Intersect process, the Constitution does establish an expectation of the Cardano Community to periodically propose one or more budgets in Article IV Section 1.",
+    "conclusion": "The Intersect Constitutional Council considers this to be an extremely well formatted budget info action that meets all the requirements of the Constitution and so votes constitutional.",
+    "internalVote": {
+      "constitutional": 6,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 1,
+      "againstVoting": 0
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect Constitutional Council"
+    }
+  ]
+}

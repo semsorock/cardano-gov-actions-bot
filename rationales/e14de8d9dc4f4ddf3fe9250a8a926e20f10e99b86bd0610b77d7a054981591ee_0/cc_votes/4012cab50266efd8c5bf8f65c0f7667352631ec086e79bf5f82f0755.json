@@ -1,0 +1,55 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "authors": [
+    {
+      "name": "Cardano Japan"
+    }
+  ],
+  "body": {
+    "summary": "Cardano Blockchain Ecosystem Budget - 275M ada Administered by Intersect --- > Abstain",
+    "rationaleStatement": "[Abstain] This governance action was reviewed in accordance with the Cardano Blockchain Constitution, with particular focus on fund management and oversight as described under Article IV, Section 2. The proposal demonstrates clear strengths in outlining the oversight process for disbursing funds to external organizations and includes a basic fund management framework. In particular, the sections on “Treasury Withdrawal & Fund Management” specify that Intersect will implement mechanisms such as independent audits, escrow arrangements, and progress reporting. However, members also noted concerns regarding the oversight of funds retained and managed by Intersect itself. As Intersect is both the recipient and the overseer of a significant portion of the proposed budget, there are inherent limitations to self-supervision, and the transparency of large-scale fund management requires further strengthening. Additionally, since this is an Info Action and not a direct treasury withdrawal action, some members considered the current level of detail in the proposal sufficient at this stage. The eventual implementation of appropriate oversight during actual fund withdrawals will be critical. In summary, while there is no direct constitutional violation, the concerns around self-supervision and transparency lead us to adopt an abstain position, with the expectation that third-party oversight mechanisms will be strengthened in future treasury-related governance actions.",
+    "internalVote": {
+      "constitutional": 2,
+      "unconstitutional": 0,
+      "abstain": 3,
+      "didNotVote": 0
+    }
+  }
+}

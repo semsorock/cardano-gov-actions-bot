@@ -1,0 +1,120 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "All 39 Treasury Withdrawal Governance Actions listed below, submitted under the approved \"2025 Cardano Blockchain Ecosystem Budget\", have been reviewed and are found to be Constitutional. This rationale details the constitutional framework and the verification methodology applied to each action.",
+    "rationaleStatement": "A [PDF version](https://ipfs.io/ipfs/QmeNVZSkoLzvwD67gnenPCXJFfCgyg9LsRFwsRLw1yh1L5) of this rationale is also made available.\n\nTo ensure efficiency and clarity, this single rationale addresses the 39 distinct treasury withdrawals that execute the community-approved aggregate budget (gov\\_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh). The purpose of these actions is to enact the \"2025 Cardano Blockchain Ecosystem Budget\", a budget that is currently in effect (Article IV, Sections 1 and 3). Each withdrawal was assessed against a common set of constitutional requirements derived from the parent budget, and each was individually verified for procedural and data integrity.\n\n### **Verification Methodology**\n\nTo ensure a diligent and verifiable review of all 39 actions, a systematic verification process was employed. A purpose-built script was created to programmatically check each action against its metadata and the parent budget. The script and a detailed report of its findings are publicly available and permanently stored on IPFS, ensuring full transparency of the assessment process.\n\n- Verification Script: `ipfs://bafkreibdaehf2i66hjpy5zgaomrndcxnontt3d7xbkzrykng4ygsu7fz6e`  \n- Verification Report: `ipfs://bafkreihxuwqphxc2ubwstezqiwg3mnhrmdlf2vujbg4ezcyzsedrcupwt4`\n\n#### **Common Constitutional Framework**\n\n All 39 proposals were found to be in alignment with the following foundational requirements:\n\n- **Tenets & Purpose (Article I, Section 1\\)**: The proposals align with the Tenets of the Cardano Blockchain.  \n- **Net Change Limit (Article IV, Section 3, TREASURY-02a)**: The total requested amount of 275,031,507 ada across 39 withdrawals is within the adjusted Net Change Limit of 348,500,000 ada (reduced from the approved 350M ada NCL in `gov_action1nd3t833j7v5sz65k3tp9yyvztw60sjcjgcgjr37682s3m7frwrusqmd2k80` following the ratified 1.5M ada Amaru Treasury Withdrawal (`gov_action1vrkk4dpuss8l3z9g4uc2rmf8ks0f7j534zvz9v4k85dlc54wa3zsqq68rx0`). Even if all live treasury withdrawals on-chain are approved, the treasury balance remains within this limit (Article IV, Section 3). \n- **Audit & Dispute Resolution (Article IV, Section 4\\)**: All proposals satisfy the requirements for accountability and oversight. Each explicitly allocates funds for a \"3rd Party Assurer\" responsible for independently verifying project milestones. Furthermore, each proposal commits to an off-chain legal contract that includes clear provisions for dispute resolution.  \n- **Denomination in ADA (Appendix I, TREASURY-03a):** As required, all 39 withdrawal requests are denominated in ada.\n\n### **Individual Verification Checklist & Results**\n\nEach Treasury Withdrawal Governance Action was individually reviewed. The table below summarizes the results of this verification. A \"YES\" indicates the requirement was successfully met.\n\n| Proposal Title | Governance Action Treasury Withdrawal ID | Requested Amount (ADA) | Amount Match  | Budget Match | Recipient Match | Purpose Match | Delegation Check | Denomination Check | Constitutional Assessment |\n| :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- |\n| 2025 Input Output Engineering Core Development Proposal | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlqz6d98zp  | 96,817,080 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Catalyst 2025 Proposal by Input Output: Advancing Decentralised Community Innovation Funding & Infrastructure | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlpwywvhcq  | 69,459,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Input Output Research (IOR): Cardano Vision \\- Work Program 2025 | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlzqhm6e8q  | 26,848,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| A member-based organization for the Cardano ecosystem: Intersect | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlp2tyw3h6 | 15,750,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Cardano Builder DAO | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlp5u7pqqr | 12,000,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| TWEAG’s Proposals for multiple core budget projects for Cardano 2025 | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlqudh2k4c | 11,070,323 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Unveiling the First Unified Global Events Marketing Strategy for Cardano | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlpjq3z9u5 | 6,000,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Cardano Summit 2025 and regional tech events | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlpsn5rx0e | 6,000,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| OSC Budget Proposal \\- Paid Open Source Model for Sustainable Development | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlqkqx0ecg | 5,885,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Expanding Stablecoin / Cardano Native Asset Support / Fiat Ramps | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlp730y0dn | 4,000,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Ecosystem Exchange Listing and Market Making service pool | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlpcdq823y | 3,126,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| High-yield RWA Asset for Cardano : Tokenized Real Estate | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlpuz29v77 | 3,000,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Midgard \\- Optimistic Rollups | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlqqfgyy3v | 2,162,096 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Complement Catalyst: Extended Quadratic Funding—Zero Operational Costs | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlpk0mqrnw | 1,500,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Blockfrost Platform community budget proposal | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlqyxzxz7k | 1,300,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| zkFold ZK Rollup | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlqwtnrdnx | 1,161,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Cardano Ecosystem Pavilions at Exhibitions | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlp679xfzf | 889,500 | YES | YES | YES | YES | YES | YES | Constitutional  |\n| Cardano Product Committee: Community-driven 2030 Cardano Vision and 2026 roadmap insights collection via workshops and structured product research | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlzxt5eumh | 750,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| ZK Bridge | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlq77jt4x4 | 700,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Scalus \\- DApps Development Platform | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlpz4s2af8 | 657,692 | YES | YES | YES | YES | YES | YES | Constitutional |\n| A free Native Asset CDN for Cardano Developers | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlpx66gmxa | 605,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Complete Web3 developer stack to make Cardano the smart contract layer for Bitcoin | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlq5nrw6t9 | 600,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Beyond Minimum Viable Governance: Iteratively Improving on Cardano Voltaire | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlpvhtd5td | 592,780 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Eternl Maintenance | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlpqx4t762 | 583,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Gerolamo \\- cardano node in typescript | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlqczags6z | 578,571 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Hardware Wallets Maintenance | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlqx488pdm | 424,800 | YES | YES | YES | YES | YES | YES | Constitutional |\n| PyCardano | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlzyc3clg6 | 314,800 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Ledger App Rewrite | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlqj0vdlhj | 300,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Cexplorer.io – Developer-Focused Blockchain Explorer for Cardano | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlpyflfc4s | 266,667 | YES | YES | YES | YES | YES | YES | Constitutional |\n| MLabs Core Tool Maintenance & Enhancement: Plutarch | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlq63cfnf0 | 243,478 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Dolos: Sustaining a Lightweight Cardano Data Node | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlqsufvuyl | 220,914 | YES | YES | YES | YES | YES | YES | Constitutional |\n| UTxO RPC: Sustaining Cardano Blockchain Integration | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlq2yeptuu | 220,914 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Pallas: Sustaining Critical Rust Tooling for Cardano | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlqghuqg03 | 220,914 | YES | YES | YES | YES | YES | YES | Constitutional |\n| AdaStat.net Cardano blockchain explorer | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlpgcp0jyh | 212,000 | YES | YES | YES | YES | YES | YES | Constitutional |\n| OpShin \\- Python Smart Contracts for Cardano | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlzzy7m65d | 199,911 | YES | YES | YES | YES | YES | YES | Constitutional |\n| Lucid Evolution Maintenance | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlqvckzwqt | 130,903 | YES | YES | YES | YES | YES | YES | Constitutional\u000b |\n| MLabs Research towards Tooling for Elliptical Curves \\- GrumpleStiltSkin | gov\\_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlzgf074ea | 104,347 | YES | YES | YES | YES | YES | YES | Constitutional |\n| BloxBean Java Tools Maintenance and Enhancement | gov\\_action193leqzml768nz7nmpepzx822a5mzyanqhtewaxjtul5gp6uhwvfsqgl2qg0 | 99,600 | YES | YES | YES | YES | YES | YES | Constitutional |\n| MLabs Core Tool Maintenance & Enhancement: Cardano.nix | gov\\_action18nefry4qacd80xzs2srjahxm2e4vz3c8wvrr03rrtk8mdqfuknysq66459t | 45,217 | YES | YES | YES | YES | YES | YES | Constitutional |\n\n**Checklist Column Descriptions:**\n\n- **Amount Match:** Confirms that the on-chain requested amount matches the amount specified in the off-chain metadata.  \n- **Budget Match:**  Confirms that the requested amount matches or is lower than the amount specified in the approved budget.  \n- **Recipient Match:** Confirms that the on-chain recipient address matches the address specified in the off-chain metadata.  \n- **Purpose Match:** Confirms that the purpose of the withdrawal aligns with the parent budget and the off-chain metadata.  \n- **Delegation Check:** Confirms that the recipient address is not delegated to an SPO and is delegated to the predefined \"alwaysAbstain\" voting option.  \n- **Denomination Check:** Confirms that the withdrawal request is correctly denominated in ada as per TREASURY-03a.",
+    "precedentDiscussion": "-",
+    "counterargumentDiscussion": "-",
+    "conclusion": "Based on the review documented above, all 39 proposals are found to be compliant with the Cardano Constitution.",
+    "references": [
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Parent Budget Info Action",
+        "uri": "gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Current Active Net Change Limit",
+        "uri": "gov_action1nd3t833j7v5sz65k3tp9yyvztw60sjcjgcgjr37682s3m7frwrusqmd2k80"
+      },
+      {
+        "@type": "RelevantArticles",
+        "label": "Preamble (Emphasis on Accountability)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "RelevantArticles",
+        "label": "Article I, Section 1",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "RelevantArticles",
+        "label": "Article III, Section 5",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "RelevantArticles",
+        "label": "Article IV, Sections 2, 3, 4, 5",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "RelevantArticles",
+        "label": "Appendix I, Section 3 (TREASURY-02a, TREASURY-03a, TREASURY-04a)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "Other",
+        "label": "Treasury Withdrawal Governance Action Verification Script",
+        "uri": "ipfs://bafkreibdaehf2i66hjpy5zgaomrndcxnontt3d7xbkzrykng4ygsu7fz6e"
+      },
+      {
+        "@type": "Other",
+        "label": "Treasury Withdrawal Governance Action Verification Script - Report",
+        "uri": "ipfs://bafkreihxuwqphxc2ubwstezqiwg3mnhrmdlf2vujbg4ezcyzsedrcupwt4"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmeNVZSkoLzvwD67gnenPCXJFfCgyg9LsRFwsRLw1yh1L5"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Foundation"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP136:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "relevantArticles": "CIP136:references"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "IO finds the Governance Action “Amaru Treasury Withdrawal 2025” constitutional.",
+    "rationaleStatement": "This Treasury Withdrawal (TW) Action meets the requirements of the Cardano Constitution – its tenets, guardrails, procedural and other constraints. We articulate here the main features that connect this action to past or future governance decisions, for ongoing reference.\n\n- The TW Action fulfills an approved Budget Info Action (Article IV, Section Three). This Budget Info Action is viewable on-chain at with the following Governance Action ID: (gov_action1h4ygjv0hjfj3lmafcm76rpdzcm8vsvj9k5wejn3npyxwxm3fesnqqw9kxxz)\n\n- The TW Action falls within the Net Change Limit existing at the time of this vote (Article IV, Section Three; Appendix I, TREASURY-02a). That Net Change Limit is viewable on-chain with the following Governance Action ID: (gov_action1nd3t833j7v5sz65k3tp9yyvztw60sjcjgcgjr37682s3m7frwrusqmd2k80).\n\n- The TW Action includes in its “ad-hoc mercenaries” category funds for the audit and oversight of its use of the requested ada, by a third party (Article IV, Section Four).\n\n- The TW Action’s “vesting rules” section states that the smart contracts used for custodying the funds prevent the delegation of ada held there to an SPO and delegates its voting power to the auto-abstain DRep. This represents the proposer’s intention to abide by the requirements of Article IV, Section 5, that the administrator of a Cardano budget must not delegate the budget’s funds to an SPO and must delegate the DRep voting power of those funds to the auto-abstain DRep.",
+    "internalVote": {
+      "constitutional": 6,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 1,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "relevantArticles",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy",
+        "label": "Cardano Constitution"
+      }
+    ],
+    "govActionId": "gov_action1vrkk4dpuss8l3z9g4uc2rmf8ks0f7j534zvz9v4k85dlc54wa3zsqq68rx0"
+  },
+  "authors": [
+    {
+      "name": "Input | Output",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "819720b9d33aa3bf7864e68f42c9def1edad906a9b1fd942e624e11902170bb4",
+        "signature": "b151c2ba8fcfc00a4e00b06784de9fce288410588ba0247aa4af5abe94ce439d957227545da2bc467badef543a0915bebc2ddfd648edd6c30d91155b63ebce09"
+      }
+    }
+  ]
+}

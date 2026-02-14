@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md",
+    "CIP136": "https://github.com/Ryun1/CIPs/tree/e56f704918061e63ce2076cc3644a946b286c8d1/CIP-governance-metadata-cc-rationale/README.md",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP136:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "After reviewing the proposal in light of the Cardano Blockchain Ecosystem Constitution, EMURGO finds it compliant with the constitutional requirements:\n",
+    "rationaleStatement": "Article II, Section 4: The Govtools proposal supports the constitutional principle of promoting resilient, open infrastructure for the Cardano ecosystem. GovTool, as a governance interface built for community use and participation, directly contributes to the long-term sustainability and decentralization of the blockchain.\n\nArticle III, Section 5: The proposal is presented in a standardized and legible format, including rationale, budget explanation, supporting documents, and relevant URLs. It clearly outlines the motivation, goals, and intended public good outcomes.\n\nArticle IV, Section 1: This proposal relates to the ongoing development and maintenance of governance infrastructure within Cardano. As such, it qualifies under the constitutional provision for ecosystem budgets that serve the long-term operation of the Cardano Blockchain.\n\nArticle IV, Section 2: The governance action designates Intersect as the administrator responsible for overseeing fund usage, with implementation delivered via smart contracts and milestone-based disbursement. This structure satisfies the constitutional requirement for clear oversight of treasury resources.\n\nArticle IV, Section: The proposal includes provisions for periodic independent audits and oversight, facilitated through Intersect, thereby complying with the requirements for accountability and dispute.\n",
+    "conclusion": "EMURGO concludes that this governance action is constitutional. It satisfies the structural and oversight requirements of the Cardano Constitution, and supports the principles of decentralized governance, treasury management, and ecosystem sustainability.",
+    "internalVote": {
+      "constitutional": 3,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Emurgo",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "30288ff913de8ae9ce8b914e262b41fbb2a92bac74e4756fa0454dbdd4ad8ff1",
+        "signature": "7b1730826a71b440d3cd964ea5a012eba0d772ae0572c615026857c8427b880a994ea003b725a98ad9a9d698e87118d06bc689cfaf9ad80fb3cd7597997e980a"
+      }
+    }
+  ]
+}

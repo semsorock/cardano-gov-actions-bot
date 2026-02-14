@@ -1,0 +1,98 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action16f69yf2f35w9ds8sr05ewyr55jg5f439mu8882rv295fvf8m4kcqql7y6nc",
+    "summary": "Ace Alliance finds the proposed \"Constitutional Committee Compensation Epochs 581-653\" Governance Action constitutional.",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/QmR7ujefNVuDg3skYrBHPWsxkvNze181kXJjEzKTewz32X\n\nThis Cardano Blockchain Ecosystem Budget Info Action (`gov_action16f69yf2f35w9ds8sr05ewyr55jg5f439mu8882rv295fvf8m4kcqql7y6nc`) seeks a budget of 1,000,000 ada to provide for the compensation and administrative costs of five sitting Constitutional Committee (CC) members for a 73-epoch term (Epochs 581-653).\n\n**Article VII, Section 8**, states that \"Cardano Blockchain ecosystem budgets shall provide for periodic administrative costs of the Constitutional Committee... as requested from time to time... and as approved by ada owners.\" This is further supported by **Article I, Section 1, Tenet 4**, which acknowledges \"potential compensation to... CC members\" as a means of fairly recognizing contributions.\n\nThe action adheres to all procedural and substantive requirements for a Budget Info Action:\n\n1. **Procedural Requirements (Article III, Sec 5):** The proposal is presented in a standardized format with sufficient rationale and verifiable, immutable off-chain content, meeting all formal requirements.  \n2. **Budget Purpose (Article IV, Sec 1):** The budget covers \"governance process costs\" for a \"specific time period\" of 73 epochs, aligning with constitutional requirements.  \n3. **Administration & Oversight (Article IV, Sec 2):** The proposal designates a smart contract as the administrator and defines a robust oversight process. Each member's contract is auditable and overseen by the other four participating members, who collectively have the authority to pause further withdrawals if the designated member is no longer serving in their CC role. This peer-review mechanism satisfies the constitutional requirement for oversight.\n\n**Conflict of Interest Disclosure**\n\nAce Alliance is a named beneficiary in this Cardano Blockchain Ecosystem Budget Info Action. Our review of this governance action is limited to assessing its constitutionality, and DReps assess the merits.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "conclusion": "Due to its direct constitutional mandate under Article VII and its full adherence to the procedural and substantive requirements of Articles III and IV, this Cardano Blockchain Ecosystem Budget Info Action is Constitutional.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "RelevantArticles",
+        "label": "Cardano Constitution (IPFS)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor URL (IPFS)",
+        "uri": "ipfs://QmZdZ387ZfcDwQ4YYSPAvWX42gX1w8nGPdhbwk7gxTtNBE"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor Hash",
+        "uri": "a1eb9dd13a5ca3f009a261ddc07575190f98a42b94d180815fb5f2c0805b907c"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmR7ujefNVuDg3skYrBHPWsxkvNze181kXJjEzKTewz32X"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Ace Alliance"
+    }
+  ]
+}

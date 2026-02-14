@@ -1,0 +1,75 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "authors": [
+    {
+      "name": "Cardano Japan"
+    }
+  ],
+  "body": {
+    "summary": "Tempo for Cardono Governance - Maintenance & Development Budget for 2025 → Unconstitutional",
+    "rationaleStatement": "[Unconstitutional] We conclude that this Governance Action is unconstitutional under the Cardano Constitution, particularly Article IV, Section 5. This section mandates that any stake addresses receiving treasury funds must be configured with the Auto-Abstain setting. The proposal fails to disclose the stake addresses intended to receive funds, which renders it impossible to verify compliance with this constitutional requirement.\n\nIn addition, the proposal lacks sufficient transparency regarding the custody and control of funds. While it outlines the existence of an oversight structure and a governance mechanism, it fails to detail cost breakdowns, specific recipient accounts, or the extent of auditor authority. This creates concerns under Article IV, Section 2, which emphasizes budgetary clarity, oversight, and transparent designation of administrative responsibility.\n\nMoreover, given that the proposing entity is also acting as a DRep, the lack of Auto-Abstain address disclosure introduces a material risk of conflict of interest. This undermines the legitimacy of decentralized governance and contravenes the principles set forth in Article V, Section 2.\n\nWhile two votes in favor recognized that the intent of the proposal may align with the public good and broader decentralization efforts, this does not override the constitutional deficiencies. We recommend resubmission of the proposal with clearly specified stake addresses, Auto-Abstain confirmation, and detailed fund allocation transparency to ensure compliance with the Constitution.",
+    "precedentDiscussion": "Previous Treasury Withdrawal proposals have consistently included explicit stake address disclosure and Auto-Abstain confirmation, including the Amaru Treasury Withdrawal 2025 and Intersect TW proposals. These have set a precedent for minimum transparency and compliance thresholds.",
+    "counterargumentDiscussion": "It can be argued that this is merely an Info Action and does not itself enact fund transfers. However, Info Actions are intended to signal consensus on future Treasury Withdrawals. If key constitutional elements such as fund recipient transparency are not present even at the Info stage, the legitimacy of subsequent actions becomes questionable.",
+    "conclusion": "This Governance Action is ruled unconstitutional due to its omission of stake address information necessary to verify Auto-Abstain compliance, as required by Article IV, Section 5. Additional concerns about financial transparency and potential conflicts of interest further support this conclusion. The proposal must be revised to comply with core constitutional safeguards.",
+    "internalVote": {
+      "constitutional": 2,
+      "unconstitutional": 3,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": [
+      {
+        "label": "Governance Action",
+        "uri": "https://gov.tools/connected/governance_actions/495bd3cd44ea6bc0b4c2dbb1e4cdc7e214874c2c07490a4e2476a627ef911280",
+        "GovernanceMetadata": true
+      },
+      {
+        "label": "Cardano Constitution - Article IV",
+        "uri": "https://cardano-foundation.github.io/Constitution/articles/article-4",
+        "RelevantArticles": "IV"
+      },
+      {
+        "label": "Cardano Constitution - Article V",
+        "uri": "https://cardano-foundation.github.io/Constitution/articles/article-5",
+        "RelevantArticles": "V"
+      }
+    ]
+  }
+}

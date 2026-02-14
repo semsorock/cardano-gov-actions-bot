@@ -1,0 +1,174 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "onChain": {
+          "@id": "intersectSpec:onChain",
+          "@context": {
+            "governanceActionType": "intersectSpec:governanceActionType",
+            "depositReturnAddress": "intersectSpec:depositReturnAddress",
+            "withdrawals": {
+              "@id": "intersectSpec:withdrawals",
+              "@container": "@set",
+              "@context": {
+                "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                "withdrawalAmount": "intersectSpec:withdrawalAmount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "84bf32aa6897f4ba629158319e7f8023d8f26cd3fb5bfe41ff3fb8c00a2760b15b8d4c4c0dd684fdc8aad09126f023bb6269916f9b1e79c38fb55b81e2055c02"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Withdraw ₳424,800 for Hardware Wallets Maintenance administered by Intersect",
+    "abstract": "This treasury withdrawal funds **Hardware Wallets Maintenance** which will provide the following services:\n\n- Update Ledger and Trezor firmware and integration libraries with new relevant Cardano features or breaking changes. Update also if there are any breaking changes in Ledger and Trezor core firmware code, testing suites, etc.\n\n- Update cardano-hw-cli to reflect firmware changes and to reflect user needs\n\n- Support Keystone developers while doing the changes above\n\n- Provide general cardano hw wallets maintenance, development support and bugfixing.\n\n- Order and manage external code audits for Ledger firmware code (Ledger requirement, has to be done by one of 2 certified auditors)\n\nThis Treasury Withdrawal is submitted by Intersect on behalf of the vendor. The following sections; Abstract, Motivation, Rationale and Vendor Profile have been sourced from the approved proposal submitted by the Vendor as part of the Intersect budget process.\n\nThis treasury withdrawal funds one of 39 proposals to give effect to the approved budget info action for ₳275,269,340, administered by Intersect via gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh. The information provided herein is intended to fulfill the spirit of the constitutional requirement for a treasury withdrawal info action by also providing the details of the proposed solution, alignment to the budget, and amount to be withdrawn from the Cardano Treasury.",
+    "motivation": "This proposal aims to solve the following problem:\n\nHardware wallets Ledger and Trezor and additional supporting tooling (cardano-hw-cli) need to be regularly updated in order to be able to support Cardano blockchain development.\n\nThere are 2 aspects of this:\n\n- regular maintenance, bugfixing and developer support\n\n- implementation of new Cardano features and breaking changes\n\nHW wallets in scope: Ledger, Trezor, Keystone (from support perspective as Keystone firmware and tooling is developed by the Keystone team)\n\nCurrently it is not known which features in Cardano Roadmap will affect hardware wallets integrations.",
+    "rationale": "### Project Solution\n\nIf implementation of new Cardano features and breaking changes is not completed then hardware wallets may become incompatible with Cardano, stopping users from accessing newer blockchain features or stop working altogether.\n\nIf regular maintenance, bugfixing and developer support is not completed, wallets may lack functionalities and development of tooling that is using HW wallets may become impossible or much more difficult.\n\n### Vendor Profile\n\nVacuumlabs has been developing the Cardano HW wallets integrations (Ledger and Trezor) since 2018.\n\n### Contract Management\n\nA written off-chain Legal Contract will be created between the Vendor and the Cardano Development Holdings (CDH), as mandated by the constitution, and will be administered by Intersect. This will include details of the project delivery schedule and dispute resolution.\n\n### Project Delivery \n\nAll milestones, acceptance criteria, payment amounts and expected delivery dates will be agreed between the Vendor and Intersect, acting on behalf of the CDH. The vendor will deliver according to the agreed-upon project schedule within the Legal Contract, of which the necessary information will be made public via the budget management platform via transaction metadata.\n\nDefined by the milestones within a Legal Contract, the vendor will submit and attest milestone acceptance to the community, Intersect or 3rd Party Assurer.\n\nProject progress will be monitored via Intersect's delivery assurance function which will be communicated to the community.\n\nAcceptance of the above work is expected to be supported by a 3rd Party Assurer, who will be responsible for reviewing and signing off the work completed at each project milestone against the corresponding milestone deliverables detailed within the Legal Contract. This work is funded from a portion of this treasury withdrawal.\n\n### Budget Management Tooling\n\nTo administrate treasury funds on-chain, Intersect will utilize the treasury management smart contract framework developed by Sundae Labs. The smart contracts have been [extensively tested](https://github.com/SundaeSwap-finance/treasury-contracts/tree/main/offchain/tests) including audits from TxPipe and MLabs. Examples of the usage of these contracts can be seen across mainnet described across Intersect authored [Blog 1](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-a-step-toward-on-chain-treasury-withdrawals), [Blog 2](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-two-update) and [Blog 3](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-three-update).\n\nFinal mainnet validation test can be seen via the Disburse action within transaction: 0f591dc544ae14102dbb4a74d5311a6acffc1772b163d8b7a9656b9525950b17\n\nWith the confirmed treasury reserve contract address being: stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr\n\n#### Specifics\n\nIntersect will utilize a single Treasury Reserve Smart Contract (TRSC), with many Project-Specific Smart Contracts (PSSC), managed by Intersect. Intersect's management consists of three 'admin' and two Intersect 'leadership' roles. An Oversight Committee consisting of five external, independent third-party entities will provide checks and balances on Intersect, and safeguard against errors and unilateral control. The administration of both TRSC and PSSCs will be managed by Intersect, with external oversight on certain actions from the Oversight Committee.\n\nThe Oversight Committee consists of Sundae Labs, Cardano Foundation, Dquadrant, Xerberus and NMKR. Their role is to independently verify key administrative actions using on-chain logic, ensuring accuracy and consistency without exercising discretion over governance decisions.\n\nFor all details on Intersect's configuration please see the **[Smart Contract Guide](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-budget/intersect-administration-services/smart-contracts-as-part-of-our-administration)** on the knowledgebase.\n\nThe high level permissions are as follows:\n\n- TRSC Fund and PSSC Modify\n\n  - Two of the three Intersect admins, two of the five trusted entities and one of the two Intersect leadership sign-off must authorize\n\n- TRSC Disperse\n\n  - Two of three Intersect admins, three of five trusted entities and two of two Intersect leadership sign-off must authorize\n\n- TRSC Pause and Resume\n\n  - Two of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Sweep\n\n  - One of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Reorganize\n\n  - Two of three Intersect admins and three of five trusted entities must authorize\n\n#### Processes\n\nUpon enactment of this governance action, funding for this project will be directed into the TRSC's stake account. All instances of TRSC and PSSC can not be staked with a SPO and will be delegated to the auto-abstain predefined DRep. From here funds will be withdrawn into a UTxO remaining at the TRSC.\n\nWhen the Legal contract is prepared and the vendor is ready, funding for this project will be transferred using the Fund action to a PSSC. All milestones will be outlined within the metadata.\n\nA dashboard will be available for the community to audit the TRSC or PSSC and track metrics related to this withdrawn ada as well as being immutably verifiable on chain.\n\nThe subsections; Contract Management, Project Delivery, and Budget Management Tooling described above cover the constitutional requirements specified in Article IV section 4 and 5.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Vacuum Labs Trezor Firmware Github Repository",
+        "uri": "https://github.com/vacuumlabs/trezor-firmware"
+      },
+      {
+        "@type": "Other",
+        "label": "Vacuum Labs Trezor Suite Github Repository",
+        "uri": "https://github.com/vacuumlabs/trezor-suite"
+      },
+      {
+        "@type": "Other",
+        "label": "Trezor Firmware Github Repository",
+        "uri": "https://github.com/trezor/trezor-firmware"
+      },
+      {
+        "@type": "Other",
+        "label": "Trezor Suite Github Repository",
+        "uri": "https://github.com/trezor/trezor-suite"
+      },
+      {
+        "@type": "Other",
+        "label": "Vacuum Labs Ledger App Cardano Shelley Github Repository",
+        "uri": "https://github.com/vacuumlabs/ledger-app-cardano-shelley"
+      },
+      {
+        "@type": "Other",
+        "label": "LedgerHQ App Cardano Github Repository",
+        "uri": "https://github.com/LedgerHQ/app-cardano"
+      },
+      {
+        "@type": "Other",
+        "label": "Vacuum Labs LedgerJS Cardano Shelley Github Repository",
+        "uri": "https://github.com/vacuumlabs/ledgerjs-cardano-shelley"
+      },
+      {
+        "@type": "Other",
+        "label": "Vacuum Labs Cardano HW CLI Github Repository",
+        "uri": "https://github.com/vacuumlabs/cardano-hw-cli"
+      },
+      {
+        "@type": "Other",
+        "label": "Vacuum Labs Cardano HW Interop Lib Github Repository",
+        "uri": "https://github.com/vacuumlabs/cardano-hw-interop-lib"
+      },
+      {
+        "@type": "Other",
+        "label": "Project Proposal In Ekklesia",
+        "uri": "https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b64565577986442d2aa"
+      },
+      {
+        "@type": "Other",
+        "label": "Approved Budget Info Action submitted by Intersect via GovTool",
+        "uri": "https://gov.tools/outcomes/governance_actions/e14de8d9dc4f4ddf3fe9250a8a926e20f10e99b86bd0610b77d7a054981591ee#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Details of all successful proposals (CSV)",
+        "uri": "ipfs://bafybeicwrop4q7xvnyjdd5drumbe56sqtm5lbe2ul3c262zt4hgguzdycm"
+      },
+      {
+        "@type": "Other",
+        "label": "Automating Accountability: Cardano's Smart Contract Framework Blog",
+        "uri": "ipfs://bafybeihqx4ae72z7suqfnxrpqpqithp43cai7o2uuewnqtezgaoyc3ptyq"
+      },
+      {
+        "@type": "Other",
+        "label": "Sundae Labs Budget Management Smart Contracts Github Repository",
+        "uri": "https://github.com/SundaeSwap-finance/treasury-contracts"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts TxPipe Audit Report",
+        "uri": "ipfs://bafybeiccnwejbgj43wo6hrlseckkkmprtoqc5cfuy2hesm6c6yealwho3e"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts MLabs Audit Report",
+        "uri": "ipfs://bafybeiah5fnjhda5hemj3qvaehc4mre3qllqzw2l7mkdsguytn4ftgafw4"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "treasuryWithdrawals",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp",
+      "withdrawals": [
+        {
+          "withdrawalAddress": "stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr",
+          "withdrawalAmount": 424800000000
+        }
+      ]
+    }
+  }
+}

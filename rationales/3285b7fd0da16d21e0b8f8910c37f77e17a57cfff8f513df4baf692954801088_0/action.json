@@ -1,0 +1,57 @@
+{
+  "@context": {
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "authors": {
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@context": {
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature",
+            "witnessAlgorithm": "CIP100:witnessAlgorithm"
+          },
+          "@id": "CIP100:witness"
+        }
+      },
+      "@id": "CIP100:authors"
+    },
+    "body": {
+      "@context": {
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "references": {
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "referenceHash": {
+              "@context": {
+                "hashAlgorithm": "CIP100:hashAlgorithm",
+                "hashDigest": "CIP108:hashDigest"
+              },
+              "@id": "CIP108:referenceHash"
+            },
+            "uri": "CIP100:reference-uri"
+          },
+          "@id": "CIP108:references"
+        },
+        "title": "CIP108:title"
+      },
+      "@id": "CIP108:body"
+    },
+    "hashAlgorithm": "CIP100:hashAlgorithm"
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "In September 2024, only weeks after the Chang hard fork to introduce on-chain governance, an Info governance action titled Cardanoの生きがい - Ikigai - was submitted. This was only a symbolic governance action, as it simply asked the community whether they agreed with a statement thanking those that helped get Cardano to this point and expressing a sense of hope for the future.\n\nUnfortunately, due to a bug in the code of the Cardano node that permitted an unregistered stake key to be used in the governance action, the submitter was unable to recover their deposit of 100K ada. While the community expressed at the time the importance of reimbursing this deposit via a treasury withdrawal; once the ability to do so became available, following the Plomin hard fork; unfortunately none of the entity based budget submissions have included this.\n\nThe Cardano in Oceania initiative did include the deposit reimbursement in their budget Info governance action, however their governance action was not approved. This governance action therefore aims to resolve this outstanding issue.",
+    "motivation": "There was significant sentiment at the time that the Ikigai Info governance action deposit should be reimbursed. It was considered that the submitter should not lose one hundred thousand ada, for being an early pioneer of Cardano governance.",
+    "rationale": "This is a budget Info governance action requesting an amount of 103,000 ada. In addition to the original 100,000 ada the Ikigai Info governance action submitter lost, they have since lost staking rewards, Midnight airdrop eligibility and other opportunities.  This budget therefore includes an additional 3,000 ada to compensate for additional losses.\n\n#### Constitutionality checklist\n\n**Article III.5:** The process of on-chain governance - This governance action has been submitted in a standardised, legible format with the minimum content required and a hash of the content.\n\n**Article IV.2:** Funds administration - While funds administration is not required, as the funds are being immediately distributed, in order to comply with this requirement the DReps are nominated as the “Administrator”, as they will be responsible for executing the distribution.\n\n**Article IV.3:** Net-Change Limit - The requested amount does not exceed the current Net-Change Limit.\n\n**Article IV.4:** Auditor - As the funds will be made available directly to the intended recipient, the Cardano community will be able to audit the distribution on-chain.\n",
+    "references": [],
+    "title": "Reimburse Ikigai Info Governance Action Deposit."
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "abailly <arnaud@pankzsoft.com>",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "d5e27eee7d4970317fd1b36e54aefac95c31154e1b20637f7e2ca1eb52dd0746",
+        "signature": "8a1d2c5e16fb9c91c502a2381eab2d5b51f159b386a1924024652ab8a46dba4efb55363f51f87f6a0b0a4dce2195ff0cb224733256dcde1b221ea304297e480b"
+      }
+    },
+    {
+      "name": "Dam-CZ <damien.czapla@openthelead.com>",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "f127c0824564745561896c3ce3e6e5961f2acaab5f5f149c65f2e81ff549360a",
+        "signature": "0c89d2e7d8ef7496578ad963bb8c7fef9293dd521f96431a36fdbf3c1715a988ef23b7710eaa2737644332ff684411a3b5a8d6f5672832415700887de189f30a"
+      }
+    },
+    {
+      "name": "Pi Lanningham <pi@sundae.fi>",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "c6089a76a380b282b078189f011dc53b05df1ea4804558444128d4849ad88e5b",
+        "signature": "b05910f9992f9a94faa2b89a306e2f29207f5999bbf7d9b0fd0399e845050679b4fa9972d6e603a816d96c63d05d8843e454454580483a8812124cef92ca9d0a"
+      }
+    },
+    {
+      "name": "KtorZ <matthias.benkort@cardanofoundation.org>",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "ce0e80c60a0e16a9254d613dfadbcbdca2ac60ec105dc2f136636807d75dab01",
+        "signature": "54e6156d297d4cbb4fc3c103b1b8f29dd3c43153ac7b0c57a33002a1f18746ad72a9346e6eba440e70f2528c9dab1962c94e5e62562261fe2379d47346594c05"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Amaru Treasury Withdrawal 2025",
+    "abstract": "[Amaru](https://github.com/pragma-org/amaru) is an open-source project implementing a new fully interoperable block-producing node for Cardano. It aims to improve the network's overall accessibility and robustness without compromising its safety and security.\n\nThis treasury withdrawal of ₳1.5M follows a previously submitted and now approved [budget proposal](https://explorer.cardano.org/tx/bd488931f792651fefa9c6fda185a2c6cec83245b51d994e33090ce36e29cc26). It is split across five script addresses each covering a scope of a work (ledger, consensus, mercenaries and marketing) and a contingency reserve.",
+    "motivation": "## Who we are\n\n[Amaru](https://github.com/pragma-org/amaru) is a multi-entity effort that currently sits under [PRAGMA](https://pragma.io): a member-based, not-for-profit association for open-source blockchain software projects. Five members with equal power currently drive PRAGMA's strategy and operations: Blink Labs, Cardano Foundation, dcSpark, Sundae Labs, and TxPipe. Each of them has a proven track record of building on Cardano and supporting our ecosystem.\n\n[Amaru](https://github.com/pragma-org/amaru/graphs/contributors) itself is managed by an appointed maintainer committee in charge of different scopes. Each member of the maintainer committee is responsible for a scope of work and has oversight of its delivery, which includes managing the associated budget. The current maintainer committee comprises of:\n\n- [Matthias Benkort](https://github.com/ktorz) responsible for the **ledger & overall architecture** with a budget of 1.5 FTEs (**`₳300,000`**) until end of 2025.\n\n  Managing treasury at: [`stake17xnev6rc25xwz8kg4qae8lq6dcg964z00py5gqgxd387pncv8fq8g`](https://cardanoscan.io/stakeKey/stake17xnev6rc25xwz8kg4qae8lq6dcg964z00py5gqgxd387pncv8fq8g)\n\n- [Arnaud Bailly](https://github.com/abailly) responsible for the **consensus and simulation testing**, with a budget of 1.5 FTEs (**`₳300,000`**) until end of 2025.\n  \n  Managing treasury at: [`stake17xd74ehu0l4d5mx0sfz4fd0r5jvw4v2jqkkfyjxrlwvnkhccrqj9l`](https://cardanoscan.io/stakeKey/stake17xd74ehu0l4d5mx0sfz4fd0r5jvw4v2jqkkfyjxrlwvnkhccrqj9l)\n\n- [Pi Lanningham](https://github.com/Quantumplation) responsible for the **ad hoc work and middleware integrations** (a.k.a mercenaries) with a budget of 2.5 FTEs (**`₳500,000`**) until end of 2025.\n\n  Managing treasury at: [`stake17xrh74lqhhxgzelfsn0wq5kcm4e5dmluprlcpg5mq30p5yqhgk7k8`](https://cardanoscan.io/stakeKey/stake17xrh74lqhhxgzelfsn0wq5kcm4e5dmluprlcpg5mq30p5yqhgk7k8)\n\n- [Damien Czapla](https://github.com/Dam-CZ) responsible for the **project management, public relations & marketing** with a budget of 0.5 FTE (**`₳100,000`**) until end of 2025.\n\n  Managing treasury at: [`stake17xrqac8khkprtpp2jz90mpkujjwye8dt6a9sjewrvjudx9ggg4u5y`](https://cardanoscan.io/stakeKey/stake17xrqac8khkprtpp2jz90mpkujjwye8dt6a9sjewrvjudx9ggg4u5y)\n\n- [Santiago Carmuega](https://github.com/scarmuega) responsible for the **p2p networking**. Santiago oversees **no part of the treasury budget** whatsoever related to Amaru in 2025. The networking's funding has been fully secured through other mechanisms.\n\nAdditionally, Arnaud, Matthias, Pi and Damien are collectively responsible for the _contingency_ scope with a budget of **`₳300,000`** until the end of 2025, corresponding to 25% of the sum of all other budgets as outlined in the [budget proposal](https://ipfs.io/ipfs/bafkreibqma7t2k4rcywvx5afukahhi3dp2so2ugh7t4ljuawhanvk7sr34).\n\nThe contingency treasury's stake address is: [`stake178jztxzwynajcp4dva5gy9udmmnwg7ueffvf4c7hpjqhc7gtj5nzz`](https://cardanoscan.io/stakeKey/stake178jztxzwynajcp4dva5gy9udmmnwg7ueffvf4c7hpjqhc7gtj5nzz)\n\n---\n\nIn total, we request **`₳1,500,000`** (1.5M ADA).\n\n---\n\n> **NOTES**\n>\n> 1. Efforts are estimated in FTE (Full-Time Employee) valued at $200K / ₳400K per annum.\n>\n> 2. As outlined in the initial budget proposal, the withdrawal requests only account for resources that aren't currently covered by other means (e.g. sponsorship, employee payroll, Catalyst, ...). In particular, every scope owner highlighted above is fully covered **outside** of this withdrawal.\n\n## Building an alternative node\n\n[Amaru](https://github.com/pragma-org/amaru) provides an alternative perspective and solution for both stake pool operators and developers, prioritizing a modular approach, a seamless user experience, and low hardware requirements. Additionally, the project is primarily implemented in Rust, which is well-suited for high assurance, thereby attracting new contributors to the core maintenance of the ecosystem.\n\nFor more details, please refer to the [budget proposal](https://ipfs.io/ipfs/bafybeicyqwjcg4x52l4ml5ocjlqnproqdjgfbguxdge4saxxvu2hidzvpq) which already covers in great length the project, its goals, its deliverables and its methodology\n\n## Why request funds from Cardano's treasury\n\n### Decentralized core infrastructure\n\nBlock-producing nodes (a.k.a. stake pools) and relays are at the heart of Cardano's infrastructure. Together, they constitute and support the Cardano network. [Amaru](https://github.com/pragma-org/amaru) aims at offering an alternative piece to this core infrastructure, thus becoming part of this core infrastructure. We firmly believe that decentralizing the core infrastructure—without disrupting its operational resilience—is a necessary step toward a more robust and secure network.\n\nAdditionally, supporting the blockchain base layer should be a shared responsibility. Stakepool operators already share the burden of operating the network, and it is time to share the responsibility for its development and technical evolution. [Amaru](https://github.com/pragma-org/amaru) makes a significant leap in sharing this responsibility, not only by incrementally delivering a capable block-producing node for the network but also by paving the way for those who come after through documentation, conformance tests and engineering specifications.\n\nBy its very nature, [Amaru](https://github.com/pragma-org/amaru) is a project that aligns with Cardano's vision. As a core infrastructure component, it is also challenging and undesirable to articulate a business model around the project without compromising its essence. We believe that because of these reasons, [Amaru](https://github.com/pragma-org/amaru) qualifies for treasury withdrawals.\n\n### Open source & neutrality\n\nThe project is, of course, open source. We have linked [the code repository](https://github.com/pragma-org/amaru) throughout this document and referred to it also in the original budget proposal. As outlined in the budget proposal, not only is the code public, but the project's progress, evolutions, and decisions are also publicly available. The team strives to remain accessible through public forums and regular touchpoints open to all.\n\nThe core team comprises individuals from various entities and backgrounds. And, while not obvious, this is a situation very dear to us. To preserve Amaru's neutrality and openness, we must ensure that core contributors are not tied to a single actor. Cardano's treasury offers a perfect solution to this problem as it virtually represents a source of funding that is _\"everyone and no one at the same time\"_.\n\nReceiving funding from the Cardano treasury makes the [Amaru](https://github.com/pragma-org/amaru) team accountable towards the Cardano community. It turns the Cardano community into our ultimate stakeholder, which is both good and desirable for a project of this nature.",
+    "rationale": "## Administration of the budget\n\nThe [Amaru](https://github.com/pragma-org/amaru) maintainer committee ensures **direct administration** of its budget, assisted by an **on-chain smart contract**. Off-chain, the fund management, responsibilities and remuneration of contributors follow [PRAGMA's Maintainer Committee Framework](https://ipfs.io/ipfs/bafkreiabxyva5lfm6zztg7tnktxvvbbucljrce7hlrp4p6hropqzfaip3y). Additionally, the smart contract's role is to ensure that funds are expended under the scope of work defined in this budget and authorized by the relevant scope owners.\n\nOur [final solution](https://github.com/pragma-org/amaru-treasury) is built as an extension of the treasury management contract [presented by Sundae Labs](https://www.youtube.com/watch?v=VDSoc4sNxbM) in the context of a mission for Intersect. Our additions enable, most importantly, the dynamic definition of scope owners and their adjustment if necessary (e.g., key loss, departure, death) upon approval by the PRAGMA general assembly (requiring 5 signatures out of 5 members).\n\nWhile already [extensively](https://github.com/pragma-org/amaru-treasury/blob/main/validators/permissions.test.ak) [tested](https://github.com/pragma-org/amaru-treasury/blob/main/validators/traps.test.ak), our final solution is still being audited at the moment of writing this proposal. We do not wish to rush the auditors or take any risk regarding treasury management. \n\nHowever, due to time constraints stemming from the need to continue paying contributors whose payroll expires in the upcoming weeks, we have decided to proceed with a simplified setup and migrate to our final setup once it is ready.\n\nThe simplified setup relies entirely on the [initial solution designed and developed by Sundae Labs](https://github.com/SundaeSwap-finance/treasury-contracts/), which has been extensively tested and fully audited by two independent parties (attached as external references to this proposal). We have also audited, tested and experimented with this solution on our own.\n\n### Initial setup\n\n![](https://raw.githubusercontent.com/pragma-org/amaru-treasury/fdf1981246cac9802c95191aec68a63567b73eed/.github/img/treasury-simplified-overview-dark.jpg)\n\nWe define 5 Amaru treasuries: one for each scope of work and one for the contingency budget. \n\nThe same smart contract governs each treasury, although it is configured differently in each case. It ensures funds coming from either UTxOs or reward accounts move according to specific operations with a precise semantic:\n\n- **reorganize**: allows for the collection and combination of multiple sources (e.g., multiple UTxOs) into another distribution with at least as many assets. This action is typically used to consolidate multiple UTxOs into a single one for easier treasury management.\n\n- **sweep**: after an agreed-upon expiration date, allows sending all ada leftovers (unconsumed budgets) back to the Cardano's treasury. Any native asset (e.g. USDM) is kept within the contract. The action can also be triggered at an earlier stage through a specific authorization.\n\n- **disburse**: allow payment of funds (ada or native assets) into an arbitrary address, up until the budget's expiration date. Only native assets can be disbursed beyond the expiration date to allow converting them back to ada.\n\n- **fund**: disburse funds into another set of on-chain validators ('vendors') pre-configured with a payment schedule. **We will not make use of this operation. It is fully disabled in our setup**. Disbursement will only happen through the _disburse_ action.\n\nIn addition to rules specified as part of the smart contract, each operation also defines a set of permissions. Permissions can take the form of a multisig or another script. \n\nIn the initial setup, we configure **each treasury** with permissions as follows:\n\n- The **reorganize** operation can be fully authorized by the respective scope owner alone. In the case of the _contingency_ budget, any scope owner is capable of authorizing a 'reorganize' operation. \n\n- The **sweep** operation requires 3 out of 4 authorizations until the end of 2025. It can be performed by *any ada holder* after that date.\n\n- **disburse** operation requires 3 out of 4 authorizations until the end of 2025. Disbursement of ada is forbidden after that date.  \n\n- The **fund** operation is entirely disabled using a permission setting that is impossible to satisfy.\n\n\n### Final setup\n\n![](https://raw.githubusercontent.com/pragma-org/amaru-treasury/8a6782c277e5ae6cc2ea446711bc33b6b56892ce/.github/img/treasury-overview-dark.jpg)\n\nIn a second phase, once the external audit has been finalized and our confidence in the contract is sufficient, we'll move towards our final vision for the 2025 budget management. This second solution is still smart-contract-based and builds upon the initial solution. \n\nIt is motivated by the desire to allow rotating credentials associated with scope owners to cope with two main issues:\n\n1. the loss of key from a scope owner;\n2. the departure of a scope owner from the project.\n\nRelying on a rigid setup which statically defines the scope owners is risky and unpractical. So instead, we recognize the following additional capabilities to the final solution:\n\n- **Credential rotation**: In case of loss of credentials or departure of a scope owner, a mechanism allows rotating credentials to new scope owners upon approval by all (5 out of 5) PRAGMA members.\n\n## Financial audit\n\nThe _'ad-hoc'_ scope of work makes provision for a financial auditor who will be picked at a later stage. \n\nTo facilitate the work of the auditor, we will attach metadata with key `1694` to transactions spending from the smart contracts, in accordance with [CIP-100](https://cips.cardano.org/cip/CIP-0100).\n\nInitial metadata describing each _Initial Setup(s)_ have already been published and are visible on-chain.\n\n| Scope / Budget | Transaction Id |\n| ---          | ---            | \n| Ledger       | [`cd25ce7b027fea4e28d5075691aa5822baa859bc74cc79db0377043bc9f383c7`](explorer.cardano.org/preview/tx/cd25ce7b027fea4e28d5075691aa5822baa859bc74cc79db0377043bc9f383c7) | \n| Consensus    | [`e5be93f2530c51e0b1582e5a0e99ccb1235e4395a41c7196d06c4daea3eafe66`](explorer.cardano.org/preview/tx/e5be93f2530c51e0b1582e5a0e99ccb1235e4395a41c7196d06c4daea3eafe66) |\n| Mercenaries  | [`0729a234e4e12b945f06189ca479681e49ffcc116fb3713720bada72180fe27c`](explorer.cardano.org/preview/tx/0729a234e4e12b945f06189ca479681e49ffcc116fb3713720bada72180fe27c) | \n| Marketing    | [`5697f433442317f04f539baecdf71fee01b3e8453c658a4d782648bc1e4f4490`](explorer.cardano.org/preview/tx/5697f433442317f04f539baecdf71fee01b3e8453c658a4d782648bc1e4f4490) | \n| Contingency  | [`44ae2c263b2115023e4b137f718549fcac78c0a59b7983e918d9e79d1a503b3c`](explorer.cardano.org/preview/tx/44ae2c263b2115023e4b137f718549fcac78c0a59b7983e918d9e79d1a503b3c) | \n\nTo further ease this process for the least technologically inclined, we will also collect in [a publicly available journal](https://github.com/pragma-org/amaru-treasury/tree/main/journal#journal) an audit log of these transactions and a human-readable version of their metadata. \n\n## Constitutionality self-assessment\n\nBeing one of the first proposals of this nature ever submitted, it is easy to get things wrong. To convince ourselves of its constitutionality, we thought it relevant to include a checklist of the points we cover and, for each, our interpretation of the Cardano Constitution. \n\n#### Purpose\n\n- [x] This proposal is for work intended to enhance the security, decentralization and long-term sustainability of Cardano.\n\n#### Article III.5: on-chain governance process\n\n- [x] We have submitted this proposal in a standardized, legible format, which includes a URL and hash of all documented off-chain content. We believe our rationale to be detailed and sufficient. The proposal includes a title, abstract, rationale for the proposal, and relevant supporting materials.\n\n#### Article IV.1: budgets\n\n- [x] This proposal gives effect to the [previously presented and agreed upon budget](https://explorer.cardano.org/tx/9b62b3c632f329016a968ac25211825bb4f84b12461121c7da3aa11df92370f9), as indicated in this provision. \n\n#### Article IV.2: funds administration\n\n- [x] This proposal specifies an administrator in accordance with this provision. It also specifies an internal administration process using smart contracts and an off-chain overseeing committee, meeting the requirements of this clause, which requires a process that may include an administrator.\n\n#### Article IV.3: net-change limit\n\n- [x] Being of ₳1.5M and taking place mid-2025, this withdrawal request does not violate the [currently agreed upon Net-Change Limit](https://explorer.cardano.org/tx/9b62b3c632f329016a968ac25211825bb4f84b12461121c7da3aa11df92370f9).\n\n#### Article IV.4: auditor & contractual obligations\n\n- [x] This proposal makes provisions for a financial auditor (covered by the _'ad-hoc'_ scope). The auditor will be picked at a later stage, and their work will be facilitated through the publication of metadata alongside any movement of funds out of the smart contracts.\n\n- [x] Our off-chain legal framework knwon as [PRAGMA's Maintainer Committee Framework](https://ipfs.io/ipfs/bafkreiabxyva5lfm6zztg7tnktxvvbbucljrce7hlrp4p6hropqzfaip3y) makes provision for a dispute resolution for contractors receiving an allocation in the context of this treasury withdrawal. It explicitly states that _\"Any dispute arising out of or in connection with this Agreement shall be subject to the jurisdiction of the ordinary courts of Zurich\"_. \n\n#### Article IV.5: vesting rules\n\n- [x] The use of intermediary smart contracts is used prior to any disbursement of funds to beneficiaries. In particular, we intend to attach on-chain metadata to facilitate financial audits.\n\n- [x] Our on-chain smart contract solution simultaneously enforces that:\n  1. funds (at the contract) cannot be delegated to an SPO; and\n  2. funds (at the contract) shall be delegated to an auto-abstain DRep.\n  \n  Note that we cannot prevent others from creating undelegated UTxOs at the contract's address. Yet, the contract stipulates that the outputs of each operation (e.g., reorganize) carry delegation rights in accordance with this provision.\n\n#### Guardrails\n\n- [x] TREASURY-01a - There's is currently an [approved Net-Change limit](https://explorer.cardano.org/tx/9b62b3c632f329016a968ac25211825bb4f84b12461121c7da3aa11df92370f9) of ₳350,000,000 finishing at the conclusion of Epoch 604 in December 2025.\n\n- [x] TREASURY-02a - At the moment of proposing this, there hasn't been any enacted treasury withdrawal for the current period covered by the Net-Change limit. Being of ₳1.5M, this withdrawal is, at the moment of proposing it, within the Net-Change Limit. \n\n- [x] TREASURY-03a - This withdrawal is denominated in ada.\n\n- [x] TREASURY-04a - This withdrawal follows a [budget proposal](https://explorer.cardano.org/tx/bd488931f792651fefa9c6fda185a2c6cec83245b51d994e33090ce36e29cc26) that the DReps have agreed on with a threshold of greater than 50% of the active voting stake.\n\n## Notations & definitions\n\n- We denote 'ADA' as `₳` throughout this proposal. We may use either notation interchangeably. \n\n# Conclusion\n\nThe [Amaru](https://github.com/pragma-org/amaru) project represents a major step towards node diversity through the development of a modular, high-performance, and interoperable block-producing node for Cardano. Our approach, rooted in openness, innovation, and operational resilience, aims to deliver significant advancements in blockchain technology without compromising on security.\n\nThis withdrawal aims to clearly outline a transparent budget management process, leveraging the capabilities of our chain to enforce this process as reasonably possible in the given timeframe. \n\nBeing an ongoing project, [Amaru](https://github.com/pragma-org/amaru) comes with its own set of constraints. Yet, we try our best to pioneer what we think could be one of Cardano's most pivotal moments.",
+    "references": [
+      {
+        "@language": "en",
+        "@type": "Other",
+        "label": "Proposed (and approved) budget - gov_action1h4ygjv0hjfj3lmafcm76rpdzcm8vsvj9k5wejn3npyxwxm3fesnqqw9kxxz",
+        "uri": "web+cardano://transaction/bd488931f792651fefa9c6fda185a2c6cec83245b51d994e33090ce36e29cc26"
+      },
+      {
+        "@language": "en",
+        "@type": "Other",
+        "label": "Current Net-Change Limit - gov_action1nd3t833j7v5sz65k3tp9yyvztw60sjcjgcgjr37682s3m7frwrusqmd2k80",
+        "uri": "web+cardano://transaction/9b62b3c632f329016a968ac25211825bb4f84b12461121c7da3aa11df92370f9"
+      },
+      {
+        "@language": "ja",
+        "@type": "Other",
+        "label": "Amaru: カルダノトレジャリー引き出し申請",
+        "uri": "ipfs://bafybeicbtr44hbvflshblnn5edxpdji2gdxxw56nv46qwo3bx3bwzxppjy"
+      },
+      {
+        "@language": "en",
+        "@type": "Other",
+        "label": "PRAGMA Maintainer Committee Framework",
+        "uri": "ipfs://bafkreiabxyva5lfm6zztg7tnktxvvbbucljrce7hlrp4p6hropqzfaip3y"
+      },
+      {
+        "@language": "en",
+        "@type": "Other",
+        "label": "Amaru Detailed Budget Proposal for 2025",
+        "uri": "ipfs://bafybeicyqwjcg4x52l4ml5ocjlqnproqdjgfbguxdge4saxxvu2hidzvpq"
+      },
+      {
+        "@language": "en",
+        "@type": "Other",
+        "label": "MLabs's Audit Report of the initial setup",
+        "uri": "ipfs://bafybeigwep6tank3l7sewgugsvhykcpy3efkl37bhoba6ukhgfdyg72i54"
+      },
+      {
+        "@language": "en",
+        "@type": "Other",
+        "label": "TxPipe's Audit Report of the initial setup",
+        "uri": "ipfs://bafkreifddblt23n562x35lu4u3mvgafknldof74ync3gd2bbe3nr6rwecm"
+      }
+    ]
+  }
+}

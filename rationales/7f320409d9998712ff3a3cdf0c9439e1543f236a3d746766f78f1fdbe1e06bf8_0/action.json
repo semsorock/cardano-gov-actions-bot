@@ -1,0 +1,68 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "As part of the budget approval process, it is necessary to establish a Net Change Limit. This serves as an opportunity for all governance stakeholders to formally express their positions regarding the proposed Net Change Limit, ensuring transparency, accountability, and alignment with organizational objectives.\n\n2025 Net Change Limit of 300,000,000,000,000 lovelace (300M ada) 2026 Net Change Limit of 250,000,000,000,000 lovelace (250M ada) The Net Change Limit beyond 2027 is not defined in this governance action.\n\nThe Net Change Limit will be used when reviewing both budget actions and treasury withdrawal actions to ensure constitutionality as required by Article IV of the Constitution and the Treasury Withdrawal Guardrails outlined in Appendix I.",
+    "motivation": "Prior to the submission of any budget request, a Net Change Limit must be formally agreed upon. Failure to establish a Net Change Limit shall render any such budget request unconstitutional and, therefore, inapplicable.\n\nThe Net Change Limit shall be effective for the period specified in this action. In the event that a mutually agreed Net Change Limit is not established for subsequent periods, the most recently approved Net Change Limit shall remain in force by default.\n\nThe Net Change Limit shall remain in effect until such time as a new Net Change Limit is formally approved in accordance with the applicable governance procedures.\n\nJust to clarify, we are not IOG, CF, EMURGO, PRAGMA, INTERSECT or their staff, we are just community members. We won't give names right now because we don't want to get caught up in any drama.\n\nWe submitted this proposal because we believe that any further delay in deciding on the Net Change Limit could result in significant opportunity losses for the Cardano ecosystem.",
+    "rationale": "To maintain the sustainability and stability of Cardano's treasury, a Net-Change-Limit has been suggested, which would, if approved, set the constitutional and democratic mandate for the amount of ada that can be withdrawn from the Treasury over the 2025 period. The intent is to ensure that expenditures remain sustainable while enabling strategic investment in ecosystem growth.\n\nInflows into the treasury are forecast to be 300M ADA in 2025 and 265M ADA in 2026.\n\nTherefore, capping Treasury spending at that amount is a conservative approach. (For ease of remembering, we proposed 250M ADA for 2026.)\n\nIf you are a DRep or ICC member who believes that the amount should be higher than this, we encourage you to vote for this Net Change Limit and then vote for a higher Net Change Limit if one is proposed. It is entirely possible to approve and set a higher Net Change Limit later.\n\nThis approach aims to:\n\n - Balance ecosystem growth with responsible treasury management,\n - Ensure funds remain available for ongoing and future initiatives\n - Provide clarity and predictability for all stakeholders\n\nThis limit shall be applied in assessing both budget actions and treasury withdrawal actions to ensure compliance with Article IV of the Constitution and the Treasury Withdrawal Guardrails specified in Appendix I of the Constitution.\n\nIn accordance with the Constitution, this action shall be considered ratified with a threshold of greater than 67% of the delegated ada to DReps voting in favor.\n\nNote that the guardrail section of the Constitution states: TREASURY-01a (x) A net change limit for the Cardano treasury's balance per period of time must be agreed by the DReps via an on-chain governance action with a threshold of greater than 50% of the active voting stake.\n\nHowever, the current DRep voting threshold for treasury withdrawals is set to 67%, so we align our proposed ratification threshold with this.\n\nThere is an opinion that the Net Change Limit should be treated as a percentage because the amount of inflow into the treasury changes every year. We think this is a great opinion in theory, but the downside of this opinion is the complexity of defining and agreeing on these. This governance action defines the Net Change Limit for 2025 and 2026 in accordance with the amount of inflow, addressing the concerns of those who say it should be defined as a percentage. Even if you are of the opinion that it should be defined as a percentage, we recommend that you carefully discuss and define an appropriate percentage and change the method after approving this governance action.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "NCL Models",
+        "uri": "https://docs.google.com/spreadsheets/d/1Vny18k2MSuGHA8zi6UeW75hntwWZZQRBBJvEyPHI1Zs/edit?gid=2124224299#gid=2124224299"
+      },
+      {
+        "@type": "Other",
+        "label": "NCL Community Analytics",
+        "uri": "https://forum.cardano.org/t/fundamental-critcism-of-the-budget-process/143519"
+      }
+    ],
+    "title": "Set 2025 Net Change Limit of 300M ADA, 2026 Net Change Limit of 250M ADA"
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1x2zm0lgd59kjrc9clzgscdlh0ct62l8llr638h6t4a5jj4yqzzyqq2dgc7q",
+    "summary": "Ace Alliance finds the proposed “Reimburse Ikigai Info Governance Action Deposit.” Governance Action **Constitutional**.",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/Qmd9KM2ooAxXef6Cw15Wq5xqTBW9wtUNV5dGV8LDZfq5fL\n\nThis Budget Info Action (gov\\_action1x2zm0lgd59kjrc9clzgscdlh0ct62l8llr638h6t4a5jj4yqzzyqq2dgc7q) seeks a total of 103,000 ada to reimburse (100,000 ada) and compensate (3,000 ada) those who paid, but were not refunded, the 100,000 ada Governance Action deposit for Info Action “Cardanoの生きがい \\- Ikigai \\-” (gov\\_action1t87n2vjnavthuggyarerafxx8c7n9mu4c7r96qlfp5uggsjdc8dsqymg588).\n\nWhile this Budget Info Action indicates the 103,000 ada will be immediately distributed to the intended recipient, it does not signal intent to utilize the original Ikigai Action’s reward address (stake1uys93fhep4lc2u6lu0q09kcxayxzthasded35c0x0w60ugc9s0cm5), or any other specific reward address, as recipient to achieve this aim. Our decision finding this Action Constitutional is predicated on the direct distribution of such funds from the Treasury to the intended recipients. The link between the intended recipients and the recipient address to be designated in a future Treasury Withdrawal Governance Action must be substantiated by sufficient evidence in immutable form. While the clearest path to establishing this is designating the original Ikigai Action’s reward address as recipient of the funds, the fact said address remains unregistered risks further loss of funds unless registered.\n\nArticle III, Section 5 indicates “...all proposed governance actions are expected to follow a standardized and legible format including a URL and hash of all documented off-chain content to the Cardano Blockchain. Sufficient rationale shall be provided to justify the requested change to the Cardano Blockchain. The rationale shall include, at a minimum, a title, abstract, reason for the proposal, and relevant supporting materials. The content of every on-chain governance action must be identical to the final off-chain version of the proposed action.” This Budget Info Action meets these expectations. \n\nArticle IV, Section 1 provides that “...budgets are expected to cover not less than a period of 73 epochs (approximately one calendar year) but nothing shall prevent the Cardano Community from proposing budgets for shorter or longer time periods.” This Budget Info Action, for the unique reasons cited, proposes a direct and immediate distribution of 103,000 ada to the specified recipient following approval of this Action and a subsequent Treasury Withdrawal Governance Action. \n\nArticle IV, Section 2 requires “Cardano Blockchain budgets shall specify a process for overseeing use of funds from Cardano Blockchain treasury withdrawals including designating one or more administrators who shall be responsible for such oversight.” This Budget Info Action anticipates a direct and immediate distribution to the intended recipients upon approval of a subsequent Treasury Withdrawal Governance Action and names DReps as Administrator.  In this case, the process for overseeing the use of such funds both begins and ends with the same automated disbursement by the protocol from the Treasury to the designated recipient. Here, the protocol itself would function as Administrator for the purposes of compliance with this Section; overseeing this unique, unconditional, direct payment. Under these circumstances, such arrangement is objectively superior in transparency and efficacy than alternative options involving the introduction of an intermediary as Administrator — and an example of where possible and beneficial to “use blockchain technology in the governance process” (Preamble), and the utilization of “smart contracts and other other blockchain based tools to…ensure transparency” in the administration of this budget (Article IV, Section 2). While we appreciate the good faith intent of this Action’s proposers in naming DReps as Administrator for the purpose of compliance with this Section, we find the protocol itself satisfies such requirements here. Recognizing DReps as an Administrator poses unexplored potential risks, raises likely conflicts of interest, raises questions as to consent, and does not need to be explored or relied upon here. \n\nArticle IV, Section 3, Sentence 1 provides “Withdrawals from the Cardano Blockchain treasury that would cause the Cardano Blockchain treasury balance to violate the then applicable net change limit shall not be permitted.” As indicated in our voting rationale for Budget Info Action “Stablecoin DeFi Liquidity Budget” (gov\\_action1u4jrcvlkppjzuv5j9z5ksacwtvv77h6glu0knpcjut8gvjjfu0cqqt3alsy), “we cannot assess a Budget Info Action today, against an undetermined Net Change Limit in force on some future day, when a corresponding Treasury Withdrawal Governance Action might be evaluated. We have a Net Change Limit, and no Treasury Change results from either possible outcome of a proposed Budget Info Action. For these reasons, we reserve evaluation of constitutionality on Net Change Limit grounds for Treasury Withdrawal Governance Actions.”\n\nArticle IV, Section 4, Sentence 1 provides “Any governance action requesting ada from the Cardano Blockchain treasury shall require an allocation of ada as a part of such funding request to cover the cost of periodic independent audits and the implementation of oversight metrics as to the use of such ada.” The express purpose, unique facts, and optimally trustless proposed means underpinning this Budget Info Action fulfill the constitutional requirements of the Section. As laid out above in relation to Article IV, Section 2, the facts underlying this Action are distinguished from each of the ten preceding Budget Info Actions submitted. This Action endeavors to authorize a single automated transfer, for a uniquely remedial purpose, utilizing the most trustless and efficient means available. The alternative means — adding unnecessary intermediaries for the sake of transparency, audit, and oversight — would provide no additional benefit over protocol adjudication, and would only introduce intermediary risks cutting against those exact aims of the Constitution.\n\nArticle IV, Section 4, Sentence 2 indicates “Contractual obligations governing the use of ada received from the Cardano Blockchain treasury pursuant to a Cardano Blockchain ecosystem budget shall include dispute resolution provisions.” Based on the same context and reasoning detailed above, the protocol-adjudicated means proposed in this Action obviates the need for, and any benefit of, contractual obligations.",
+    "precedentDiscussion": "This Budget Info Action is readily distinguished from the ten preceding actions of this type, including the two prior Budget Info Actions which Constitutional Committee Members found unconstitutional on grounds of Article IV, Section 2 and Article IV, Section 4, Sentence 1\\. \n\nIn both such Actions, “2025 Cardano Blockchain Ecosystem Budget \\- 7.5M ₳ for community builders” (gov\\_action1mmalzkcxpyn33t05hml2hxpwq0ffv6uu4mhe8sv7guz5nmm4afysqlmepzl) and “Tempo for Cardono Governance \\- Maintenance & Development Budget for 2025” (gov\\_action1f9da8n2yaf4updxzmwc7fnw8ug2gwnpvqays5n3yw6nz0mu3z2qqq6ggge9), the Actions sought ada from the Treasury to facilitate prospective work by the involved projects. The inherent risks of finally transferring funds directly to projects for prospective work is as objectively apparent to the Cardano Community today as it was to the Community members who drafted, passed, and ratified this Constitution. Accordingly, to mitigate such risk, the Constitution provides safeguards including the oversight and Administrator provision of Article IV, Section 2 and audit allocation provision of Article IV, Section 4\\. In both Budget Info Actions found unconstitutional on these grounds, the application of these provisions pertained to the recognized risks associated with funding prospective work. For Actions with these characteristics, the provisions decentralize required off-chain trust, provide the precursors for traditional legal contracts and the remedies they enable, and bolster transparency and accountability. \n\nThis budget Info Action, in contrast to the ten preceding it, is submitted for a remedial purpose, expressly intended to be finally and unconditionally settled (without provision for recourse in the event of future action or inaction by the recipient), and is most efficiently, trustlessly, and transparently achieved without the introduction of intermediaries to mitigate risk that is simply not present here.",
+    "counterargumentDiscussion": "None",
+    "conclusion": "Ace Alliance finds the proposed “Reimburse Ikigai Info Governance Action Deposit.” Governance Action **Constitutional**.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "RelevantArticles",
+        "label": "Cardano Constitution (IPFS):",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor URL (IPFS):",
+        "uri": "ipfs://QmR7khTUdWyQFdNvyXDsuyZLUNsdfm7Ejo9wKfKdRE3ReG"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor Hash:",
+        "uri": "78c5d369af0bd488807d9bd15bf19c13e2cc063e96bd4ab17ed7f8a57a8ba1ba"
+      },
+      {
+        "@type": "Other",
+        "label": "Governance Action ID \"Cardanoの生きがい - Ikigai -\"",
+        "uri": "gov_action1t87n2vjnavthuggyarerafxx8c7n9mu4c7r96qlfp5uggsjdc8dsqymg588"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://Qmd9KM2ooAxXef6Cw15Wq5xqTBW9wtUNV5dGV8LDZfq5fL"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Ace Alliance"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action15dh2lt4qskmhl97vat8s0l552ruvddrlasa0jndg7lg43g0uju3qq78hvja",
+    "summary": "The Ace Alliance finds the proposed “Securing Generic Top-Level Domains for the Cardano Ecosystem” Info Action Constitutional. We comment only on its constitutionality, not the merits of the initiative itself, in line with Article VII, Section 4 of the Cardano Constitution.",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/QmeKeNSfteJvuF3C6pVeCVi7rvSF9j9oJ7mu7xHALJSgSa\n\nThe Ace Alliance finds this Governance Action to be constitutional. Our review concerns the constitutionality of the Info Action, which serves as a poll of the DReps regarding the Cardano Foundation’s initiative to apply for generic Top-Level Domains (gTLDs), not the commercial or strategic merits of the gTLD application itself. Constitutional Committee members may not prevent Info Actions from being recorded on-chain but they are allowed to express their views on whether the actions proposed within an Info Action would be constitutional if implemented by on-chain mechanisms (Article VII, Section 4).\n\nThis action was submitted by the Cardano Foundation to assess community sentiment regarding the registration of .ada and .cardano domains. Because the proposal explicitly states that the initiative will utilize the Foundation’s own financial resources and does not request funds from the Cardano Treasury, it does not trigger the substantive requirements or guardrails associated with Cardano Blockchain Ecosystem Budgets (Article IV and TREASURY-04a). Using an Info Action to gauge sentiment on an off-chain initiative without any future on-chain change is a valid exercise of governance rights within the decentralized ecosystem (Article III, Section 4).",
+    "precedentDiscussion": "While this Info Action is constitutional, we reserve the right to evaluate the constitutionality of Info Actions based on proposed outcomes. An Info Action may be found unconstitutional if it seeks to direct or implement outcomes that are reserved for other governance action types, such as Treasury Withdrawals, Parameter Changes, or Updates to the Constitution, or if it attempts to commit funds, modify governance structures, or otherwise bypass the formal processes defined in the Cardano Constitution. Likewise, an Info Action may be unconstitutional if it proposes or encourages behavior that would violate the Constitution or its Tenets.",
+    "counterargumentDiscussion": "None",
+    "conclusion": "Due to its adherence to constitutional provisions under Articles III and VII of the Cardano Constitution, this Info Action is Constitutional.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "RelevantArticles",
+        "label": "Cardano Constitution (IPFS)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor URL (IPFS)",
+        "uri": "ipfs://QmeMvA4j38n46hye724etsdUoUMzQ3T9bvmHMJUtNRf9ps"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor Hash",
+        "uri": "235613f1d231e9a877eab4599f2d6a693d8cb279e2bc9c94c5f42f53750a34f9"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmeKeNSfteJvuF3C6pVeCVi7rvSF9j9oJ7mu7xHALJSgSa"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Ace Alliance"
+    }
+  ]
+}

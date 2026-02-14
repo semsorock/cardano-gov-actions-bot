@@ -1,0 +1,55 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "authors": [
+    {
+      "name": "Cardano Japan"
+    }
+  ],
+  "body": {
+    "summary": "GovTool Info Action 2025 → Constitutional",
+    "rationaleStatement": "[Constitutional] We conclude that this Governance Action is constitutional and merits a 'Yes' vote. This Info Action does not involve immediate treasury spending but serves as a signaling mechanism ahead of a planned withdrawal. The proposal centers on maintaining and enhancing GovTool, a public good crucial for decentralized governance on Cardano. It furthers inclusive participation, consistent with the Constitution. The documentation presents a four-phase withdrawal plan with transparent scopes, stakeholder roles, and a defined auditing strategy involving Intersect. While the auditor is not yet selected, its planned inclusion meets the intent of Article IV, Section 4. Funds are earmarked for 2025 only, with excess expected to be returned, ensuring periodic financial scrutiny. Overall, the proposal demonstrates a strong alignment with the Cardano Constitution, especially Articles IV and V, and supports effective, transparent governance.",
+    "internalVote": {
+      "constitutional": 4,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 1
+    }
+  }
+}

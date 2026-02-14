@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We consider this governance action to be constitutional.",
+    "rationaleStatement": "After reviewing the proposal, we find that, while there are certain points of concern, there is no clear violation of the Cardano Constitution or the Guardrails. Accordingly, we determine that the proposal is constitutional.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "Concerns were raised regarding the rationale presented and its level of transparency. The proposal offers only a brief and high-level description of the budget, which may be considered limited in the context of a treasury withdrawal–related governance action. Article III, Section 5 of the Constitution states that governance actions are expected to provide sufficient rationale and supporting materials so that the community can make an informed decision. While the proposers explain that detailed cost information cannot be disclosed due to confidentiality obligations such as non-disclosure agreements, even within these constraints there may be room to provide additional information within the scope of permissible disclosure. In addition, the proposal does not clearly specify concrete objectives or measurable outcomes, which makes it more difficult to assess how the use of funds and the resulting outcomes would be evaluated or overseen. From the perspectives of transparency and accountability, these points suggest that the proposal merits careful consideration.",
+    "conclusion": "For the reasons stated above, we determine that it is constitutional.",
+    "internalVote": {
+      "constitutional": 3,
+      "unconstitutional": 1,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Cardano Japan Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "833ddc6eedc272e763c33b9e6ed91efea5f0a5161f05bf72c83326a9b11507de",
+        "signature": "916b306dcce752b138f54d788a47548527fb078b320ba16472929705c8d57c99bf66424cfac90c05b32b12dabcc56b9ab7de789cdb4af79137344e20b9ec1301"
+      }
+    }
+  ]
+}

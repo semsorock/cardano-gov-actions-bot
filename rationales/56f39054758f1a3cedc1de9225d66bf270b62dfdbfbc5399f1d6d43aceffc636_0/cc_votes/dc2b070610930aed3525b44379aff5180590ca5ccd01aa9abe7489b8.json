@@ -1,0 +1,86 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md",
+    "CIP136": "https://github.com/Ryun1/CIPs/tree/e56f704918061e63ce2076cc3644a946b286c8d1/CIP-governance-metadata-cc-rationale/README.md",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP136:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "EMURGO concludes to vote in favour of this Info Action, based on the rationale provided below.\n",
+    "rationaleStatement": "The Cardano Constitution emphasizes principles such as transparency, community collaboration, and the long-term sustainability of the Cardano ecosystem. The 2025 Vision $RATIONALE Roadmap aligns with these principles by focusing on enhancing Layer 1 performance, expanding Layer 2 solutions, improving developer experience, and fostering a thriving ecosystem through strategic partnerships and community engagement. \n\nGiven that Info actions are intended to disseminate information, and that this particular action aligns with the core principles outlined in the Cardano Constitution, it is reasonable to conclude that this Info action is constitutional.\n\nEMURGO has historically voted “Yes” on all Info Actions unless there have been constitutional concerns sufficient to vote otherwise. We intend to follow this logic and hence will vote “Yes” on this Info Action as well.\n\nAt the same time, we recognize areas for improvement in this proposal. Future Info and Governance Actions can benefit from referring to Article 3, Section 5 of the Cardano Constitution. A key consideration in this Info Action is the proposed roadmap, which is stored in metadata. However, since the roadmap itself is hosted on a website, it remains subject to modification. \n\nIn order to promote transparency in the process of on-chain governance, prior to being recorded or enacted on-chain, all proposed governance actions are expected to follow a standardized and legible format including a URL and hash of all documented off-chain content to the Cardano Blockchain. Sufficient rationale shall be provided to justify the requested change to the Cardano Blockchain. The rationale shall include, at a minimum, a title, abstract, reason for the proposal, and relevant supporting materials.\n\nThe content of every on-chain governance action must be identical to the final off-chain version of the proposed action.\n\n\"Hard Fork Initiation\" and \"Protocol Parameter Change\" governance actions shall undergo sufficient technical review and scrutiny as mandated by the Guardrails to ensure that the governance action does not endanger the security, functionality, performance or long-term sustainability of the Cardano Blockchain. On-chain governance actions should address their expected impact on the Cardano Blockchain ecosystem.\n\nAll owners of ada shall have the right to ensure that the process for participating in, submitting and voting on on-chain governance actions is open and transparent and is protected from undue influence and manipulation.\n\nARTICLE III. PARTICIPATORY AND DECENTRALIZED GOVERNANCE, Section 5\n\nA possible enhancement would be to convert the roadmap into a PDF, and attach its hash in the metadata section of the governance action. \n\nWe also recognise that the authors expect iterations to the roadmap and for dReps to vote periodically as those changes are made. They state within the Info Action (our highlighting):\n\nMotivation\n\nDuring the lifetime of the governance action, the Product Committee will iterate upon the roadmap based upon DRep feedback, adjusting the referenced roadmap. DReps are encouraged to attach metadata to their votes, providing rationale; these rationales will be reviewed by the Product Committee. A yes vote for this action signals support for the proposed roadmap. A no vote on this action signals a lack of support for the roadmap. An abstain vote means signals neither in favor nor against. While the referenced roadmap develops, DReps should consider submitting multiple votes to signal approval across versions.\n\nAs such, we will PDF the 2025 Visions & Roadmap into the metadata of our vote for the purpose of the audit trail.\n",
+    "conclusion": "The proposal is constitutional",
+    "internalVote": {
+      "constitutional": 3,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Product Vision and Roadmap for 2025",
+        "uri": "https://raw.githubusercontent.com/Emurgo/constitution-committee/c963c49780eb165695c92ca58ebf781963b88976/2025_vision_roadmap.pdf"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Emurgo",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "30288ff913de8ae9ce8b914e262b41fbb2a92bac74e4756fa0454dbdd4ad8ff1",
+        "signature": "2a60659a57fbfe976969173e315cb03a62967096d05007f35f525f8a8d9b8d751289dc779863bf2961c7ce102b531401320185fdef1dce85a1832a286929fa00"
+      }
+    }
+  ]
+}

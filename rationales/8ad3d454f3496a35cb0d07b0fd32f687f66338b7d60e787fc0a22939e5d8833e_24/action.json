@@ -1,0 +1,144 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "onChain": {
+          "@id": "intersectSpec:onChain",
+          "@context": {
+            "governanceActionType": "intersectSpec:governanceActionType",
+            "depositReturnAddress": "intersectSpec:depositReturnAddress",
+            "withdrawals": {
+              "@id": "intersectSpec:withdrawals",
+              "@container": "@set",
+              "@context": {
+                "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                "withdrawalAmount": "intersectSpec:withdrawalAmount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "7e9386ee394cbc1f43c7cd7c9549c5207804ee37220e9527c27336529ae17e015afbc45b5bef6a0359d6241cf37428c201605751c49ed565ac29d9c1eaa0a90b"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Withdraw ₳6,000,000 for Cardano Summit 2025 and regional tech events",
+    "abstract": "This treasury withdrawal funds **Cardano Summit 2025 and regional tech events** which will provide the following services:\n\nThe Cardano Summit 2025 is a strategic initiative, spearheaded by the Cardano Foundation and fortified by regional ecosystem partners (EMURGO, Rare Evo, Wada, Catalyst Africa Town Hall, Ada Solar), to accelerate the global adoption of Cardano technology. Each partner will command the execution of a regionally focused Cardano Summit Event. While each maintains regional autonomy, all six entities will synergize in the events' development. The core ethos and driving benefits of the Cardano Summit are:\n\n- Simplify developer onboarding through targeted Cardano Dev Days events globally.\n\n- Drive adoption through targeted education for first-time and novice users, unlocking Cardano's potential for all.\n\n- Showcase tangible impact of real-world use cases, capturing mainstream attention and demonstrating Cardano's value.\n\n- Forge powerful collaborations between developers, entrepreneurs, users, enterprises and regulators.\n\n- Strategize and solve scaling and interoperability challenges, securing future scalability.\n\n- Attract capital, talent, and media, securing vital resources for the growth of Cardano as a leading L1.\n\n- Ignite innovation & celebrate success: Rally the community, celebrate achievements, and build unstoppable momentum.\n\nThis Treasury Withdrawal is submitted by Intersect on behalf of the vendor. The following sections; Abstract, Motivation, Rationale and Vendor Profile have been sourced from the approved proposal submitted by the Vendor as part of the Intersect budget process.\n\nThis treasury withdrawal funds one of 39 proposals to give effect to the approved budget info action for ₳275,269,340, administered by Intersect via gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh. The information provided herein is intended to fulfill the spirit of the constitutional requirement for a treasury withdrawal info action by also providing the details of the proposed solution, alignment to the budget, and amount to be withdrawn from the Cardano Treasury.",
+    "motivation": "This proposal aims to solve the following problem:\n\nThe Cardano Summit is not optional; it's the indispensable catalyst to empower developers, unify infrastructure efforts and implement governance, forge global connections, plus attract capital, talent and media, propelling Cardano to its rightful place as a leader in the decentralized future.\n\nAdoption Stagnation: Without a central platform showcasing real-world utility, enterprise and mainstream adoption remains critically low.\n\nDeveloper Isolation and Fake News: The narrative that \"building on Cardano is hard\" persists due to inadequate educational resources and targeted support, hindering developer onboarding, slowing application and infrastructure growth.\n\nInfrastructure Fragmentation: Scaling and interoperability challenges persist without a collaborative platform for unified solutions. Collaboration between developers, entrepreneurs, users, enterprises, regulatory bodies and other L1/L2 ecosystems need further strengthening to foster a cohesive and impactful ecosystem.\n\nCommunity Siloing: Missed networking and knowledge exchange opportunities between developers, entrepreneurs, users, enterprises, and regulatory bodies limit the creation of strategic global partnerships.\n\nCapital, Talent, and Media Acquisition Deficit: The challenge of effectively attracting and securing sufficient capital, top-tier talent, and widespread media attention hinders Cardano's growth and its ability to solidify its position as a leading Layer 1 blockchain platform.",
+    "rationale": "### Project Solution\n\nThe Cardano Summit proposal aims to provide:\n\n1 x Flagship Cardano Summit: Europe (November 2025)\n\n4 x Regional Cardano Tech Events\nLas Vegas, USA (August 2025)\nAfrica (September 2025)\nLATAM (October 2025)\nBangalore, India (December 2025)\n\nCardano Summit Awards & Battle of the Builders\nIncluded within the Flagship Cardano Summit\n\nDev Days/Hackathons\nIntegrated into each of the four Regional Tech Events\n\nSpecific KPIs\nAttendee targets (500-800 attendees per event)\nSpeaker targets (20-100 speakers per event)\nSession targets (8-20 sessions per event).\n\nSupporting information: [https://ucarecdn.com/f4055c0d-2123-49f1-8d6b-7db3ed1187a5/CardanoSummit2025IntersectProposal.pdf](https://ucarecdn.com/f4055c0d-2123-49f1-8d6b-7db3ed1187a5/CardanoSummit2025IntersectProposal.pdf)\n\n### Vendor Profile\n\nThe Cardano Summit 2025 will leverage the collective strength and deep regional expertise of its co-hosts, ensuring unparalleled impact and engagement across the globe.\n\nThe Cardano Foundation's proven delivery of three consecutive, globally impactful Cardano Summits establishes their invaluable institutional and enterprise knowledge and a track record of high-quality, large-scale event execution.\n\nEMURGO's extensive experience in fostering blockchain adoption through strategic events, including TOKEN2049, positions them as a key driver of regional engagement and impact.\n\nRare Evo demonstrated expertise in curating highly engaging and community-centric blockchain events, like Rare Evo, ensures a dynamic and impactful experience for attendees.\n\nWADA's established presence and deep connections within the Cardano community in Africa, coupled with their successful track record of organizing CLEs, guarantees strong local engagement and relevance.\n\nADA Solar's unique understanding of the regional landscape and their proven ability to activate local communities, exemplified by Cardano Constitutional Convention and Cardano Tech Week, will be instrumental in maximizing the summit's reach and impact in LATAM.\n\n### Contract Management\n\nA written off-chain Legal Contract will be created between the Vendor and the Cardano Development Holdings (CDH), as mandated by the constitution, and will be administered by Intersect. This will include details of the project delivery schedule and dispute resolution.\n\n### Project Delivery \n\nAll milestones, acceptance criteria, payment amounts and expected delivery dates will be agreed between the Vendor and Intersect, acting on behalf of the CDH. The vendor will deliver according to the agreed-upon project schedule within the Legal Contract, of which the necessary information will be made public via the budget management platform via transaction metadata.\n\nDefined by the milestones within a Legal Contract, the vendor will submit and attest milestone acceptance to the community, Intersect or 3rd Party Assurer.\n\nProject progress will be monitored via Intersect's delivery assurance function which will be communicated to the community.\n\nAcceptance of the above work is expected to be supported by a 3rd Party Assurer, who will be responsible for reviewing and signing off the work completed at each project milestone against the corresponding milestone deliverables detailed within the Legal Contract. This work is funded from a portion of this treasury withdrawal.\n\n### Budget Management Tooling\n\nTo administrate treasury funds on-chain, Intersect will utilize the treasury management smart contract framework developed by Sundae Labs. The smart contracts have been [extensively tested](https://github.com/SundaeSwap-finance/treasury-contracts/tree/main/offchain/tests) including audits from TxPipe and MLabs. Examples of the usage of these contracts can be seen across mainnet described across Intersect authored [Blog 1](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-a-step-toward-on-chain-treasury-withdrawals), [Blog 2](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-two-update) and [Blog 3](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-three-update).\n\nFinal mainnet validation test can be seen via the Disburse action within transaction: 0f591dc544ae14102dbb4a74d5311a6acffc1772b163d8b7a9656b9525950b17\n\nWith the confirmed treasury reserve contract address being: stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr\n\n#### Specifics\n\nIntersect will utilize a single Treasury Reserve Smart Contract (TRSC), with many Project-Specific Smart Contracts (PSSC), managed by Intersect. Intersect's management consists of three 'admin' and two Intersect 'leadership' roles. An Oversight Committee consisting of five external, independent third-party entities will provide checks and balances on Intersect, and safeguard against errors and unilateral control. The administration of both TRSC and PSSCs will be managed by Intersect, with external oversight on certain actions from the Oversight Committee.\n\nThe Oversight Committee consists of Sundae Labs, Cardano Foundation, Dquadrant, Xerberus and NMKR. Their role is to independently verify key administrative actions using on-chain logic, ensuring accuracy and consistency without exercising discretion over governance decisions.\n\nFor all details on Intersect's configuration please see the **[Smart Contract Guide](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-budget/intersect-administration-services/smart-contracts-as-part-of-our-administration)** on the knowledgebase.\n\nThe high level permissions are as follows:\n\n- TRSC Fund and PSSC Modify\n\n  - Two of the three Intersect admins, two of the five trusted entities and one of the two Intersect leadership sign-off must authorize\n\n- TRSC Disperse\n\n  - Two of three Intersect admins, three of five trusted entities and two of two Intersect leadership sign-off must authorize\n\n- TRSC Pause and Resume\n\n  - Two of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Sweep\n\n  - One of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Reorganize\n\n  - Two of three Intersect admins and three of five trusted entities must authorize\n\n#### Processes\n\nUpon enactment of this governance action, funding for this project will be directed into the TRSC's stake account. All instances of TRSC and PSSC can not be staked with a SPO and will be delegated to the auto-abstain predefined DRep. From here funds will be withdrawn into a UTxO remaining at the TRSC.\n\nWhen the Legal contract is prepared and the vendor is ready, funding for this project will be transferred using the Fund action to a PSSC. All milestones will be outlined within the metadata.\n\nA dashboard will be available for the community to audit the TRSC or PSSC and track metrics related to this withdrawn ada as well as being immutably verifiable on chain.\n\nThe subsections; Contract Management, Project Delivery, and Budget Management Tooling described above cover the constitutional requirements specified in Article IV section 4 and 5.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Cardano Summit 2025 Proposal (PDF)",
+        "uri": "ipfs://bafybeihjwyaqmfyo6dhlto4so45pxjhu3oo6otmfw5rvfpwowquoingkce"
+      },
+      {
+        "@type": "Other",
+        "label": "Additional Details: Regional Events (PDF)",
+        "uri": "ipfs://bafybeigzvqd65ch6bq6gg76bi2eohdlt2arhj522tqcv3on52z6j7fgkdu"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Summit Regional Events KPIs Sheet (PDF)",
+        "uri": "ipfs://bafkreiakvxcktw5v6s2gpbiz4cxhcrfump5gt5ddzzbmh73wiev3vnkupq"
+      },
+      {
+        "@type": "Other",
+        "label": "Project Proposal In Ekklesia",
+        "uri": "https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b63565577986442d14c"
+      },
+      {
+        "@type": "Other",
+        "label": "Approved Budget Info Action submitted by Intersect via GovTool",
+        "uri": "https://gov.tools/outcomes/governance_actions/e14de8d9dc4f4ddf3fe9250a8a926e20f10e99b86bd0610b77d7a054981591ee#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Details of all successful proposals (CSV)",
+        "uri": "ipfs://bafybeicwrop4q7xvnyjdd5drumbe56sqtm5lbe2ul3c262zt4hgguzdycm"
+      },
+      {
+        "@type": "Other",
+        "label": "Automating Accountability: Cardano's Smart Contract Framework Blog",
+        "uri": "ipfs://bafybeihqx4ae72z7suqfnxrpqpqithp43cai7o2uuewnqtezgaoyc3ptyq"
+      },
+      {
+        "@type": "Other",
+        "label": "Sundae Labs Budget Management Smart Contracts Github Repository",
+        "uri": "https://github.com/SundaeSwap-finance/treasury-contracts"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts TxPipe Audit Report",
+        "uri": "ipfs://bafybeiccnwejbgj43wo6hrlseckkkmprtoqc5cfuy2hesm6c6yealwho3e"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts MLabs Audit Report",
+        "uri": "ipfs://bafybeiah5fnjhda5hemj3qvaehc4mre3qllqzw2l7mkdsguytn4ftgafw4"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "treasuryWithdrawals",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp",
+      "withdrawals": [
+        {
+          "withdrawalAddress": "stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr",
+          "withdrawalAmount": 6000000000000
+        }
+      ]
+    }
+  }
+}

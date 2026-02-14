@@ -1,0 +1,98 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1jr84r96lnsvu9yd6c0jhxe9gj5r7vnd2pgkntc6klplxdpyzz4tqqc9uldx",
+    "summary": "The proposed \"Budget: ₳5M Loan for Cardano's Global Listing Expansion \\- Powered by Snek\" Info Action is **Constitutional**. The action follows procedural requirements for governance actions and establishes a compliant budget framework.",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/QmTdnLSwgccu1nZFdqRUggq7dgpymgopAA6tp8iK5haXdg\n\nThis Info Action (gov\\_action1jr84r96lnsvu9yd6c0jhxe9gj5r7vnd2pgkntc6klplxdpyzz4tqqc9uldx) proposes a Cardano Blockchain Ecosystem Budget of 5 million ada to fund a loan-based plan for Tier-1 centralized exchange listings and related infrastructure. The structure and content align with the Cardano Constitution.\n\n**Constitutional Alignment**\n\n* **Procedural Requirements (Article III, Section 5):** The well-documented proposal is in standardized, legible format with required rationale and verifiable metadata links. The on-chain and off-chain identity of the proposer was independently correlated by an Ace Alliance member.\n\n* **Funds Administration (Article IV):** The proposal names Intersect as administrator, establishes milestone-based oversight through a board of advisors, and provides for an independent audit allocation to satisfy Article IV, Section 4\\.\n\n* **Funds Handling (Article IV, Section 5):** For any ada received from subsequent treasury withdrawal actions held directly or indirectly by Intersect as administrator, the proposers commit to not delegate such ada to an SPO, and to delegate such ada to the predefined auto abstain voting option.   \n* **Disclosure:** One Ace Alliance member reviewed the governance action metadata prior to submission. This did not affect the decision of Ace Alliance.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "conclusion": "Due to its adherence to constitutional provisions under Articles III and IV, this Info Action is Constitutional.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "RelevantArticles",
+        "label": "Cardano Constitution (IPFS)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor URL",
+        "uri": "ipfs://bafkreiegpigegytetkwrqhftqphcqjkammmjipwq2d57s6xkfbtxiq3tei"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor Hash",
+        "uri": "79e4b2c345da31819fad30408f6eebaee352dff03adbb1a3fd9f15187f5c7e57"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmTdnLSwgccu1nZFdqRUggq7dgpymgopAA6tp8iK5haXdg"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Ace Alliance"
+    }
+  ]
+}

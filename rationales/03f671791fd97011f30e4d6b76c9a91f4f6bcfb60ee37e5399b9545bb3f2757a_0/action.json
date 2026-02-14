@@ -1,0 +1,154 @@
+{
+  "@context": {
+    "@context": {
+      "@language": "en",
+      "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+      "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+      "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+      "hashAlgorithm": "CIP100:hashAlgorithm",
+      "body": {
+        "@id": "CIP108:body",
+        "@context": {
+          "references": {
+            "@id": "CIP108:references",
+            "@container": "@set",
+            "@context": {
+              "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+              "Other": "CIP100:OtherReference",
+              "label": "CIP100:reference-label",
+              "uri": "CIP100:reference-uri",
+              "referenceHash": {
+                "@id": "CIP108:referenceHash",
+                "@context": {
+                  "hashDigest": "CIP108:hashDigest",
+                  "hashAlgorithm": "CIP100:hashAlgorithm"
+                }
+              }
+            }
+          },
+          "title": "CIP108:title",
+          "abstract": "CIP108:abstract",
+          "motivation": "CIP108:motivation",
+          "rationale": "CIP108:rationale",
+          "onChain": {
+            "@id": "intersectSpec:onChain",
+            "@context": {
+              "governanceActionType": "intersectSpec:governanceActionType",
+              "depositReturnAddress": "intersectSpec:depositReturnAddress",
+              "withdrawals": {
+                "@id": "intersectSpec:withdrawals",
+                "@container": "@set",
+                "@context": {
+                  "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                  "withdrawalAmount": "intersectSpec:withdrawalAmount"
+                }
+              }
+            }
+          }
+        }
+      },
+      "authors": {
+        "@id": "CIP100:authors",
+        "@container": "@set",
+        "@context": {
+          "name": "http://xmlns.com/foaf/0.1/name",
+          "witness": {
+            "@id": "CIP100:witness",
+            "@context": {
+              "witnessAlgorithm": "CIP100:witnessAlgorithm",
+              "publicKey": "CIP100:publicKey",
+              "signature": "CIP100:signature"
+            }
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Snek Foundation",
+      "witness": {
+        "witnessAlgorithm": "CIP-0008",
+        "publicKey": "3862f79dfe88a8b921c36b242d4359d7d535332e47437ffe2cca06703c4414eb",
+        "signature": "84582aa201276761646472657373581de128e35801c889b56600b218e29080235e3172f6da9fa06b0d6e0cb049a166686173686564f45820e706d08be259ff352c7245995b115fecd8e27138da53e7444ae5bdd03895984f5840a4b8ac57f568123b93fac8a163cf794bdfc2a7a01032f7bdef2770f9230f26a4e9ea50edd9cd5eb2c37f64052178fc714ca30311f9c9552547270ed66fdeb000"
+      }
+    },
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "0dc0bfe307ca994013169960d8b4b4da1c05f88b857042c82f9bd3aab46f6b5035b44522230c65c691c92ef6864df85bc38d18decdebaeeb7a8a9d1b519cf803"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Loan ₳5,000,000 to Expand Cardano's Global Listings",
+    "abstract": "This proposal seeks a 5,000,000 ada budget loan from the Cardano Treasury to fund the Cardano Global Listing Expansion, a strategic initiative led by the Snek Foundation to list [SNEK](https://www.snek.com/) on top-tier centralized exchanges, retail brokers, and trading platforms. This proposal is the **first-ever loan-based treasury withdrawal** in Cardano governance, introducing a new model of accountability where funds are not given as grants but repaid with interest.\n\nAs part of the governance process, a Board of Advisors will be appointed to ensure transparent execution and maximize ecosystem alignment. This board will include high-profile industry veterans like Tal Cohen (former CEO of Kraken), Phillip Pon (CEO of Emurgo), Fahmi Syed (President of Midnight Foundation), and Frederik Gregaard (CEO of Cardano Foundation), with additional top-tier names to be announced.\n\n*SNEK is the largest community token on Cardano, holding the highest market capitalization, over 42,000 wallets, and more than 2 billion ADA in all-time trading volume.*\n\nOver the past two years, the Snek Foundation has already invested over $5 million, entirely self-funded, to secure major exchange listings. Snek delivered the first, second, and third-ever Tier 1 listings for any Cardano native token, with Kraken, Crypto.com, and Kucoin, setting historic precedents for the ecosystem. With this proposal and with the support of our partners, we aim to unlock greater visibility, liquidity, and accessibility for the broader Cardano ecosystem by leveraging SNEK’s proven momentum and market position.\n\nThis loan will be continuously repaid from Snek network activities, with a final balance plus interest settled after a closing audit in three to five years. Interest is set at 2.44% annualized (2.37% staking rate + 0.07%), compounded yearly.\n\nBy structuring this as a repayable loan, the Snek Foundation is once again trailblazing for the ecosystem; demonstrating how treasury capital can be deployed responsibly while setting a precedent for future projects.\n\nThis treasury withdrawal follows the approved Budget: ₳5M Loan for Cardano's Global Listing Expansion - Powered by Snek ([gov_action1jr84r96lnsvu9yd6c0jhxe9gj5r7vnd2pgkntc6klplxdpyzz4tqqc9uldx](https://gov.tools/outcomes/governance_actions/90cf51975f9c19c291bac3e57364a89507e64daa0a2d35e356f87e6684821556#0)). The administrator of the budget funds will be Intersect, utilizing the treasury-contracts framework to manage funds.",
+    "motivation": "## Who we are\n\nSnek Foundation is a grassroots organization responsible for launching and maintaining the SNEK ecosystem. Snek has never raised external funds for exchange listings and has operated for the past 31 months, entirely self-funded through its revenue and treasury.\n\nSo far, more than $5 million has been invested by the Snek Foundation towards listing activities.\n\n**Since May 2023, Snek has:**\n\n- 42,000+ wallets holding SNEK — the most actively held token on Cardano  \n- 2,000,000,000 ADA in all-time trading volume — the most traded token on Cardano  \n- SNEK is the most well-known token in and out of the Cardano ecosystem, with 30 markets  \n- Self-funded $5M for exchange listing activities  \n- Delivered the three first-ever Tier 1 exchange listings for Cardano via Kraken, Crypto.com, and Kucoin.  \n- Developed the first-ever CEX-DEX market-making service with Flowdesk  \n- Launched Snek.fun, Cardano’s leading launchpad, driving over 30% of all chain trades since inception  \n- Trademarked brand with ongoing IP licensing deals (Snek Figures, Snek Energy)\n\nThe team has a successful track record negotiating listings, building tools, and driving global meme adoption aligned with Cardano’s values.\n\n## Why this proposal matters\n\nSNEK is Cardano’s most adopted token, yet it remains underrepresented on major centralized exchanges, reflecting a broader lack of visibility for Cardano on mainstream platforms and among broader audiences.\n\nThis underrepresentation doesn’t just affect SNEK. It weakens Cardano’s position in competitive markets and slows ecosystem-wide growth in four key areas:\n\n1. ADA’s visibility and liquidity on global platforms  \n2. Cardano’s competitiveness in retail-driven market cycles  \n3. The discoverability of Cardano’s ecosystem by mainstream users  \n4. CNT adoption and the path for other tokens to reach similar success\n\nCardano currently lacks a flagship token that drives liquidity, virality, and culture across exchange listings, just like DOGE, SHIBA, and PEPE do for Ethereum and Solana.  \nSNEK has already shown it can fill this role; now it needs support to break through at scale.\n\n**This proposal aims to address the following challenges:**\n\n- **Lack of exchange presence for Cardano native tokens:** Most major centralized exchanges and retail brokers still do not support Cardano Native Tokens (CNTs). This severely limits Cardano’s accessibility and competitiveness on a global scale. While Ethereum and Solana ecosystems enjoy deep integrations with top exchanges, Cardano-native projects are left with fewer liquidity pathways and less discoverability. Until CNTs are more visible on mainstream platforms, Cardano’s on-chain economy cannot reach its full potential.\n\n- **Low visibility for ADA pairings:** Centralized exchanges are the primary entry point for millions of users, yet ADA trading pairs are underrepresented relative to Cardano’s market cap. Without community-driven assets like SNEK creating demand for ADA pairings, liquidity remains shallow and volume muted. This proposal helps bootstrap those pairings, supporting deeper ADA liquidity and reinforcing Cardano’s relevance at the trading layer.\n\n- **Missed user acquisition:** In other ecosystems, memecoins like SHIB, DOGE, and PEPE have served as cultural gateways for millions of new retail users. These tokens create stories, engagement, and participation, driving demand for the base layer tokens and ecosystem tools. SNEK has proven it can play that role for Cardano. Without support to elevate its accessibility, Cardano risks missing this powerful user acquisition funnel.\n\n- **Liquidity fragmentation:** Cardano’s DeFi protocols face high barriers to liquidity aggregation due to the lack of bridgeable, on-ramp-compatible assets. Without listings on major exchanges, Cardano native assets remain siloed and isolated from the broader crypto capital flows, limiting scalability and adoption.\n\nBy funding this initiative, Cardano positions itself to solve these bottlenecks through a trusted, culturally strong and community-proven asset that can serve as a gateway for users and liquidity.\n\nToday, Snek is the only Cardano-native token capable of meeting Tier 1 exchange requirements. This makes it the best and currently only viable gateway to unlock the access, liquidity, and visibility Cardano needs at the global level.\n\nThe goal is not exclusivity — it’s scalability. By leading the way through Snek, we create a repeatable path for other CNTs to follow. The foundation has already begun sharing its knowledge with other projects post-Kraken, and through this proposal, will continue building and systematizing resources that can be shared with Cardano Foundation, Emurgo, and IOG.",
+    "rationale": "### Executive summary\n\nThe SNEK Global Exchange Expansion initiative will execute a targeted listing strategy, using the requested 5M ada to:\n\n- Finalize negotiations and secure multiple top-tier listings on centralized exchanges, retail brokers, and innovative DeFi platforms\n\n- Provision liquidity and market making for ADA/SNEK pairs\n\n- Cover legal and compliance costs to meet exchange requirements\n\n- Fund mandatory coordination and announcement campaigns\n\n- Report expenditures and impact transparently to the community\n\n## Loan terms\n\n**Principal:** 5 million ada\n\n**Interest Rate:** 2.44% APR The loan will accrue interest at the current average Cardano staking rewards rate of 2.37% per year, plus an additional 0.07% as a gesture of good faith.\n\n**Repayment Timeline:** Repayments will be made continuously to the Cardano Treasury through multiple ways, including but not limited to: Snek network activities and direct payment from the Snek Foundation. Early payments may begin at any time. Principal repayment (without interest) must commence no later than the last day of year 3.\n\n**Audit & Review:** At the end of year 3, an independent audit will be conducted to review the repayments already made through Snek network activities revenues and contributions. The audit will verify the amounts reimbursed to date, calculate any outstanding principal and interest, and establish a repayment schedule to ensure the full balance is reimbursed over the remaining years.\n\n**Default & Enforcement:** In the unlikely event of non-repayment, the obligation will remain enforceable under the binding loan agreement administered by Intersect on behalf of the Treasury. Remedies and next steps would follow the terms of that contract.\n\n**Loan Maturity:** The full loan (principal + interest) must be repaid in full within 5 years from the date of disbursement.\n\n## Costs Breakdown\n\nWe heard and understand the feedback from several DReps requesting a detailed cost breakdown. However, certain elements of this initiative require discretion to preserve strategic leverage and protect the integrity of ongoing negotiations.\n\nA detailed cost breakdown has therefore been intentionally withheld to protect the strategic execution of this initiative.\n\nGiven the competitive and negotiation-sensitive nature of centralized exchange listings and liquidity operations, publicly disclosing specific allocations could:\n\n* Undermine our negotiation position with exchanges and service providers;  \n* Expose execution timing and scope to traders, increasing the risk of market frontrunning/manipulation;  \n* Limit our ability to adapt dynamically to changing conditions across venues.\n\nThe broader goal of this initiative remains unchanged: to expand Cardano’s presence and address the underrepresentation of ADA-native tokens across external markets.\n\nWhile certain financial details cannot be shared in advance, the use of funds will still adhere strictly to the approved categories in this proposal and will be subject to independent audit and milestone-based review.\n\n## Administration of the loan\n\nThe administrator of the budget funds will be Intersect, offering continuous oversight. Expenditures will be tracked against the stated use of funds, with reporting, receipts, and independent audits ensuring that spending remains aligned with the proposal’s objectives. This approach provides the flexibility required to execute global listings while still offering the Treasury transparent, phased accountability.\n\nA public version of the loan agreement between Intersect and the Snek Foundation will be made available if this Treasury Withdrawal action passes, with sensitive information redacted for security and privacy reasons. The current draft loan agreement can be found in References.\n\nAdditionally, a Board of Advisors will be appointed to provide guidance, feedback, and external validation.\n\n**The board will include:**\n\n- Tal Cohen, former CEO of Kraken  \n- Frederik Gregaard, CEO of Cardano Foundation  \n- Phillip Pon, CEO of Emurgo  \n- Fahmi Syed, President of Midnight Foundation  \n- Rapha C-Roy, CEO of Snek Foundation\n\n**The board’s responsibilities:**\n\n- Advise key expenses  \n- Guide negotiations and legal strategy  \n- Ensure alignment with Cardano treasury goals  \n- Ensure outcomes benefit the Cardano ecosystem beyond SNEK  \n- Support documentation and distribution of listing playbooks to future Cardano-native token teams\n\nThis structure ensures that the project benefits from experienced external input while maintaining decentralized, community-led control over treasury execution.\n\nThe Board will also help facilitate knowledge sharing across the ecosystem by supporting documentation of listing procedures, exchange engagement strategy, and compliance best practices, enabling other Cardano native projects to benefit from this groundwork.\n\nAn allocation of 30-50k ada per year will be reserved out of the 5M for yearly independent external audit reports, ensuring that the loan is transparently monitored and fully accountable to the Treasury.\n\n### Loan Repayments\n\nThe loan is expected to be repaid over a five-year period, primarily through revenues generated across the Snek ecosystem.\n\n**Primary Source: Product and IP Revenues**  \nSnek Foundation generates revenues from a diversified portfolio of Web3 and Web2 products that together form the economic foundation of the Snek brand, including Snek.fun, SnekBot, SnekX, SNEK ENERGY, Snek Figures and future physical or digital product lines.\n\nAs an example, Snek.fun has, in prior periods, demonstrated the capacity to generate around ₳100,000  per month, averaging roughly ₳3,000–3,500 per day. Even with no projected growth, that level of activity would represent more than ₳6 million over five years, illustrating the repayment potential from a single product line. Ongoing cross-chain expansions, including Midnight and other networks, are expected to further strengthen this base.\n\nBeyond Snek.fun, the Snek Foundation manages a range of Web3 and Web2 initiatives that supplement revenues.\n\n**Treasury Strength**  \nThe Snek Treasury, currently valued at approximately ₳10 million, provides an additional layer of repayment capacity and liquidity stability as ecosystem value grows.\n\n**Future Capital Raises**  \nAdditional capital inflows may also come from private or public equity rounds as the Snek ecosystem continues to expand.\n\n**Alternative sources**  \nNot to be excluded, fees generated through SNEK trading volume on partnered DEXs and CEX arbitrage could also be used as a repayment method. To date, the Snek Foundation has generated approximately ₳1.2 million in trading fees.\n\nTaken together, these factors demonstrate a clear and sustainable path to repayment, supported by diversified revenue streams, appreciating treasury assets, and long-term ecosystem growth.\n\n#### Repayment Schedule\n\nA detailed repayment schedule has been intentionally withheld to protect the strategic execution of this initiative. Publicly disclosing exact repayment timing or structure could reveal sensitive information about the Foundation’s revenue flows, commercial partnerships, and exchange operations; potentially exposing it to market speculation, counterparty leverage, or trading manipulation.\n\nThe loan will follow a five-year repayment framework, with the first repayment expected no later than the third year. Subsequent repayments will continue periodically until the full balance, including accrued interest, is repaid within the five-year term.\n\nRepayments will be made periodically, with interest accrued on the outstanding balance and payments applied first toward interest, then principal. The Snek Foundation also reserves the right to prepay any portion of the loan at any time without penalty, allowing acceleration of repayment if revenues exceed expectations.\n\nThis approach ensures the loan is repaid responsibly and transparently while maintaining the necessary confidentiality to execute effectively. Oversight will remain in place through milestone verification, reporting, and independent audit, ensuring accountability without compromising strategic flexibility.\n\n### Reporting\n\n#### Bi-Yearly Reports\n\nSnek Foundation will publish bi-yearly updates including:\n\n* Progress on exchange listings  \n* Funds spent with receipts when allowed  \n* All legal/compliance materials will be open-sourced when possible  \n* Learnings from legal, compliance, and integration processes  \n* Results of independent external audits  \n* Key Performance Indicators (KPIs)\n\n#### Success metrics\n\nTo demonstrate the success of the proposal over time, below is a preliminary, but not exhaustive, set of Key Performance Indicators (KPIs) covering exchange reach, liquidity, ecosystem impact, and repayment tracking:\n\n* Loan Utilization — % of funds spent  \n* Repayment Timeline — Amount of ADA repaid to the treasury over time  \n* Exchange Listings — Number of listings for SNEK  \n* Liquidity Growth — SNEK liquidity value on CEX order books and DEX pools  \n* Trading Volume Growth — SNEK daily average trading volume (CEX + DEX)  \n* On-chain Transaction Growth — SNEK daily average on-chain transaction\n\n#### Knowledge Sharing\n\nAll listing playbooks, integration frameworks, and documentation will be made available to the Cardano Foundation, Emurgo, IOG, and future token teams.\n\nWe will also collaborate with the Cardano Foundation to ensure effective knowledge transfer from this initiative, supporting future ecosystem efforts while staying within contractual and confidentiality boundaries.\n\nProgress will continue to be shared during Cardano town halls and across governance channels to maintain transparency and feedback loops.\n\n## Budget Administration\n\n### Contract Management\n\nA written off-chain Legal Contract has been drafted between the Snek Foundation and Cardano Development Holdings (CDH), administered by Intersect, detailing delivery schedules, milestones, and dispute resolution processes. This Legal Contract will be confirmed and signed by the authorized persons if the Treasury Withdrawal is successful. More details can be found in the References.\n\n### Project Delivery\n\nMilestones, acceptance criteria, payment amounts, and timelines will be agreed upon between Intersect and the Snek Foundation. The Snek Foundation will deliver according to the Legal Contract, with milestone completion attested by the Snek Foundation and verified by Intersect or a 3rd Party Assurer.\n\nIntersect’s delivery assurance function will monitor progress and communicate status to the community. A 3rd Party Assurer will review and sign off on milestone deliverables before payments are released.\n\n### Budget Management Tooling\n\nIntersect will use the treasury management smart contract framework developed by Sundae Labs, audited by TxPipe and MLabs. Funds will be held in a Treasury Reserve Smart Contract (TRSC) and disbursed to Project-Specific Smart Contracts (PSSCs) as milestones are met.\n\nThe Oversight Committee — consisting of Sundae Labs, Cardano Foundation, Dquadrant, Xerberus, and NMKR — will verify key administrative actions on-chain.\n\n#### Specifics\n\nIntersect will reuse the infrastructure used for the Cardano Blockchain Ecosystem Budget. The same Treasury Reserve Smart Contract (TRSC), with many Project-Specific Smart Contracts (PSSC), will be used. Intersect's management consists of three 'admin' and two Intersect 'leadership' roles.\n\nAn Oversight Committee consisting of five external, independent third-party entities will provide checks and balances on Intersect, and safeguard against errors and unilateral control. The administration of both TRSC and PSSCs will be managed by Intersect, with external oversight on certain actions from the Oversight Committee.\n\nThe Oversight Committee’s role is to independently verify key administrative actions using on-chain logic, ensuring accuracy and consistency without exercising discretion over governance decisions.\n\nFor all details on Intersect's configuration, please see the [Smart Contract Guide](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-budget/intersect-administration-services/smart-contracts-as-part-of-our-administration) on the knowledge base.\n\n#### Processes\n\nUpon enactment of this governance action, funding for this project will be directed into the TRSC's stake account. The logic of the TRSC and PSSC prevent them from delegating to SPOs, only allowing delegation to the auto-abstain predefined DRep. Thus funds held in administration by these contracts will be delegated to auto-abstain predefined DRep.\n\nWhen the Legal contract is prepared and the Snek Foundation is ready, funding for this project will be transferred using the Fund action to a PSSC. All milestones will be outlined within the metadata.\n\nA dashboard is available for the community to audit the TRSC or PSSC and track metrics related to this withdrawn ada as well as being immutably verifiable on chain. Please see [cardanotreasury.fi](http://cardanotreasury.fi).\n\nThe subsections; Contract Management, Project Delivery, and Budget Management Tooling described above cover the constitutional requirements specified in Article IV sections 4 and 5.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Approved Budget: ₳5M Loan for Cardano's Global Listing Expansion - Powered by Snek (GovTool)",
+        "uri": "https://gov.tools/outcomes/governance_actions/90cf51975f9c19c291bac3e57364a89507e64daa0a2d35e356f87e6684821556#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Legal Agreement Executive Summary between CDH and Snek Foundation (PDF)",
+        "uri": "ipfs://bafkreidyjljegwenjtbkg5x5zhhxoymmthnbeqvnzgyygkba7vwvqqyarm"
+      },
+      {
+        "@type": "Other",
+        "label": "Legal Agreement between CDH and Snek Foundation (PDF)",
+        "uri": "ipfs://bafybeifnatxysfb6wrd2wmcfv4h2ggzxbywyna4xhhtxqrlprfyfxak5se"
+      },
+      {
+        "@type": "Other",
+        "label": "Snek Foundation (Website)",
+        "uri": "https://www.snek.com/"
+      },
+      {
+        "@type": "Other",
+        "label": "Snek Foundation (X)",
+        "uri": "https://x.com/snek"
+      },
+      {
+        "@type": "Other",
+        "label": "Rapha C-Roy, CEO @ Snek Foundation",
+        "uri": "https://www.linkedin.com/in/raphacroy/"
+      },
+      {
+        "@type": "Other",
+        "label": "Tal Cohen, former CEO of Kraken",
+        "uri": "https://www.linkedin.com/in/talcohenprofile/"
+      },
+      {
+        "@type": "Other",
+        "label": "Frederik Gregaard, CEO of Cardano Foundation",
+        "uri": "https://www.linkedin.com/in/gregaard/"
+      },
+      {
+        "@type": "Other",
+        "label": "Phillip Pon, CEO of Emurgo",
+        "uri": "https://www.linkedin.com/in/phillip-pon-89666a2/"
+      },
+      {
+        "@type": "Other",
+        "label": "Fahmi Syed, President of Midnight Foundation",
+        "uri": "https://www.linkedin.com/in/fahmi-s-694b5414b/"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "treasuryWithdrawals",
+      "depositReturnAddress": "stake1uy5wxkqpezym2esqkgvw9yyqyd0rzuhkm206q6cddcxtqjgehj9ty",
+      "withdrawals": [
+        {
+          "withdrawalAddress": "stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr",
+          "withdrawalAmount": 5000000000000
+        }
+      ]
+    }
+  }
+}

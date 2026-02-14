@@ -1,0 +1,57 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "This governance action proposes a Net Change Limit of 300,000,000,000,000 lovelace (300 million ADA) for the period from the start of Epoch 613 (13 February 2026) to the end of Epoch 713 (3 July 2027). Upon approval in accordance with the Constitution, this NCL shall apply to Epochs 613–713 and supersede any previously agreed NCL for the same period.",
+    "motivation": "This governance action is required to establish a Net Change Limit for a defined period in accordance with the Constitution.",
+    "rationale": "1) Why Epochs 613–713\nThis Net Change Limit (NCL) period is proposed to align the NCL cycle with the mid-year budget season and ensure that a complete prior year of treasury inflow data is available when setting the subsequent NCL.\n\n2) Why 300 Million ADA\nFor the purpose of maintaining fiscal discipline, the proposed NCL is set with reference to the previous year’s total treasury inflows. Total treasury inflows for 2025 are defined as the sum of inflows from Epoch 532 through Epoch 604. These inflows totaled 306,940,195 ADA.",
+    "title": "Net Change Limit of 300 Million ADA for Epochs 613–713"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIPXXX": "https://github.com/Ryun1/CIPs/tree/e56f704918061e63ce2076cc3644a946b286c8d1/CIP-governance-metadata-cc-rationale/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIPXXX:body",
+      "@context": {
+        "references": {
+          "@id": "CIPXXX:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "relevantArticles": "CIPXXX:references"
+          }
+        },
+        "summary": "CIPXXX:summary",
+        "rationaleStatement": "CIPXXX:rationaleStatement",
+        "precedentDiscussion": "CIPXXX:precedentDiscussion",
+        "counterargumentDiscussion": "CIPXXX:counterargumentDiscussion",
+        "conclusion": "CIPXXX:conclusion",
+        "internalVote": {
+          "@id": "CIPXXX:internalVote",
+          "@context": {
+            "constitutional": "CIPXXX:constitutional",
+            "unconstitutional": "CIPXXX:unconstitutional",
+            "abstain": "CIPXXX:abstain",
+            "didNotVote": "CIPXXX:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "As the Interim Constitutional Committee, our primary responsibility is to safeguard the integrity of Cardano's governance framework. By choosing to abstain from this proposal, we avoid setting a precedent in cases where sentiment-based proposals are not tied to substantive governance changes. This allows the community's voices to guide the process without intervention from the Committee, preserving neutrality and ensuring that our involvement remains focused on matters that directly impact governance or require constitutional interpretation.",
+    "rationaleStatement": "As the Interim Constitutional Committee, our primary responsibility is to\nsafeguard the integrity of Cardano's governance framework. By choosing to\nabstain from this proposal, we avoid setting a precedent in cases where\nsentiment-based proposals are not tied to substantive governance changes. This\nallows the community's voices to guide the process without intervention from the\nCommittee, preserving neutrality and ensuring that our involvement remains\nfocused on matters that directly impact governance or require constitutional\ninterpretation. **[Article VI, Section 1]**",
+    "precedentDiscussion": "## Considerations\n* There is nothing `Unconstitutional` about this proposal given that it\n  explicitly desires no change or impact to the governance of Cardano either\n  on-chain or off-chain.\n> This governance action is by no means a suggestion of what Cardano protocol\n> parameters should be modified to or if they should be modified at this time.\n>\n> Governance Action Motivation\n* As written, this action does not propose any specific amount that the\n  parameter should be changed to. As such, it cannot be judged by the criteria\n  in the Guardrails **[Appendix I, Section 2.4: Technical/Security Parameters, _stakePoolTargetNum_]**.\n* As written, this governance action **does not** provide a sufficient rationale\n  to warrant a change to an on-chain protocol parameter as mandated by the\n  Interim Constitution. **[Article III, Section 6]**",
+    "counterargumentDiscussion": "N/A",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 0,
+      "abstain": 6,
+      "didNotVote": 0
+    },
+    "references": [
+      {
+        "@type": "Other",
+        "label": "ADASTAT Governance Action Page",
+        "uri": "https://adastat.net/governances/7fd6429add8f2611ad8d48c0cc49101463093aec285faea402e8cfde78ea58d700"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Interim Constitution, Article VI, Section 1",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/75155526ce850118898bd5eacf460f5d68ceb083/cardano-constitution-0.txt#L283"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Interim Constitution, Appendix I, Section 2.4",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/75155526ce850118898bd5eacf460f5d68ceb083/cardano-constitution-0.txt#L1114"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Interim Constitution, Article III, Section 6",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/75155526ce850118898bd5eacf460f5d68ceb083/cardano-constitution-0.txt#L212"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Atlantic Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "91333b40b6dbb4c47e5f30fde21b7d5b38dcad87d27c621b8b7fe61f108c1b0a",
+        "signature": "1726b2a544506dfc2fff783200c8e82feae6c38f687c30ca7d8b766d6e76c335407079829c85160519e465ac9a70b23ca401e7ca17c4abc3c6bd0b14e9111704"
+      }
+    }
+  ]
+}

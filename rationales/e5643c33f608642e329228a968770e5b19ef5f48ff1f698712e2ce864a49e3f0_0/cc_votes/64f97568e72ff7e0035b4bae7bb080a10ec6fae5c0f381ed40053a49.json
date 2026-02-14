@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1u4jrcvlkppjzuv5j9z5ksacwtvv77h6glu0knpcjut8gvjjfu0cqqt3alsy",
+    "summary": "LGTM 👍, despite a single signer and mention of various other groups (the committee, the Amaru team, ...) who signature on the proposal are somewhat necessary IMO.",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/QmcV4NVqzL1s1RmD93MGXicXYCgBmXpF3HgJDqPHYb77HE\n\nA rather classic budget request, with a clearly communicated budget and goal even though the proposal is rather focused on the administration of the budget than its actual usage.  \n\nAs allowed by Article IV.2, the proposal designates an administrator within the boundaries of the constitution. \n\nI regret the lack of signatures/explicit endorsements of the various mentioned groups (the overseeing committee, the Amaru team, ...) which questions the proposal legitimacy. However, to the best of my knowledge, there has been no public contradictory statement from any of those parties.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmcV4NVqzL1s1RmD93MGXicXYCgBmXpF3HgJDqPHYb77HE"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "KtorZ",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "ce0e80c60a0e16a9254d613dfadbcbdca2ac60ec105dc2f136636807d75dab01",
+        "signature": "dc48ed5dfd1140369db923591819b1657cad4007b9545839430ad1e339b14ee3a589ad72d985af9563defc1e0ade2bb25bbbe71e01a713d12ce0f43c7320cc0e"
+      }
+    }
+  ]
+}

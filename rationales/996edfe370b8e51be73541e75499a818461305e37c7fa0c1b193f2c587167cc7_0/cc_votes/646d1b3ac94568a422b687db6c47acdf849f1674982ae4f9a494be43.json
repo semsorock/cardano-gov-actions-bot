@@ -1,0 +1,84 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1n9hdlcmshrj3hee4g8n4fxdgrprpxp0r03l6psd3j0evtpck0nrsqm57age",
+    "summary": "Tingvard abstain from judging the “Defining the Cardano 2030 Vision & Strategy” Info action.",
+    "rationaleStatement": "This proposal is properly framed as an Info action under Article III, § 4. Info actions are designed to gauge community sentiment and record non-binding signals without enacting any change to the protocol or governance framework. As such, they are not themselves constitutional or unconstitutional under Article VII, § 4.\nThe action invites DReps to signal their support for, or opposition to, a proposed long-term vision and strategy for Cardano. It provides a URL and hash as required by Article III, § 5 and aligns with Article II, § 4, which empowers any participant to propose initiatives that contribute to governance deliberation.\nHowever, Tingvard notes a significant contextual detail: the proposer explicitly states they are neither a member of nor a representative of the Product Committee, despite the content being authored by that committee. This disjunction between authorship and submission is constitutionally relevant. While the Constitution permits any participant to propose Info actions, it also places a duty on the community to uphold governance integrity (Article II, § 3). Submitting a governance action based on material authored by others — and while explicitly disclaiming any association — introduces a potential risk vector for confusion, misrepresentation, or even fraudulent activity if participants misinterpret the action as carrying institutional endorsement it does not have.\nThis does not render the Info action unconstitutional, but it underscores the importance of provenance verification and clarity of representation in governance processes. These considerations align with Tenet 9, which calls for fairness and impartial treatment consistent with long-term sustainability — sustainability that depends on preserving trust and clarity in governance.",
+    "precedentDiscussion": "This decision clarifies Tingvard’s view that Info actions, while not subject to constitutional approval or rejection, remain significant instruments within Cardano’s governance framework for gauging sentiment and informing future decisions. It also establishes that such actions may legitimately reference work authored by governance bodies even when submitted by unaffiliated participants, provided they do not purport to act on behalf of those bodies. However, when proposers explicitly disclaim authorship or representation while submitting such material, additional scrutiny is warranted. This separation introduces risks of misinterpretation that, if unaddressed, could undermine confidence in governance processes and the perceived legitimacy of on-chain signals. If repeated, such practices could erode the integrity of the governance system by blurring the line between community signalling and institutional authorship, thereby creating space for intentional misuse.",
+    "counterargumentDiscussion": "Article III, § 4 defines Info actions to allow proposal of potential future on-chain governance actions and to allow community sentiment to be gauged. The text is neutral on whether someone may bring forth a community poll on behalf of someone else, on another timeline, or without socialising viewpoints before an on-chain poll. There are risks in all of these aspects if Info actions were to be produced at a scale where it became difficult for the community to keep track of who represents what proposal and under what timeline.\nThese risks must be weighed against Article I, § 1, Tenet 9, which requires fairness and impartiality while recognising the right of all participants to submit Info actions, and taking into account the collective desire of the Cardano blockchain community as well as the long-term sustainability and viability of the system.\nOver time, if such actions were to negatively affect the long-term sustainability and viability of the Cardano blockchain — for example, if weaponised to sow confusion, distort institutional messaging, or manipulate on-chain sentiment under false pretences — they could be ruled unconstitutional. Highlighting these risks serves as a constitutional safeguard, even if they do not invalidate this Info action itself.",
+    "conclusion": "Tingvard abstains from a constitutional judgment. The action conforms to Article III, § 4 and Article III, § 5 and respects Article II, § 4. However, Tingvard cautions that the proposer’s explicit disclaimer of authorship or representation, despite submitting content authored by a governance body, introduces a potential vector for confusion, misrepresentation, or fraudulent use of the governance process. If practices like this were to become common, they could significantly undermine trust in Cardano governance by eroding the distinction between institutional authorship and community signalling. DReps and the broader community should take this context into account when interpreting the signal produced by this Info action and remain vigilant in protecting the integrity of Cardano governance.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 0,
+      "abstain": 6,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Cardano Blockchain Ecosystem Constitution",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Tingvard"
+    }
+  ]
+}

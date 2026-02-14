@@ -1,0 +1,123 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The proposed Info Governance Action “2025 Net Change Limit” is constitutional. It aims to fulfill a key requirement for treasury management. Please find a pdf version of this rationale here: ipfs://QmcwYdRxMaTYiL6FMqfEYHMTTrAg5XLXmYqD4ZMupACsyE",
+    "rationaleStatement": "This Info Governance Action (gov_action1nd3t833j7v5sz65k3tp9yyvztw60sjcjgcgjr37682s3m7frwrusqmd2k80) proposes establishing a Net Change Limit (“NCL”) for the Cardano Treasury of 350 million ada between the beginning of Epoch 532 and the end of Epoch 604. Its purpose is to seek DRep consensus on this limit, which serves as a constitutionally mandated prerequisite (per Article IV, Section 3 and TREASURY-01a) for subsequent budget and treasury withdrawal actions.<br><br>Regarding the term 'net change limit', the Constitution (Appendix I, Section 3, TREASURY-01a; Art IV(3)) uses this term but does not define or prescribe a precise calculation method. This proposal effectively defines the NCL as a cap on total withdrawals for the specified period. While 'net change' could imply incorporating inflows, the Constitution allows the agreed-upon action to define the applicable rule. In the absence of clearer constitutional wording, the definition used here is not unconstitutional; DReps are voting on this interpretation.<br><br>**Constitutional Alignment**<br>We find the proposal strongly aligns with the constitutional framework:<br><br>* Article I, Section 1 (Tenets 8 & 10): Setting a specific, reasoned NCL (justified via analysis of 2024 treasury inflows) supports responsible resource use and financial stability.<br>* Article III, Section 5: The proposal fully meets procedural standards. It provides comprehensive metadata linked via an immutable IPFS address (ipfs://bafkreiaqno22swabd3kcqt2awtgwaucdzaagacoemxwadm3exrchhnfite) with a verified hash, representing best practice in governance transparency and verifiability.<br>* Article IV, Section 3 and Appendix I, Guardrail TREASURY-01a: This proposal directly addresses the mandate to agree upon an NCL, which Article IV confirms is a binding constraint on withdrawals, making this a necessary governance step.<br>* Article VII, Section 4: This proposal appropriately uses the Info Action mechanism. This section of the Constitution clarifies that Info Actions themselves have no on-chain effect and are technically neither constitutional nor unconstitutional; thus, the CC cannot prevent their recording. Crucially, it *does* allow CC members to express their view on whether the *action's substance* would be constitutional *if enacted*. Our 'Yes' vote reflects such a positive opinion on the substance proposed. This nuance distinguishes CC interaction with Info Actions from its role in affirming actions intended for direct enactment (as described generally in Art VII, Section 1).",
+    "precedentDiscussion": "While past precedent saw the acceptance of mutable links in governance actions (albeit with reservations expressed by the Foundation), this proposal correctly adopts the best practice of using immutable storage (IPFS). This deviation is commendable and sets a positive standard for future governance actions, enhancing the robustness and trustworthiness of the system in line with constitutional principles emphasizing immutable data.",
+    "counterargumentDiscussion": "Given this proposal's strong adherence to procedural best practices (immutable link) and clear communication (threshold adherence), significant *constitutional* counterarguments are minimal from the Foundation's perspective:<br> 1. **Duration Definition via Epochs:** The NCL period is defined by an epoch range (532-604). While using epochs is standard practice and constitutionally permissible, epoch length itself (currently fixed at 5 days) could theoretically be altered via a future hard fork (it is not a simple governable parameter). If such a fundamental change occurred mid-period, the duration might deviate from the intended calendar year 2025. This represents a minor theoretical robustness concern compared to using fixed dates, although the likelihood of such a disruptive hard fork without accounting for its effects is low. Additionally, the rationale incorrectly states an intended duration of 72 epochs, which appears to be a typographical error. The range specified in the proposal (epochs 532-604) actually spans 73 epochs, as it includes the entirety of epoch 604.<br> 2. **Definition Nuance:** As noted in the Rationale Statement, the specific definition of NCL as a pure withdrawal cap might differ from a strict interpretation of the meaning of the words 'net change'. While the proposal clearly implies its terms, this nuance remains a point of potential interpretation within the community until further clarified.<br> 3. **Economic Debate:** Discussions regarding the *optimal economic value* of the 350M ADA limit are valid points for DRep consideration based on varying forecasts and priorities. These considerations do not, at this juncture and based on considerations of sustainability and security, constitute a constitutional flaw in the proposal itself as a reasonable justification was provided.",
+    "conclusion": "The Cardano Foundation finds this Info Governance Action to establish the 2025 NCL to be well-structured, clearly presented, and compliant with the requirements of the Cardano Constitution. The use of immutable metadata links (IPFS) and the explicit adherence to the correct constitutional voting threshold resolve key concerns noted in related proposals and demonstrate best practices in governance. Accordingly, our vote is ‘Yes’ to the proposal.",
+    "internalVote": {
+      "constitutional": 6,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 1,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Preamble (Emphasis on Immutable Data)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Article I, Section 1 (Tenets 8, 10)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Article III, Section 5",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Article IV, Section 3",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Article VII, Section 1, 4",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Appendix I, Section 3 (TREASURY-01a)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "Other",
+        "label": "Original Metadata Anchor URL",
+        "uri": "ipfs://bafkreiaqno22swabd3kcqt2awtgwaucdzaagacoemxwadm3exrchhnfite"
+      },
+      {
+        "@type": "Other",
+        "label": "Proposal Metadata Anchor Hash",
+        "uri": "973452e7c4d204c883c6a9e4c311f72ad6237e827ce05e141f3374c8a04f01bc"
+      },
+      {
+        "@type": "Other",
+        "label": "PDF Version of Rationale",
+        "uri": "ipfs://QmcwYdRxMaTYiL6FMqfEYHMTTrAg5XLXmYqD4ZMupACsyE"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Foundation"
+    }
+  ]
+}

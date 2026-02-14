@@ -1,0 +1,76 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP136:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "relevantArticles": "CIP136:references"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1x2zm0lgd59kjrc9clzgscdlh0ct62l8llr638h6t4a5jj4yqzzyqq2dgc7q",
+    "summary": "Tingvard judge the “Reimbursement of the Ikigai Info Action Deposit” budget Info action constitutional.",
+    "rationaleStatement": "This governance action is properly framed as a budget Info action under Article III, § 4 and Article IV, § 1. It requests a budget allocation of 103,000 ada to reimburse the submitter of the September 2024 “Ikigai” Info action, who irrevocably lost their 100,000 ada governance deposit due to a software defect that allowed a governance action to be submitted using an unregistered stake key. The proposal includes an abstract, motivation, rationale, and valid anchor hash as required under Article III, § 5. The governance action satisfies the structural requirements of Article IV, § 2 through § 5. For purposes of administration, the DReps are designated as the temporary “administrator” responsible for executing the distribution, thereby meeting the administrator designation requirement under Article IV, § 2, despite the absence of ongoing or complex fund management. Because the entire amount is disbursed directly to the intended recipient, the administrative burden is minimal yet sufficiently aligned with the constitutional requirement. The requested amount is well within the Net-Change Limit as defined under Article IV, § 3. The proposal also satisfies Article IV, § 4, since the distribution can be immutably verified on-chain and requires no ongoing auditing beyond the public record of the disbursement itself. The Constitution does not require independent audit processes for immediate one-time distributions when full auditability is inherently guaranteed through the ledger. The purpose of this reimbursement — correcting a loss originating from a defect in Cardano’s governance infrastructure — aligns with the constitutional Tenets of fairness, transparency, and long-term sustainability. By providing redress for harms caused by systemic shortcomings rather than user misbehavior or speculation, the action reinforces trust in the governance system during its early lifespan and strengthens the incentives for constructive community participation.",
+    "precedentDiscussion": "This decision affirms that budget Info actions may constitutionally authorize treasury reimbursement when a loss directly results from defects in Cardano’s governance or protocol infrastructure. It clarifies that the Constitution allows restorative allocations when narrowly tailored, transparently administered, and fully auditable, thereby distinguishing them from discretionary compensation for private losses. It further establishes that immediate one-time disbursements may rely on simplified administrative structures when constitutional requirements for administration, auditability, and guardrails are inherently satisfied.",
+    "counterargumentDiscussion": "One possible counterargument concerns the distinction between reimbursement and compensation. Reimbursing the original 100,000 ada deposit directly remedies a loss caused by a governance-related software defect and clearly aligns with the Constitution’s purpose of preserving the integrity of governance processes. However, the additional 3,000 ada intended to address lost staking rewards, airdrop eligibility, and other opportunity costs may be viewed as compensatory rather than strictly restorative. The Constitution does not explicitly authorize compensation for consequential or indirect losses, and some may argue that including such amounts risks expanding the scope of treasury-funded redress beyond what is necessary to correct system-caused harm. Despite this concern, the amount is limited, transparently justified, and remains closely connected to the underlying governance failure rather than speculative losses. Another potential counterargument is that approving reimbursements for individual losses could create expectations of treasury compensation for private misfortune. However, this case is constitutionally distinct: the loss resulted directly from a node-level implementation defect during the early phase of Cardano’s governance, not from personal risk-taking or user error. The reimbursement therefore serves a corrective governance function rather than establishing a precedent for compensating private financial losses.",
+    "conclusion": "Tingvard find this budget Info action constitutional. It conforms to Article III, § 4–5, and Article IV, § 1–5, and aligns with the Tenets of fairness, transparency, and long-term sustainability. The governance design ensures clear administrator designation, complete on-chain auditability, compliance with treasury limits, and a narrowly tailored remediation of a governance-related loss.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Tingvard"
+    }
+  ]
+}

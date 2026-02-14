@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action16f69yf2f35w9ds8sr05ewyr55jg5f439mu8882rv295fvf8m4kcqql7y6nc",
+    "summary": "Tingvard abstain from judging the “Constitutional Committee Compensation Epochs 581–653” budget Info action due to conflict of interest, perceived or otherwise.",
+    "rationaleStatement": "This governance action is properly framed as a budget Info action under Article III, § 4 and Article IV, § 1, proposing a budget of 1,000,000 Ada for compensation of Constitutional Committee members over epochs 581–653. It includes a title, abstract, motivation, and anchor with hash as required by Article III, § 5. Because Tingvard is explicitly listed as one of the beneficiaries eligible to receive compensation under this budget, any constitutional judgment we make on this action would amount to reviewing our own prospective remuneration. To avoid both actual and perceived self-review, Tingvard abstain from issuing a constitutional verdict on this governance Info action.",
+    "precedentDiscussion": "This abstention affirms the principle that when a Constitutional Committee member stands to benefit directly from a governance Info action, the appropriate course is to refrain from judging its constitutionality in order to preserve independence and public confidence in constitutional oversight.",
+    "counterargumentDiscussion": "No substantive constitutional counterarguments have been identified. The abstention is based solely on conflict-of-interest considerations.",
+    "conclusion": "Tingvard abstain from judging this governance Info action. This abstention is taken to uphold impartiality and avoid any real or perceived conflict of interest arising from Tingvard’s inclusion as a potential recipient of funds under the proposed budget.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 0,
+      "abstain": 5,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Tingvard"
+    }
+  ]
+}

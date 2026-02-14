@@ -1,0 +1,64 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "Reduce the minimum Constitutional Committee size (`committeeMinSize`) from 7 to 5 in order to improve operational resilience while maintaining constitutional safeguards.",
+    "motivation": "The Constitutional Committee is designed to operate with seven members. However, maintaining a minimum size of seven creates operational fragility, as a single resignation or temporary unavailability can prevent the Committee from functioning.\n\nReducing the minimum size to five provides an operational buffer, allowing the Committee to continue operating as intended and reducing the risk of governance inoperability.",
+    "rationale": "Based on the analysis conducted by the Intersect Parameter Committee, reducing the minimum Constitutional Committee size (`committeeMinSize`) from 7 to 5 is considered both useful and safe for the following reasons.\n\n## 1. Operational resilience\nA minimum size of five provides an appropriate safety margin for a committee designed to have seven members. This allows the Constitutional Committee to remain operational even if up to two members are unavailable, thereby reducing the risk that the Committee becomes unable to act within required governance timelines.\n\n## 2. Security and efficiency balance\nReducing the minimum size to five does not materially increase security risks or attack vectors. Further reductions (for example, to the minimum of three permitted under CMS-03) were not supported, as they would significantly increase the influence of individual members on constitutional decisions and weaken collective judgment.\n\n## 3. Decision clarity\nMaintaining an odd-numbered committee is considered good practice, as it reduces the likelihood of tied outcomes and supports clear, timely, and auditable decision-making.\n\n## Governance Action Standards and Guardrail Compliance\n\nThis governance action follows the standardized and legible format required for on-chain governance actions. An immutable off-chain document providing the final version of this proposal, including its title, abstract, justification, and supporting materials, is hosted at a publicly accessible URL, and the hash of that document is referenced on-chain. The content of the on-chain governance action is identical to the final off-chain version.\n\nThe proposed value of five complies with the Guardrails governing Constitutional Committee size:\n- CMS-01: The value is not negative.\n- CMS-02: The value is not lower than three.\n- CMS-03: The value does not exceed ten.\n\nIn accordance with Guardrail PARAM-06a, at least 90 days have passed between the publication of the off-chain proposal to change a parameter that is critical to the governance system and the submission of the corresponding on-chain governance action, and therefore this requirement is satisfied.\n\nAs a Parameter Update governance action, this proposal has undergone appropriate technical review and scrutiny through the Intersect Parameter Committee process and does not endanger the security, functionality, performance, or long-term sustainability of the Cardano Blockchain.\n\nThis change is unlikely to require reversion, is reversible if needed, and would not have a negative impact on the network if reverted.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "PCP 005_committeeMinSize_Yuta",
+        "uri": "https://forum.cardano.org/t/pcp-005-committeeminsize-yuta/151156"
+      }
+    ],
+    "title": "Reduce minimum Constitutional Committee size (committeeMinSize) from 7 to 5"
+  }
+}

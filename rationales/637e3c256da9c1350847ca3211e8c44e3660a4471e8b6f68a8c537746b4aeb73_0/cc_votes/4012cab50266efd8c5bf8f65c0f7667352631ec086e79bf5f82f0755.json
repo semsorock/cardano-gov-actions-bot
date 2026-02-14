@@ -1,0 +1,56 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "authors": [
+    {
+      "name": "Cardano Japan"
+    }
+  ],
+  "body": {
+    "summary": "Set a 300 million ADA Net Change Limit for Epochs 563–635 ---- > Constitutional",
+    "rationaleStatement": "[Constitutional] This governance action was reviewed in accordance with the Cardano Blockchain Constitution, focusing on whether it is appropriate to vote on this type of Net Change Limit (NCL) action and its constitutionality. The current situation requires that an NCL be established, as there is no existing NCL set for the relevant period. Establishing an NCL is a necessary and constitutional action under the governance framework. During review, no members identified any aspect of this proposal that would conflict with the Constitution. Several members noted that this is a required governance action to define the NCL for the specified period (until June 2026), and that such an action does not violate any constitutional provisions. One member abstained from fully endorsing or opposing the proposal but expressed the view that it is constitutional in nature. Some members further clarified that while the proposal’s specific value of 300 million ADA is a matter to be decided by DReps, this does not affect the constitutional compliance of the governance action itself. The act of setting an NCL is, by definition, constitutional and necessary for Treasury operation under the current governance model.",
+    "conclusion": "the majority of members agree that this governance action is constitutional and necessary to establish the required NCL for the defined term.",
+    "internalVote": {
+      "constitutional": 4,
+      "unconstitutional": 0,
+      "abstain": 1,
+      "didNotVote": 0
+    }
+  }
+}

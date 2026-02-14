@@ -1,0 +1,84 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1ezp0r9rgf4njx93p9uq7l3kjs9m739jm0ntf26vplcmucec4jc0qqxjlfrc",
+    "summary": "Tingvard judge the “Cardano Blockchain Ecosystem Constitution v2.3” update constitution governance action constitutional.",
+    "rationaleStatement": "This governance action is properly framed as an update constitution action under Article VIII. It proposes a set of amendments to the Constitution, including the removal of non-binding expectations, the elimination of the Budget Info Action mechanism, and the streamlining of conduct obligations for the Constitutional Committee. It also introduces requirements for immutability of proposal documents, clarifies terminology, and applies treasury audit safeguards to all withdrawals.\nThe proposal satisfies Article III, § 5 by including a valid anchor, hash, and supporting documentation. It provides a clear abstract, motivation, and detailed rationale that allows voters to make an informed decision. The immutability requirement strengthens compliance with this section by ensuring that proposals cannot be altered after submission.\nHowever, Tingvard notes concerns regarding the process by which this version was developed. The drafting process was conducted in a Google document curated by a single individual, with contributions gathered from DRep rationales, community comments on the document itself, and social media discussion. While this may provide a form of informal consultation, it lacks the structured, transparent, and inclusive deliberation processes envisioned in Article VIII, § 1, which encourages amendments to be shaped through forums deemed appropriate by the Cardano community.\nThis reliance on informal channels, and the absence of broader participatory frameworks, presents a legitimacy gap: while the action complies procedurally, its community mandate is weaker than if the drafting process had included structured, transparent, and broadly accessible forums. This distinction is important for interpreting not only the letter of the Constitution but also its governance spirit.",
+    "precedentDiscussion": "This decision affirms that constitutional amendments may restructure governance mechanisms if they preserve constitutional principles of transparency, oversight, and accountability. The removal of Budget Info Actions represents the most significant structural change since v1.0, but by embedding the safeguards in Treasury Withdrawals, the proposal remains compliant.\nIt also sets a precedent that governance actions developed through informal processes may still be constitutional if they satisfy Article III, § 5. However, Tingvard highlights the risk that repeated reliance on individual-driven drafting or informal consultation channels could erode participatory legitimacy and governance trust, even while remaining technically constitutional.",
+    "counterargumentDiscussion": "One counterargument is that the limited and informal drafting process (curated by one person via a Google document, supplemented by DRep rationales and social media commentary) undermines Article VIII, § 1’s vision of community-led forums for constitutional change. While this concern is valid for governance legitimacy, the provision is an encouragement rather than a binding requirement. Thus, its absence does not render the action unconstitutional.\nAnother counterargument is that the bundling of numerous changes prevents voters from evaluating each independently. While this complicates deliberation, Article VIII does not prohibit bundling. The test remains whether the action is procedurally compliant, which it is.",
+    "conclusion": "Tingvard finds this update constitution governance action constitutional by the procedural rules of Article VIII. It satisfies the requirements of Article III, § 5, aligns with the Cardano Blockchain Tenets in Article I, § 1, and strengthens accountability and transparency by requiring immutable proposals and extending treasury audit safeguards. However, Tingvard cautions that the informal and individual-driven drafting process highlights a governance weakness: while procedurally compliant, participatory legitimacy was limited. Repetition of such processes risks weakening the constitutional culture of inclusivity and deliberation envisioned by Article VIII, § 1.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 1,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Cardano Blockchain Ecosystem Constitution",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Tingvard"
+    }
+  ]
+}

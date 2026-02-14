@@ -1,0 +1,55 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "authors": [
+    {
+      "name": "Cardano Japan Council"
+    }
+  ],
+  "body": {
+    "summary": "Cardano Global Listing Expansion - Powered by Snek --> Unconstitutional",
+    "rationaleStatement": "We have concluded that this Governance Action is unconstitutional under the Cardano Constitution, primarily in relation to Article IV, Section 4, which requires clear provisions for independent auditing and transparent budget management of treasury withdrawals. The proposal fails to provide a sufficient budget breakdown and financial transparency. Without clear allocation or detailed expenditure plans, it does not meet the standards of accountability required for a constitutional treasury withdrawal action. Moreover, this action does not explicitly designate any external audit entity, nor does it establish a binding framework for independent oversight, which constitutes a violation of Article IV, Section 4 that explicitly requires the establishment of independent audits. In addition, the action has been submitted as a Treasury Withdrawal Governance Action (TWGA) despite lacking essential details, with indications from the proposer that it may need to be resubmitted. Such a premature submission confirms the absence of readiness and completeness. We believe that these missing elements should have been reviewed and corrected at the Info Action stage before being submitted as a Governance Action.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 4,
+      "abstain": 1,
+      "didNotVote": 0
+    }
+  }
+}

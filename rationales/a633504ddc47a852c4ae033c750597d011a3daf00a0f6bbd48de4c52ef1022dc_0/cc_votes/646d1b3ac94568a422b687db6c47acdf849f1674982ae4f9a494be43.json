@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action15ce4qnwug759939wqv782pvh6qg68khspg8kh02gmex99mcsytwqqqr7jkr",
+    "summary": "Tingvard abstains from judging this governance action.",
+    "rationaleStatement": "Under the Cardano Blockchain Ecosystem Constitution, Info actions are a recognized governance action type, and the Constitutional Committee may consider proposed or contemplated actions contained within Info actions pursuant to Article III, Section 1. However, the Constitution does not assign constitutional consequences to Info actions themselves, nor does it establish enforceable constitutional requirements applicable to non binding proposals that do not seek enactment on chain.\nThe mandate of the Constitutional Committee, as defined in Article III, Section 1, is to ensure that governance actions to be enacted on chain are consistent with the Constitution. This proposal does not request enactment on chain, does not authorize a Treasury Withdrawals action under Article II, Section 7, and does not present a governance action subject to constitutional enforcement. As a result, there is no constitutional standard against which this proposal can be assessed for compliance or non compliance.\nThe Constitution also contains no transition provisions governing how proposals submitted under a prior governance understanding are to be treated following constitutional change. It does not provide for grandfathering, grace periods, or retroactive application rules. In the absence of such provisions, the Constitutional Committee has no authority to preserve prior expectations or to apply superseded interpretations. It must assess only whether a governance action, as presently constituted, is subject to constitutional review and enforcement.\nThis abstention therefore reflects both the absence of an actionable governance decision and the absence of constitutional transition rules that would allow continued constitutional treatment of non-binding proposals submitted under earlier assumptions.",
+    "precedentDiscussion": "This decision clarifies that, under the Constitution, the Constitutional Committee may review the contents of Info actions but must abstain where no governance action subject to on-chain enactment is presented. It further establishes that questions of transition, including whether prior practices should continue or whether proposals should be treated under earlier constitutional assumptions, are matters for collective decision making by ada owners rather than constitutional interpretation by the Committee.",
+    "counterargumentDiscussion": "It may be argued that fairness or reliance interests warrant continued constitutional treatment of proposals submitted before constitutional change. However, the Constitution does not vest the Constitutional Committee with discretion to create transition rules or to grandfather prior governance actions. Absent an on chain governance action establishing such rules, the Committee is bound to apply the Constitution as written.",
+    "conclusion": "Tingvard abstains from judging this governance action. Although Info actions are recognized by the Constitution and may be reviewed by the Constitutional Committee, this proposal does not present a governance action subject to on-chain enactment or constitutional enforcement. In the absence of constitutional standards or transition provisions applicable to non binding proposals, no constitutional determination can be made.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 0,
+      "abstain": 4,
+      "didNotVote": 1,
+      "againstVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Tingvard"
+    }
+  ]
+}

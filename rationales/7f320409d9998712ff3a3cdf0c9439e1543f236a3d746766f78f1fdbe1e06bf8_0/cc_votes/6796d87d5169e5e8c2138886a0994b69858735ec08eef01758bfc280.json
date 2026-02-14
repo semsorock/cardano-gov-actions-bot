@@ -1,0 +1,128 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The proposed Info Governance Action “Set 2025 Net Change Limit of 300M ADA, 2026 Net Change Limit of 250M ADA” is constitutional. It aims to fulfill a key requirement for treasury management. Please find a pdf version of this rationale here: ipfs://QmSsXx8EEjHuhJpggk8XTxAgmRQj7SyHMtB6X6izZvDcjv",
+    "rationaleStatement": "This Info Governance Action (gov_action10ueqgzwenxr39le68n0se9peu92r7gm2846xwehh3u0ahc0qd0uqqyljxu5) proposes these net change limits (“NCLs”) for the Cardano Treasury: 300,000,000,000,000 lovelace (300 million ada) for 2025 and 250,000,000,000,000 lovelace (250 million ada) for 2026. Its stated purpose is to establish the 'amount of ada that can be withdrawn from the Treasury' during these periods, seeking DRep input.<br><br>Regarding the term 'net change limit,' the Constitution (Appendix I, Section 3, TREASURY-01a; Art IV(3)) uses this term but does not define or prescribe a precise calculation method for NCLs. This proposal defines the NCL as a cap on total withdrawals. While 'net change' could imply incorporating inflows into the calculation, the Constitution allows the agreed-upon action to define the applicable rule or calculation methodology. In the absence of clearer wording in the Constitution on the definition of a net change limit, the definition used here, while specific, is not unconstitutional;<br><br>**Constitutional Alignment**<br><br>We find the proposal aligns with the constitutional framework:<br>* **Article I, Section 1 (Tenets 8 & 10):** Setting spending limits supports responsible resource use and financial stability.<br>* **Article III, Section 5:** It provides the required metadata structure and rationale (URL/hash verified at time of review). There is a question on the mutability of this data which is addressed below.<br>* **Article IV, Section 3 and Appendix I, Guardrail TREASURY-01a:** It addresses the mandate to agree upon an NCL, which Article IV confirms is a binding constraint on withdrawals.<br>* **Article VII, Section 4:** This governance action appropriately uses the Info Action mechanism for gauging DRep sentiment. There is an inherent conflict in the Constitution at this section and at Art VII(1), which says that the Constitutional Committee shall vote on the constitutionality of governance actions (without exception). However, this section 4 states that Info Actions are neither constitutional nor unconstitutional, however CC members can still express an opinion as to constitutionality. While the mechanism of the Info Action itself might not be an issue of constitutionality (as a vehicle for gauging sentiment), any underlying proposal could invariably have a constitutional issue. Combined with the provisions of Art VII(1), the conclusion is that the proposed action should be voted on for the constitutionality of its substance.<br>* **Appendix I, Section 3**: TREASURY-01a (x) says “A net change limit for the Cardano treasury’s balance per period of time must be agreed by the DReps via an on-chain governance action with a threshold of greater than 50% of the active voting stake”. This Info Action does not require a threshold lower than 50% and is consistent with this Guardrail.",
+    "precedentDiscussion": "While it is not necessarily unconstitutional, at this stage, for governance actions to include mutable URLs, the Cardano Foundation discourages this practice as it allows for the content of governance actions to be susceptible to change after votes are cast. This goes against principles in the Constitution of decision-making based on immutable data. Previous governance actions have been affirmed as constitutional by members of the Interim Constitutional Committee, including the Cardano Foundation. This establishes precedent for considering governance actions as constitutional, notwithstanding the mutability of linked URLs. However, depending on other factors which may arise, and the nature of the governance action which is being voted on, the mutability of governance action URLs may lead to decisions that such governance actions are unconstitutional in the future.",
+    "counterargumentDiscussion": "Despite the precedent, significant concerns remain which form counterarguments to readily accepting this proposal without qualification:<br><br>1. Mutable Metadata Link Risk: The use of a GitHub URL fundamentally compromises long-term auditability and trust, even if changes are detectable via hash mismatch. This contrasts sharply with the spirit of the Constitution's Preamble emphasizing decision-making based on immutable data. While precedent prevents deeming this unconstitutional per se, it remains a serious flaw. To mitigate this specific instance, the Foundation has pinned the currently referenced file to IPFS (ipfs://QmdtQ3h9uaY5SdWqXan1BPyaD6BqGbMHGZvyDiPs4LN9Rk).<br> 2. Threshold Confusion: The proposal's mention of a >=67% DRep threshold versus the binding constitutional minimum of >50% (TREASURY-01a) creates unnecessary confusion. This could potentially affect voter understanding and the perceived legitimacy of the outcome. The use of this threshold is not necessarily unconstitutional or binding, since it is above the constitutional minimum of >50% (TREASURY-01a) in either event. However, the use of another threshold creates confusion and requires clarity in future governance actions.<br>3. Definition Nuance: As noted in the Rationale Statement, the specific definition of NCL as a pure withdrawal cap might differ from a strict interpretation of the meaning of the words 'net change.' While the proposal clearly defines its terms, this nuance could be seen as a point of ambiguity.<br>",
+    "conclusion": "While the Cardano Foundation has significant reservations regarding the use of a mutable metadata URL (partially mitigated by our pinning action), the potential threshold confusion, and the specific NCL definition used, the Info Governance Action is deemed constitutionally sound in its structure and intent based on current rules and established precedent. It attempts to fulfill a necessary constitutional step. We also consider that, if an NCL needs to be changed, it can be changed at any time from a constitutional standpoint. Our 'Yes' vote reflects the opinion that the proposal, as defined and presented (with the pinned metadata available), aligns sufficiently with the Constitution, but we strongly urge improvement in future governance practices regarding metadata immutability and clarity.",
+    "internalVote": {
+      "constitutional": 6,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 1,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Preamble (Emphasis on Immutable Data)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Article I, Section 1 (Tenets 8, 10)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Article III, Section 5",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Article IV, Section 3",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Article VII, Section 4",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Appendix I, Section 3 (TREASURY-01a)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "Other",
+        "label": "CF Pinned Metadata of Proposal",
+        "uri": "ipfs://QmdtQ3h9uaY5SdWqXan1BPyaD6BqGbMHGZvyDiPs4LN9Rk"
+      },
+      {
+        "@type": "Other",
+        "label": "Original Metadata Anchor URL",
+        "uri": "https://raw.githubusercontent.com/blockchainada/ga/refs/heads/main/ga01.jsonld"
+      },
+      {
+        "@type": "Other",
+        "label": "Proposal Metadata Anchor Hash",
+        "uri": "a2fa375274a2c5efa985a1e9811f27ea1ebf8b8dd88cdf9931a5aa856c73832a"
+      },
+      {
+        "@type": "Other",
+        "label": "PDF Version of Rationale",
+        "uri": "ipfs://QmSsXx8EEjHuhJpggk8XTxAgmRQj7SyHMtB6X6izZvDcjv"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Foundation"
+    }
+  ]
+}

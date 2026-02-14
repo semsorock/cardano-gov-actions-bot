@@ -1,0 +1,98 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action13a2dqgwxum7d6kjfprcs57cf9733ek2dkt5qnuhqd4ll5ntcwu7sqluwkxd",
+    "summary": "We find the “Cardano Critical Integrations Budget” Info Action Unconstitutional while the CC size is below committeeMinSize parameter. This condition may be remedied before voting ends at the end of Epoch 603.",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/QmP8p2WzLwcVbwhkEaHniE4GGqek7U3APtYsDktLG3KtUt\n\nThe Ace Alliance is casting an initial No vote on this Budget Info Action as a procedural safeguard because the Constitutional Committee size is currently below the committeeMinSize parameter. This decision is not an assessment of its merits. Under Article VII, Section 4 of the Cardano Constitution, no governance action other than a Motion of no confidence or an Update Constitutional Committee may be implemented on-chain unless a requisite percentage of the Constitutional Committee first determines and affirms that it does not violate the Constitution. In the specific case of Info Actions that propose an ecosystem budget, Article VII, Section 4 further requires the Committee to record an on-chain opinion as to whether the proposed budget, if implemented as described, would violate the Constitution. Because ada holders have set a committeeMinSize of seven (7)  through governance parameters and Guardrails, this condition must be remedied before the Constitutional Committee can responsibly express a positive opinion on the constitutionality of this budget.\n\nThe existence of a minimum committee size parameter in the ledger instantiates the ideal that there must be a minimum number of Constitutional Committee members participating when decisions that affect the chain’s governance are made. In the Cardano Blockchain Guardrails Appendix, this is expressed as: “The minimum size of the Constitutional Committee (committeeMinSize) – the least number of members that can be included in a Constitutional Committee following a governance action to change the Constitutional Committee.”  The most recent “Update Committee” governance action featuring seven CC credentials was “Replace Interim Constitutional Committee” (gov\\_action1g7sw0f8e8qa34lppj2erksvzf4j6e9udwaq6efslc8apdqeazygsq2spyyt).   The minimum number of Constitutional Committee members  is not only a technical constraint but also a social commitment. On the technical layer, the ledger enforces this ideal for actions that have an on-chain effect when enacted, such as parameter changes or treasury withdrawals, by preventing enactment if the configured minimum is not met. On the social layer, the members of the Constitutional Committee have a parallel responsibility to instantiate that  same principle in how they exercise their constitutional review function, including for Info Actions that relate to Cardano Treasury policy. In other words, the parameter is an expression of how the system is supposed to work; the ledger encodes and enforces the minimum size for enactment, and the Committee applies that same principle in its own assessment on constitutionality.\n\nAt the time of this initial vote, only six (6)  of the required seven (7) Constitutional Committee members are seated, and a nomination and election process for another seat is ongoing. Issuing a Yes opinion on a multi-epoch ecosystem budget while the Committee is operating below its configured minimum would call into question the  legitimacy of both the budget and any subsequent treasury withdrawals that rely on it. Ace Alliance therefore records a No at this stage. However, we are actively considering other aspects of this Action’s  constitutionality with the intention to update this vote and rationale.",
+    "precedentDiscussion": "We find that, where an Info Action is reasonably expected to lead to substantive on-chain policy or spending, the Action must be reviewed and decided by a Constitutional Committee size satisfying the commiteeMinSize parameter. When an Info Action is used as a required precursor for future Cardano Treasury policy, as described in Article VII, Section 4, it is functionally part of the on-chain policy pipeline.\n\nWe do not conclude that satisfying commiteeMinSize is necessary for all Info Actions, particularly those that will not themselves serve as a foundation for future Cardano Treasury Policy (i.e. purely informational polls that gauge community sentiment, exploratory questions about direction, or other non-binding surveys of opinion). Such sentiment-focused Info Actions do not require the input of the Constitutional Committee, therefore a fully seated CC is not required for constitutional legitimacy.",
+    "counterargumentDiscussion": "Some would argue that because the Ledger does not prevent CC members from voting on Budget Info Actions, a fully seated Committee is not required for those votes to be valid. We reject this argument specifically for Budget Info Actions. These actions are explicitly designed to sit in the causal chain that leads to on-chain Treasury Withdrawals, so the CC’s opinion on them is not merely advisory but a prerequisite for subsequent spending. \n\nDuring the design of Voltaire governance, it was seriously considered that voting should be halted entirely when voting parameters such as committeMinSize were not satisfied. This idea was not adopted, opting instead to allow votes to be cast and stored so they could later be counted if and when all conditions were met. Because the Ledger cannot tell the difference between ordinary Info Actions, where CC votes may have no downstream effect, and Budget Info Actions, where they clearly do, it is up to the Constitutional Committee to uphold the ideal of the minimum committee size in this specific context.",
+    "conclusion": "In conclusion, we find that the number of active CC credentials must meet the commiteeMinSize parameter in order to consider the constitutionality of Budget Info Actions. This best upholds Article VII, Section 4 of the Cardano Constitution, which mandates that the Committee affirm the constitutionality of proposed budgets before they can be implemented on-chain.\n\nThe Ace Alliance will revisit and revise this vote once the number of active CC credentials reaches the committeeMinSize parameter.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 5,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "RelevantArticles",
+        "label": "Cardano Constitution (IPFS)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor URL (IPFS)",
+        "uri": "ipfs://bafkreicbxui5lbdrgcpjwhlti3rqkxfnd3vveiinkcu2zak5bny435w4yq"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor Hash",
+        "uri": "fec4cec86fe2c537c5f50c54dce3a200191d34c2330c2586792429aeeb05dc53"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmP8p2WzLwcVbwhkEaHniE4GGqek7U3APtYsDktLG3KtUt"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Ace Alliance"
+    }
+  ]
+}

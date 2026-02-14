@@ -1,0 +1,113 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIPXXX": "https://github.com/Ryun1/CIPs/tree/e56f704918061e63ce2076cc3644a946b286c8d1/CIP-governance-metadata-cc-rationale/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIPXXX:body",
+      "@context": {
+        "references": {
+          "@id": "CIPXXX:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "relevantArticles": "CIPXXX:references"
+          }
+        },
+        "summary": "CIPXXX:summary",
+        "rationaleStatement": "CIPXXX:rationaleStatement",
+        "precedentDiscussion": "CIPXXX:precedentDiscussion",
+        "counterargumentDiscussion": "CIPXXX:counterargumentDiscussion",
+        "conclusion": "CIPXXX:conclusion",
+        "internalVote": {
+          "@id": "CIPXXX:internalVote",
+          "@context": {
+            "constitutional": "CIPXXX:constitutional",
+            "unconstitutional": "CIPXXX:unconstitutional",
+            "abstain": "CIPXXX:abstain",
+            "didNotVote": "CIPXXX:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We find this governance action, as proposed, to be constitutional.",
+    "rationaleStatement": "We find this governance action, as proposed, to be constitutional.\n\n* The protocol parameter changes proposed match what was circulated off-chain\n  and discussed within the rationale of the action **[2]**.\n* The protocol parameter update rationale provides technical review,\n  benchmarking, and Parameter Committee endorsement (_sufficient technical\n  review and scrutiny_) as required by the Constitution. **[3]**\n* The protocol parameter update has been safely deployed to the test networks.\n  **[4]**\n* The Cost Model update includes benchmarking results. **[5]**\n* The Cost Model update introduces new primitives and updates the cost model for\n  all new primitives. **[6]**",
+    "precedentDiscussion": "## Considerations\n\n* _PCM-03_ states that \"Cost model values **should not** be negative\" and the\n  current Plutus v3 Cost Models do contain negative values. However, these have\n  been addressed through consultation with SMEs and are not being modified by\n  this governance action proposal so are outside the scope of consideration.\n  **[7]**",
+    "counterargumentDiscussion": "N/A",
+    "internalVote": {
+      "constitutional": 6,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Governance Action Page",
+        "uri": "https://adastat.net/governances/b2a591ac219ce6dcca5847e0248015209c7cb0436aa6bd6863d0c1f152a60bc500"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Interim Constitution, Article III, Section 6, Paragraph 1 & 2",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/75155526ce850118898bd5eacf460f5d68ceb083/cardano-constitution-0.txt#L200C1-L210C28"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Interim Constitution, Article III, Section 6, Paragraph 3",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/75155526ce850118898bd5eacf460f5d68ceb083/cardano-constitution-0.txt#L212C1-L215C78"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "CardanoScan Preview Test Network Explorer, Plutus v3 Cost Model Update",
+        "uri": "https://preview.cardanoscan.io/govAction/gov_action1r7me8a4cgc8dta3utv8nezgev4lp7ux2e9nkl403dewhu60tgfdsqwlswzp"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Interim Constitution, Appendix I, PCM-01",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/75155526ce850118898bd5eacf460f5d68ceb083/cardano-constitution-0.txt#L1235C1-L1236C41"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Interim Constitution, Appendix I, PCM-02",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/75155526ce850118898bd5eacf460f5d68ceb083/cardano-constitution-0.txt#L1238C1-L1241C39"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Interim Constitution, Appendix I, PCM-02",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/75155526ce850118898bd5eacf460f5d68ceb083/cardano-constitution-0.txt#L1243C1-L1244C47"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Atlantic Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "91333b40b6dbb4c47e5f30fde21b7d5b38dcad87d27c621b8b7fe61f108c1b0a",
+        "signature": "8abe5ce0706438bfabaaa8d8016ac8337b16c5b25ba53d8101d60a306b7e640810dd1955a9d44af1cb21ece89fca89264162191fb994a9cccf7c129e46d4a904"
+      }
+    }
+  ]
+}

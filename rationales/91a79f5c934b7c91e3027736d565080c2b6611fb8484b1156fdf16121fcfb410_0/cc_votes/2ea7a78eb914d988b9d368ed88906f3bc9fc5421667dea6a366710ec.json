@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We have determined that this new constitution governance action is unconstitutional.",
+    "rationaleStatement": "Article VIII, Section 2 of the Cardano Constitution states \"Except as otherwise so provided in the Cardano Blockchain Guardrails Appendix, amendments to this Constitution, including to the Cardano Blockchain Guardrails Appendix, shall be approved by a collective decision-making process, requiring an on-chain governance action by owners of ada satisfying a threshold of no less than 65% of the then active voting stake.\"\n\nThis provision contains two distinct requirements for valid constitutional amendments, being that they \"shall be approved by a collective decision-making process\" and \"requiring an on-chain governance action by owners of ada satisfying a threshold of no less than 65% of the then active voting stake.\"\n\nThe inclusion of both clauses within a single sentence implies that the first clause \"collective decision-making process\" is not redundant, but an intentional and additional constitutional expectation. It suggests that beyond a successful on-chain vote, the amendment should also emerge from an inclusive and structured deliberative process. As a suitable \"collective decision-making process\" has not been defined or agreed via an on-chain Info governance action, the process that was used to agree on the current constitution could therefore be considered as a benchmark.\n\nThe governance action with ID \"gov_action1jxne7hynfd7frcczwumd2eggps4kvy0msjztz9t0mutpy870ksgqqp6vp3p\" and title \"CARDANO BLOCKCHAIN ECOSYSTEM CONSTITUTION v2.4\", as a new constitution governance action, did not emerge from a \"collective decision-making process\" that the Eastern Cardano Council considers comparable to the process used for agreeing the current constitution.\n\nWe strongly recommend that a constitution amendment process be developed and approved via an on-chain Info governance action.\n\nWe therefore find this governance action **Unconstitutional**.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "conclusion": "This governance action does NOT sufficiently fulfil the criteria specified in the Cardano Constitution for making constitution amendments, so is deemed unconstitutional.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 5,
+      "abstain": 0,
+      "didNotVote": 2
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Eastern Cardano Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "a12e0d6516828fd47afc70e2eccdfa11a4f4c76cb5eca55bdc9349865a70e4fe",
+        "signature": "f4b129b909f62bb438b36ddb3851819fb9fae74a33dcf9cfb2bfa16f6b42a4ecaa60d9ec8cf0675950eb2269c13c6254706b745eb40814cbe36b6c6e6305a704"
+      }
+    }
+  ]
+}

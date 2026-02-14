@@ -1,0 +1,69 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "CARDANO BLOCKCHAIN ECOSYSTEM CONSTITUTION v2.0:\n\nhttps://cardano.mypinata.cloud/ipfs/bafkreigr35rigmubdmv5u7vr47d2tmvhq3i245uvtmzuciyexepcvaargu\n\nFor a complete list of changes, see \"List of changes from v1.0 to v2.0\".\n\nHere is a list of the major changes:\n\n* Preamble / Article I / Article III / Appendix II: Minor wording improvements.\n* Defined Terms: New definitions added for clarity.\n* Article II:\n    * Simplified wording.\n    * Removed the Budget info action requirement for treasury withdrawals.\n    * Removed outdated provisions (e.g., DRep/SPO Codes of Conduct).\n* Appendix I:\n    * More precise definitions.\n    * Fixed typos and inaccuracies.\n    * Aligned with Article II changes on treasury withdrawals.",
+    "motivation": "The current Constitution has six key issues:\n\n1) Typos and inconsistent spelling\n2) Redundant and unclear wording\n3) Vague or missing definitions\n4) Unused provisions (e.g., DRep/SPO Codes of Conduct)\n5) Unnecessary budget requirement for treasury withdrawals",
+    "rationale": "We addressed these issues as follows:\n\n1) Fixed typos and cleaned up wording\n2) Simplified structure and reduced word count\n3) Clarified key definitions\n4) Removed unused or outdated clauses\n5) Removed the budget requirement for treasury withdrawals",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "List of changes from v1.0 to v2.0",
+        "uri": "ipfs://bafybeiezgj4gu6fyxfpnu7h7cgrhfyyvbn4ve72ytpxrv7cmatbok32e4m"
+      },
+      {
+        "@type": "Other",
+        "label": "CARDANO BLOCKCHAIN ECOSYSTEM CONSTITUTION v2.0(PDF)",
+        "uri": "ipfs://bafkreigr35rigmubdmv5u7vr47d2tmvhq3i245uvtmzuciyexepcvaargu"
+      }
+    ],
+    "title": "CARDANO BLOCKCHAIN ECOSYSTEM CONSTITUTION v2.0"
+  }
+}

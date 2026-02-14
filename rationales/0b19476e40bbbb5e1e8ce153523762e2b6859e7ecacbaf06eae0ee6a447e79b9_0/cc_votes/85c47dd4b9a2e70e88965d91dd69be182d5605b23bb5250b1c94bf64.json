@@ -1,0 +1,91 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The Intersect Constitutional Council votes the Plomin hard fork action to be constitutional.",
+    "rationaleStatement": "The proposal is a hard fork governance action. It is a proposal to hard fork to Protocol Major Version 10 and Minor Version 0 named the “Plomin” hard fork. Its intent is for all 7 governance actions in CIP-1694 to be enabled, and it will affect the withdrawal of staking rewards by allowing it only after delegation to a DRep (including the pre-defined abstain/no-confidence options).\n\nThe hard fork should only be valid after INTERIM-01 of having had sufficient time for DReps to register and campaign, at least 18 epochs and and it needs to pass the HARDFORK-XX guardrails in particular HARDFORK-04 “At least 85% of stake pools by active stake should have upgraded to a Cardano node version that is capable of processing the rules associated with the new protocol version.”\n\nAs the Intersect Constitutional Council understands the facts during the governance action proposal period a new node version (10.1.4) has been introduced that is meant to mitigate a risk of a potential DoS attack following the hard fork according to the release notes.\n\n**These facts raises a principle question if the HARDFORK-04 of at least 85% of stake pools should be upgrade requires a node version that does not introduce a security risk in the network after the hard fork.**\n\nThe language of the guardrail in HARDFORK-04 itself is silent on this, it simply says that the node version is capable of processing the rules associated with the new protocol version.\n\nThe most relevant article in the Interim Constitution is the article 3 section 6 paragraph 3 that highlights the requirement of sufficient technical review and scrutiny mandated by the Cardano Blockchain Guardrails to ensure that the governance actions does not endanger the security, functionality or performance of the Cardano Blockchain. Here we see that the Guardrails are intended to protect against security issues as one of their functions. This is also highlighted in the introduction to the guardrails “To implement Cardano Blockchain on-chain governance pursuant to CIP-1694, it is necessary to establish sensible guardrails that will enable the Cardano Blockchain to continue to operate in a secure and sustainable way.” And that they are intended to “(...)  guide the choice of sensible parameter settings and avoid potential problems with security, performance or functionality. “ In short while the wording itself in the HARDFORK-04 is of little guidance the description of the guardrails highlights its role to enable safety of the protocol and in Intersect Constitution Councils opinion this should include that a node version that if not upgraded to before a hard fork that would introduce a security risk should not be counted for in the 85% number for stake pools.\n\n**In conclusion the Intersect Constitution Council believes that the 85% number for node upgrades should only include nodes that are from a security standpoint safe to hard fork into (in this case currently only version 10.1.4).**\n\nDuring the Interim phase the community is in a bootstrap phase for DReps expressed in the INTERIM-01 rule reflecting the intent in CIP-1694 of such a bootstrapping phase that also has provisions before a subsequent hard fork can be ratified.\n\nAccording to Adastats per 20. January 2025 721 DReps have registered and 92003 delegators has delegated 4.77 Billion Ada that is now live for voting power of the DReps. Source: https://adastat.net/dreps\n\n**A question raised is if a sufficient number of DReps have registered and campaigned and a sufficient number of Ada holders have chosen their initial voting delegation. The time requirement in INTERIM-01 has been fulfilled but the question is this guardrail covers more than the time requirement and also covers the actual number of DReps and ada holders to cover the intent of the bootstrapping phase in CIP-1694. It also raises the question of who are to judge what is sufficient.**\n\nThe wording itself suggest it is only a timing component as it starts with “to provide sufficient time (..)” however the wording of “at least” could open up for a subjective component to how long this time period should be and that the number of DReps and Ada holders is a relevant criteria in such a subjective consideration. Again if one goes to the intent of the guardrails it is clear that they should ensure the security, performance and functionality of the Cardano Blockchain and since this hard fork enables DRep voting functionality then article 3 section 6 paragraph 3 requirements for sufficient technical review and scrutiny is also of relevance. This the “at least” segment could be viewed as a requirement that if not sufficient technical review or scrutiny has been possible then more time could be extended. The question then becomes who are the relevant actors to do this sufficient review when it comes to the governance readiness?\n\nIn the Intersect Constitution Council opinion both the Council members has an independent responsibility as a layman in terms of technical scrutiny if something is obviously endangering the security, functionality or performance of the Cardano Blockchain. However a main source of readiness should come from expert organs who have access and time to track data in terms of readiness. For this hard fork the Hard Fork Working Group of Intersect is of relevance. It has members from the Civics committee and it has members who are technical experts and have been part of previous hard forks. The group has a risk document and has judged risks to be acceptable in terms of the number of DRep participants. Based on this the Intersect Constitution Council believe both the time period has passed for sufficient time and that there has been no strong objections that more time is required.\n\n**In conclusion sufficient time has elapsed for the INTERIM-01 requirements and the Intersect Constitution Council believes that the current organ to give an expert opinion on this is the Hard Fork Working Group of Intersect.**\n\nWith sufficient time elapsed the main question before the Intersect Constitution Council is if the 85% threshold in Harfork-01 is met. The 85% threshold is a should and not a must rule, and was put in place for reasons such as making sure sufficient pools follow the new protocol to avoid creating a chain fork where a significant stake supports two chains. In this particular case the Intersect Constitution Council also believes the security implications of the vulnerability discovered and fixed in node version 10.1.4 should be of relevance to the threshold. Having been briefed and consulted with the Security Council the Intersect Constitution Council believes the 85% threshold is sufficient and if met the HARDFORK-01 guardrail should not block the Plomin hard fork.\n\nBased on the current readiness reported by the Intersect Hard Fork Working Group (source: https://cardanoupgrades.docs.intersectmbo.org/plomin-upgrade/chang-upgrade-2-readiness) 86% of blocks where produced with block protocol version 10.2 (this indicates a 10.1.4 version node version used to produce blocks as it reports as 10.2) per the 20th of January 2025.\n\nThis protocol version fulfills the requirements in HARDFORK-01-03 as the major version goes from 9 to 10 while the minor version of the protocol will be 0, and the threshold in HARDFORK-04 is fulfilled by these data points and additional briefings by the Security Council. HARDFORK-05-08 are met given that no new protocol parameters where introduced or depreciated and no new plutus version is introduce as the plutus primitives was included as part of Plutus v3 as stated in the governance action itself. Also Plutus costs was covered by the previous governance protocol parameter update action b2a591ac219ce6dcca5847e0248015209c7cb0436aa6bd6863d0c1f152a60bc5#0 that is enacted.\n\nThe next question is if any of the formal requirements for the governance action itself in article 3 section 6 are not met. The proposal is in a standardized and legible format and it has sufficient rationale. The question is if the governance action has sufficient technical review and scrutiny as mandated by the Cardano Blockchain Guardrails to ensure that the governance action does not endanger the security, functionality or performance of the Cardano Blockchain.\n\nThe governance action was recommended by the Intersect’s Hard Fork Working Group on 10th december 2024 and ratified by Intersect’s Technical Steering Committee on 11th december 2024 and a readiness report has continuously been published on the status of readiness for the hard fork as mentioned previously in this rationale. Also benchmarking has been done on version 10.1.4 such as https://updates.cardano.intersectmbo.org/reports/2025-01-performance-10.1.4 and they suggest no significant difference in performance between node version 10.1.4 and node version 10.1.2/10.1.3 accordion to the Hard Fork Working Group. The Intersect Constitution Council believes this is a sufficient technical review and scrutiny for the hard fork Governance action.\n\nA last general test the Intersect Constitutional Council should cover in this rationale is if the hard fork readiness indicates any failure in the functionality of the Cardano Blockchain if we hard fork with current readiness levels. An example of this could be if we did not have a ready and functional full node wallet for the Cardano Blockchain to fully verify the integrity of the ledger to the end user.\n\nAs per 20th January 2025 it is reported on the readiness page of the Hard Fork Working Group that 55% of exchanges (32 in number) are ready for the hard fork with 61.26% of liquidity ready. Major tooling and libraries, indexes and higher level tooling all rapport readiness for the hard fork while multiple wallet providers does the same including Hardware wallet providers and Full Node and CLI wallets. A large number of DApps has also reported readiness.  In short overall ecosystem readiness seems to indicate no critical loss of functionality by going into this hard fork.\n\nBased on this the Intersect Constitution Council believes that the hard fork guardrails for the Plomin hard fork are met and that the governance action is constitutional.\n\n**Conclusion: The guardrails of the hard fork are met and the hard fork is constitutional.**",
+    "precedentDiscussion": "Cardano has a long history of hard forks without interruption to the blockchain through the hard fork Combinator technology that was first proven from Byron to Shelley hard fork in July 2020 and as an example the Goguen hard fork in September 2021. In all of these hard forks metrics where gathered in terms of ecosystem readiness and if it was safe to hard fork. This is a long tradition Cardano has in terms of ensuring that it is safe for the blockchain to transition and upgrade its technology and is reflected in its constitutional guardrail related to hard forks.",
+    "conclusion": "The Plomin Hard Fork to Protocol version 10 0b19476e40bbbb5e1e8ce153523762e2b6859e7ecacbaf06eae0ee6a447e79b9#0 is constitutional.",
+    "internalVote": {
+      "constitutional": 7,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 2
+    }
+  },
+  "references": [
+    {
+      "@type": "Other",
+      "label": "The Interim Constitution as converted to markdown and hosted on the Intersect github e",
+      "uri": "https://github.com/IntersectMBO/interim-constitution/blob/main/cardano-constitution-0.txt.md"
+    },
+    {
+      "@type": "Other",
+      "label": "CIP-1694 as hosted by the Cardano Foundation Github",
+      "uri": "https://github.com/cardano-foundation/CIPs/tree/master/CIP-1694"
+    },
+    {
+      "@type": "Other",
+      "label": "The Plomin Hard Fork Governance action metadata as hosted by the Intersect GitHub",
+      "uri": "https://raw.githubusercontent.com/IntersectMBO/governance-actions/refs/heads/main/mainnet/2024-10-30-hf10/metadata.jsonld"
+    },
+    {
+      "@type": "Other",
+      "label": "The Hard Fork Working Group readiness page as hosted by cardano upgrades documents of Intersect",
+      "uri": "https://cardanoupgrades.docs.intersectmbo.org/plomin-upgrade/chang-upgrade-2-readiness"
+    }
+  ],
+  "authors": []
+}

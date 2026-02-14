@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We have determined that this Hard Fork Initiation governance action is constitutional.",
+    "rationaleStatement": "Article III Section 6 Paragraph 3 of the Interim Constitution states \"Hard Fork Initiation and Protocol Parameter Change governance actions should undergo sufficient technical review and scrutiny as mandated by the Cardano Blockchain Guardrails to ensure that the governance action does not endanger the security, functionality or performance of the Cardano Blockchain. Governance actions should address their expected impact on the Cardano Blockchain ecosystem.\"\n\nThe guardrails that require consideration for the governance action with ID \"0b19476e40bbbb5e1e8ce153523762e2b6859e7ecacbaf06eae0ee6a447e79b9#0\" and title \"Hard Fork to Protocol Version 10 (\"Plomin\" Hard Fork)\" are HARDFORK-01, HARDFORK-02, HARDFORK-03, HARDFORK-04, HARDFORK-05, HARDFORK-06, HARDFORK-07, HARDFORK-08 and INTERIM-01. These are addressed as follows:\n* HARDFORK-01, HARDFORK-02 and HARDFORK-03 - The protocol version change being introduced sufficiently addresses these guardrails.\n* HARDFORK-05, HARDFORK-06, HARDFORK-07 and HARDFORK-08 - There are no changes relevant to these guardrails.\n* HARDFORK-04 - At the time this vote was submitted, more than 85% of stake pools by active stake have upgraded to support the new protocol version.\n* INTERIM-01 - More than 18 epochs have elapsed since the Chang hard fork, fulfilling the quantitative requirements of this guardrail.\n\nFurther, the rationale supplied with this governance action provides adequate information regarding the technical reviews that were performed for this new version; including security, functionality and performance evaluations, as required by Article III Section 6 Paragraph 3 of the Interim Constitution.\n\nBy way of a split decision we find this governance action **Constitutional**.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "In the lead up to submitting this vote, we tracked several risks associated with both supporting the ratification of the upgrade (though a \"Constitutional\" vote), as well as supporting a rejection of the upgrade (through an \"Unconstitutional\" vote).\n\nOur primary (unresolved) concern if the hard fork is ratified, relates to either insufficient DRep delegation or the concentration of DRep voting power. As INTERIM-01 states that its intent is to \"...provide sufficient time for DReps to register and campaign and for Ada holders to choose their initial voting delegations...\", it could be argued that the presence of this risk means there hasn not yet been sufficient time. Further, in reference to Article III Section 6 Paragraph 3, the consequence of this risk could be deemed to \"endanger the security, functionality or performance of the Cardano Blockchain\" if not properly managed.\n\nThese considerations were assessed against the impact to the broader ecosystem if the hard fork is rejected; such as the inability to ratify the draft Constitution, progress the budget process to finance important changes within the Cardano ecosystem, and the potential knock-on effects that any negative perceptions that may result could have on projects building applications, maintaining the infrastructure or participating in the ecosystem in any other way.",
+    "conclusion": "While acknowledging meaningful risks regarding DRep participation, we find that the governance action's strong technical compliance with constitutional requirements and guardrails outweighs these concerns. Based on our 5-1 vote, we deem this action constitutional, recognising that enabling the ecosystem's continued development through this hard fork serves the broader constitutional intent.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 1,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Eastern Cardano Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "a12e0d6516828fd47afc70e2eccdfa11a4f4c76cb5eca55bdc9349865a70e4fe",
+        "signature": "bbe941cdfa514418b790e3f5a5e162a6789e5d365631c4a8b2883163ed60c370e64a0df10f48bb40393e9a73f8f733b6577beffa8296c37a86f8f1e527b76406"
+      }
+    }
+  ]
+}

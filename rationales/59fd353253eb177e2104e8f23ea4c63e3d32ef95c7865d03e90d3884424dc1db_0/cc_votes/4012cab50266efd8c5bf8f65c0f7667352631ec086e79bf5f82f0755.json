@@ -1,0 +1,83 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "authors": [
+    {
+      "name": "Cardano Japan"
+    }
+  ],
+  "body": {
+    "summary": "The info action for Cardanoの生きがい-Ikigai- --> is constitutional.",
+    "rationaleStatement": "This Governance Action is considered not to be unconstitutional since it does not violate any prohibitions. However, regarding GAs (Governance Actions) that do not intend to make any changes to Cardano’s governance, it is believed that such actions could hinder the smooth operation of governance in the future and waste the resources of voters. Therefore, in the active constitution, there should be a mechanism to exclude such actions.",
+    "internalVote": {
+      "constitutional": 4,
+      "unconstitutional": 0,
+      "abstain": 1,
+      "didNotVote": 0
+    },
+    "references": [
+      {
+        "@type": "relevantArticles",
+        "label": "Article IV Section 1",
+        "uri": "https://constitution.gov.tools/en/interim-constitution#section-1-4"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "APPENDIX I-8 GUARDRAILS AND GUIDELINES ON INFO ACTIONS",
+        "uri": "https://constitution.gov.tools/en/interim-constitution#8-guardrails-and-guidelines-on-info-actions"
+      }
+    ]
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh",
+    "summary": "The proposed Info Governance Action “Cardano Blockchain Ecosystem Budget - 275M ada Administered by Intersect” is constitutional.",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/QmdLR2sPaFEGA4U1vFnyvb3SHRNWQM6v9Qs4Dj97dcDY8h\n\nThis Info Governance Action (`gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh`) proposes an aggregate budget of 275,269,340 ada to fund 39 community-vetted projects for a period of 73 epochs commencing after the vote's conclusion. Intersect is designated as the administrator, emphasising the use of  smart contract tooling where possible for oversight. This proposal seeks DRep approval as per the constitutional process for ecosystem funding.\n\n## Constitutional alignment\n\nThis proposal aligns with the constitutional framework:\n\n- **Article IV, Section 1 (Budget Purpose & Period):** This section requires that budgets be proposed for the \"ongoing operation, maintenance and future development of the Cardano Blockchain ecosystem\" and cover a defined time period. While it notes an expectation for budgets to cover approximately 73 epochs, it explicitly permits proposals for shorter or longer durations.\n\nThis budget proposal aligns with these requirements. Its stated purpose is to fund 39 community-vetted projects focused on development, innovation, and governance initiatives, which falls under the mandate for ecosystem development. Furthermore, the proposal specifies a permissible duration of \"73 epochs\" that will commence at the close of its voting period. Therefore, the proposal meets the requirements for purpose and period clarity as outlined in Article IV, Section 1.\n\n- **Article III, Section 5 (Procedural Requirements):** This section mandates that all governance actions follow a standardized format and include a verifiable \"URL and hash of all documented off-chain content\" along with \"Sufficient rationale... and relevant supporting materials.\"\nThe proposal meets these procedural standards. It provides supporting documentation, including project lists and community signaling results, linked via a verified and immutable metadata hosted via IPFS. This use of IPFS represents a best practice in governance transparency and verifiability.\n\n- **Article IV, Section 2 (Administrator & Oversight):** This section requires that budgets \"specify a process for overseeing use of funds... including designating one or more administrators.\" \nThe proposal specifies an administrator and a process for oversight. It names Intersect as the administrator for all 39 bundled projects and details an oversight process in its \"Treasury Withdrawal & Fund Management\" section, which includes the use of smart contracts, a multi-sig body, and public reporting dashboards.\n\n- **Article I, Section 1 (Tenets):** This section requires that proposed governance actions be evaluated in accordance with the Tenets, which guide the community and its committees.\n\n- The proposal's substance aligns with key tenets.",
+    "precedentDiscussion": "The use of IPFS to ensure the immutability of the metadata and supporting links is commendable and sets a high standard for transparency and verifiability in governance actions.",
+    "counterargumentDiscussion": "Minor procedural points, such as the phrasing of the CC approval threshold in the proposal's \"Outcome\" section, do not impact the substantive constitutionality of the budget itself.",
+    "conclusion": "This \"2025 Cardano Blockchain Ecosystem Budget - 275M ada Administered by Intersect\" Info Governance Action aligns with the constitutional requirements for a budget proposal.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 2,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "RelevantArticles",
+        "label": "Preamble",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "RelevantArticles",
+        "label": "Article I, Section 1",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "RelevantArticles",
+        "label": "Article III, Section 5",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "RelevantArticles",
+        "label": "Article IV, Sections 1, 2, ",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "RelevantArticles",
+        "label": "Article VII, Section 1 & 4",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "RelevantArticles",
+        "label": "Appendix I, Section 3 (TREASURY-04a)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor URL",
+        "uri": "ipfs://bafkreibeajhkes7bxjlkghkingcgltqcwazz2ya5oknveqwt5nont7tg6u"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor Hash",
+        "uri": "b95d8f8e324e9863905f16dbad94c1f25b28b933ae842e6f8ce9841c8da5b197"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmdLR2sPaFEGA4U1vFnyvb3SHRNWQM6v9Qs4Dj97dcDY8h"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Foundation"
+    }
+  ]
+}

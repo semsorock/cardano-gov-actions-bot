@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We abstain from a constitutional determination.",
+    "rationaleStatement": "The claim for the outstanding portion of the deposit, 100,000 ADA, in this proposal is justified. However, the claim for 3,000 ADA can be considered unjustified. As opinions within the team were divided, we abstain from making a constitutional judgment.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "(Article I, Tenet 8 and Tenet 9) The redemption of the additional 3,000 ADA, which is not part of the deposit, is considered personal compensation and is therefore inappropriate. Furthermore, the following elements are insufficient for a treasury withdrawal proposal. (Article 3, Section 5) The explanation of the circumstances under which the 100,000 ADA cannot be recovered (issues with the relevant wallet or system) is not explicitly provided. (Article 4, Section 2) The proposal merely states that the administrator is “DRep,” without specifying who is responsible for what. (Article 4, Section 5) A community-auditable receiving address is not provided.",
+    "conclusion": "The request to withdraw 100,000 ADA itself is legitimate, but the 3,000 ADA portion cannot necessarily be deemed constitutional. Furthermore, the information provided is insufficient for a treasury withdrawal governance action. Therefore, we abstain.",
+    "internalVote": {
+      "constitutional": 2,
+      "unconstitutional": 2,
+      "abstain": 1,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Cardano Japan Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "833ddc6eedc272e763c33b9e6ed91efea5f0a5161f05bf72c83326a9b11507de",
+        "signature": "32ed7734bfd1ddb0a7cee20b0628301782daaff00821b434fc748230a4f6c5ceb12c2af172834a658fb47f33e05b92c19d0feb30b22a9f861a89bf2060f2260a"
+      }
+    }
+  ]
+}

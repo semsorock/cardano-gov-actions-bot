@@ -1,0 +1,169 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "onChain": {
+          "@id": "intersectSpec:onChain",
+          "@context": {
+            "governanceActionType": "intersectSpec:governanceActionType",
+            "depositReturnAddress": "intersectSpec:depositReturnAddress",
+            "withdrawals": {
+              "@id": "intersectSpec:withdrawals",
+              "@container": "@set",
+              "@context": {
+                "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                "withdrawalAmount": "intersectSpec:withdrawalAmount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "f7654eb861a2df0155021f0eb80f453d7facc9577cc8773bb9c93a6a207a391d7be7d863851d5ecc6229cbbee51a9139ccda970d331356d9b0d5d6726beee607"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Withdraw ₳750,000 for Cardano Product Committee: Community-driven 2030 Carda...",
+    "abstract": "This treasury withdrawal funds **Cardano Product Committee: Community-driven 2030 Cardano Vision and 2026 roadmap insights collection via workshops and structured product research** which will provide the following services:\n\nOne of the key community goals in 2025 is to create a shared long-term vision, transitioning from the roadmap created by Cardano's founders to a community-led dynamic vision and yearly roadmap.\n\nTo create the first community driven 2030 Cardano vision, and a following 2026 roadmap, the Cardano Product Committee of Intersect, via consultation, has drafted a strategy (which is already operational) which includes both broad consultation via workshops (remote and in-person) and focused insights collection via focus group calls, with key ecosystem stakeholders (like SPOs) and businesses (both in Cardano and outside Cardano), and incentivized structured user and market research with an initial set of broad questions divided by the broad Cardano goals. [https://productcommittee.docs.intersectmbo.org/committee-outcomes/2025-cardanos-roadmap/2025-proposed-cardano-goals](https://productcommittee.docs.intersectmbo.org/committee-outcomes/2025-cardanos-roadmap/2025-proposed-cardano-goals)\n\nThis Treasury Withdrawal is submitted by Intersect on behalf of the vendor. The following sections; Abstract, Motivation, Rationale and Vendor Profile have been sourced from the approved proposal submitted by the Vendor as part of the Intersect budget process.\n\nThis treasury withdrawal funds one of 39 proposals to give effect to the approved budget info action for ₳275,269,340, administered by Intersect via gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh. The information provided herein is intended to fulfill the spirit of the constitutional requirement for a treasury withdrawal info action by also providing the details of the proposed solution, alignment to the budget, and amount to be withdrawn from the Cardano Treasury.",
+    "motivation": "This proposal aims to solve the following problem:\n\nThe original Cardano roadmap, set by Cardano's founders, ended with the age of Voltaire. Now it's time to define an open, shared, and transparent process for the Cardano community to define a long-term vision and a roadmap.\n\nCreating a long-term vision in a small group is not easy, and it gets more complex as more stakeholders participate. One of Cardano's strengths is its community-shared mind, so the challenge is to define a reusable process to leverage Cardano's shared mind to create a long-term vision for Cardano and make it operational.\n\nFurthermore, as Cardano advances toward a maturing ecosystem, its future hinges on informed decision-making. However, the ecosystem currently lacks a dedicated, rigorous, and consolidated product research function to guide these decisions across themes such as user adoption, developer onboarding, governance participation, competitive positioning, and broader awareness. This absence limits our ability to reliably measure barriers, understand emerging needs, and identify product-market fit opportunities.\n\nCardano overall, and builders across the ecosystem, operate without a shared, research-backed understanding of what users actually need or how to prioritize strategic direction. Existing insights are scattered or outdated, and there is no ecosystem-wide standard for how assumptions are challenged or validated. This creates the risk of fragmentation as well as solutions that don't address real user pain points or market gaps.",
+    "rationale": "### Project Solution\n\nThe outcome of this proposal is a 2030 community-driven vision for Cardano, a 2026 proposed roadmap, and the first consolidated product research effort in Cardano. This will be achieved by providing clear paths for the broader Cardano community to participate in the 2030 vision creation process---both by contributing insights as key stakeholders and by enabling the collection of additional input through structured user and customer interviews, along with targeted product research initiatives.\n\nKey Outcomes and value this proposal will deliver:\n\n- Broad community participation in the first community-driven Cardano vision creation process\n\n- Documented insights from the community shared brain\n\n- Documented insights from key groups (such as SPOs, builders, and businesses in and outside of Cardano and Blockchain)\n\n- Participation in creating and critiquing the first draft proposal for a 2030 Cardano vision\n\n- Creation of the first framework and consolidated data set of insights coming from product research guiding Cardano (and builders on Cardano) on what are the most prominent user needs and the key market opportunities\n\n- Opportunities to access funding to run product research initiatives\n\n- Identify promising focus areas for Cardano to achieve product-market-fit, which can be coordinated with the Technical Steering Committee of Intersect to ultimately identify mission-critical Cardano feature sets\n\n### Vendor Profile\n\nIntersect is a non-profit member-based organization incorporated in Wyoming, USA. The team at Intersect represents a broad mix of experience and domain expertise, spanning open source, governance, infrastructure, fintech, and decentralized systems. Many of our team members are long-standing contributors to Cardano and are deeply embedded in the ecosystem - both professionally and as community participants.\n\nThe Cardano Product Committee of Intersect is made of members' elected product experts with knowledge in business, market research, and user research. The committee is also supported by academic researchers and it will consult Subject Matter Experts to define research initiatives and allocate funds in an open and transparent process to expert providers, as well as to properly document and share all the collected insights.\n\n### Contract Management\n\nA written off-chain Legal Contract will be created between the Vendor and Cardano Development Holdings (CDH), as mandated by the Constitution. Intersect will administer the contract on behalf of its members and in alignment with governance actions approved by DReps. This includes coordinating project delivery schedules, reporting progress transparently to our members and the community, and escalating any disputes to the Governing Board and membership for resolution in accordance with established procedures.\n\n### Project Delivery \n\nA written off-chain Legal Contract will be created between the Vendor and Cardano Development Holdings (CDH), as mandated by the Constitution. Intersect will administer the contract on behalf of its members and in alignment with governance actions approved by DReps. This includes coordinating project delivery schedules, reporting progress transparently to our members and the community, and escalating any disputes to the Governing Board and membership for resolution in accordance with established procedures. Members of the elected Product Committee will provide the necessary checks and assurance on milestone acceptance.\n\nProject progress will also be monitored via Intersect's delivery assurance function which will be communicated to the community.\n\nAcceptance of the above work is expected to be supported by a 3rd Party Assurer, who will be responsible for reviewing and signing off the work completed at each project milestone against the corresponding milestone deliverables detailed within the Legal Contract. This work is funded from a portion of this treasury withdrawal.\n\n### Budget Management Tooling\n\nTo administrate treasury funds on-chain, Intersect will utilize the treasury management smart contract framework developed by Sundae Labs. The smart contracts have been [extensively tested](https://github.com/SundaeSwap-finance/treasury-contracts/tree/main/offchain/tests) including audits from TxPipe and MLabs. Examples of the usage of these contracts can be seen across mainnet described across Intersect authored [Blog 1](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-a-step-toward-on-chain-treasury-withdrawals), [Blog 2](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-two-update) and [Blog 3](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-three-update).\n\nFinal mainnet validation test can be seen via the Disburse action within transaction: 0f591dc544ae14102dbb4a74d5311a6acffc1772b163d8b7a9656b9525950b17\n\nWith the confirmed treasury reserve contract address being: stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr\n\n#### Specifics\n\nIntersect will utilize a single Treasury Reserve Smart Contract (TRSC), with many Project-Specific Smart Contracts (PSSC), managed by Intersect. Intersect's management consists of three 'admin' and two Intersect 'leadership' roles. An Oversight Committee consisting of five external, independent third-party entities will provide checks and balances on Intersect, and safeguard against errors and unilateral control. The administration of both TRSC and PSSCs will be managed by Intersect, with external oversight on certain actions from the Oversight Committee.\n\nThe Oversight Committee consists of Sundae Labs, Cardano Foundation, Dquadrant, Xerberus and NMKR. Their role is to independently verify key administrative actions using on-chain logic, ensuring accuracy and consistency without exercising discretion over governance decisions.\n\nFor all details on Intersect's configuration please see the **[Smart Contract Guide](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-budget/intersect-administration-services/smart-contracts-as-part-of-our-administration)** on the knowledge base.\n\nThe high level permissions are as follows:\n\n- TRSC Fund and PSSC Modify\n\n  - Two of the three Intersect admins, two of the five trusted entities and one of the two Intersect leadership sign-off must authorize\n\n- TRSC Disperse\n\n  - Two of three Intersect admins, three of five trusted entities and two of two Intersect leadership sign-off must authorize\n\n- TRSC Pause and Resume\n\n  - Two of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Sweep\n\n  - One of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Reorganize\n\n  - Two of three Intersect admins and three of five trusted entities must authorize\n\n#### Processes\n\nUpon enactment of this governance action, funding for this project will be directed into the TRSC's stake account. All instances of TRSC and PSSC can not be staked with a SPO and will be delegated to the auto-abstain predefined DRep. From here funds will be withdrawn into a UTxO remaining at the TRSC.\n\nWhen the Legal contract is prepared and the vendor is ready, funding for this project will be transferred using the Fund action to a PSSC. All milestones will be outlined within the metadata.\n\nA dashboard will be available for the community to audit the TRSC or PSSC and track metrics related to this withdrawn ada as well as being immutably verifiable on chain.\n\nThe subsections; Contract Management, Project Delivery, and Budget Management Tooling described above cover the constitutional requirements specified in Article IV section 4 and 5.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "2025 Research Budget - Product Research Proposal",
+        "uri": "https://productcommittee.docs.intersectmbo.org/committee-outcomes/2025-proposed-research-budget#product-research-sub-bucket"
+      },
+      {
+        "@type": "Other",
+        "label": "2025 Research Budget - Vision Creation",
+        "uri": "https://productcommittee.docs.intersectmbo.org/committee-outcomes/2025-proposed-research-budget#vision-creation-sub-bucket"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Forum submission and comments",
+        "uri": "https://forum.cardano.org/t/cardano-research-budget-proposal/"
+      },
+      {
+        "@type": "Other",
+        "label": "2025 Broad Goals",
+        "uri": "https://productcommittee.docs.intersectmbo.org/committee-outcomes/2025-cardanos-roadmap/2025-proposed-cardano-goals"
+      },
+      {
+        "@type": "Other",
+        "label": "2025 Product Roadmap",
+        "uri": "https://productcommittee.docs.intersectmbo.org/committee-outcomes/2025-cardanos-roadmap/2025-proposed-cardano-roadmap"
+      },
+      {
+        "@type": "Other",
+        "label": "2025 Product Roadmap info action via GovTool",
+        "uri": "https://gov.tools/outcomes/governance_actions/56f39054758f1a3cedc1de9225d66bf270b62dfdbfbc5399f1d6d43aceffc636#0"
+      },
+      {
+        "@type": "Other",
+        "label": "2030 Long-Term Cardano Vision process",
+        "uri": "https://productcommittee.docs.intersectmbo.org/committee-outcomes/2030-long-term-cardano-vision"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Product Committee details",
+        "uri": "https://productcommittee.docs.intersectmbo.org/"
+      },
+      {
+        "@type": "Other",
+        "label": "Project Proposal In Ekklesia",
+        "uri": "https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b63565577986442d204"
+      },
+      {
+        "@type": "Other",
+        "label": "Approved Budget Info Action submitted by Intersect via GovTool",
+        "uri": "https://gov.tools/outcomes/governance_actions/e14de8d9dc4f4ddf3fe9250a8a926e20f10e99b86bd0610b77d7a054981591ee#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Details of all successful proposals (CSV)",
+        "uri": "ipfs://bafybeicwrop4q7xvnyjdd5drumbe56sqtm5lbe2ul3c262zt4hgguzdycm"
+      },
+      {
+        "@type": "Other",
+        "label": "Automating Accountability: Cardano's Smart Contract Framework Blog",
+        "uri": "ipfs://bafybeihqx4ae72z7suqfnxrpqpqithp43cai7o2uuewnqtezgaoyc3ptyq"
+      },
+      {
+        "@type": "Other",
+        "label": "Sundae Labs Budget Management Smart Contracts Github Repository",
+        "uri": "https://github.com/SundaeSwap-finance/treasury-contracts"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts TxPipe Audit Report",
+        "uri": "ipfs://bafybeiccnwejbgj43wo6hrlseckkkmprtoqc5cfuy2hesm6c6yealwho3e"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts MLabs Audit Report",
+        "uri": "ipfs://bafybeiah5fnjhda5hemj3qvaehc4mre3qllqzw2l7mkdsguytn4ftgafw4"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "treasuryWithdrawals",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp",
+      "withdrawals": [
+        {
+          "withdrawalAddress": "stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr",
+          "withdrawalAmount": 750000000000
+        }
+      ]
+    }
+  }
+}

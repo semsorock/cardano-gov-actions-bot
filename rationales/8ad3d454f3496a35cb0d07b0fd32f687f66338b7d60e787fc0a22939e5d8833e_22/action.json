@@ -1,0 +1,149 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "onChain": {
+          "@id": "intersectSpec:onChain",
+          "@context": {
+            "governanceActionType": "intersectSpec:governanceActionType",
+            "depositReturnAddress": "intersectSpec:depositReturnAddress",
+            "withdrawals": {
+              "@id": "intersectSpec:withdrawals",
+              "@container": "@set",
+              "@context": {
+                "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                "withdrawalAmount": "intersectSpec:withdrawalAmount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "084a2ee9a48d5b65e096a3737f2a340c24801c6a78060d38a2169eecd219aa89cac4688abec8682e802358ed30b08daeefdefd251ff36812dcae67b609c8bc0d"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Withdraw ₳592,780 for Beyond Minimum Viable Governance: Iteratively Improvin....",
+    "abstract": "This treasury withdrawal funds **Beyond Minimum Viable Governance: Iteratively Improving on Cardano Voltaire** which will provide the following services:\n\nThis initiative will establish a robust framework for evaluating and enhancing Cardano's governance system. We will identify and benchmark key governance metrics to assess the health, performance, and overall impact of our decentralized decision-making processes. The resulting 'State of Governance' report will provide a structured evaluation of participation, track vital Key Performance Indicators (KPIs), map the evolving governance ecosystem, and pinpoint specific areas for improvement.\n\nTo ensure our findings are grounded in real-world experience, we will engage the Cardano community through various channels. These include virtual workshops, targeted surveys, and in-depth user interviews. By actively gathering and synthesizing community insights, we will gain a comprehensive understanding of the current state of governance. This will allow us to formulate actionable recommendations and pave the way for post-MVG (Minimum Viable Governance) evolution. Where appropriate, these recommendations will be developed into initial drafts of Cardano Problem Statements (CPSs) or Cardano Improvement Proposals (CIPs), directly reflecting the community's vision for a more robust and effective governance future.\n\nThis Treasury Withdrawal is submitted by Intersect on behalf of the vendor. The following sections; Abstract, Motivation, Rationale and Vendor Profile have been sourced from the approved proposal submitted by the Vendor as part of the Intersect budget process.\n\nThis treasury withdrawal funds one of 39 proposals to give effect to the approved budget info action for ₳275,269,340, administered by Intersect via gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh. The information provided herein is intended to fulfill the spirit of the constitutional requirement for a treasury withdrawal info action by also providing the details of the proposed solution, alignment to the budget, and amount to be withdrawn from the Cardano Treasury.",
+    "motivation": "This proposal aims to solve the following problem:\n\nCardano stands at the forefront of decentralized governance innovation. Yet, we face a critical challenge: the absence of transparent, data-backed frameworks to evaluate our governance's effectiveness, pinpoint obstacles, and drive impactful improvements. Without these structured processes, our governance discourse risks becoming reactive and fragmented. Potential risks may slip through the cracks, and decision-makers could lack the vital insights needed to refine our governance mechanisms. To truly evolve beyond Minimum Viable Governance (MVG) and unlock Cardano's full potential, we must establish a robust, data-driven foundation for continuous improvement.",
+    "rationale": "### Project Solution\n\nImagine a Cardano where governance evolves continuously, driven by data and community insights. We will forge that future by moving beyond Minimum Viable Governance (MVG) to craft a dynamic, adaptable system with a clear, cost-effective process to pinpoint the real challenges faced by those who participate in governance. By putting this process into action, we will deliver transparent, insightful findings and expert analysis. Where needed, these insights will be translated into concrete proposals (CIPs or CPSs) reflecting community consensus. This initiative will kickstart ongoing governance optimization, empowering the community to actively monitor and address critical risks, ensuring Cardano remains a leader in decentralized decision-making.\n\n* The process outputs will be published including a state of governance report with measurement methods and workshop data with analysis\n\n* A playbook will be published with details about how to repeat the process and include lessons learned\n\n* Any CPS and CIPs will be authored by this team as a milestone of this funding, but the team will be open for other interested co-authors and collaborators\n\n* Further funding would be required to move a CPS to a CIP, or to implement a CIP\n\n* This could become a repeated process if the community finds value in funding these activities annually\n\n### Vendor Profile\n\nThis project will be driven by a robust coalition of experienced stakeholders dedicated to the advancement of Cardano's governance. Input Output's Voltaire team will provide core leadership, leveraging their unique role as the architects of Cardano's governance framework. As the team responsible for implementing key governance mechanisms---including the Cardano Constitution, the DRep liquid democracy model, and various on-chain and off-chain tools---we possess strong insight into their performance and optimization potential.\n\n**Key Contributions from Input Output's Voltaire Team:**\n\n* **CIP-1694 Workshops:** Designed and executed community workshops that were crucial in refining CIP-1694, which is now implemented on Cardano.\n\n* **Constitution Drafting:** Led the design and execution of the global constitution drafting workshops, which led to the 85% on-chain approval of the constitution. Michael Madoff served as the founding Chair of the Cardano Civics Committee, Danielle Stanko was the Secretary and led the Constitution Ratification Working Group, and Thomas Upfield managed the delivery of global workshop and convention polling tools during this process.\n\n* **CIP Authoring:** Demonstrated experience in creating and contributing to Cardano Improvement Proposals: Thomas Upfield is the author of CIP-119, and Danielle Stanko is the co-author of CIP-120.\n\n**Broader Coalition and Community Involvement:**\n\nThis project will not solely rely on Input Output. We are building a broad coalition with active participation from:\n\n* **Constitutional Delegate Committee Members:** Ken-Erik Ølmheim, Max van Rossem, and Tevo Saks, all experienced Cardano contributors, have committed to supporting this project, bringing valuable expertise as Workshop Hosts.\n\n* **Partner Organizations:** We have secured commitments from key partner organizations, including WADA and the Intersect Constitution team, to contribute to the project's delivery.\n\n* **Active Cardano Community Members:** We will actively engage with and draw upon the diverse expertise within the broader Cardano community, ensuring a truly collaborative and inclusive approach.\n\n**This collaborative model ensures a wide range of perspectives and expertise, enhancing the project's depth and impact on Cardano's governance evolution.**\n\n### Contract Management\n\nA written off-chain Legal Contract will be created between the Vendor and the Cardano Development Holdings (CDH), as mandated by the constitution, and will be administered by Intersect. This will include details of the project delivery schedule and dispute resolution.\n\n### Project Delivery \n\nAll milestones, acceptance criteria, payment amounts and expected delivery dates will be agreed between the Vendor and Intersect, acting on behalf of the CDH. The vendor will deliver according to the agreed-upon project schedule within the Legal Contract, of which the necessary information will be made public via the budget management platform via transaction metadata.\n\nDefined by the milestones within a Legal Contract, the vendor will submit and attest milestone acceptance to the community, Intersect or 3rd Party Assurer.\n\nProject progress will be monitored via Intersect's delivery assurance function which will be communicated to the community.\n\nAcceptance of the above work is expected to be supported by a 3rd Party Assurer, who will be responsible for reviewing and signing off the work completed at each project milestone against the corresponding milestone deliverables detailed within the Legal Contract. This work is funded from a portion of this treasury withdrawal.\n\n### Budget Management Tooling\n\nTo administrate treasury funds on-chain, Intersect will utilize the treasury management smart contract framework developed by Sundae Labs. The smart contracts have been [extensively tested](https://github.com/SundaeSwap-finance/treasury-contracts/tree/main/offchain/tests) including audits from TxPipe and MLabs. Examples of the usage of these contracts can be seen across mainnet described across Intersect authored [Blog 1](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-a-step-toward-on-chain-treasury-withdrawals), [Blog 2](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-two-update) and [Blog 3](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-three-update).\n\nFinal mainnet validation test can be seen via the Disburse action within transaction: 0f591dc544ae14102dbb4a74d5311a6acffc1772b163d8b7a9656b9525950b17\n\nWith the confirmed treasury reserve contract address being: stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr\n\n#### Specifics\n\nIntersect will utilize a single Treasury Reserve Smart Contract (TRSC), with many Project-Specific Smart Contracts (PSSC), managed by Intersect. Intersect's management consists of three 'admin' and two Intersect 'leadership' roles. An Oversight Committee consisting of five external, independent third-party entities will provide checks and balances on Intersect, and safeguard against errors and unilateral control. The administration of both TRSC and PSSCs will be managed by Intersect, with external oversight on certain actions from the Oversight Committee.\n\nThe Oversight Committee consists of Sundae Labs, Cardano Foundation, Dquadrant, Xerberus and NMKR. Their role is to independently verify key administrative actions using on-chain logic, ensuring accuracy and consistency without exercising discretion over governance decisions.\n\nFor all details on Intersect's configuration please see the **[Smart Contract Guide](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-budget/intersect-administration-services/smart-contracts-as-part-of-our-administration)** on the knowledgebase.\n\nThe high level permissions are as follows:\n\n- TRSC Fund and PSSC Modify\n\n  - Two of the three Intersect admins, two of the five trusted entities and one of the two Intersect leadership sign-off must authorize\n\n- TRSC Disperse\n\n  - Two of three Intersect admins, three of five trusted entities and two of two Intersect leadership sign-off must authorize\n\n- TRSC Pause and Resume\n\n  - Two of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Sweep\n\n  - One of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Reorganize\n\n  - Two of three Intersect admins and three of five trusted entities must authorize\n\n#### Processes\n\nUpon enactment of this governance action, funding for this project will be directed into the TRSC's stake account. All instances of TRSC and PSSC can not be staked with a SPO and will be delegated to the auto-abstain predefined DRep. From here funds will be withdrawn into a UTxO remaining at the TRSC.\n\nWhen the Legal contract is prepared and the vendor is ready, funding for this project will be transferred using the Fund action to a PSSC. All milestones will be outlined within the metadata.\n\nA dashboard will be available for the community to audit the TRSC or PSSC and track metrics related to this withdrawn ada as well as being immutably verifiable on chain.\n\nThe subsections; Contract Management, Project Delivery, and Budget Management Tooling described above cover the constitutional requirements specified in Article IV section 4 and 5.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Beyond Minimum Viable Governance Pitch Deck (PDF)",
+        "uri": "ipfs://bafybeihsjaycyujaqxpthruafmbiosckufka72zebc6d2ob2tiedjlba7e"
+      },
+      {
+        "@type": "Other",
+        "label": "CIP-1694 concludes with \"Other ideas/ Open questions\" via CIPs Github Repository",
+        "uri": "https://github.com/cardano-foundation/CIPs/tree/master/CIP-1694#other-ideas--open-questions"
+      },
+      {
+        "@type": "Other",
+        "label": "The Constitution drafting process documented Future Governance Workstreams",
+        "uri": "ipfs://bafkreih2ks72pmhsxteulmztt4fbvtanmtnwjktmem3orloblmvkntv55q"
+      },
+      {
+        "@type": "Other",
+        "label": "The Constitution Ratification governance action includes the intent to host future governance workshops",
+        "uri": "https://gov.tools/outcomes/governance_actions/8c653ee5c9800e6d31e79b5a7f7d4400c81d44717ad4db633dc18d4c07e4a4fd#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Project Proposal In Ekklesia",
+        "uri": "https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b63565577986442d192"
+      },
+      {
+        "@type": "Other",
+        "label": "Approved Budget Info Action submitted by Intersect via GovTool",
+        "uri": "https://gov.tools/outcomes/governance_actions/e14de8d9dc4f4ddf3fe9250a8a926e20f10e99b86bd0610b77d7a054981591ee#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Details of all successful proposals (CSV)",
+        "uri": "ipfs://bafybeicwrop4q7xvnyjdd5drumbe56sqtm5lbe2ul3c262zt4hgguzdycm"
+      },
+      {
+        "@type": "Other",
+        "label": "Automating Accountability: Cardano's Smart Contract Framework Blog",
+        "uri": "ipfs://bafybeihqx4ae72z7suqfnxrpqpqithp43cai7o2uuewnqtezgaoyc3ptyq"
+      },
+      {
+        "@type": "Other",
+        "label": "Sundae Labs Budget Management Smart Contracts Github Repository",
+        "uri": "https://github.com/SundaeSwap-finance/treasury-contracts"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts TxPipe Audit Report",
+        "uri": "ipfs://bafybeiccnwejbgj43wo6hrlseckkkmprtoqc5cfuy2hesm6c6yealwho3e"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts MLabs Audit Report",
+        "uri": "ipfs://bafybeiah5fnjhda5hemj3qvaehc4mre3qllqzw2l7mkdsguytn4ftgafw4"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "treasuryWithdrawals",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp",
+      "withdrawals": [
+        {
+          "withdrawalAddress": "stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr",
+          "withdrawalAmount": 592780000000
+        }
+      ]
+    }
+  }
+}

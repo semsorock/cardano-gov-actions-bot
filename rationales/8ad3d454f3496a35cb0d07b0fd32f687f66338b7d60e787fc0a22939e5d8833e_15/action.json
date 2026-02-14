@@ -1,0 +1,189 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "onChain": {
+          "@id": "intersectSpec:onChain",
+          "@context": {
+            "governanceActionType": "intersectSpec:governanceActionType",
+            "depositReturnAddress": "intersectSpec:depositReturnAddress",
+            "withdrawals": {
+              "@id": "intersectSpec:withdrawals",
+              "@container": "@set",
+              "@context": {
+                "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                "withdrawalAmount": "intersectSpec:withdrawalAmount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "e53bc5064a668d359790887ed0b3e0fe76128f81577c349a5f91df78bb6b0a26022ef8872263b5c3af0c5ed64cac85657fc7520597fcd8b6149968ca19c2ac07"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Withdraw ₳700,000 for ZK Bridge administered by Intersect",
+    "abstract": "This treasury withdrawal funds **ZK Bridge** which will provide the following services:\n\nOur proposal is building a ZK bridge for Cardano, which we will deploy on the Cardano testnet.\n\nAs part of this initiative, we will define a communication protocol for the bridge, provide the full source code of the smart contracts on the Cardano side, and produce comprehensive technical documentation detailing the protocol between Cardano and any other isomorphic blockchain.\n\nWe will provide a circuit that enables a relayer to generate the ZK proof that a locking transaction was successfully added to the chain, which can then be verified on the receiving blockchain. This way, any blockchain will be able to implement a ZK bridge with Cardano, leveraging its newly added capability to generate such proofs. This allows for a variety of uses, such as moving assets outside Cardano just by providing the proof that they've locked an equivalent amount in the Cardano Smart Contract. The resulting bridge can serve as a generic framework for interoperability between Cardano and any other blockchain willing to implement the corresponding counterpart contracts.\n\nFurthermore, we will implement contracts in Aiken to mint assets on a Cardano-like (isomorphic) blockchain and deploy them on the Cardano testnet, providing a fully functional proof of concept. These building blocks will enable developers to create bridges between Cardano and other chains with minimal additional effort.\n\nThis Treasury Withdrawal is submitted by Intersect on behalf of the vendor. The following sections; Abstract, Motivation, Rationale and Vendor Profile have been sourced from the approved proposal submitted by the Vendor as part of the Intersect budget process.\n\nThis treasury withdrawal funds one of 39 proposals to give effect to the approved budget info action for ₳275,269,340, administered by Intersect via gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh. The information provided herein is intended to fulfill the spirit of the constitutional requirement for a treasury withdrawal info action by also providing the details of the proposed solution, alignment to the budget, and amount to be withdrawn from the Cardano Treasury.",
+    "motivation": "This proposal aims to solve the following problem:\n\nCross-chain interoperability remains one of the most critical yet unresolved challenges for Cardano. While the ecosystem is advancing in scalability through projects like Hydra and optimistic roll ups such as Midgard it still lacks a secure, trustless, and modular zk-based bridge infrastructure.\n\nCurrent bridges rely on centralized validators or multi-signature schemes, introducing major security risks---as demonstrated by numerous high-profile exploits in other ecosystems. Without a native zero-knowledge bridge, Cardano is unable to safely connect with external chains, severely limiting access to external liquidity, composability with other ecosystems, and the ability to scale horizontally.\n\nFurthermore, the Cardano ecosystem lacks a unified open-source toolkit for:\n\nOn-chain verification of zero-knowledge proofs\n\nSecure and efficient cross-chain messaging\n\nAsset wrapping and unwrapping under Cardano's native token model\n\nAnd trust-minimized interoperability with existing ZK-rollups.\n\nThis absence puts Cardano at a competitive disadvantage compared to platforms like Ethereum, which already benefit from multiple zk-based Layer 2 solutions and zk-enabled bridges.\n\nA modular zkBridge is not only critical to unlock interoperability---it also lays the groundwork for a future Cardano-native zkRollup framework, by enabling the testing and deployment of foundational components such as provers, verifiers, and state synchronization mechanisms.",
+    "rationale": "### Project Solution\n\nBuilding a zero-knowledge bridge provides several key benefits to the Cardano ecosystem. A bridge between Cardano and other blockchains would make it much easier for value to flow in from external ecosystems, increasing the liquidity available within Cardano.\n\nA zero-knowledge bridge, specifically, offers important advantages over alternative architectures such as optimistic bridges. In a ZK bridge, a single user action accompanied by a succinct proof of deposit is sufficient to release tokens on the destination blockchain. This eliminates the need for community-wide monitoring or challenge periods, significantly reducing latency and trust assumptions.\n\nAdditionally, by building a ZK bridge, Cardano positions itself as a more interoperable platform, capable of engaging with the broader ecosystem of zero-knowledge technologies. This lays the groundwork for future innovations in identity, privacy-preserving applications, and cross-chain collaboration.\n\n### Vendor Profile\n\nEryx is a worker-owned labor cooperative with almost 15 years of experience solving complex problems involving mathematics and software. We are a group of nerdy PhDs with a solid background in math and computer science. Our team has extensive experience in blockchain development, cryptography, and privacy-focused protocols, which gives us the expertise required to successfully deliver the project.\n\nAmong other things, we've been core contributors to the Lambdaworks library and implemented the CircleSTARKS protocol in GPU alongside with Nethermind. This involved implementing several ZK cryptographic primitives (field operations, polynomial commitment schemes, FRI protocols, FFTs), in different platforms and languages. Furthermore, we implemented a proving system based on the Plonk protocol. During this project we wrote a simple interface to design circuits. It included basic operations and conditionals that made the building blocks for more complex cryptographic primitives. We also developed a Plonky2 backend for Aztec's Noir, funded by the Ethereum Foundation.\n\nIn relation to this proposal, we have extensive experience in Aiken smart contract development, including previously funded proposals under Project Catalyst focused on educational and technical infrastructure for Cardano. We also wrote zk circuits for cryptographic primitives such as hash functions and elliptic curve operations.\n\nWe are active contributors to the ENCOINS protocol, currently deployed on the Cardano mainnet with privacy-preserving features. Currently, we are researching the integration of ZK systems with the EUTxO model.\n\n### Contract Management\n\nA written off-chain Legal Contract will be created between the Vendor and the Cardano Development Holdings (CDH), as mandated by the constitution, and will be administered by Intersect. This will include details of the project delivery schedule and dispute resolution.\n\n### Project Delivery \n\nAll milestones, acceptance criteria, payment amounts and expected delivery dates will be agreed between the Vendor and Intersect, acting on behalf of the CDH. The vendor will deliver according to the agreed-upon project schedule within the Legal Contract, of which the necessary information will be made public via the budget management platform via transaction metadata.\n\nDefined by the milestones within a Legal Contract, the vendor will submit and attest milestone acceptance to the community, Intersect or 3rd Party Assurer.\n\nProject progress will be monitored via Intersect's delivery assurance function which will be communicated to the community.\n\nAcceptance of the above work is expected to be supported by a 3rd Party Assurer, who will be responsible for reviewing and signing off the work completed at each project milestone against the corresponding milestone deliverables detailed within the Legal Contract. This work is funded from a portion of this treasury withdrawal.\n\n### Budget Management Tooling\n\nTo administrate treasury funds on-chain, Intersect will utilize the treasury management smart contract framework developed by Sundae Labs. The smart contracts have been [extensively tested](https://github.com/SundaeSwap-finance/treasury-contracts/tree/main/offchain/tests) including audits from TxPipe and MLabs. Examples of the usage of these contracts can be seen across mainnet described across Intersect authored [Blog 1](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-a-step-toward-on-chain-treasury-withdrawals), [Blog 2](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-two-update) and [Blog 3](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-three-update).\n\nFinal mainnet validation test can be seen via the Disburse action within transaction: 0f591dc544ae14102dbb4a74d5311a6acffc1772b163d8b7a9656b9525950b17\n\nWith the confirmed treasury reserve contract address being: stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr\n\n#### Specifics\n\nIntersect will utilize a single Treasury Reserve Smart Contract (TRSC), with many Project-Specific Smart Contracts (PSSC), managed by Intersect. Intersect's management consists of three 'admin' and two Intersect 'leadership' roles. An Oversight Committee consisting of five external, independent third-party entities will provide checks and balances on Intersect, and safeguard against errors and unilateral control. The administration of both TRSC and PSSCs will be managed by Intersect, with external oversight on certain actions from the Oversight Committee.\n\nThe Oversight Committee consists of Sundae Labs, Cardano Foundation, Dquadrant, Xerberus and NMKR. Their role is to independently verify key administrative actions using on-chain logic, ensuring accuracy and consistency without exercising discretion over governance decisions.\n\nFor all details on Intersect's configuration please see the **[Smart Contract Guide](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-budget/intersect-administration-services/smart-contracts-as-part-of-our-administration)** on the knowledgebase.\n\nThe high level permissions are as follows:\n\n- TRSC Fund and PSSC Modify\n\n  - Two of the three Intersect admins, two of the five trusted entities and one of the two Intersect leadership sign-off must authorize\n\n- TRSC Disperse\n\n  - Two of three Intersect admins, three of five trusted entities and two of two Intersect leadership sign-off must authorize\n\n- TRSC Pause and Resume\n\n  - Two of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Sweep\n\n  - One of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Reorganize\n\n  - Two of three Intersect admins and three of five trusted entities must authorize\n\n#### Processes\n\nUpon enactment of this governance action, funding for this project will be directed into the TRSC's stake account. All instances of TRSC and PSSC can not be staked with a SPO and will be delegated to the auto-abstain predefined DRep. From here funds will be withdrawn into a UTxO remaining at the TRSC.\n\nWhen the Legal contract is prepared and the vendor is ready, funding for this project will be transferred using the Fund action to a PSSC. All milestones will be outlined within the metadata.\n\nA dashboard will be available for the community to audit the TRSC or PSSC and track metrics related to this withdrawn ada as well as being immutably verifiable on chain.\n\nThe subsections; Contract Management, Project Delivery, and Budget Management Tooling described above cover the constitutional requirements specified in Article IV section 4 and 5.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "ZkBridge Cardano Proposal (PDF)",
+        "uri": "ipfs://bafybeic6onenqv7xguen3klpqlwly5dvxlfanaws4z4knfwg7w5vksp72q"
+      },
+      {
+        "@type": "Other",
+        "label": "Eryx Coop ACVM Backend Plonky2 GitHub Repository",
+        "uri": "https://github.com/eryxcoop/acvm-backend-plonky2"
+      },
+      {
+        "@type": "Other",
+        "label": "Eryx Coop one-pager (PDF)",
+        "uri": "ipfs://bafybeidoz5frkc4fd2lrn7gmoxvgl3ltognd7lm6kltnnj62qdw57r7u4i"
+      },
+      {
+        "@type": "Other",
+        "label": "ZKCity Educational Bootcamp where we were main lecturers",
+        "uri": "https://www.zkcity.xyz"
+      },
+      {
+        "@type": "Other",
+        "label": "Eryx Coop ZK Adventures GitHub Repository",
+        "uri": "https://github.com/eryxcoop/zk-adventures"
+      },
+      {
+        "@type": "Other",
+        "label": "Contributions to open source Zk projects 1",
+        "uri": "https://github.com/starkware-libs/stwo/commits/dev/?author=carlogf"
+      },
+      {
+        "@type": "Other",
+        "label": "Contributions to open source Zk projects 2",
+        "uri": "https://github.com/starkware-libs/stwo/commits/dev/?author=jarnesino"
+      },
+      {
+        "@type": "Other",
+        "label": "Contributions to open source Zk projects 3",
+        "uri": "https://github.com/starkware-libs/stwo-cairo/commits/main/?author=ajgara"
+      },
+      {
+        "@type": "Other",
+        "label": "Contributions to open source Zk projects 4",
+        "uri": "https://github.com/starkware-libs/stwo-cairo/commits/main/?author=atgrosso"
+      },
+      {
+        "@type": "Other",
+        "label": "Contributions to open source Zk projects 5",
+        "uri": "https://github.com/starkware-libs/stwo-cairo/commits/main/?author=schouhy"
+      },
+      {
+        "@type": "Other",
+        "label": "Contributions to open source Zk projects 6",
+        "uri": "https://github.com/0xPolygonZero/plonky2/pull/1645"
+      },
+      {
+        "@type": "Other",
+        "label": "Circle STARK GPU Acceleration Talk by our partner Julian",
+        "uri": "https://www.youtube.com/watch?v=7EOjrYnrE8g"
+      },
+      {
+        "@type": "Other",
+        "label": "Project Proposal In Ekklesia",
+        "uri": "https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b63565577986442d172"
+      },
+      {
+        "@type": "Other",
+        "label": "Approved Budget Info Action submitted by Intersect via GovTool",
+        "uri": "https://gov.tools/outcomes/governance_actions/e14de8d9dc4f4ddf3fe9250a8a926e20f10e99b86bd0610b77d7a054981591ee#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Details of all successful proposals (CSV)",
+        "uri": "ipfs://bafybeicwrop4q7xvnyjdd5drumbe56sqtm5lbe2ul3c262zt4hgguzdycm"
+      },
+      {
+        "@type": "Other",
+        "label": "Automating Accountability: Cardano's Smart Contract Framework Blog",
+        "uri": "ipfs://bafybeihqx4ae72z7suqfnxrpqpqithp43cai7o2uuewnqtezgaoyc3ptyq"
+      },
+      {
+        "@type": "Other",
+        "label": "Sundae Labs Budget Management Smart Contracts Github Repository",
+        "uri": "https://github.com/SundaeSwap-finance/treasury-contracts"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts TxPipe Audit Report",
+        "uri": "ipfs://bafybeiccnwejbgj43wo6hrlseckkkmprtoqc5cfuy2hesm6c6yealwho3e"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts MLabs Audit Report",
+        "uri": "ipfs://bafybeiah5fnjhda5hemj3qvaehc4mre3qllqzw2l7mkdsguytn4ftgafw4"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "treasuryWithdrawals",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp",
+      "withdrawals": [
+        {
+          "withdrawalAddress": "stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr",
+          "withdrawalAmount": 700000000000
+        }
+      ]
+    }
+  }
+}

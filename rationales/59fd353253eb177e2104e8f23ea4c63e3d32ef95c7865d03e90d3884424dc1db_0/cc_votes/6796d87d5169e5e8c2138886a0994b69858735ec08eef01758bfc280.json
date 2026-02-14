@@ -1,0 +1,111 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The governance action, 'Ikigai Info Governance Action', is deemed constitutional. As an Info Governance Action (Info Action), it has no effect on the protocol. The action content and its framing does not infringe any article of the constitution and is in line with the governance principles. This vote solely assesses the constitutionality of the action and does not indicate support or express any opinion regarding the underlying message. Voicing an opinion is the duty of the Delegated Representatives (DReps) and Stake Pool Operators (SPOs) and remains out of the scope of the Interim Constitutional Committee (iCC).",
+    "rationaleStatement": "**Understanding Info Governance Actions:** As per Article III, Section 5 of the Interim Constitution, Info Actions are primarily intended to capture the community's sentiment. They have no on-chain impact and only document the votes from the three governance roles, DReps, SPOs , and the Constitutional Committee (CC). Info Actions, which can include statements, questions, or other forms to express sentiment, are never enacted on-chain and serve solely to record votes. **Role of the Constitutional Committee:** As outlined by Article VI, Section 1 of the Interim Constitution, the CC's primary responsibility is to assess the constitutionality of governance actions, and vote respectively. As Info Actions are non-binding and have no impact on the protocol, assessing their constitutionality could be considered superfluous or outside the CC’s responsibilities according to the Interim Constitution. However, as an iCC member in this initial governance phase, we believe Info Actions are a valuable mechanism for refining the governance process and demonstrating the iCC members' commitment to engaging in it. **Summary of the Governance Action** The 'Ikigai Info Governance Action' is a celebratory initiative designed to acknowledge and express gratitude towards the genesis entities in the Cardano ecosystem, Cardano Foundation, EMURGO, and IOG. This Info Action aligns with the principles of trust, collaboration, and community spirit, as outlined in the Interim Constitution. **Key Constitutional Compliance:** * **Article I, Section 2:** Highlight principles of Cardano governance fostering values of inclusivity and diversity of views, which are fully aligned with the info action and its framing. * **Article III, Section 5:** Defines Info Actions as mechanisms to gauge community sentiment without committing to on-chain changes, only recording votes. * **Article VI, Section 1:** Establishes the CC's role to ensure governance actions are constitutional, limited to voting on their constitutionality. Accordingly, the CC assesses the constitutionality of the 'Ikigai Info Governance Action' without endorsing the action's message. **Importance of Voting as a Constitutional Committee Member:** Voting is a fundamental responsibility of a CC Member, ensuring that governance actions align with the foundational principles and governance frameworks established by the Interim Constitution. By casting a 'Yes' vote, the CC member deems the governance action to be constitutional. This participation reinforces the CC's role in safeguarding the ecosystem's governance processes and maintaining community trust.",
+    "precedentDiscussion": "No precedent",
+    "counterargumentDiscussion": "It could be argued that celebratory messages do not offer tangible benefits to the blockchain's functionality and could be perceived as non-essential. Moreover, there is a concern that frequent non-binding actions could clutter the governance process, diverting attention from more critical issues. A remedy for that could be to default to an abstain vote for such Info Actions. Our arguments are as follows: * Recognizing contributions and fostering a positive community spirit are vital for the ecosystem's resilience and long-term success, enhancing trust and collaboration essential for effective decentralized governance. * Info Actions may include elements with on-chain implications, like approval thresholds, where constitutional assessment ensures transparency and prevents undue influence. Standardized formats and documentation help mitigate risks of manipulative polls, preserving governance integrity. * As we are making our first steps into on-chain governance, it is important that all parties demonstrate their willingness to fulfill their role from the start. Potential issues like spam and chain clutter can still be addressed in due time. ",
+    "conclusion": "We conclude as follows: * The 'Ikigai Info Governance Action' is **constitutional**. * It serves to reinforce community values and **aligns** with the Interim Constitution's principles of **transparency**, **responsible governance**, and **inclusivity**, and **adheres** to **procedural requirements**. Therefore, the Cardano Foundation as an ICC member deems this action to be constitutional, without endorsing or expressing any opinion regarding the underlying message",
+    "internalVote": {
+      "constitutional": 4,
+      "unconstitutional": 0,
+      "abstain": 2,
+      "didNotVote": 0
+    },
+    "references": [
+      {
+        "@type": "relevantArticles",
+        "label": "Article I sections 1-2.",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/main/cardano-constitution-0.txt"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article II sections 1-4.",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/main/cardano-constitution-0.txt"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article III sections 1-6.",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/main/cardano-constitution-0.txt"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article V",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/main/cardano-constitution-0.txt"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article VI sections 1-5.",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/main/cardano-constitution-0.txt"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article VII",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/main/cardano-constitution-0.txt"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale pdf",
+        "uri": "ipfs://QmbBa9duFPsVMCwxZn4rvYFLAVV7rzn1bvrnDQD6SphcQy"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Foundation"
+    }
+  ]
+}

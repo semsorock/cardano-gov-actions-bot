@@ -1,0 +1,112 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The proposed Info Governance Action “Defining the Cardano Vision and Roadmap for 2025 and Beyond” is constitutional as it facilitates community input on the future roadmap. However, the mutable roadmap link referenced in the governance action metadata poses a risk to long-term transparency and accountability, which we provide a solution to below.",
+    "rationaleStatement": "The Info Governance Action ”Defining the Cardano Vision and Roadmap for 2025 and Beyond” (gov_action12meeq4r43udremwpm6fzt4nt7fctvt0ah7798x036m2r4nhlccmqqhmr9wx) is a non-binding proposal developed by the Cardano Product Committee of Intersect. It seeks input from Delegated Representatives (DReps) on Cardano's strategic roadmap for 2025 and beyond.\n\n**Constitutional Alignment**\n\nThis Info Action adheres to the constitutional framework:\n\n\\- Article 1, Section 1 (Tenets 9): The proposal supports fair treatment of users by fostering a community-driven roadmap that reflects diverse stakeholder input.\n\n\\- Article 3, Section 1: It promotes participatory governance by involving DReps in shaping Cardano's future, a cornerstone of decentralized decision-making.\n\n\\- Article 7, Section 4: As an Info Action, it does not enact on-chain changes, making it an appropriate tool for gauging community sentiment.\n\n**Mutable Link Concern**\n\nA significant concern, however, is the mutable nature of the provided roadmap reference (https://product.cardano.intersectmbo.org/vision-roadmap-2025/). Without inherent versioning, there is a risk that the content may be altered after the vote, creating a disconnect between the version reviewed by the community and what is ultimately implemented. To address this, we have pinned the file to IPFS and Filecoin at https://ipfs.io/ipfs/QmUocoa7WkmpyGyiEp2qZbqR9qtM9YViEppNgotQXBhCpL, ensuring a stable, verifiable version is available for future reference. This approach aligns with a statement in the Constitution's preamble, which generally underscores the importance of immutable data to the governance system.",
+    "precedentDiscussion": "Historically, Info actions, such as the “Rename the Chang 2 Hard Fork to the Plomin Hard Fork“ or “Cardanoの生きがい - Ikigai“, have served as effective tools to guide discussions without directly affecting constitutional compliance. Our established practice of recording opinions on non-binding proposals has maintained a high level of transparency. Nevertheless, best practices indicate that mutable references should be avoided and immutable references used (such as cryptographic hashes) to ensure that the endorsed content remains verifiable over time.",
+    "counterargumentDiscussion": "The primary concern with this Info action is the changeability of the referenced roadmap link without any versioning mechanism. This could potentially allow the content to be altered after the voting process has begun, which could undermine the integrity of the decision-making process. It may not be clear to DReps and other stakeholders what version of the roadmap they are actually voting on, and future audits of the decision-making process could be compromised if the referenced content is not stable.",
+    "conclusion": "The governance action to gauge community sentiment towards the proposed Cardano roadmap vision for 2025 and beyond is constitutional in its current form.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 2,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "relevantArticles",
+        "label": "Preamble",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article 1, Section 1, Tenet 9.",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article 3, Section 1.",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article 7, Section 4.",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "Other",
+        "label": "Product Vision and Roadmap for 2025 as referenced in the governance action metadata",
+        "uri": "https://product.cardano.intersectmbo.org/vision-roadmap-2025/"
+      },
+      {
+        "@type": "Other",
+        "label": "Link to the pinned Vision and Roadmap for 2025",
+        "uri": "ipfs://QmUocoa7WkmpyGyiEp2qZbqR9qtM9YViEppNgotQXBhCpL"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale pdf",
+        "uri": "ipfs://QmXmMYj7bqTyK5XUZo7mTkDgD61xyRzH3V9qGTFzqaEPwJ"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Foundation"
+    }
+  ]
+}

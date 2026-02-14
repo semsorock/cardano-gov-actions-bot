@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We have determined that this treasury withdrawal governance action is unconstitutional.",
+    "rationaleStatement": "While we understand that the governance action with ID \"gov_action1lqun78lcznfa2gek49m3ydslakfnm8heargfp8sax9fk54yl6ghsqp042zv\" and title \"Withdraw ₳70,000,000 for Cardano Critical Integrations Budget\" as a Treasury Withdrawal aims to fund work that includes vendor negotiations which need to be kept confidential, the Cardano Constitution does not permit the Constitutional Committee to make exceptions in how governance actions are assessed for these kinds of circumstances.\n\nAlthough this treasury withdrawal governance action does fulfill the procedural requirements of the constitution; including an approved budget, administration, auditing and is within the Net Change Limit; the need for confidentiality means it does not reach what we consider to be the threshold to comply with Article III, Section 5, which states \"Sufficient rationale shall be provided to justify the requested change to the Cardano Blockchain.\"\n\nThis governance action does not provide any information about the specific outcomes that will be implemented, to allow DReps to assess whether the amount being spent will deliver value for money. It does refer to integrations with \"institutional-grade\" and \"tier one\" service providers, however these terms may be open to interpretation and don’t provide DReps the ability to make a decision based on which vendors in these categories they would support adopting. For example, there are different risk versus reward considerations for choosing Circle over Tether, or vice versa, for a native “tier one” stablecoin. This governance action does not allow DReps to participate in this or other similar integration decisions.\n\nThis decision was a very difficult one to make, as we acknowledge the support this governance action has within the ecosystem. The Eastern Cardano Council, has always taken seriously the role for which we were elected, so assess all governance actions in the same manner, regardless of who the proposer is or its popularity.\n\nIf this governance action does pass, we at least hope that this rationale serves to highlight some vulnerabilities in our current governance process so that steps are taken in future protocol and/or constitution changes to address them.\n\nWe find this governance action **Unconstitutional**.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "conclusion": "We have determined that this governance action does NOT sufficiently fulfil the criteria necessary for treasury withdrawals, so is deemed unconstitutional.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 7,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Eastern Cardano Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "a12e0d6516828fd47afc70e2eccdfa11a4f4c76cb5eca55bdc9349865a70e4fe",
+        "signature": "f47dab4120bd2851c6f960c8b970d6c5a6fa1525dcc11d0565a85fea12a84e6e330bfbbf9c09bd14491cfaa4f7c88f0cf4cc96419a82675ac6a41e64916a8506"
+      }
+    }
+  ]
+}

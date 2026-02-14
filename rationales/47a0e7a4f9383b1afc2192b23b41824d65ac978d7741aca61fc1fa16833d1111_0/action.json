@@ -1,0 +1,113 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "onChain": {
+          "@id": "intersectSpec:onChain",
+          "@context": {
+            "governanceActionType": "intersectSpec:governanceActionType",
+            "depositReturnAddress": "intersectSpec:depositReturnAddress",
+            "withdrawals": {
+              "@id": "intersectSpec:withdrawals",
+              "@container": "@set",
+              "@context": {
+                "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                "withdrawalAmount": "intersectSpec:withdrawalAmount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "c7f9a2c396ab247a0a46252e345f1c25357fd3d57920a95a10d8b8ee4f332d5f214c0daffca23aa36ebf5c6935056de72fdade6eaa55b78cc7321d06e0491f0f"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Replace Interim Constitutional Committee",
+    "abstract": "This governance action proposes to replace the current Interim Constitutional Committee with the new committee selected by participating DReps during the Intersect-hosted election process from May 5th to July 6th, 2025.",
+    "motivation": "The term for the current Interim Constitutional Committee is set to expire on September 6th (end of epoch 580). Therefore, this governance action is critical to formalize the results of the recent election and ensure a new Constitutional Committee (CC) is enacted in time. This adheres to the Cardano Constitution's mandate for staggered elections and guarantees continuity of the committee's function (Article VII, Section 2).\n\nElecting a new CC before the current term expires is essential to ensure the seamless continuation of Cardano governance and the ability to pass actions requiring CC approval.",
+    "rationale": "In accordance with the constitutional mandate for this election, seven committee seats were filled with staggered terms to ensure continuity. The election, which filled three seats for a 146-epoch term (approximately two years) and four seats for a 73-epoch term (approximately one year), incorporated a novel selection method.\n\nFollowing the tallying of votes, the candidate with the highest number of votes was given the first choice of term length, either 146 or 73 epochs. Subsequently, the second-ranked candidate chose from the remaining options, and so on, until all term lengths were selected. This continued until only one option remained for the final candidates.\n\nThis governance action officially endorses the results of that electoral process, cementing the composition of the committee with its staggered terms designed to ensure operational continuity.\n\n**Note on Term Length Estimation:** The expiration epochs are estimates calculated for this governance action. The estimation accounts for the action's maximum 6-epoch lifetime, plus one epoch for enactment, in addition to the 73 or 146-epoch term length chosen by each member. Should this governance action be ratified sooner than its final epoch, the actual term for each member will be correspondingly longer.\n\n**For example:** As this governance action has a 6-epoch lifetime, if it is ratified in epoch 2, the committee members' terms would be 4 epochs longer than the minimum estimate.\n\nThe elected members are:\n\n| **Member** | **Cold Credential** | **Term Length Estimate** | **Expiration Epoch** |\n| --- | --- | --- | --- |\n| Cardano Atlantic Council | script-hash-349e55f83e9af24813e6cb368df6a80d38951b2a334dfcdf26815558 | 73 | 653 |\n| Tingvard | script-hash-1980dbf1ad624b0cb5410359b5ab14d008561994a6c2b6c53fabec00 | 146 | 726 |\n| Eastern Cardano Council | script-hash-84aebcfd3e00d0f87af918fc4b5e00135f407e379893df7e7d392c6a | 146 | 726 |\n| KtorZ | key-hash-dc0d6ef49590eb6880a50a00adde17596e6d76f7159572fa1ff85f2a | 73 | 653 |\n Ace Alliance | script-hash-9752e4306e5ae864441d21064f791174c8b626199b8e7a45f9e03b45 | 146 | 726 |\n| Cardano Japan Council | script-hash-9cc3f387623f45dae6a68b7096b0c2e403d8601a82dc40221ead41e2 | 73 | 653 |\n| Phil_uplc | key-hash-13493790d9b03483a1e1e684ea4faf1ee48a58f402574e7f2246f4d4 | 73 | 653 |\n\n**Note 1:** Term lengths were chosen by members based on their final tally position in the election. Cardano Atlantic Council, Tingvard, and the Eastern Cardano Council had first right of refusal to a two-year (146 epoch) term length.\n\n**Note 2:** Ratifying this governance action will remove the existing members of the interim Constitutional Committee: The Cardano Foundation, Input | Output Global, EMURGO, and Intersect. Cardano Atlantic Council, Eastern Cardano Council and Cardano Japan Council are members of the existing Interim Constitutional Committee, however have been selected to serve in the new committee. Cardano Atlantic Council and Eastern Cardano Council will continue to operate using the same cold credential. However, reflecting a change in its membership, Cardano Japan Council has generated a new credential for this new term.\n\n### Election Details\n\nIntersect’s Constitutional Committee election working group designed the election process to be:\n\n- **Adhering to the Cardano Constitution:** Ensuring all procedures were compliant with the foundational rules of the ecosystem.\n\n- **Accessible:** Allowing any Ada owner to register as a candidate.\n\n- **Transparent and Verifiable:** Building trust through an open process with verifiable, on-chain results.\n\nThe election process ran from May 5th to July 6th, 2025, and included distinct periods for candidate applications, DRep voting, and a final audit. The voting tools were provided by Byron Network, and the results of the DRep vote were independently verified by DQuadrant.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Audited election Results (XLSX)",
+        "uri": "ipfs://bafybeif5jj6trdzrezawj4itwkvdno3hxt756v6wmwnqv3sm3tgermzb4e"
+      },
+      {
+        "@type": "Other",
+        "label": "Audit File #1 - All Votes (JSON)",
+        "uri": "ipfs://bafkreifjk2bfk5b4y6j7tatnhzfkjkgju6sb46bbmdjk7s4vwh7qyol76m"
+      },
+      {
+        "@type": "Other",
+        "label": "Audit File #2 - Candidate Results (JSON)",
+        "uri": "ipfs://bafkreighhfaeemykaqzafk7onsgdxjg6jkvmzzkgkbns2yyd52qdtxkhr4"
+      },
+      {
+        "@type": "Other",
+        "label": "Audit File #3 - Blockchain Transactions with Script Voters (JSON)",
+        "uri": "ipfs://bafkreibbcemzq77mu3hna4cdd6wh5ps5ohsa2y2h5cgwmfou6idfesyr2q"
+      },
+      {
+        "@type": "Other",
+        "label": "Voting has concluded - blog (PDF)",
+        "uri": "ipfs://bafybeifz63fru7b6qjspy22a3mvk5dcjlwr3zt6rhtfwq34mm3jsftfyzm"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "updateCommittee",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "This Info Action calls for a vote by Cardano Delegate Representatives (DReps) on the proposed Cardano 2030 vision & strategy. Please note that although the Product Committee created this content, this governance action was submitted independently by a community member, not the Committee or its members. As a community member, I would like to assist the Product Committee to help gather feedback on-chain, as the Committee has so far relied on off-chain feedback collection.\nhttps://ipfs.io/ipfs/bafkreieaeiokqecnfrkysltkfvuatg5wkhfyhheur6r5k7flojtr2nsebi",
+    "motivation": "The long-term success and adoption of the Cardano blockchain depend on a clear and community-backed vision & strategy. DReps play a vital role in shaping Cardano's future. This vote empowers DReps to exercise their governance rights and directly influence the development trajectory of Cardano, reflecting the collective will of their constituents through liquid democracy. \nDReps are encouraged to attach metadata to their votes, providing rationale. A yes vote for this action signals support for the proposed vision & strategy. A no vote on this action signals a lack of support for the vision & strategy. An abstain vote means signals neither in favor nor against. ",
+    "rationale": "This vote is important for gathering community consensus on the vision & strategy priorities for Cardano in 2030. By participating, DReps can ensure that the development trajectory of Cardano reflects the collective will of their constituents. A clear and community-backed vision & strategy is essential for aligning development efforts with the shared vision for Cardano's future, maximizing the impact of resources, and fostering a cohesive ecosystem. This process promotes transparency and ensures accountability in shaping the future of the Cardano blockchain.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Cardano 2030 Vision & Strategy",
+        "uri": "ipfs://bafkreieaeiokqecnfrkysltkfvuatg5wkhfyhheur6r5k7flojtr2nsebi"
+      }
+    ],
+    "title": "Defining the Cardano 2030 Vision & Strategy"
+  }
+}

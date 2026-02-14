@@ -1,0 +1,56 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "authors": [
+    {
+      "name": "Cardano Japan"
+    }
+  ],
+  "body": {
+    "summary": "Cardano Blockchain Ecosystem Budget: Amaru Node Development 2025 ---- > Abstain",
+    "rationaleStatement": "[Abstain] This proposal was assessed in alignment with the Cardano Blockchain Constitution, specifically focusing on Article 4, Section 2, which mandates that the processes for the supervision of funds withdrawn from the Cardano Treasury be clearly described, including the designation of responsible administrators. During our review, it became evident that the current governance structure for fund management lacks sufficient transparency and third-party oversight. While the Amaru Maintainer Committee (AMC) is designated to handle budgetary and legal management, its composition exclusively of core project members raises concerns about independence. Furthermore, while approval mechanisms for fund movements are described, the underlying criteria and decision-making processes remain unclear to external stakeholders. The draft also lacks explicit designation of administrators as required by Article 4, Section 2, which may render it unconstitutional unless clarified. On the other hand, some members argued that the AMC structure itself is not explicitly prohibited by the Constitution and provides a baseline level of reporting and transparency through GitHub and quarterly updates. In summary, while no member asserted that the entire proposal is unconstitutional, the absence of clear governance safeguards and transparency leads us to adopt an abstain position, anticipating necessary improvements before General Acceptance (GA). This assessment draws on prior interpretations of Article 4, Section 2 in similar governance proposals, where clear designation of administrators and transparent processes for fund oversight were considered essential to constitutional compliance. It was acknowledged that the AMC provides some transparency through public reporting, and that the Constitution does not explicitly forbid the supervising body from being composed of project members. Some members considered this sufficient for provisional constitutional compliance.",
+    "conclusion": "Given the current lack of clarity regarding fund management processes and the designation of responsible administrators, the majority of members agreed to abstain on this proposal, with the expectation that these issues will be resolved prior to GA.",
+    "internalVote": {
+      "constitutional": 2,
+      "unconstitutional": 0,
+      "abstain": 3,
+      "didNotVote": 0
+    }
+  }
+}

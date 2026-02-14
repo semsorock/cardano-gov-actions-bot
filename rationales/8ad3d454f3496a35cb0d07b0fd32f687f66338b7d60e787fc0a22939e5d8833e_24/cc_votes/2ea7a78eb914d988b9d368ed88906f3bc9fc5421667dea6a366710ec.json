@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We have determined that this treasury withdrawal governance action is constitutional.",
+    "rationaleStatement": "The governance action with ID \"gov_action13tfag48nf94rtjcdq7c06vhkslmxxw9h6c88sl7q5g5nnewcsvlpsn5rx0e\" and title \"Withdraw ₳6,000,000 for Cardano Summit 2025 and regional tech events\" is a Treasury Withdrawal, so is subject to the following sections and guardrails in the Cardano Constitution.\n\nARTICLE III, Section 5 of the Cardano Constitution states \"In order to promote transparency in the process of on-chain governance, prior to being recorded or enacted on-chain, all proposed governance actions are expected to follow a standardized and legible format including a URL and hash of all documented off-chain content to the Cardano Blockchain. Sufficient rationale shall be provided to justify the requested change to the Cardano Blockchain. The rationale shall include, at a minimum, a title, abstract, reason for the proposal, and relevant supporting materials. The content of every on-chain governance action must be identical to the final off-chain version of the proposed action.\"\n\nThis governance action includes a valid URL and hash, which matches the hash of the off-chain documentation referenced. The rationale also meets the minimum content specified in this section.\n\nAdditionally; ARTICLE IV, Section 3, Paragraph 1 states \"Withdrawals from the Cardano Blockchain treasury that would cause the Cardano Blockchain treasury balance to violate the then applicable net change limit shall not be permitted.\"\n\nThe net change limit in effect at the time of submission of this vote on-chain, is the governance action with ID  \"gov_action1nd3t833j7v5sz65k3tp9yyvztw60sjcjgcgjr37682s3m7frwrusqmd2k80\".\n\n- A. Current NCL Amount: 350000000 ada\n- B. Current NCL Time Period: Epoch 532 to epoch 604 (Inclusive)\n- C. Total of Treasury Withdrawals within the Current NCL Time Period: 1500000 ada\n- D. Amount of this Treasury Withdrawal: 6000000 ada\n- E. \"C\" plus \"D\" = 7500000 ada\n- F. \"A\" minus \"E\" = 342500000 ada\n\nAs the value of \"F\" is greater than or equal to zero, this governance action does not violate the net change limit and therefore fulfils the requirement in this section.\n\nAdditionally; ARTICLE IV, Section 4 states \nAny governance action requesting ada from the Cardano Blockchain treasury shall require an allocation of ada as a part of such funding request to cover the cost of periodic independent audits and the implementation of oversight metrics as to the use of such ada. Contractual obligations governing the use of ada received from the Cardano Blockchain treasury pursuant to a Cardano Blockchain ecosystem budget shall include dispute resolution provisions.\"\n\nThis governance action specifies the following:\n\n\"Acceptance of the above work is expected to be supported by a 3rd Party Assurer, who will be responsible for reviewing and signing off the work completed at each project milestone against the corresponding milestone deliverables detailed within the Legal Contract. This work is funded from a portion of this treasury withdrawal.\"\n\n​While there were some concerns that simply stating \"is expected to be supported by\" is not definitive enough and that \"This work is funded from a portion of this treasury withdrawal.\" does not specify how much ada is allocated, we determined that this does still fulfil the requirement in this section.\n\nAdditionally; Article VII, Section 6 states \"Any ada received from a Cardano Blockchain treasury withdrawal, so long as such ada is being held directly or indirectly by an administrator prior to further disbursement, must be kept in one or more separate accounts that can be audited by the Cardano Community, and such accounts shall not be delegated to an SPO but must be delegated to the predefined auto abstain voting option.\"\n\nThis governance action specifies the following withdrawal address, which at the time of assessment was not delegated to an SPO and is delegated to the auto abstain voting option:\n\n- stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr\n\nFinally; the guardrails that require consideration for this governance action are TREASURY-01a, TREASURY-02a, TREASURY-03a and TREASURY-04a.  These are addressed as follows:\n\n- TREASURY-01a - The net change limit with governance action ID \"gov_action1nd3t833j7v5sz65k3tp9yyvztw60sjcjgcgjr37682s3m7frwrusqmd2k80\" is currently in effect, after being \"agreed by the DReps via an on-chain governance action with a threshold of greater than 50% of the active voting stake\".\n- TREASURY-02a - As per the above assessment, this treasury withdrawal does not exceed the current net change limit.\n- TREASURY-03a - This treasury withdrawal is denominated in ada.\n- TREASURY-04a - This governance action specifies that it relates to the budget in governance action \"gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh\", which was \"agreed by the DReps with a threshold of greater than 50% of the active voting stake\".\n\nWe therefore find this governance action **Constitutional**.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "conclusion": "This governance action sufficiently fulfils the criteria specified for treasury withdrawals in the Cardano Constitution, so is deemed constitutional.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 1
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Eastern Cardano Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "a12e0d6516828fd47afc70e2eccdfa11a4f4c76cb5eca55bdc9349865a70e4fe",
+        "signature": "8811b6cd268b52852eaac19dcedf99a77cc7d5de367a66fca3a875b9b2b86c5d9d40e1f7d04f186fa25d6f8e177425fa3dc6601752d5d04f5fb5625276082b0a"
+      }
+    }
+  ]
+}

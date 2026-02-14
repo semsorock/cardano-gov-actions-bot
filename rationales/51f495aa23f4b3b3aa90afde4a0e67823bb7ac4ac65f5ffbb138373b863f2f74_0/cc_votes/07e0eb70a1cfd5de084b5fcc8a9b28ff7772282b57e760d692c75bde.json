@@ -1,0 +1,93 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIPXXX": "https://github.com/Ryun1/CIPs/tree/e56f704918061e63ce2076cc3644a946b286c8d1/CIP-governance-metadata-cc-rationale/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIPXXX:body",
+      "@context": {
+        "references": {
+          "@id": "CIPXXX:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "relevantArticles": "CIPXXX:references"
+          }
+        },
+        "summary": "CIPXXX:summary",
+        "rationaleStatement": "CIPXXX:rationaleStatement",
+        "precedentDiscussion": "CIPXXX:precedentDiscussion",
+        "counterargumentDiscussion": "CIPXXX:counterargumentDiscussion",
+        "conclusion": "CIPXXX:conclusion",
+        "internalVote": {
+          "@id": "CIPXXX:internalVote",
+          "@context": {
+            "constitutional": "CIPXXX:constitutional",
+            "unconstitutional": "CIPXXX:unconstitutional",
+            "abstain": "CIPXXX:abstain",
+            "didNotVote": "CIPXXX:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We find this governance action, as proposed, to be unconstitutional.",
+    "rationaleStatement": "We find this governance action, as proposed, to be unconstitutional. Due to an\nunforeseen issue with the submission of the governance action **[2]** this\naction does not propose any changes to the network parameters which is in direct\nconflict to its stated goal of modifying Plutus v3 Cost Models. This is in\nconflict with Article III, Section 6, Paragraph 2 and 3 **[3]** of the Interim\nCardano Constitution which state:\n\n> **Any governance action proposal reaching the on-chain governance stage shall\n> be identical in content as to the final off-chain version of such\n> governance action proposal.**\n>\n> Hard Fork Initiation and Protocol Parameter Change governance actions should\n> undergo sufficient technical review and scrutiny as mandated by the Cardano\n> Blockchain Guardrails to ensure that the governance action does not endanger\n> the security, functionality or performance of the Cardano Blockchain.\n> **Governance actions should address their expected impact on the Cardano\n> Blockchain ecosystem.**\n>\n> — Interim Cardano Constitution, Article III, Section 6, Paragraph 2 & 3\n\nBecause the published action does not match the circulated and socialized intent\nor outcomes in the off-chain version, we must find this proposal to be\nUnconstitutional.",
+    "precedentDiscussion": "## Considerations\n\n* The authors of the governance action changed the file contents of the proposal\n  metadata after realizing their error. This means that the published file does\n  not currently hash and match that published on-chain via the anchor\n  information **[3: Article III, Section 6, Paragraph 1]**. However, given that\n  a mutable (HTTPS) link was provided in the governance action, the metadata\n  file could be restored at a later date. This situation could create\n  unnecessary uncertainty and doubt.\n* If it doesn't change any parameters, should we ignore it, abstain, or consider\n  it Constitutional? All protocol parameter changes must build on the previous\n  state (hash) of governance, seemingly innocuous proposals such as this can\n  cause unnecessary confusion and conflicts to arise with downstream proposals.",
+    "counterargumentDiscussion": "N/A",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 6,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Governance Action Page",
+        "uri": "https://adastat.net/governances/51f495aa23f4b3b3aa90afde4a0e67823bb7ac4ac65f5ffbb138373b863f2f7400"
+      },
+      {
+        "@type": "Other",
+        "label": "Oops! What's up with governance action 51f4…74#0?",
+        "uri": "https://cardanoupgrades.docs.intersectmbo.org/chang-upgrade-2/chang-upgrade-2-governance-action-faq"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article III, Section 6",
+        "uri": "https://github.com/IntersectMBO/interim-constitution/blob/75155526ce850118898bd5eacf460f5d68ceb083/cardano-constitution-0.txt#L200-L217"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Atlantic Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "91333b40b6dbb4c47e5f30fde21b7d5b38dcad87d27c621b8b7fe61f108c1b0a",
+        "signature": "a8cb74e37e590e61c6cd8ab0ac1917cb23030feb3bde3d38d9ca83375fd98dd5ad36ae56eb967bc4cb40feab8bda7cb6dee85ee27790d794fc440429f81c2e09"
+      }
+    }
+  ]
+}

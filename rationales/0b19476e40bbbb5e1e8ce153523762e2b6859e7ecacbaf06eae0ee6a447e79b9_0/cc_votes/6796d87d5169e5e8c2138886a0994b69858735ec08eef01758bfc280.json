@@ -1,0 +1,96 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The governance action to hard fork to Protocol Version 10 (“Plomin”) is constitutional. It fulfills all procedural requirements, enables CIP-1694 governance and Plutus primitives, and complies with guardrails. Of note is that a disclosed vulnerability highlights the need for stronger technical safeguards. Please find a pdf version of this here: ipfs://QmVxWwYv4AHRAZGddM9svPeLZ1putUsD36fbh1vKyhFPFg",
+    "rationaleStatement": "**Understanding the Governance Actions** This governance action, with Action ID 'gov_action1pvv5wmjqhwa4u85vu9f4ydmzu2mgt8n7et967ph2urhx53r70xusqnmm525', aims to upgrade Cardano’s mainnet to Protocol Version 10 through the Plomin hard fork. Key changes include: - Enabling all seven governance actions described in CIP-1694, such as treasury withdrawals, new constitution proposals, and votes of no confidence. - Activating DRep and SPO voting on applicable governance actions as per CIP-1694. - Introducing new Plutus primitives, including advanced bitwise operations and RIPEMD-160 cryptographic hashing for improved cross-chain compatibility. - Restricting staking reward withdrawals to accounts that delegate to a DRep. **Role of the Constitutional Committee** As Article VI, Section 1 of the Interim Constitution outlines, the Constitutional Committee's primary responsibility is to assess the constitutionality of governance actions and vote accordingly. This includes ensuring that all procedural requirements are met to maintain the integrity of the governance process. **Constitutional Compliance** 1. **Procedural and Formal Requirements:** - The proposal adheres to Article III, Section 6, fulfilling requirements for standardization, sufficient rationale, and consistency between off-chain and on-chain documentation. - The governance action has been verified by Intersect’s Hard Fork Working Group and Technical Steering Committee as per the readiness report available at https://cardanoupgrades.docs.intersectmbo.org/plomin-upgrade/chang-upgrade-2-readiness. 2. **Guardrails Compliance:** - HARDFORK-04: We have used tools such as pooltool.io/networkhealth to monitor the stake pool upgrade status. As of January 22, 2025, ~95% of blocks in the last 24 hours were produced by nodes running protocol version 10-compatible software. This satisfies the guardrail’s requirement of 85% adoption by stake pools by stake with updated nodes prior to ratification. - HARDFORK-01 through HARDFORK-08: The action complies with all guardrails, including versioning, node adoption, and absence of deprecated parameters. - INTERIM-01: More than 90 days have elapsed since the Chang hard fork, which took place on 1 September 2024, ensuring compliance with interim governance processes. 3. **Impact and Technical Evaluation:** - Node version 10.1.4 includes safeguards at the mempool level to block specific transaction types that could lead to a denial-of-service (DoS) attack following the hard fork. While this mitigates potential risks at the node level, the vulnerability remains partially addressed, leaving the broader network exposed to malicious blocks. - The readiness report and widespread 10.1.4 node adoption demonstrate that the ecosystem is technically prepared for the hard fork. As of January 22, 2025, >90% of blocks in the last 24 hours were produced by nodes running node version 10.1.4.",
+    "precedentDiscussion": "none",
+    "counterargumentDiscussion": "A key concern involves the disclosed vulnerability and its partial mitigation - **Issue:** Node version 10.1.4 mitigates DoS risks by introducing mempool-level safeguards to block certain transaction types. However, this fix does not address the broader risk of malicious blocks, which could still exploit the vulnerability post-hard fork. Node users who do not upgrade remain vulnerable. - **Constitutional Implication:** Article III, Section 6 requires sufficient technical review to ensure governance actions do not endanger the blockchain’s security or functionality. The disclosed vulnerability raises questions about the adequacy of the review process and responsible disclosure practices.",
+    "conclusion": "The governance action to initiate the Plomin hard fork advancing to Protocol Version 10 is constitutional. It adheres to all procedural requirements and guardrails specified in the Interim Constitution. However, the disclosed vulnerability and its partial mitigation emphasize the need for comprehensive technical reviews and responsible disclosure processes to address network-level risks. The Cardano Foundation, as an ICC member, affirms the constitutionality of this action while urging enhanced practices to safeguard the ecosystem’s security and integrity.",
+    "internalVote": {
+      "constitutional": 6,
+      "unconstitutional": 1,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": [
+      {
+        "@type": "relevantArticles",
+        "label": "Article III section 6.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article VI section 1.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Appendix I - Guardrails: HARDFORK-01-08, INTERIM-01",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale pdf",
+        "uri": "ipfs://QmVxWwYv4AHRAZGddM9svPeLZ1putUsD36fbh1vKyhFPFg"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Foundation"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "authors": [
+    {
+      "name": "Cardano Japan"
+    }
+  ],
+  "body": {
+    "summary": "The info action 'Should K increased?' is unconstitutional.",
+    "rationaleStatement": "This Governance Action (GA) is considered to be unconstitutional. According to Article III, Section 5 of the Interim Cardano Constitution, the primary purpose of an Info action is to record voting results without committing to any on-chain changes. These actions are intended to gauge community sentiment and provide a transparent record of the opinions expressed during governance processes. Based solely on this definition, this GA could be considered constitutional as long as it functions purely as an Info action, whose primary role is to record data without enforcing changes. However, this GA lacks foundational data for a K-value change. Article III, Section 6 outlines that any parameter change requires thorough research and objective data to support the action. The current GA, which discusses a change to the K value, lacks the necessary foundational research and objective indicators. This deficiency raises concerns regarding its validity and compliance with the Constitution. The practice of recording voting results on-chain without sufficient supporting data poses a risk. According to the governance principles outlined in the Constitution, on-chain records should support well-informed and data-backed governance. Recording results without foundational data may lead to future decisions influenced by incomplete or insufficient information, undermining the integrity of the governance process. While the purpose of an Info action is to record data, if the recorded result does not contribute to appropriately informed discussions, it could negatively impact future debates. Article III, Section 5 states that Info actions are designed to capture useful and relevant community sentiment. If a result based on inadequate data remains on-chain, it undermines the action’s intended purpose and misaligns with constitutional goals. Considering the points outlined above, this GA does not meet the constitutional requirements. Therefore, it deviates from the intended purpose of Info actions as defined in the Interim Constitution, rendering it unconstitutional.",
+    "internalVote": {
+      "constitutional": 1,
+      "unconstitutional": 3,
+      "abstain": 1,
+      "didNotVote": 0
+    },
+    "references": [
+      {
+        "@type": "relevantArticles",
+        "label": "Article III Section 5",
+        "uri": "https://constitution.gov.tools/en/interim-constitution#section-5"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article III Section 6",
+        "uri": "https://constitution.gov.tools/en/interim-constitution#section-6"
+      }
+    ]
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The Intersect Constitutional Council votes that the budget info action, “4840e305563327358cf70dae5015b2df8f8c35cef03f74521d4f117ac17bc384#0”, to be unconstitutional.",
+    "rationaleStatement": "There was an error during the submission of this proposal that meant that the hash of the provided proposal metadata did not match. The proposer has already acknowledged this and has expressed an intention to resubmit the proposal in the future. Therefore, due to failing to meet Article III Section 5 “The content of every on-chain governance action must be identical to the final off-chain version of the proposed action”, the Council votes unconstitutional on this action without further deliberation.",
+    "precedentDiscussion": "This is the second budget proposal following on from the Amaru node budget proposal. As outlined by Article IV Section 1 of the Constitution, the Cardano Community is expected to periodically propose one or more budgets for the ecosystem.",
+    "conclusion": "The Intersect Constitutional Council votes this budget info action to be unconstitutional. In voting unconstitutional on this proposal due to the mismatching hash, the Council is in keeping with previous votes where such instances have occurred, for example, the first Protocol Parameter Update for the Plutus V3 Cost Model (tx hash “cdd57a0cd3d7d5eb538dfe711278857650e22f136963d481600d1634293bf434”).",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 6,
+      "abstain": 0,
+      "didNotVote": 1,
+      "againstVoting": 0
+    },
+    "references": [
+      {
+        "@type": "Other",
+        "label": "GA-004 Intersect Constitutional Council vote rationale",
+        "uri": "https://github.com/IntersectMBO/intersect-constitutional-council/tree/main/vote-rationales/2024-11-27-ppu-oopsie"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Intersect Constitutional Council"
+    }
+  ]
+}

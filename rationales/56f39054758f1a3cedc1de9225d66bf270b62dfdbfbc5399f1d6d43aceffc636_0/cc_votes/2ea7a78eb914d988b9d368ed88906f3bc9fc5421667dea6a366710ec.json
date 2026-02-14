@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We have determined that this Info action does not meet the criteria deemed necessary for the Constitutional Committee to assess its constitutionality.",
+    "rationaleStatement": "Based on the provisions of the Cardano Constitution described the considerations below, we believe that the Interim Constitutional Committee should abstain from voting on Info actions that do not measure sentiment for future governance actions that will be enacted on-chain.\n\nThe governance action with ID \"56f39054758f1a3cedc1de9225d66bf270b62dfdbfbc5399f1d6d43aceffc63600\" and title \"Defining the Cardano Vision and Roadmap for 2025 and beyond\" is an Info action that does not measure sentiment for future governance actions enacted on-chain.\n\nTherefore we **Abstain**.\n\n### Consideration 1\nArticle VII Section 1 of the Cardano Constitution states \"The Constitutional Committee shall comprise a set of owners of ada that is collectively responsible for ensuring that on-chain governance actions prior to enactment on-chain, are constitutional.\"\n\nSince Info actions do not result in an on-chain enactment, the Constitutional Committee's core responsibility to ensure constitutionality of on-chain governance actions does not apply in the same way. The Constitutional Committee is therefore not mandated to evaluate Info actions under this provision.\n### Consideration 2\nArticle VII Section 4 of the Cardano Constitution states \"Because 'Info' actions have no on-chain effect and, accordingly, are neither constitutional nor unconstitutional, Constitutional Committee members may not prevent 'Info' actions from being recorded on-chain. Members of the Constitutional Committee may nevertheless record a vote on-chain regarding an 'Info' action in order to express their view on such 'Info' action, including whether the suggested course of action proposed in such 'Info' action, would be, in the view of such member, unconstitutional if it were to be enforced by on-chain mechanisms.\"\n\nSince this Info action does not include a specific proposed governance action that could be enforced on-chain, evaluating its constitutionality would not serve the intended purpose of this provision.\n### Consideration 3\nArticle VII Section 4 further states \"In the case of 'Info' actions that propose a Cardano Blockchain ecosystem budget, Constitutional Committee members shall record a vote on-chain that sets forth their opinion as to whether the proposed budget, if it were to be implemented in the form contained in the 'Info' action, would violate this Constitution.\"\n\nSince this Info action does not relate to a budget proposal, the Cardano Constitution does not require that we assess its constitutionality.\n### Other Comments\nWe acknowledge the importance of this governance action to agree on the direction of the Cardano ecosystem.  Each member of the Eastern Cardano Council has our own personal opinions about the contents of this proposal, but despite them we maintain our commitment to our role as a member of the Interim Constitutional Committee, and to assess governance actions without letting our personal feelings towards them impact our assessment.  We have therefore assessed this governance action in a way that is consistent with our interpretation of the Constitution for other Info actions.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "Voting on the approval of the roadmap as an \"Info\" action is important because, although such actions have no direct on-chain effect, members of the Constitutional Committee can express their views on whether the proposed course of action aligns with the Constitution. According to Article VII, Section 4, while the Constitutional Committee cannot prevent an \"Info\" action from being recorded on-chain, they can vote to indicate whether the action would be unconstitutional if enforced by on-chain mechanisms.\n\nAdditionally, the Constitution explicitly requires the Constitutional Committee to vote on \"Info\" actions related to the Cardano Blockchain ecosystem budget. This means that the approval of a roadmap, which often includes financial planning and resource allocation, could have implications for the budget. By voting on the roadmap, the Constitutional Committee helps assess its constitutional validity, ensuring that any budgetary elements within the roadmap do not violate the Constitution.",
+    "conclusion": "We abstain from assessing the constitutionality of this governance action.",
+    "internalVote": {
+      "constitutional": 1,
+      "unconstitutional": 0,
+      "abstain": 5,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Eastern Cardano Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "a12e0d6516828fd47afc70e2eccdfa11a4f4c76cb5eca55bdc9349865a70e4fe",
+        "signature": "72ab8d9e64d73b199ad43ef2986e58944944ef2f1998b0f17fc7b72aa4cbe77e7f98b425be6a8c3e2dfd04a7648dd623d3305f98f0990420c0991b7d5d4c2500"
+      }
+    }
+  ]
+}

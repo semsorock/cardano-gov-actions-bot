@@ -1,0 +1,154 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "onChain": {
+          "@id": "intersectSpec:onChain",
+          "@context": {
+            "governanceActionType": "intersectSpec:governanceActionType",
+            "depositReturnAddress": "intersectSpec:depositReturnAddress",
+            "withdrawals": {
+              "@id": "intersectSpec:withdrawals",
+              "@container": "@set",
+              "@context": {
+                "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                "withdrawalAmount": "intersectSpec:withdrawalAmount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "fbc200ba1adb484ada5780b4102a245fe7735f3a1bb36df9f8b3e4c208cce47bbeaf1d948ced16913a1b4333cb6372fa9848dce61ce114eb87e901f445969c0c"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Withdraw ₳4,000,000 for Expanding Stablecoin / Cardano Native Asset Support...",
+    "abstract": "This treasury withdrawal funds **Expanding Stablecoin / Cardano Native Asset Support / Fiat Ramps** which will provide the following services:\n\n1. Expanding wallet and custodian support for Cardano native assets (including USDA, a Cardano-native stablecoin).\n\n2. Increasing the availability of Cardano stablecoins and native assets on exchanges and OTC desks.\n\n3. Driving real-world utility for USDA in cross-border payments, remittances, and enterprise settlements.\n\n4. Building cost-effective fiat on/off-ramps for ADA and Cardano native assets in frontier markets.\n\nBy addressing these challenges, Anzens aims to boost liquidity, accessibility, and adoption of Cardano's DeFi and real-world use cases, bridging traditional finance with our open source blockchain-based payments.\n\nThis Treasury Withdrawal is submitted by Intersect on behalf of the vendor. The following sections; Abstract, Motivation, Rationale and Vendor Profile have been sourced from the approved proposal submitted by the Vendor as part of the Intersect budget process.\n\nThis treasury withdrawal funds one of 39 proposals to give effect to the approved budget info action for ₳275,269,340, administered by Intersect via gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh. The information provided herein is intended to fulfill the spirit of the constitutional requirement for a treasury withdrawal info action by also providing the details of the proposed solution, alignment to the budget, and amount to be withdrawn from the Cardano Treasury.",
+    "motivation": "1. Lack of Wallet & Custodian Support for Cardano Native Assets:\n\nMajor institutional custodians (e.g BitGo, Fireblocks) do not natively support Cardano native assets, including USDA. This creates a bottleneck for exchanges, OTC desks and institutions who rely on these custodians for secure asset storage. Without custodian integration:\n\n-Exchanges cannot list Cardano-native assets, limiting liquidity and trading opportunities\n\n-Institutional investors face custody risks, reducing their willingness to engage with Cardano Ecosystem\n\n-Cardano projects struggle to attract capital, as investors prefer assets with established custody solutions\n\nImpact:The absence of institutional-grade custody solutions stifles liquidity, restricts market access and slows Cardano's growth.\n\n2. Limited Availability of Cardano Native Assets on Exchanges & OTC Desks:\n\nDespite Cardano's $700M+ DeFi ecosystem, its native assets---including stablecoins---are severely underrepresented on centralized exchanges (CEXs) and OTC desks.\n\n-Few trading pairs for Cardano assets (eg. ADA/USDA, USDA/USDT)\n\n-No derivatives markets (futures, options) for Cardano stablecoins, limiting trading volumes\n\n-OTC desks avoid Cardano-native assets due to limited institutional LPs\n\nImpact: Without deep exchange liquidity, traders and institutions cannot efficiently enter or exit positions\n\n3. Lack of Real-World Stablecoin Utility Beyond Crypto Trading:\n\nStablecoins mainly serve crypto trading, with USDC gaining enterprise use---while Cardano's stablecoins remain underutilized across real-world sectors:\n\n-Cross-border B2B payments ($31.6 trillion market)\n\n-Remittances ($850 billion market and where low fees matter)\n\n-Payroll & merchant settlements\n\nCardano's low fee structure makes it ideal for payments, but the lack of integration with traditional finance, prevents adoption.\n\nImpact: Without real-world use cases, Cardano's stablecoins are limited to DeFi\n\n4. Restricted Fiat On/Off-Ramp, Especially in Frontier Markets:\n\nUsers in emerging markets (Africa, LATAM, Asia) struggle to convert ADA and Cardano-native assets into local fiat due to:\n\n-High fees (5-7% for card-based ramps vs. ~1% for local bank transfers\n\n-Limited payout network & banking access\n\nImpact: Limited DeFi participation and slow retail adoption due to costly on/off ramps.\n\nEthereum & Ripple are expanding stablecoin adoption. Without custody solutions, Cardano misses institutional demand. Stablecoins will reshape global finance, and frontier markets need blockchain.",
+    "rationale": "### Project Solution\n\na. Wallet Support for Cardano Native Assets: USDA is pursuing strategic partnerships with firms like Zoida Markets, and in talks with BitGo, Zodia Custody, CipherBC, etc. Our goal is to enhance Cardano Native Assets by improving reach, reliability, and pricing through collaboration with key custodians, and wallet infrastructure providers---ultimately boosting distribution, liquidity and user adoption.\n\nb. Availability of USDA / Native Assets on Exchanges, OTC Desks and NEO Banks: Anzens is focused on bringing USDA to CEXs, NEO banks, OTC desks, and other key distributors to expand its reach. By enabling USDA pairs for Cardano tokens on exchanges, we aim to boost usability, drive adoption through spot listings, and support broader participation via derivatives trading. Enabling USDA with NEO banks would offer USDA <> Fiat pairs in exotic currencies\n\nc. Drive USDA adoption to unlock real-world utility: Anzens would be initiating cross integration with real estate developers, remittance companies and other payment companies to bring USDA as part of their backend settlement network, helping Cardano gain adoption beyond the crypto space.\n\nd. Access to Fiat on and off-ramps: Encryptus has piloted ADA-to-fiat off-ramps for Yoroi Wallet users, enabling users to convert ADA to local currencies across 70+ countries---including India, China, Philippines, Nigeria etc---via bank transfers, without relying on SWIFT or card networks. Encryptus aims to build stronger on-ramps with local payment rails.\n\nThe funds from this proposal would be utilized to:\n\n1. Develop Onramp Capabilities: Current ADA onramps via cards are costly and don't support Cardano Native Assets. Encryptus aims to solve this by offering low-cost onramps through local bank transfers and mobile wallets---cutting costs by up to 60%. This will ease access to ADA and native assets. Ideal for Cardano DeFi and wider eco-system. Phase 1 of the services would include countries in LATAM, Africa and parts of Asia with a Phase 2 expansion to developed economies.\n\n2. Cardano's deterministic fee structure makes it well-suited for payment use cases. However, integration with traditional payment systems has been a challenge. Encryptus is addressing this by developing alternative payment solutions---such as global bill payments, school fees, and Buy Now Pay Later (BNPL) products---on the Cardano blockchain. These initiatives showcase Cardano's practical value to Web2 users, helping to broaden its adoption and real-world relevance.\n\n### Vendor Profile\n\nOur team brings together seasoned professionals with deep expertise in payments, stablecoins, and cryptocurrency infrastructure, backed by 50 years of combined experience at leading firms such as Paxos, Huobi (HTX), OKX, Western Union, Citi Bank, and BitPesa (AZA Finance). We have played pivotal roles in advancing fintech innovation, blockchain payments, and digital asset ecosystems, equipping us with unmatched insights into global payment networks, compliance, and scalable financial solutions.\n\nMultidisciplinary Leadership\n\nOur team includes former CEOs, legal counsels, product leads, and senior strategists with expertise across technology, compliance, and business development.\n\nKey strengths include:\n\n- Crypto & Stablecoins: Hands-on experience in liquidity management, institutional adoption, and blockchain-based payments.\n\n- Building global remittance networks that facilitate seamless cross-border transactions in the frontier and emerging markets\n\n- Technology & Product: Proven track record in building secure, compliant financial infrastructure for payments and digital assets.\n\n- Scaling crypto exchanges and developing liquidity solutions to support institutional and retail trading.\n\n- Regulatory & Compliance: Direct experience navigating global financial regulations for stablecoins and cross-border transactions.\n\n- Business Growth: Successfully expanded operations and partnerships across North America, Europe, Africa, and Southeast Asia.\n\n### Contract Management\n\nA written off-chain Legal Contract will be created between the Vendor and the Cardano Development Holdings (CDH), as mandated by the constitution, and will be administered by Intersect. This will include details of the project delivery schedule and dispute resolution.\n\n### Project Delivery \n\nAll milestones, acceptance criteria, payment amounts and expected delivery dates will be agreed between the Vendor and Intersect, acting on behalf of the CDH. The vendor will deliver according to the agreed-upon project schedule within the Legal Contract, of which the necessary information will be made public via the budget management platform via transaction metadata.\n\nDefined by the milestones within a Legal Contract, the vendor will submit and attest milestone acceptance to the community, Intersect or 3rd Party Assurer.\n\nProject progress will be monitored via Intersect's delivery assurance function which will be communicated to the community.\n\nAcceptance of the above work is expected to be supported by a 3rd Party Assurer, who will be responsible for reviewing and signing off the work completed at each project milestone against the corresponding milestone deliverables detailed within the Legal Contract. This work is funded from a portion of this treasury withdrawal.\n\n### Budget Management Tooling\n\nTo administrate treasury funds on-chain, Intersect will utilize the treasury management smart contract framework developed by Sundae Labs. The smart contracts have been [extensively tested](https://github.com/SundaeSwap-finance/treasury-contracts/tree/main/offchain/tests) including audits from TxPipe and MLabs. Examples of the usage of these contracts can be seen across mainnet described across Intersect authored [Blog 1](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-a-step-toward-on-chain-treasury-withdrawals), [Blog 2](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-two-update) and [Blog 3](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-three-update).\n\nFinal mainnet validation test can be seen via the Disburse action within transaction: 0f591dc544ae14102dbb4a74d5311a6acffc1772b163d8b7a9656b9525950b17\n\nWith the confirmed treasury reserve contract address being: stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr\n\n#### Specifics\n\nIntersect will utilize a single Treasury Reserve Smart Contract (TRSC), with many Project-Specific Smart Contracts (PSSC), managed by Intersect. Intersect's management consists of three 'admin' and two Intersect 'leadership' roles. An Oversight Committee consisting of five external, independent third-party entities will provide checks and balances on Intersect, and safeguard against errors and unilateral control. The administration of both TRSC and PSSCs will be managed by Intersect, with external oversight on certain actions from the Oversight Committee.\n\nThe Oversight Committee consists of Sundae Labs, Cardano Foundation, Dquadrant, Xerberus and NMKR. Their role is to independently verify key administrative actions using on-chain logic, ensuring accuracy and consistency without exercising discretion over governance decisions.\n\nFor all details on Intersect's configuration please see the **[Smart Contract Guide](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-budget/intersect-administration-services/smart-contracts-as-part-of-our-administration)** on the knowledgebase.\n\nThe high level permissions are as follows:\n\n- TRSC Fund and PSSC Modify\n\n  - Two of the three Intersect admins, two of the five trusted entities and one of the two Intersect leadership sign-off must authorize\n\n- TRSC Disperse\n\n  - Two of three Intersect admins, three of five trusted entities and two of two Intersect leadership sign-off must authorize\n\n- TRSC Pause and Resume\n\n  - Two of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Sweep\n\n  - One of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Reorganize\n\n  - Two of three Intersect admins and three of five trusted entities must authorize\n\n#### Processes\n\nUpon enactment of this governance action, funding for this project will be directed into the TRSC's stake account. All instances of TRSC and PSSC can not be staked with a SPO and will be delegated to the auto-abstain predefined DRep. From here funds will be withdrawn into a UTxO remaining at the TRSC.\n\nWhen the Legal contract is prepared and the vendor is ready, funding for this project will be transferred using the Fund action to a PSSC. All milestones will be outlined within the metadata.\n\nA dashboard will be available for the community to audit the TRSC or PSSC and track metrics related to this withdrawn ada as well as being immutably verifiable on chain.\n\nThe subsections; Contract Management, Project Delivery, and Budget Management Tooling described above cover the constitutional requirements specified in Article IV section 4 and 5.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Off-ramping (ADA to Fiat) live withdrawal on Yoroi wallet",
+        "uri": "https://drive.google.com/file/d/1znnLuN1r0pB8-c10Txf36QPpV3IwBf0x/view?t=3"
+      },
+      {
+        "@type": "Other",
+        "label": "The Payment Network and Methods by country",
+        "uri": "ipfs://bafybeihyzc6lqfzdiy2ooydi53kqhgik2wqsdp5ctyjqaswf6eiar5nihi"
+      },
+      {
+        "@type": "Other",
+        "label": "Anzens Minting USDA",
+        "uri": "https://drive.google.com/file/d/1PdOplE6cDJsTuGknsNtPNF7sVsEbNyVV/view?usp=sharing"
+      },
+      {
+        "@type": "Other",
+        "label": "Anzens Burning USDA",
+        "uri": "https://drive.google.com/file/d/1v07mt7V3lEGWH19teM-qhEJXI4e7ZCXs/view?usp=sharing"
+      },
+      {
+        "@type": "Other",
+        "label": "Response to Comment 1. Answering 6 Questions with additional feedback (PDF)",
+        "uri": "https://docs.google.com/document/d/1guiI0OmHylqTLo16p4mL1-PhYMiu3-6B4dNEX0gZe-Y/edit?tab=t.0"
+      },
+      {
+        "@type": "Other",
+        "label": "Project Proposal In Ekklesia",
+        "uri": "https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b63565577986442d1a2"
+      },
+      {
+        "@type": "Other",
+        "label": "Approved Budget Info Action submitted by Intersect via GovTool",
+        "uri": "https://gov.tools/outcomes/governance_actions/e14de8d9dc4f4ddf3fe9250a8a926e20f10e99b86bd0610b77d7a054981591ee#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Details of all successful proposals (CSV)",
+        "uri": "ipfs://bafybeicwrop4q7xvnyjdd5drumbe56sqtm5lbe2ul3c262zt4hgguzdycm"
+      },
+      {
+        "@type": "Other",
+        "label": "Automating Accountability: Cardano's Smart Contract Framework Blog",
+        "uri": "ipfs://bafybeihqx4ae72z7suqfnxrpqpqithp43cai7o2uuewnqtezgaoyc3ptyq"
+      },
+      {
+        "@type": "Other",
+        "label": "Sundae Labs Budget Management Smart Contracts Github Repository",
+        "uri": "https://github.com/SundaeSwap-finance/treasury-contracts"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts TxPipe Audit Report",
+        "uri": "ipfs://bafybeiccnwejbgj43wo6hrlseckkkmprtoqc5cfuy2hesm6c6yealwho3e"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts MLabs Audit Report",
+        "uri": "ipfs://bafybeiah5fnjhda5hemj3qvaehc4mre3qllqzw2l7mkdsguytn4ftgafw4"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "treasuryWithdrawals",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp",
+      "withdrawals": [
+        {
+          "withdrawalAddress": "stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr",
+          "withdrawalAmount": 4000000000000
+        }
+      ]
+    }
+  }
+}

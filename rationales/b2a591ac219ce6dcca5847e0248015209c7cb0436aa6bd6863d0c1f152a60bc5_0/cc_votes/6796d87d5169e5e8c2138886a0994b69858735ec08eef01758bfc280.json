@@ -1,0 +1,96 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The governance action proposing to update the Plutus V3 Cost Model is constitutional. It adheres to Article III, Section 6 of the Interim Constitution and complies with all relevant guardrails. This action enables new Plutus primitives without violating any constitutional provisions. Therefore, the Cardano Foundation, as an Interim Constitutional Committee (iCC) member, deems this action constitutional. This vote solely assesses the constitutionality of the action and does not indicate support or express any opinion regarding the underlying proposal. Voicing an opinion is the duty of the Delegated Representatives (DReps) and Stake Pool Operators (SPOs) and remains outside the scope of the iCC.",
+    "rationaleStatement": "**Understanding the Governance Action** The governance action aims to update the Plutus V3 Cost Model by adding new cost model settings for 12 new Plutus primitives. These primitives enhance the Cardano blockchain’s functionality by introducing new bitwise operations and cryptographic hashing functions, which improve interoperability with other blockchains. This update is necessary to enable the new Plutus primitives that will be available following the Chang 2 hard fork (to protocol version 10). The action does not modify any existing cost model values but extends the current model to support the new functionalities. **Role of the Constitutional Committee** As Article VI, Section 1 of the Interim Constitution outlines, the Constitutional Committee's primary responsibility is to assess the constitutionality of governance actions and vote accordingly. This includes ensuring that all procedural requirements are met to maintain the integrity of the governance process.**Voting Decision and Explanation** After a thorough review, we find the governance action to be **constitutional** based on the following reasons: 1. **Compliance with Article III, Section 6:**  * **Standardized Format and Documentation:** The proposal is presented in a standardized and legible format, including a valid URL and hash linked to documented off-chain content. It provides comprehensive sections such as title, abstract, motivation, rationale, technical evaluation, and supporting materials.  * **Sufficient Rationale:** The proposal offers clear justification for the changes, detailing the need for the update, the benefits of enabling new primitives, and the expected impact on the Cardano blockchain ecosystem.  * **Technical Review and Scrutiny:** The action has undergone technical evaluation by Intersect’s Parameter Committee and was unanimously ratified by Intersect’s Technical Steering Committee. It includes benchmarking results and notes that a security report will be provided, demonstrating thorough technical scrutiny.  * **Consistency Between Off-Chain and On-Chain Versions:** The governance action ensures that the on-chain proposal is identical to the off-chain version, maintaining the required consistency.  2. **Compliance with Relevant Guardrails:**  * **PCM-01:** *Cost model values must be set by benchmarking on a reference architecture.*  * **Compliance:** The new cost model settings have been validated against a reference machine and align with the existing mainnet Plutus cost model settings.  * **PCM-02:** *The cost model must be updated if new primitives are introduced or a new Plutus language version is added.*    * **Compliance:** The update is necessitated by the introduction of new primitives in Plutus V3, following the upgrade to Protocol Version 10.  * **PCM-03:** *Cost model values should not be negative.*    * **Compliance:** All new cost model values introduced are non-negative. The proposal explicitly states that none of the new values are negative.  * **PCM-04:** *A cost model must be supplied for each Plutus language version that the protocol supports.*    * **Compliance:** The proposal updates the Plutus V3 cost model accordingly, while confirming that Plutus V1 and V2 cost models remain unchanged and valid.  3. **Alignment with Triggers for Change:**  * Under the Technical/Security Parameters, a valid trigger for changing protocol parameters is “**Changes to the Plutus language.**”    * **Compliance**: The proposal directly responds to changes in the Plutus language, satisfying the criteria for parameter updates. **Key Constitutional Compliance:** * **Article III, Section 6, Paragraph 1:**   * *Requirement:* Governance actions must be standardized, including a URL and hash linked to documented off-chain content, and provide sufficient rationale.    * *Compliance:* The proposal meets these requirements by providing detailed documentation and a clear rationale.  * **Article III, Section 6, Paragraph 2 & 3:**    * *Requirement:* The on-chain proposal must be identical to the off-chain version, protocol parameter changes should undergo sufficient technical review and scrutiny as mandated by the Cardano Blockchain Guardrails, and governance actions should address their expected impact on the Cardano blockchain ecosystem.    * *Compliance:* The action ensures consistency between on-chain and off-chain versions, sufficient technical review has been provided, and the expected impact has been thoroughly discussed. **Importance of Voting as a Constitutional Committee Member:** Voting is a fundamental responsibility of a CC Member. It ensures that governance actions align with the foundational principles and governance frameworks established by the Interim Constitution. By casting a 'Yes' vote, the CC member deems the governance action constitutional. This participation reinforces the CC's role in safeguarding the ecosystem's governance processes and maintaining community trust.",
+    "precedentDiscussion": "none",
+    "counterargumentDiscussion": "**Concern:** There is an argument that existing cost model parameters (modInteger, divideInteger, and quotientInteger) have negative values, potentially violating guardrail **PCM-03**, which states that “Cost model values should not be negative.” Although the current governance action does not modify these parameters, the presence of negative values could be interpreted as a constitutional issue. **Response:** * **Interpretation of PCM-03:** The guardrail is intended to prevent the introduction of new negative values in cost models. Since the proposal adds only non-negative values, it complies with PCM-03. * **Existing Negative Values Context:** The negative values in existing parameters are part of the established cost model and have been functioning without issues. They are acceptable within the current system and do not impact the constitutionality of the new proposal.  * **Constitutional Focus:** The Interim Constitution and guardrails are forward-looking, focusing on the compliance of new changes. The governance action adheres to constitutional requirements for the changes it introduces. **Conclusion on Counterargument:**  The concern does not invalidate the constitutionality of the governance action. The proposal is compliant with all relevant constitutional provisions and guardrails.",
+    "conclusion": "The governance action proposing to update the Plutus V3 Cost Model is constitutional. It adheres to the requirements set forth in the Interim Constitution and complies with all relevant guardrails. By enabling new Plutus primitives, the proposal enhances the Cardano ecosystem’s functionality and interoperability without compromising security or performance. Therefore, the Cardano Foundation, as an iCC member, deems this action constitutional and supports its progression through the governance process.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 1,
+      "abstain": 0,
+      "didNotVote": 1
+    },
+    "references": [
+      {
+        "@type": "relevantArticles",
+        "label": "Article III section 6.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article VI section 1.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Appendix I - Guardrails: PCM-01, 02, 03, 04",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale pdf",
+        "uri": "ipfs://QmUMCK6yLwLXPFMAFM19vjrFpyr2ChZSmYRDGJ8LMtXCXF"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Foundation"
+    }
+  ]
+}

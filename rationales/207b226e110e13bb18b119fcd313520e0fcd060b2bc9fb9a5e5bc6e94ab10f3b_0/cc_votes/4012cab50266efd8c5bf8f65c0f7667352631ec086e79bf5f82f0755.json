@@ -1,0 +1,55 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "authors": [
+    {
+      "name": "Cardano Japan Council (ICC)"
+    }
+  ],
+  "body": {
+    "summary": "New Constitution Governance Action --> Unconstitutional",
+    "rationaleStatement": "We have concluded that this Governance Action is unconstitutional under the Cardano Constitution. The determination rests primarily on Article VIII (Constitutional Amendment Process) and Article III, Section 5 (requirement for sufficient justification). First, Article VIII(1) provides that constitutional amendments are to be proposed following periodic review and discussion in forums deemed appropriate by the Cardano community. While this is expressed as an 'encouragement' rather than a mandatory requirement, in the context of a fundamental constitutional rewrite it carries near-binding weight. This Governance Action fails to meet that expectation. The proposal bypassed a broad community forum, relied mainly on limited discussions on social media and personal spreadsheets, and skipped the Info Action stage entirely. Many DReps, SPOs, and CC members encountered the draft only at the GA submission stage, without prior structured deliberation or opportunities for amendment. No explanation was given for why the encouraged process was ignored, despite significant post-submission feedback and improvement requests. This represents a serious deviation from the constitutional intent and context of Article VIII. Second, under Article III, Section 5, constitutional proposals must present sufficient justification for each amendment. This GA alters or removes multiple provisions (including budgetary requirements and audit obligations) but fails to provide clear reasons or necessity for these changes. For example, deleting unused provisions only eight months after adoption is not sufficiently reasoned, and new obligations—such as disclosure of identity, location, prior withdrawals, and audit reporting—are introduced without adequate justification or community consensus. The lack of clarity and insufficient rationale undermine both transparency and legitimacy. Finally, this GA aggregates numerous changes into a single package, mixing deletions, clarifications, and additions. This breadth makes it difficult for the community to adequately deliberate within the given timeframe. While some improvements might be constitutional if proposed separately, their bundling here prevents proper evaluation and risks forcing approval of contested changes. In summary, this Governance Action suffers from procedural defects and substantive omissions: it bypassed the Info Action stage, lacked sufficient community deliberation, and failed to justify the proposed changes in line with constitutional standards. Therefore, we judge this GA unconstitutional.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 4,
+      "abstain": 1,
+      "didNotVote": 0
+    }
+  }
+}

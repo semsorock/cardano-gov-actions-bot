@@ -1,0 +1,74 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "body": {
+    "summary": "This Budget Info Action is constitutional under Article III of the Cardano Constitution. It provides non-binding but constitutionally relevant guidance on intended treasury allocations, scope, and governance expectations, without authorizing any treasury withdrawal.",
+    "rationaleStatement": "The Constitutional Committee determines that this Budget Info Action does not violate the Cardano Constitution and therefore votes YES.\n\nThis governance action serves its intended constitutional role by articulating proposed budget scope, priorities, and high-level allocation intent for community consideration. As an Info Action, it does not authorize or enact a treasury withdrawal and therefore does not trigger Article IV treasury execution requirements. Instead, it provides advance transparency and guidance to inform subsequent governance actions.\n\nThe proposal satisfies Article III requirements by clearly presenting its purpose, scope, and supporting off-chain documentation in a transparent and auditable manner. It enables meaningful community deliberation and establishes a shared reference point against which future treasury withdrawals may be assessed for constitutional compliance.\n\nThe Committee notes that the Constitution explicitly separates the functions of budget signaling and treasury execution. This action appropriately respects that separation by outlining intent without pre-empting or constraining the Constitutional Committee’s independent review of any future withdrawal proposals.\n\nBy clarifying expectations around scale, structure, and oversight at the budget stage, this Info Action strengthens governance predictability and reduces the risk of ambiguity or dispute during later execution phases.",
+    "precedentDiscussion": "This decision reinforces precedent that Budget Info Actions may be used to communicate proposed ecosystem budgets, priorities, and governance expectations without themselves authorizing treasury withdrawals. It affirms the role of Info Actions as a constitutionally valid mechanism for early transparency, alignment, and ecosystem signaling ahead of binding financial actions.",
+    "counterargumentDiscussion": "Some concerns relate to the level of detail provided and the potential for stakeholders to interpret the budget as implicitly approved spending. The Committee notes that such concerns reflect governance communication and expectation management rather than constitutional validity. The Constitution clearly distinguishes Info Actions from treasury withdrawals, and this proposal does not overstep that boundary.",
+    "conclusion": "The Constitutional Committee concludes that this Budget Info Action fulfills its intended constitutional purpose, complies with Article III, and appropriately informs future governance actions without authorizing treasury expenditure. Accordingly, the Committee determines that the proposal is constitutional and votes YES.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Cardano Curia"
+    }
+  ]
+}

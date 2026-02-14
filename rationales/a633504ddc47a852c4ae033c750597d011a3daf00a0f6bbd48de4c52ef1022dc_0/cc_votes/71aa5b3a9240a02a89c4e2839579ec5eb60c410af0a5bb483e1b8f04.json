@@ -1,0 +1,98 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1fvgw27fjpr9c7g582mszzyez0jgkqgjgatzdnyngrg8wwc9kcn3qqxtz8r7",
+    "summary": "Ace Alliance finds this Action **Constitutional**. It proactively establishes a spending framework compliant with Article II(7) standards for Treasury Withdrawals, even though \"Budget\" actions are not explicitly mandated by the current Constitution.",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/QmSjzxNDnCb6oJoK8SX8chAkrcCB9FitxuhZ9v6usoiJ8R\n\nThis Governance Action (`gov_action15ce4qnwug759939wqv782pvh6qg68khspg8kh02gmex99mcsytwqqqr7jkr`) is an Info Action outlining a 6-month, 1,500,000 ada plan to develop Hydra-based trading infrastructure.\n\nUnder the Cardano Constitution in effect since Epoch 609, there is no requirement to submit a \"Budget\" prior to a \"Treasury Withdrawal.\" However, we assess this as a constitutional **Info Action** that effectively signals community intent and proactively aligns with the standards required for the eventual withdrawal.\n\n**Constitutional Alignment** \n\nThe action aligns with the constitutional framework:\n\n* **Procedural Requirements (Article II(6)):** The proposal follows the standardized format, provides a clear rationale, and uses an immutable `ipfs://` anchor link and hash.  \n* **Nature of Action (Article II(7-8):** While \"Budget\" actions are not mandatory, this Info Action is valid as it creates an on-chain record without direct enactment. Crucially, it defines terms compliant with **Article II(7)** for the future withdrawal:  \n  * **Terms & Administration:** It specifies the purpose, costs, and designates the DeltaDeFi Administration Committee (DAC) as the administrator.  \n  * **Oversight:** It allocates 100,000 ada for independent audits and establishes clear KPIs.  \n  * **Custody:** It explicitly states administration addresses will be delegated to the auto-abstain option and never to an SPO, adhering to strict custody rules.",
+    "precedentDiscussion": "According to Article III(1) of the Cardano Constitution, CC members are responsible for determining the Constitutionality of “any proposed or contemplated actions contained within ‘Info’ actions.” Because this Info Action proposes future spending from the Cardano Treasury, it falls within the authority of the Constitutional Committee to determine whether such spending, if approved, shall be in line with the constitution.",
+    "counterargumentDiscussion": "Some may argue this action is unnecessary as the new Constitution does not define a \"Budget\" process. We reject this not only because the governance action was submitted under the standards of the previous Cardano Constitution, but we believe using an Info Action to secure consensus on spending plans before withdrawal is a prudent governance practice that enhances transparency.",
+    "conclusion": "This action is **Constitutional**. It meets **Article II(6)** procedural requirements and proactively establishes a framework compliant with **Article II(7)** standards for Treasury Withdrawals.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "RelevantArticles",
+        "label": "Cardano Constitution",
+        "uri": "ipfs://bafkreieyuknozbtewyurfqoagvplvykadn6a4u6wglupavdz46bbsnnl6e"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Proposal Metadata Anchor URI",
+        "uri": "https://raw.githubusercontent.com/theeldermillenial/2025-liquidity-budget/refs/heads/master/withdrawal-1/data.jsonld"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Proposal Metadata Anchor Hash",
+        "uri": "a92807ed4dcf4817d6ae0c87b6bf5815b2baf3aef52609f51bc4bdb402f6429c"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmSjzxNDnCb6oJoK8SX8chAkrcCB9FitxuhZ9v6usoiJ8R"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Ace Alliance"
+    }
+  ]
+}

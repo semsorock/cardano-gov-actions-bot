@@ -1,0 +1,79 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "As outline in the DeFi Liquidity Budget Info Action, this first withdrawal action requests 500,000 ADA from the Cardano Treasury to establish the legal framework and smart contract infrastructure required for the Stablecoin DeFi Liquidity Budget as approved by the Cardano Community. This withdrawal covers three critical components: (1) establishment of a Cayman Islands Foundation Company as the legal vehicle for fund management, (2) development of the administrating smart contract and user interfaces, and (3) comprehensive security audit of the smart contract system.\n\nAll funds will be initially received by an Amaru contract administered by the 9-person Interim Committee with a 5-of-9 multisignature requirement. Funds will be disbursed to service providers upon completion of agreed milestones as detailed in this proposal.",
+    "motivation": "## 1\\. Legal Structure\n\n### 1.1 Service Provider\n\n**Walkers (Cayman) LLP**  \n**Location:** Cayman Islands  \n**Website:** [walkersglobal.com](https://walkersglobal.com)\n\n### 1.2 Legal Structure: Cayman Islands Foundation Company\n\nThe legal entity will be a **Cayman Islands Foundation Company (FC)** with the following characteristics:\n\n**Key Features:**\n\n- **Memberless, director-led structure** designed for DAO governance  \n- **Separate legal personality** enabling the FC to hold assets, enter contracts, and act as legal counterparty for off-chain transactions  \n- **Limited liability protection** for Committee Members and other participants  \n- **Customizable governance** that mirrors on-chain tDAO and Committee structure  \n- **No shareholders or beneficial owners**, aligning with decentralized governance principles\n\n**Governance Structure:**\n\n- **Directors:** Minimum 2 Cayman-based professional directors who manage the FC's business and affairs in accordance with the FC's Articles and tDAO directives  \n- **Supervisor:** Cayman-based professional supervisor with enforcement rights to act as a check on directors  \n- **Committee:** 9-person Interim Committee with delegated operational authority (5-of-9 multisig approval for fund disbursements)  \n- **tDAO Oversight:** dReps retain power to appoint/remove Committee Members and shut down the fund via on-chain governance\n\n**Director Candidates:**\n\n- **Candidate \\#1**: Co-founder of world's first Bitcoin ATM network; Founding President of Netcoins; Founding CEO of SonicStrategy; 15+ years in regulated crypto ventures  \n- **Candidate \\#2:** Leading one of the worldâ€™s largest crypto DeFi market makers; CFA & CFP; former senior global capital markets professional; Board Member & Treasurer, CFA Society Cayman Islands.\n\n### 1.3 Implementation Plan\n\n**Phase 1: Legal Formation (3-5 weeks)**\n\n1. Finalize FC name and conduct name check with Registrar of Companies  \n2. Interview and appoint directors and supervisor  \n3. Draft and review formation documents:  \n   - Affidavit  \n   - Memorandum and Articles of Association  \n   - Undertaking of subscriber  \n   - Subscriber resolutions  \n   - Director service agreements  \n   - Supervisor service agreement  \n4. Incorporate the Foundation Company with Cayman Islands Registrar\n\n**Phase 2: Activation (1-2 weeks)**\n\n1. Pass director resolutions to:  \n   - Appoint the 9 Interim Committee Members  \n   - Designate the smart contract wallet as an FC asset  \n   - Approve 5-of-9 multisig governance structure  \n   - Approve Committee Member service agreements (remuneration, indemnity, multisig arrangements)  \n   - Approve transaction documents for liquidity deployment  \n2. Establish banking relationships (if required)  \n3. Complete regulatory filings\n\n### 1.4 Detailed Cost Breakdown\n\n| Service | Provider | Cost (USD) | Cost (ADA) @ $0.40/ADA |\n| :---- | :---- | :---- | :---- |\n| Constitutional documents & resolutions | Walkers (Cayman) LLP | \\$25,000 \\- \\$30,000 | 62,500 \\- 75,000 |\n| Disbursements (filing fees, etc.) | Walkers (Cayman) LLP | $6,000 | 15,000 |\n| Cayman regulatory memorandum | Walkers (Cayman) LLP | $12,500 | 31,250 |\n| Transaction document review (est. 5 docs) | Walkers (Cayman) LLP | \\$7,500 \\- \\$10,000 | 18,750 \\- 25,000 |\n| Registered office & secretary (Year 1\\) | Walkers Corporate Limited | $10,000 | 25,000 |\n| Supervisor services (Year 1\\) | Walkers Corporate Limited | $20,000 | 50,000 |\n| Director fees (Year 1, 2 directors est.) | See below | $50,000 | 125,000 |\n| Contingency for additional legal work |  | $10,000 | 25,000 |\n| **TOTAL LEGAL STRUCTURE** |  | **$166,000** | **400,000 ADA** |\n\n**Notes:**\n\n- ADA conversion calculated at $0.40/ADA. Actual ADA amount may vary based on exchange rate at time of payment.  \n- Director fees are estimated; final amount depends on negotiated terms with selected directors.  \n- Registered office and supervisor services are annual fees; only Year 1 costs included in this withdrawal.  \n- Walkers Corporate Limited is an affiliate of Walkers LLP but provides services at competitive market rates. Alternative service providers may be considered if cost optimization is required.\n\n---\n\n## 3\\. Smart Contract Audit\n\n### 3.1 Service Provider\n\n**Invariant0 LLC**  \n**Website:** [https://invariant0.com](https://invariant0.com)  \n**GitHub:**\n\n- [https://github.com/vacuumlabs/audits](https://github.com/vacuumlabs/audits) (legacy reports)  \n- [https://github.com/Invariant-0/audit-reports](https://github.com/Invariant-0/audit-reports) (current reports)\n\n**Lead Auditor:** Michal Porubsky, Founder and Lead Auditor\n\n### 3.2 Cost Breakdown\n\n| Service | Provider | Cost | Notes |\n| :---- | :---- | :---- | :---- |\n| Design & Specification Review | Invariant0 LLC | Included | 3-4 days |\n| Smart Contract Code Audit | Invariant0 LLC | Included | 12-16 days, 2 auditors |\n| Re-audit of all fixes | Invariant0 LLC | Included | Iterative process |\n| Final Audit Reports | Invariant0 LLC | Included | Internal \\+ Public |\n| **TOTAL AUDIT** |  | **75,000 ADA** | **Fixed Price** |\n\n---\n\n## 4\\. Amaru Contract Setup\n\n### 4.1 Service Provider\n\n**Sundae Labs**  \n**Website:** [https://sundae.fi](https://sundae.fi)  \n**Supporting Role:**\n\n- Additional technical support and consultation  \n- Cardano smart contract expertise  \n- Community integration support\n\n### 4.2 Purpose\n\nAn Amaru contract will be established to receive the 500,000 ADA from this withdrawal and manage disbursements to service providers. This provides:\n\n- Secure multi-signature control by the 9-person Interim Committee  \n- Transparent on-chain tracking of all payments  \n- Protection against single point of failure  \n- Constitutional compliance with fund management requirements\n\n### 4.3 Cost & Timeline\n\n| Service | Provider | Cost | Timeline |\n| :---- | :---- | :---- | :---- |\n| Amaru contract setup & support | Sundae Labs | 25,000 ADA | 1-2 weeks |\n\n---",
+    "rationale": "This withdrawal action complies with all relevant sections of the Cardano Constitution:\n\n### Article III, Section 5 \\- Transparency Requirements\n\n**Title, Abstract, Reason, Supporting Materials** \\- Provided in this document  \n**URL and hash** \\- Will be added with final submission  \n**Off-chain content** \\- This document serves as complete off-chain specification\n\n**Open source development** \\- All smart contract code will be publicly available on GitHub for public review  \n**Documentation** \\- Comprehensive documentation will enable community verification of all components\n\n### Article IV, Section 2 \\- Budget Administration\n\n**Smart contract based administration:**\n\n- Amaru contract for Withdrawal 1 fund management  \n- Custom administrating contract for Withdrawal 2 liquidity deployment  \n- Smart contract enforces 5-of-9 spending requirement\n\n**Designated administrators:**\n\n- 9-person Interim Committee with 5-of-9 multisig approval required for all disbursements  \n- FC governance structure mirrors on-chain tDAO oversight mechanisms\n\n**Oversight process:**\n\n- Monthly reporting of all expenditures and progress  \n- tDAO oversight via on-chain governance actions  \n- tDAO implemented on-chain with election, impeachment, and shutdown capabilities\n\n**Asset custody:**\n\n- Smart contract will hold all liquidity tokens  \n- All liquidity tokens held by smart contract (not delegated to third parties)\n\n### Article IV, Section 3 \\- Treasury Withdrawal Limits\n\n**Within net change limit** \\- 500,000 ADA is well below current NCL (\\~350M ADA)  \n**Authorized by approved budget** \\- Pursuant to passed Info Action (Stablecoin DeFi Liquidity Budget)  \n**Not unconstitutional** \\- Complies with all constitutional requirements as detailed in this document\n\n### Article IV, Section 4 \\- Audit & Dispute Resolution\n\n**Audit allocation:**\n\n- 75,000 ADA allocated for comprehensive security audit by Invariant0 LLC  \n- Independent third-party audit by experienced Cardano smart contract auditors  \n- Comprehensive security review of all contract logic  \n- Public audit report for community transparency  \n- Audit costs included in withdrawal budget\n\n**Dispute resolution provisions:**\n\n- All service agreements include arbitration provisions  \n- Director service agreements will include dispute resolution procedures  \n- Committee Member agreements will include dispute resolution provisions  \n- FC Articles will include dispute resolution mechanisms for entity-level disputes\n\n### Article IV, Section 5 \\- Fund Management\n\n**Separate auditable accounts:**\n\n- All funds held in separate, auditable smart contract addresses  \n- Amaru contract provides public on-chain transparency for Withdrawal 1  \n- All transactions publicly verifiable on Cardano blockchain\n\n**Delegation requirements:**\n\n- Funds will NOT be delegated to any SPO  \n- Explicitly prohibited in contract configuration  \n- Funds will be delegated to predefined auto-abstain voting option per constitutional requirement\n\n### Treasury Guardrails (Appendix I, Section 3\\)\n\n**TREASURY-03a \\- Denomination** \\- All withdrawals denominated in ADA  \n**TREASURY-04a \\- Budget approval** \\- Approved budget in effect via passed Info Action  \n",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Conflict of Interest Policy",
+        "uri": "https://raw.githubusercontent.com/theeldermillenial/2025-liquidity-budget/7e657eaa1c39a22a399393b8d8524277bd4b2a1a/withdrawal-1/conflict-of-interest.md"
+      },
+      {
+        "@type": "Other",
+        "label": "Impact and Selection Criteria",
+        "uri": "https://raw.githubusercontent.com/theeldermillenial/2025-liquidity-budget/7e657eaa1c39a22a399393b8d8524277bd4b2a1a/withdrawal-1/impact-and-criteria.md"
+      },
+      {
+        "@type": "Other",
+        "label": "Monthly Value Calculations",
+        "uri": "https://raw.githubusercontent.com/theeldermillenial/2025-liquidity-budget/7e657eaa1c39a22a399393b8d8524277bd4b2a1a/withdrawal-1/value-calculations.md"
+      },
+      {
+        "@type": "Other",
+        "label": "DeFi Asset and Risk Management Principles",
+        "uri": "https://raw.githubusercontent.com/theeldermillenial/2025-liquidity-budget/7e657eaa1c39a22a399393b8d8524277bd4b2a1a/withdrawal-1/asset-risk-management-principles.md"
+      }
+    ],
+    "title": "Cardano DeFi Liquidity Budget - Withdrawal 1"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We have determined that this Update to the Constitution governance action is constitutional.",
+    "rationaleStatement": "ARTICLE VIII Section 1 of the Interim Constitution states \"The Interim Period shall be a temporary period that shall continue until such date that the Final Constitution has been ratified by Ada holders in accordance with the Ratification Of Final Constitution as set forth in Appendix II.\"\n\nAnd ARTICLE VIII Section 2 of the Interim Constitution states \"The process for transitioning from this Interim Constitution to Final Constitution is contained in Appendix II.\"\n\nThe guardrails that require consideration for the governance action with ID \"gov_action133jnaewfsq8x6v08ndd87l2yqryp63r30t2dkceacxx5cply5n7sqzlcyqf\" and title \"Cardano Constitution to Replace the Interim Constitution\" are NEW-CONSTITUTION-01 and INTERIM-04. These are addressed as follows:\n* NEW-CONSTITUTION-01 - The Constitution or Guardrails Script governance action has been submitted.\n* INTERIM-04 - Appendix 2 will be examined in the following text.\n\nFurther, we have confirmed compliance with each section of APPENDIX II.\n* Section 1: Global Workshops - Global workshops for Ada holders were successfully conducted in the second half of 2024, ensuring broad community representation. Up to 140 delegates (70 voting and 70 non-voting) were elected and participated in the Constitutional Convention, with each voting delegate having an equal vote.\n* Section 2: Constitutional Convention - The Constitutional Convention was successfully held before the end of 2024, meeting all requirements.\n* Section 3: Approval and Submission of the Final Constitution - The Final Constitution was approved with necessary amendments and submitted as a governance action under CIP-1694 by January 31, 2025.\n\nWe therefore find this governance action **Constitutional**.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "While this governance action complies with all the specific requirements of the Interim Constitution, some concern has been raised about the level of complexity being introduced with the proposed new constitution.\n\nARTICLE I Section 2 of the Interim Constitution states that \"The Cardano Blockchain shall be governed on a vote-based decision-making model, fostering inclusivity, a diversity of views, innovation and adaptability. All Ada holders shall have the opportunity to contribute to the governance and direction of the decentralized Cardano Blockchain ecosystem.\"\n\nGiven the additional complexity introduced with the new constitution, it could be argued that the principles of \"inclusivity\" and \"diversity of views\" are less able to be adopted, as some native English speakers and many non-native English speakers, may find the language used in the constitution proposed in this governance action too difficult to understand, limiting their ability to \"contribute to the governance …\".\n\nThis concern does not outweigh the importance of adopting a community defined constitution, however we strongly encourage simplifying the language when making future changes to the constitution.  By relying more on simple tenets and principles, rather than being overly verbose and prescriptive, the community will be more empowered to participate in governance.",
+    "conclusion": "This governance action sufficiently addresses the guardrails criteria of the Interim Constitution, so is deemed constitutional.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 1,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Eastern Cardano Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "a12e0d6516828fd47afc70e2eccdfa11a4f4c76cb5eca55bdc9349865a70e4fe",
+        "signature": "963d36ec3d0fe0f7b2b5adb3ebc6c48cc586ffd2a574c8219dd7518970b47324721572311190be607c1f0708f902c5a9ceb694320e2c7e5cb68d6be562fea806"
+      }
+    }
+  ]
+}

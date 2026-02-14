@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We abstain from issuing a constitutional determination on this governance action to update the Cardano Constitution.",
+    "rationaleStatement": "The governance action with ID \"gov_action1ezp0r9rgf4njx93p9uq7l3kjs9m739jm0ntf26vplcmucec4jc0qqxjlfrc\" and title \"CARDANO BLOCKCHAIN ECOSYSTEM CONSTITUTION v2.3\" is a Constitutional Update, and is subject to the following provisions of the current Cardano Constitution:\n\nARTICLE III, Section 5 states \"In order to promote transparency in the process of on-chain governance, prior to being recorded or enacted on-chain, all proposed governance actions are expected to follow a standardized and legible format including a URL and hash of all documented off-chain content to the Cardano Blockchain. Sufficient rationale shall be provided to justify the requested change to the Cardano Blockchain. The rationale shall include, at a minimum, a title, abstract, reason for the proposal, and relevant supporting materials. The content of every on-chain governance action must be identical to the final off-chain version of the proposed action.[...]\"\n\nThis governance action includes a valid URL and content hash that match the referenced off-chain documentation. The rationale meets the minimum transparency and documentation requirements outlined above.\n\nGuardrails Clause NEW-CONSTITUTION-02 states \"If specified, the new Guardrails Script must be consistent with this Constitution\"\n\nNo changes to the Guardrails Script are proposed. The current script hash remains unchanged and is therefore compliant.\n\n### Concerns and Constitutional Ambiguity\nWhile this governance action meets the above procedural requirements for constitutional amendments, several concerns prevent us from issuing a definitive judgment of constitutionality.\n\nARTICLE VIII, Section 2, states \"Except as otherwise so provided in the Cardano Blockchain Guardrails Appendix, amendments to this Constitution, including to the Cardano Blockchain Guardrails Appendix, shall be approved by a collective decision-making process, requiring an on-chain governance action by owners of ada satisfying a threshold of no less than 65% of the then active voting stake.\"\n\nThis provision contains two distinct constitutional requirements for valid constitutional amendments:\n* \"Approved by a collective decision-making process\", and\n* \"Requiring an on-chain governance action by owners of ada satisfying a threshold of no less than 65% of the then active voting stake.\"\n\nThe inclusion of both clauses within a single sentence implies that the first clause — \"collective decision-making process\" — is not redundant, but an intentional and additional constitutional expectation. It suggests that beyond a successful on-chain vote, the amendment should also emerge from an inclusive and structured deliberative process.\n\nHowever, in the case of this proposal, no clearly defined public consultation phase, structured community forums, or accessible mechanisms for iterative community feedback were established prior to submission. This raises significant concerns under the following additional constitutional provisions:\n* ARTICLE I, Tenet 9 emphasizes fair and impartial treatment of all users, in accordance with the collective desires of the community.\n* ARTICLE III, Section 6 encourages off-chain governance mechanisms to ensure debate and co-creation of governance actions.\n* ARTICLE VIII, Section 1 calls for constitutional amendments to be shaped through forums the Cardano Community deems appropriate.\n\nWhile these articles articulate the intent of participatory governance, they are not yet implemented as mandatory procedural requirements. This discrepancy between procedural compliance and constitutional intent presents a legitimate ambiguity.\n\n### Rationale for Abstention\nDue to multiple concerns regarding the legitimacy and transparency of the community participation process, and unresolved constitutional ambiguity, particularly regarding the definition and implementation of a \"collective decision-making process\" under Article VIII, Section 2, we are unable to issue a conclusive assessment. While the proposal follows the formal procedural pathway, it does not fully uphold the participatory spirit envisioned in the Constitution.\n\nTherefore rather than rule conclusively for or against, we **Abstain**.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "conclusion": "In the absence of a consensus within the ECC voting body, we abstain from making a definitive constitutional judgment.",
+    "internalVote": {
+      "constitutional": 4,
+      "unconstitutional": 3,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Eastern Cardano Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "a12e0d6516828fd47afc70e2eccdfa11a4f4c76cb5eca55bdc9349865a70e4fe",
+        "signature": "f9a54bb9cbb2da755c59d81cdef3df2806b62c8038a52bb1424ee6244eeaf0c9f6b3974ce1f89be08433a455f6690c584d40b5fabf08a119cfb79ec35418540c"
+      }
+    }
+  ]
+}

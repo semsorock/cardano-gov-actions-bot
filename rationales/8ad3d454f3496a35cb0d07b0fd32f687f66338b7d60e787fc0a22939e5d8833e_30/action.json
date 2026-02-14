@@ -1,0 +1,149 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "onChain": {
+          "@id": "intersectSpec:onChain",
+          "@context": {
+            "governanceActionType": "intersectSpec:governanceActionType",
+            "depositReturnAddress": "intersectSpec:depositReturnAddress",
+            "withdrawals": {
+              "@id": "intersectSpec:withdrawals",
+              "@container": "@set",
+              "@context": {
+                "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                "withdrawalAmount": "intersectSpec:withdrawalAmount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "8acf35d54ed1ef0e0bdb7c00c67e6e015ba9afe375d43b5f40adff8448305686257e8ec561979c43d93106918287fb9702d2355bc74a488ad278e89e726d6208"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Withdraw ₳3,000,000 for High-yield RWA Asset for Cardano: Tokenized Real Estate",
+    "abstract": "This treasury withdrawal funds **High-yield RWA Asset for Cardano : Tokenized Real Estate** which will provide the following services:\n\nHaus is building an open-source Tokenized Home Equity Liquidity Protocol to unlock the $16 trillion in illiquid home equity sitting in U.S. residential real estate. By leveraging blockchain technology, our platform enables homeowners to sell fractional ownership of their home equity, instantly accessing liquidity while allowing investors to gain exposure to real estate appreciation.\n\nWe have already prototyped and deployed this model on a private Ethereum blockchain, securing $20 million in Total Value Locked (TVL). With this proposal, we aim to transition HausCoin and the liquidity protocol to Cardano, leveraging its secure, scalable, and cost-effective infrastructure to power a decentralized marketplace for home equity trading.\n\nThis Treasury Withdrawal is submitted by Intersect on behalf of the vendor. The following sections; Abstract, Motivation, Rationale and Vendor Profile have been sourced from the approved proposal submitted by the Vendor as part of the Intersect budget process.\n\nThis treasury withdrawal funds one of 39 proposals to give effect to the approved budget info action for ₳275,269,340, administered by Intersect via gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh. The information provided herein is intended to fulfill the spirit of the constitutional requirement for a treasury withdrawal info action by also providing the details of the proposed solution, alignment to the budget, and amount to be withdrawn from the Cardano Treasury.",
+    "motivation": "This proposal aims to solve the following problem:\n\nMany homeowners are asset-rich but cash-poor, lacking access to liquidity tied up in their homes. At the same time, investors struggle to find stable, appreciating, asset-backed alternatives to traditional stablecoins or volatile crypto assets.",
+    "rationale": "### Project Solution\n\n### Tokenizing Home Equity on Cardano:\n\n- Haus will move its existing liquidity protocol onto Cardano's mainnet, allowing homeowners to tokenize and sell portions of their home equity directly to investors.\n\n- This will create an efficient and scalable real estate-backed asset class, providing homeowners with cash liquidity and investors with a share in home appreciation.\n\n### Launching HausCoin on Cardano:\n\n- Haus will issue HausCoin, a real estate-backed token enabling home equity trading at scale.\n\n- Investors will be able to buy, sell, and trade tokenized real estate assets, unlocking new DeFi use cases for real-world assets (RWAs).\n\n### Leveraging an Existing 30,000-User Waitlist ($4.1B in TVL):\n\n- Haus already has a 30,000-person waitlist representing $4.1 billion in Total Home Equity Value (TVL).\n\n- A fraction of this TVL will be onboarded to Cardano, driving real-world adoption of the protocol.\n\n### Building a Legal Framework for Compliance:\n\n- Haus will develop a regulatory-compliant framework for issuing and trading tokenized real estate in the U.S., EU and international markets.\n\n- Legal and financial structuring will ensure seamless integration with traditional real estate markets.\n\n### Deploying Liquidity Pools & Market Infrastructure:\n\n- Haus will establish liquidity pools to facilitate instant trading and lending of home equity tokens.\n\n- This will support DeFi integration, enabling real estate-backed lending, yield farming, and staking mechanisms.\n\n### Product Completion & Market Expansion:\n\n- Funding will be used to finalize product development, enhance the user experience, and integrate with key blockchain ecosystems.\n\n- Haus will drive market adoption through strategic partnerships, marketing, and investor outreach.\n\n### Vendor Profile\n\n## Relevant Experience & Track Record\n\nHaus is led by a seasoned team of experts in blockchain, fintech, real estate, and technology, with a proven track record of scaling businesses, executing blockchain projects, and driving financial innovation.\n\n### 1. Leadership Team with Deep Industry Expertise\n\n**Siddarth (CEO)** -- A product and tech executive with $1B+ P&L and 20+ years as a real estate investor.\n\n- Turned around a $2B public company leading to a $6.4B private equity exit through product and engineering innovation.\n\n- Built a $500M revenue AI platform at Amazon.\n\n- Scaled (NYSE: PL) from $2M to $140M revenue, leading strategic acquisitions including Google's Terra Bella in a $2.8B exit.\n\n- Launched Microsoft Surface 3 ($0 to $475M revenue) and developed the first Android phone at Google.\n\n**Rakesh Pullabhatla (COO)** -- A financial and operations expert, blockchain specialist, and fintech/proptech strategist.\n\n- COO/CFO Consultant at multiple Layer 1 blockchain projects (Nodle, Astar, Oasis, Metallicus) and several DeFi and NFT ventures.\n\n- Director at Planet Labs (NYSE: PL) -- Led company expansion from 30 to 650 employees, growing revenue from $0 to $150M ARR, leading to a $2.8B IPO\n\n- Director at Boku (AIM: BOKU) -- Helped build a global mobile payments platform in 120+ countries, leading to a $500M IPO\n\n- Former Economics Consultant at Cornerstone Research and held product & operational roles at Apple, Textron, and Fortune 150 companies.\n\n### 2. Proven Execution & Market Validation\n\n- Developed and tested the Haus Liquidity Protocol, completing 36 tokenized home transactions with $20M in TVL.\n\n- Strong Product-Market Fit, validated by a 30,000-user waitlist with $4.1B in tokenizable home equity.\n\n- Early DeFi Partnerships, including promising conversations with MinSwap and other liquidity providers.\n\n### 3. Real Estate, Blockchain, and Legal Readiness\n\n- Haus is already operational, with $25M+ AUM, $20M TVL, and $150K ARR, proving its financial viability.\n\n- Regulatory compliance focus, with an ongoing legal framework for HausCoin (SEC reg D approved) and tokenized real estate investing.\n\n- Institutional & Investor Network, ensuring liquidity, adoption, and long-term sustainability.\n\nWith a track record of scaling multi-billion-dollar businesses, building blockchain protocols, and executing real estate tokenization, the Haus team is well-positioned to deliver this project successfully on Cardano.\n\n### Contract Management\n\nA written off-chain Legal Contract will be created between the Vendor and the Cardano Development Holdings (CDH), as mandated by the constitution, and will be administered by Intersect. This will include details of the project delivery schedule and dispute resolution.\n\n### Project Delivery \n\nAll milestones, acceptance criteria, payment amounts and expected delivery dates will be agreed between the Vendor and Intersect, acting on behalf of the CDH. The vendor will deliver according to the agreed-upon project schedule within the Legal Contract, of which the necessary information will be made public via the budget management platform via transaction metadata.\n\nDefined by the milestones within a Legal Contract, the vendor will submit and attest milestone acceptance to the community, Intersect or 3rd Party Assurer.\n\nProject progress will be monitored via Intersect's delivery assurance function which will be communicated to the community.\n\nAcceptance of the above work is expected to be supported by a 3rd Party Assurer, who will be responsible for reviewing and signing off the work completed at each project milestone against the corresponding milestone deliverables detailed within the Legal Contract. This work is funded from a portion of this treasury withdrawal.\n\n### Budget Management Tooling\n\nTo administrate treasury funds on-chain, Intersect will utilize the treasury management smart contract framework developed by Sundae Labs. The smart contracts have been [extensively tested](https://github.com/SundaeSwap-finance/treasury-contracts/tree/main/offchain/tests) including audits from TxPipe and MLabs. Examples of the usage of these contracts can be seen across mainnet described across Intersect authored [Blog 1](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-a-step-toward-on-chain-treasury-withdrawals), [Blog 2](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-two-update) and [Blog 3](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-three-update).\n\nFinal mainnet validation test can be seen via the Disburse action within transaction: 0f591dc544ae14102dbb4a74d5311a6acffc1772b163d8b7a9656b9525950b17\n\nWith the confirmed treasury reserve contract address being: stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr\n\n#### Specifics\n\nIntersect will utilize a single Treasury Reserve Smart Contract (TRSC), with many Project-Specific Smart Contracts (PSSC), managed by Intersect. Intersect's management consists of three 'admin' and two Intersect 'leadership' roles. An Oversight Committee consisting of five external, independent third-party entities will provide checks and balances on Intersect, and safeguard against errors and unilateral control. The administration of both TRSC and PSSCs will be managed by Intersect, with external oversight on certain actions from the Oversight Committee.\n\nThe Oversight Committee consists of Sundae Labs, Cardano Foundation, Dquadrant, Xerberus and NMKR. Their role is to independently verify key administrative actions using on-chain logic, ensuring accuracy and consistency without exercising discretion over governance decisions.\n\nFor all details on Intersect's configuration please see the **[Smart Contract Guide](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-budget/intersect-administration-services/smart-contracts-as-part-of-our-administration)** on the knowledgebase.\n\nThe high level permissions are as follows:\n\n- TRSC Fund and PSSC Modify\n\n  - Two of the three Intersect admins, two of the five trusted entities and one of the two Intersect leadership sign-off must authorize\n\n- TRSC Disperse\n\n  - Two of three Intersect admins, three of five trusted entities and two of two Intersect leadership sign-off must authorize\n\n- TRSC Pause and Resume\n\n  - Two of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Sweep\n\n  - One of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Reorganize\n\n  - Two of three Intersect admins and three of five trusted entities must authorize\n\n#### Processes\n\nUpon enactment of this governance action, funding for this project will be directed into the TRSC's stake account. All instances of TRSC and PSSC can not be staked with a SPO and will be delegated to the auto-abstain predefined DRep. From here funds will be withdrawn into a UTxO remaining at the TRSC.\n\nWhen the Legal contract is prepared and the vendor is ready, funding for this project will be transferred using the Fund action to a PSSC. All milestones will be outlined within the metadata.\n\nA dashboard will be available for the community to audit the TRSC or PSSC and track metrics related to this withdrawn ada as well as being immutably verifiable on chain.\n\nThe subsections; Contract Management, Project Delivery, and Budget Management Tooling described above cover the constitutional requirements specified in Article IV section 4 and 5.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "HausCoin - Private Ethereum Ledger (To be moved to Cardano)",
+        "uri": "https://hauscoin.com/ledger"
+      },
+      {
+        "@type": "Other",
+        "label": "Customer Testimonials",
+        "uri": "https://haus.com/testimonials"
+      },
+      {
+        "@type": "Other",
+        "label": "Why Cardano for Haus",
+        "uri": "https://docsend.com/view/fp5xjfasirpciwpv"
+      },
+      {
+        "@type": "Other",
+        "label": "Haus Deck",
+        "uri": "https://docsend.com/view/fvx4c39gyzfk3vpt"
+      },
+      {
+        "@type": "Other",
+        "label": "Project Proposal In Ekklesia",
+        "uri": "https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b63565577986442d186"
+      },
+      {
+        "@type": "Other",
+        "label": "Approved Budget Info Action submitted by Intersect via GovTool",
+        "uri": "https://gov.tools/outcomes/governance_actions/e14de8d9dc4f4ddf3fe9250a8a926e20f10e99b86bd0610b77d7a054981591ee#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Details of all successful proposals (CSV)",
+        "uri": "ipfs://bafybeicwrop4q7xvnyjdd5drumbe56sqtm5lbe2ul3c262zt4hgguzdycm"
+      },
+      {
+        "@type": "Other",
+        "label": "Automating Accountability: Cardano's Smart Contract Framework Blog",
+        "uri": "ipfs://bafybeihqx4ae72z7suqfnxrpqpqithp43cai7o2uuewnqtezgaoyc3ptyq"
+      },
+      {
+        "@type": "Other",
+        "label": "Sundae Labs Budget Management Smart Contracts Github Repository",
+        "uri": "https://github.com/SundaeSwap-finance/treasury-contracts"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts TxPipe Audit Report",
+        "uri": "ipfs://bafybeiccnwejbgj43wo6hrlseckkkmprtoqc5cfuy2hesm6c6yealwho3e"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts MLabs Audit Report",
+        "uri": "ipfs://bafybeiah5fnjhda5hemj3qvaehc4mre3qllqzw2l7mkdsguytn4ftgafw4"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "treasuryWithdrawals",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp",
+      "withdrawals": [
+        {
+          "withdrawalAddress": "stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr",
+          "withdrawalAmount": 3000000000000
+        }
+      ]
+    }
+  }
+}

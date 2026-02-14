@@ -1,0 +1,102 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The governance action Rename the Chang 2 Hard Fork to the Plomin Hard Fork is constitutional. As an Info Action, it has no protocol impact and complies with the Interim Constitution. This vote assesses constitutionality only, with sentiment left to DReps and SPOs.",
+    "rationaleStatement": "**Understanding the Governance Action** This governance action, with Action ID gov_action1llcd7ezdx299xeep9azm4dvsvz7783qfrhykcu3sv2ykl4sewv2qq4myfpk, proposes renaming the next Cardano hard fork to the “Plomin Hard Fork” in memory of Matthew Plomin. Info Actions, as defined in Article III, Section 5 of the Interim Constitution, are mechanisms to gauge community sentiment. These actions have no on-chain impact and exist solely to document votes from DReps, SPOs, and the Constitutional Committee (CC). They provide a platform for expressing sentiment without enacting changes. **Role of the Constitutional Committee** The CC’s primary responsibility, per Article VI, Section 1 of the Interim Cardano Constitution, is to assess and vote on the constitutionality of governance actions. While Info Actions are non-binding and have no protocol impact, assessing their constitutionality reflects the iCC’s commitment to fostering transparent governance in this foundational phase. **Key Constitutional Compliance:** * **Article III, Section 5:** Establishes Info Actions as non-binding tools for capturing sentiment. * **Article III, Section 6:** Requires governance actions to follow standardized formats and include links to off-chain documentation.  * **Article VI, Section 1:** Limits the CC’s role to ensuring constitutional compliance.  * **Article VI, Section 4:** Mandates transparency in CC processes, including publishing rationales for voting decisions. **Importance of Voting as a Constitutional Committee Member:** Voting is a fundamental responsibility of a CC Member. It ensures that governance actions align with the foundational principles and governance frameworks established by the Interim Constitution. By casting a 'Yes' vote, the CC member deems the governance action constitutional. This participation reinforces the CC's role in safeguarding the ecosystem's governance processes and maintaining community trust.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "Critics may argue that naming hard forks lacks functional relevance and could detract from critical governance matters. Additionally, frequent non-binding Info Actions may clutter the process. However, Info Actions also uphold transparency, prevent undue influence, and set a foundation for robust governance. Potential issues like spam or clutter can be addressed as governance matures.",
+    "conclusion": "We conclude as follows. The Rename the Chang 2 Hard Fork to the Plomin Hard Fork is constitutional. It adheres to procedural requirements. Therefore, the Cardano Foundation as an ICC member deems this action to be constitutional, without endorsing or expressing any opinion regarding the underlying message.",
+    "internalVote": {
+      "constitutional": 7,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "relevantArticles",
+        "label": "Article III section 5.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article III section 6.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article VI section 1.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article VI section 4.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale pdf",
+        "uri": "ipfs://QmY1Twncqmoz8f6mXpfbSEqrRHz7pVufP16acuKCXWq1cb"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Foundation"
+    }
+  ]
+}

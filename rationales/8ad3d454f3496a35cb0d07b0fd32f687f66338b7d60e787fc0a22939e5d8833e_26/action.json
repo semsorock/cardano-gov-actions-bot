@@ -1,0 +1,164 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "onChain": {
+          "@id": "intersectSpec:onChain",
+          "@context": {
+            "governanceActionType": "intersectSpec:governanceActionType",
+            "depositReturnAddress": "intersectSpec:depositReturnAddress",
+            "withdrawals": {
+              "@id": "intersectSpec:withdrawals",
+              "@container": "@set",
+              "@context": {
+                "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                "withdrawalAmount": "intersectSpec:withdrawalAmount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "aff52656a0cb2a67ea9f1748f19641ae83314f2dfbc4277372df804a4c0864cb9bd23f492fe69d7a8275cacc0b53a1524a279c43652ac7f74fb8c982ee0b6505"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Withdraw ₳12,000,000 for Cardano Builder DAO administered by Intersect",
+    "abstract": "This treasury withdrawal funds **Cardano Builder DAO** which will provide the following services:\n\nThe Cardano Builder DAO (**CB DAO**) is a **smart contract-enforced**, **member-governed funding mechanism** created to **support the application-layer growth of the Cardano ecosystem**. Its core purpose is to **provide sustainable financial backing** and **strategic oversight to high-impact projects** that are directly responsible for existing user adoption, on-chain activity, Total Value Locked (TVL), and ecosystem engagement.\n\nWhile Cardano's governance structure and funding mechanisms, such as Project Catalyst and core development committees, have been instrumental in bootstrapping protocol advancements and open-source tooling, **there remains a substantial gap in ongoing support for live, user-facing products/services. CB DAO fills that gap.**\n\nThrough a **transparent governance framework**, **strict accountability mechanisms**, and a **metrics-first funding approach**, CB DAO ensures that builders with growing products on mainnet can scale sustainably, integrate cutting-edge Cardano infrastructure (e.g. Hydra, Leios, Midgard), and contribute to the ecosystem's long-term growth.\n\nThis Treasury Withdrawal is submitted by Intersect on behalf of the vendor. The following sections; Abstract, Motivation, Rationale and Vendor Profile have been sourced from the approved proposal submitted by the Vendor as part of the Intersect budget process.\n\nThis treasury withdrawal funds one of 39 proposals to give effect to the approved budget info action for ₳275,269,340, administered by Intersect via gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh. The information provided herein is intended to fulfill the spirit of the constitutional requirement for a treasury withdrawal info action by also providing the details of the proposed solution, alignment to the budget, and amount to be withdrawn from the Cardano Treasury.",
+    "motivation": "This proposal aims to solve the following problem:\n\nThis proposal seeks to address the lack of dedicated, sustainable financial support and strategic oversight for functioning dApps that drive real usage, transaction volume, and Total Value Locked (TVL) on the Cardano blockchain.\n\nWhile Cardano has mechanisms for new protocol development and early-stage funding, there is currently no infrastructure specifically designed to financially support application-layer projects that are already live on mainnet and which are driving Cardano's current user activity. Without targeted support, these projects risk stagnation, limiting Cardano's broader adoption and on-chain ecosystem growth.\n\nTo reach mass adoption, Cardano needs to better support launched projects; this proposal aims to ensure that established builders with launched dApps can continue to build on Cardano.",
+    "rationale": "### Project Solution\n\nIf implemented, this proposal will directly benefit Cardano dApp developers, the broader ecosystem of users, and ADA holders by creating a reliable funding structure focused on sustained adoption, utility, and on-chain economic activity.\n\nDemonstrated value to the Cardano Community includes:\n\n* **Increased On-Chain Activity**: Providing financial support to launched projects with real users and measurable transactions will grow Cardano's usage metrics, a key indicator of network health and success.\n\n* **Higher TVL and Ecosystem Stickiness**: By supporting projects that retain user assets on-chain, the DAO boosts Cardano's DeFi footprint and TVL.\n\n* **More Reliable Infrastructure & Products**: Developers gain access to capital that enables consistent product development, user support, and innovation.\n\n* **Greater Visibility and Adoption**: Supporting high-impact applications increases Cardano's competitiveness in the broader Web3 landscape, attracting new users and developers.\n\n* **Transparent ROI Tracking**: Funded projects must report KPIs like transaction counts, active users, and commit activity, enabling the community to clearly measure the impact and return on funding decisions.\n\n* **Balance Ecosystem Funding Structure**: This purpose-built funding mechanism complements Project Catalyst by creating a clear delineation between the different development stages of projects, and where they should seek funding within the ecosystem. This enables Project Catalyst to be a more effective innovation engine as larger projects will not rely on Project Catalyst for funding.\n\n### Vendor Profile\n\nOur team is responsible for building and maintaining Clarity, a governance platform purpose-built for the Cardano ecosystem. Clarity serves as the user-facing interface for interacting with Agora, an open-source, audited library of smart contracts designed for decentralized governance and treasury management.\n\nWe have already deployed this infrastructure in production and actively maintain it. Our smart contracts have governed over $10 million in Total Value Locked (TVL) and are used by four DAOs, each managing six-figure treasuries on-chain. These DAOs use the same tooling and processes that CB DAO will leverage, including member-based voting, proposal submission, temperature checks, and treasury execution fully enforced by smart contracts.\n\nIn addition to our technical capabilities, we work directly with Cardano ecosystem founders and project teams on a regular basis. Many of these projects are already live on mainnet, and several have expressed intent to participate in CB DAO as members during the initial cohort. This gives us a direct line of communication with the builder community and allows us to ensure early DAO membership includes high-quality, committed teams aligned with CB DAO's mission and KPIs.\n\nOur team's combination of hands-on DAO implementation, infrastructure development, and builder community engagement positions us uniquely to lead the operational launch and ongoing management of the Cardano Builder DAO.\n\n### Contract Management\n\nA written off-chain Legal Contract will be created between the Vendor and the Cardano Development Holdings (CDH), as mandated by the constitution, and will be administered by Intersect. This will include details of the project delivery schedule and dispute resolution.\n\n### Project Delivery \n\nAll milestones, acceptance criteria, payment amounts and expected delivery dates will be agreed between the Vendor and Intersect, acting on behalf of the CDH. The vendor will deliver according to the agreed-upon project schedule within the Legal Contract, of which the necessary information will be made public via the budget management platform via transaction metadata.\n\nDefined by the milestones within a Legal Contract, the vendor will submit and attest milestone acceptance to the community, Intersect or 3rd Party Assurer.\n\nProject progress will be monitored via Intersect's delivery assurance function which will be communicated to the community.\n\nAcceptance of the above work is expected to be supported by a 3rd Party Assurer, who will be responsible for reviewing and signing off the work completed at each project milestone against the corresponding milestone deliverables detailed within the Legal Contract. This work is funded from a portion of this treasury withdrawal.\n\n### Budget Management Tooling\n\nTo administrate treasury funds on-chain, Intersect will utilize the treasury management smart contract framework developed by Sundae Labs. The smart contracts have been [extensively tested](https://github.com/SundaeSwap-finance/treasury-contracts/tree/main/offchain/tests) including audits from TxPipe and MLabs. Examples of the usage of these contracts can be seen across mainnet described across Intersect authored [Blog 1](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-a-step-toward-on-chain-treasury-withdrawals), [Blog 2](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-two-update) and [Blog 3](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-three-update).\n\nFinal mainnet validation test can be seen via the Disburse action within transaction: 0f591dc544ae14102dbb4a74d5311a6acffc1772b163d8b7a9656b9525950b17\n\nWith the confirmed treasury reserve contract address being: stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr\n\n#### Specifics\n\nIntersect will utilize a single Treasury Reserve Smart Contract (TRSC), with many Project-Specific Smart Contracts (PSSC), managed by Intersect. Intersect's management consists of three 'admin' and two Intersect 'leadership' roles. An Oversight Committee consisting of five external, independent third-party entities will provide checks and balances on Intersect, and safeguard against errors and unilateral control. The administration of both TRSC and PSSCs will be managed by Intersect, with external oversight on certain actions from the Oversight Committee.\n\nThe Oversight Committee consists of Sundae Labs, Cardano Foundation, Dquadrant, Xerberus and NMKR. Their role is to independently verify key administrative actions using on-chain logic, ensuring accuracy and consistency without exercising discretion over governance decisions.\n\nFor all details on Intersect's configuration please see the **[Smart Contract Guide](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-budget/intersect-administration-services/smart-contracts-as-part-of-our-administration)** on the knowledgebase.\n\nThe high level permissions are as follows:\n\n- TRSC Fund and PSSC Modify\n\n  - Two of the three Intersect admins, two of the five trusted entities and one of the two Intersect leadership sign-off must authorize\n\n- TRSC Disperse\n\n  - Two of three Intersect admins, three of five trusted entities and two of two Intersect leadership sign-off must authorize\n\n- TRSC Pause and Resume\n\n  - Two of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Sweep\n\n  - One of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Reorganize\n\n  - Two of three Intersect admins and three of five trusted entities must authorize\n\n#### Processes\n\nUpon enactment of this governance action, funding for this project will be directed into the TRSC's stake account. All instances of TRSC and PSSC can not be staked with a SPO and will be delegated to the auto-abstain predefined DRep. From here funds will be withdrawn into a UTxO remaining at the TRSC.\n\nWhen the Legal contract is prepared and the vendor is ready, funding for this project will be transferred using the Fund action to a PSSC. All milestones will be outlined within the metadata.\n\nA dashboard will be available for the community to audit the TRSC or PSSC and track metrics related to this withdrawn ada as well as being immutably verifiable on chain.\n\nThe subsections; Contract Management, Project Delivery, and Budget Management Tooling described above cover the constitutional requirements specified in Article IV section 4 and 5.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Cardano Builder DAO dRep Application",
+        "uri": "https://docs.google.com/document/d/1ADZZYmdwoO6vCI5rP5hzuMExkkD2S3iFyV9ZLBPoknY/edit?usp=sharing"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Builder DAO Website",
+        "uri": "https://buildingoncardano.io/"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Builder DAO Charter",
+        "uri": "https://docs.google.com/document/d/1-0_pdoJI9OdSbhqmnOyu4OOae_1K6ls5YVkk7mTS5Js/edit?tab=t.0#heading=h.eyz91siyp4k6"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Builder DAO Blog Post",
+        "uri": "https://medium.com/@Clarity_/introducing-cardano-builder-dao-3a8993a51854"
+      },
+      {
+        "@type": "Other",
+        "label": "DAO Smart Contracts Github Repository",
+        "uri": "https://github.com/Liqwid-Labs/agora"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Builder DAO Overview Deck",
+        "uri": "https://docs.google.com/presentation/d/1OJa0V54YKl9Ny9HioMCaKVdDLBxkQjhvkpxsR-KaGM8/edit?usp=sharing"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Builder DAO Governance Portal",
+        "uri": "https://www.clarity.vote/"
+      },
+      {
+        "@type": "Other",
+        "label": "Project Proposal In Ekklesia",
+        "uri": "https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b63565577986442d150"
+      },
+      {
+        "@type": "Other",
+        "label": "Approved Budget Info Action submitted by Intersect via GovTool",
+        "uri": "https://gov.tools/outcomes/governance_actions/e14de8d9dc4f4ddf3fe9250a8a926e20f10e99b86bd0610b77d7a054981591ee#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Details of all successful proposals (CSV)",
+        "uri": "ipfs://bafybeicwrop4q7xvnyjdd5drumbe56sqtm5lbe2ul3c262zt4hgguzdycm"
+      },
+      {
+        "@type": "Other",
+        "label": "Automating Accountability: Cardano's Smart Contract Framework Blog",
+        "uri": "ipfs://bafybeihqx4ae72z7suqfnxrpqpqithp43cai7o2uuewnqtezgaoyc3ptyq"
+      },
+      {
+        "@type": "Other",
+        "label": "Sundae Labs Budget Management Smart Contracts Github Repository",
+        "uri": "https://github.com/SundaeSwap-finance/treasury-contracts"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts TxPipe Audit Report",
+        "uri": "ipfs://bafybeiccnwejbgj43wo6hrlseckkkmprtoqc5cfuy2hesm6c6yealwho3e"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts MLabs Audit Report",
+        "uri": "ipfs://bafybeiah5fnjhda5hemj3qvaehc4mre3qllqzw2l7mkdsguytn4ftgafw4"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "treasuryWithdrawals",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp",
+      "withdrawals": [
+        {
+          "withdrawalAddress": "stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr",
+          "withdrawalAmount": 12000000000000
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "onChain": {
+          "@id": "intersectSpec:onChain",
+          "@context": {
+            "governanceActionType": "intersectSpec:governanceActionType",
+            "depositReturnAddress": "intersectSpec:depositReturnAddress",
+            "withdrawals": {
+              "@id": "intersectSpec:withdrawals",
+              "@container": "@set",
+              "@context": {
+                "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                "withdrawalAmount": "intersectSpec:withdrawalAmount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "242341267cd513e3e7945e062637d34d1e3c08a6b9a82aa00d2e4006c356d4fe928a71f1827d23bed4e2953170950b638dfba5b515fb9fc9c133462312f0c209"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Withdraw ₳1,500,000 for Complement Catalyst: Extended Quadratic Funding---Zer...",
+    "abstract": "This treasury withdrawal funds **Complement Catalyst: Extended Quadratic Funding---Zero Operational Costs** which will provide the following services:\n\nAn innovative funding mechanism to complement Project Catalyst by addressing five critical challenges in blockchain ecosystem innovation funding: concentrated voter power, treasury fund limitations, inadequate impact reporting, uncertain ROI, and inefficient milestone management. The solution has zero operational costs---100% of funds go directly to Cardano projects. By combining quadratic funding with a reputation-based system, it will create a more democratic, transparent, and effective allocation process while maximizing treasury fund impact.\n\nThis Treasury Withdrawal is submitted by Intersect on behalf of the vendor. The following sections; Abstract, Motivation, Rationale and Vendor Profile have been sourced from the approved proposal submitted by the Vendor as part of the Intersect budget process.\n\nThis treasury withdrawal funds one of 39 proposals to give effect to the approved budget info action for ₳275,269,340, administered by Intersect via gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh. The information provided herein is intended to fulfill the spirit of the constitutional requirement for a treasury withdrawal info action by also providing the details of the proposed solution, alignment to the budget, and amount to be withdrawn from the Cardano Treasury.",
+    "motivation": "Funding innovation within blockchain ecosystems presents significant challenges, yet some initiatives shine brightly. Project Catalyst stands out as a prime example, having fueled over 2,100 projects with more than $150 million, a clear testament to Cardano's dedication to decentralized innovation. Still, persistent hurdles across all ecosystems underscore the need for continued refinement in funding approaches.\n\nThe five critical challenges in blockchain ecosystem innovation funding: concentrated voter power, treasury fund limitations, inadequate impact reporting, uncertain ROI, and inefficient milestone management.",
+    "rationale": "### Project Solution\n\nThe Extended Quadratic Funding model doesn't replace Project Catalyst but complements it, bringing additional funding, greater participation, and enhanced accountability to Cardano's innovation ecosystem.\n\nWe propose a complementary funding mechanism that addresses these challenges through a combination of innovative approaches:\n\n### 1. Democratizing Decision-Making\n\nOur extended quadratic funding model calculates voting power using two factors:\n\n1. **Square root of donation amount** (e.g., $9 donation = 3 votes)\n\n2. **Logarithmic reputation score** (Impact Score) ranging from 300-850\n\nThis approach balances financial contribution with proven community impact, preventing wealth concentration from dominating decisions while maintaining skin-in-the-game principles.\n\nTo protect this system's integrity, we implement:\n\n- **Sybil resistance:** Zero-knowledge proof KYC via Hyperledger Identus (formerly Atala PRISM) ensures one-human-one-account without compromising privacy\n\n- **Anti-collusion measures:**\n\n- Reputation incentives that make system integrity valuable to high-impact participants\n\n- Penalties including reputation loss or platform bans for collusion attempts\n\n- Economic disincentives through fee structures that make vote-splitting unprofitable\n\n- Use [Connection-Oriented Cluster Matching](https://www.gitcoin.co/blog/leveling-the-field-how-connection-oriented-cluster-matching-strengthens-quadratic-funding)\n\nFor more information on formal proofs of quadratic voting and literature reviews, see [Kovalchuk et al. 2024](https://drive.google.com/file/d/1hq_P_BEvXDhJcph6zmA0_CQHTcO0lyAZ/view?usp=sharing), [Ostrom 2010](https://drive.google.com/file/d/1Ej30QuyfcyCjNABd6O6S3MEk5Dy14WyL/view?usp=sharing), [Lalley and Weyl 2015](https://drive.google.com/file/d/1EjZoN4Gcxjwb0Va0OuRgEgBYRVcgDiWI/view?usp=drive_link) and [Poster and Weyl 2019](https://drive.google.com/file/d/1E_tXBhMIO6WLeVVpv3J_AsicTiSKAUze/view?usp=drive_link)\n\n### 2. Multiplying Treasury Impact\n\nOur model transforms the treasury from sole funder to catalyst:\n\n- Individual donors contribute alongside treasury funds, potentially increasing available capital by 50%+\n\n- U.S. donors benefit from 501(c)(3) tax deductions, creating unique incentives outside the crypto ecosystem\n\n- Donations increase projects' chances of receiving matching funds, aligning individual and ecosystem interests\n\n**Example:** A $1M treasury allocation could attract $500K in individual donations, yielding $1.5M total funding while building broader community investment. Please see more details in the \"Why this amount\" section below.\n\n### 3. Standardized Impact Reporting\n\nAll funded projects must:\n\n- Contract with designated impact accountants (funded from project allocation)\n\n- Report standardized metrics including:\n\n- On-chain transactions generated\n\n- New wallets created\n\n- Active users acquired\n\n- Other ecosystem growth indicators\n\nThis creates the first comprehensive dataset of innovation ROI within the Cardano ecosystem.\n\n### 4. Sustainable Value Capture\n\nWe establish a voluntary contribution system where funded projects share value with the ecosystem through:\n\n- Equity stakes\n\n- Token allocations\n\n- Revenue sharing agreements\n\n- Carbon credits or other generated assets\n\nOur target is a 5% annual return within 10 years---an ambitious but achievable goal based on startup ecosystem standards.\n\nThe most reliable measure of VC fund returns comes from the Cambridge Associates US Venture Capital Index, which shows an 8.5% annual return over 10 years as of December 31, 2023. While this net return to limited partners reflects the overall pooled performance, typical median returns are lower, around 4-5%, due to the skewed distribution of returns.\n\nSources:\n\n- [Cambridge Associates US PE/VC Benchmark Commentary Calendar Year 2023](https://www.cambridgeassociates.com/insight/us-pe-vc-benchmark-commentary-calendar-year-2023/)\n\n- [Seraf-Investor.com Dividing the Pie: How Venture Fund Economics Work Part II](http://seraf-investor.com)\n\n- [Emmanuel Maggiori Venture Capital Returns: True Lies?](https://emaggiori.com/venture-capital-returns/)\n\n- [Founder Equity Fund The New Reality of Venture Capital](https://founderequity.com/the-new-reality-of-venture-capital)\n\n- [British Business Bank UK Venture Capital Financial Returns 2024](https://www.british-business-bank.co.uk/about/research-and-publications/uk-venture-capital-financial-returns-2024)\n\n- [EY Q2 2023 Venture Capital Investment Trends](https://www.ey.com/en_us/insights/growth/q2-2023-venture-capital-investment-trends)\n\n- [Jumpstart Magazine How Long Until a VC Makes Returns?](https://www.jumpstartmag.com/how-long-until-a-vc-makes-returns/)\n\n- [Cambridge Associates WEB-2020-Q2-USVC-Benchmark-Book](https://www.cambridgeassociates.com/wp-content/uploads/2020/11/WEB-2020-Q2-USVC-Benchmark-Book.pdf)\n\n### 5. Efficient Milestone Management\n\nOur streamlined process features:\n\n- Token incentives for prompt reviewer decisions\n\n- Financial penalties for reviewers whose decisions are overturned\n\n- Decentralized dispute resolution mechanism (detailed at: [https://socious.gitbook.io/whitepaper/decentralized-dispute-resolution](https://socious.gitbook.io/whitepaper/decentralized-dispute-resolution))\n\nThis creates a self-balancing system encouraging both speed and accuracy.\n\nThis is particularly beneficial for teams seeking small amounts of funding, who often struggle with Catalyst's lengthy milestone approval process.\n\n### Vendor Profile\n\nOur team is uniquely qualified to deliver this project successfully. We have the expertise and capabilities to execute with the highest standards of trust and accountability.\n\nOur extensive experience spans Project Catalyst, Singularity Net Community's Deep Funding, and GitCoin. Working with these innovation funding platforms has given us valuable insights into improving funding mechanisms.\n\nWe bring deep expertise in Hyperledger Identus, having developed an enterprise-grade self-sovereign identity system currently used by 13 universities. We are also active contributors to the Hyperledger Identus open-source repository.\n\nSocious is a fast-growing impact startup backed by 500Global, Microsoft, Amazon, and Google. Our team brings together experts in impact measurement, legal, finance, data science, design, and blockchain development.\n\nWe have 12 full-time members and 20+ part-time contributors. Our team members include:\n\n![](https://cardano.ideascale.com/a/community-id/163/attachments/embedded-files/embedded-idea-custom-field-image-efcdbd/jpeg)\n\n**Seira Yun**\n\nTitle: Founder and CEO\n\nRole: Product Ownership, Project Management, Research\n\nLinkedin:\n\n[https://www.linkedin.com/in/seirayun/](https://www.linkedin.com/in/seirayun/)\n\nBio:\n\nSeira Yun is a Cardano Ambassador and an ICC member. He is a serial impact entrepreneur and an impact angel investor with years of experience in the impact sector, leading teams within the ICRC, UNHCR, and social ventures. As a full-stack developer with a Master's degree in Social Innovation from the University of Cambridge, Seira enjoys blending technology with purpose. Upon exiting his first social venture in 2021, he founded Socious, a decentralized talent marketplace that uses blockchain for verified certificates and AI for matching individuals to meaningful jobs, eliminating background checks and fostering social and environmental change. He is also a board member at TELL, a suicide prevention non-profit. When not working, you can find Seira shooting hoops, running, reading, and spending quality time with his kids.\n\n![](https://cardano.ideascale.com/a/community-id/163/attachments/embedded-files/embedded-idea-custom-field-image-f11976/jpeg)\n\n**Chrisanne Yee**\n\nTitle: Chief of Staff\n\nRole: Project Management Assistant, Admin and Finance.\n\nLinkedIn:\n\n[https://www.linkedin.com/in/chrisanneyee/](https://www.linkedin.com/in/chrisanneyee/)\n\nBio:\n\nChrisanne is trilingual in English, Chinese and Japanese. She has experience with marketing and business development. Chrisanne is an active Cardano community member and serves as an alternate to the Constitutional Convention in Argentina.\n\n![](https://cardano.ideascale.com/a/community-id/163/attachments/embedded-files/embedded-idea-custom-field-image-4e5413/jpg)\n\n**Taichi Yokoyama**\n\nTitle: Head of Events\n\nRole: Event management\n\nLinkedIn:\n\n[https://www.linkedin.com/in/mryokoyama/](https://www.linkedin.com/in/mryokoyama/)\n\nBio:\n\nTaichi is an entrepreneur and a Cardano Stake Pool Operator (AIRX). Taichi is an active Cardano community member and serves as a delegate to the Constitutional Convention in Argentina.\n\n![](https://cardano.ideascale.com/a/community-id/163/attachments/embedded-files/embedded-idea-custom-field-image-1bcfeb/png)\n\n**Ehsan Mahmoudi**\n\nTitle: Lead Developer\n\nRole: Backend/Blockchain/AI Engineering\n\nLinkedIn:\n\n[https://linkedin.com/in/ehsan-mahmoudi-611123b8/](https://linkedin.com/in/ehsan-mahmoudi-611123b8/)\n\nBio: More than 8 years of experience in Python and Machine Learning as well as extensive experience in blockchain development. Ehsan has worked for global startups including Rechat, AEC, and Navaak. Ehsan is a Cardano community member for the past 3 years.\n\n![](https://cardano.ideascale.com/a/community-id/163/attachments/embedded-files/embedded-idea-custom-field-image-17ee38/png)\n\n**Sanaz Mahmoudi**\n\nTitle: Senior Frontend Developer\n\nRole: Frontend Development\n\nLinkedIn:\n\n[https://www.linkedin.com/in/sanaz-mahmoudi/](https://www.linkedin.com/in/sanaz-mahmoudi/)\n\nBio: An experienced frontend developer with 7+ years of experience. Sanaz is a Cardano community member for the past 2 years.\n\n**Mohammad Balkhani**\n\nTitle: Software Engineer\n\nRole: Backend and DevOps Engineering\n\nCommitment: Full-time\n\nLinkedIn:\n\n[https://www.linkedin.com/in/mohammad-hosein-balkhani/](https://www.linkedin.com/in/mohammad-hosein-balkhani/)\n\nBio: An experienced software engineer with 7+ years of experience. Mohammad is a Cardano community member for the past year.\n\nTo supplement our core team, we maintain a reserve of skilled freelancers, ready to contribute at short notice. Our talent marketplace, Socious, is a hub for over 12,000 individuals, many of whom could potentially assist in this project, if required.\n\nThe trustworthiness in our fund management processes is grounded in our serious adherence to legal and financial compliance. Each transaction conducted is meticulously documented with tangible evidence and audited internally for accuracy. To bolster our commitment to financial transparency, we have established collaborations with external accounting firms that assure compliance. We work with ([Tatsumi Accounting Firm](https://kessan-online.jp/company)) and ([BBCIncorp](https://bbcincorp.com/offshore/accounting-and-auditing)).\n\nAdditionally, we liaise with an external law firm,([Enlighten Law Group](https://www.enlightenlaw.com/)), to ensure full legal compliance. This meticulous, multilayered approach to fund management reflects our dedication to maintaining high levels of trust and accountability.\n\n### Contract Management\n\nA written off-chain Legal Contract will be created between the Vendor and the Cardano Development Holdings (CDH), as mandated by the constitution, and will be administered by Intersect. This will include details of the project delivery schedule and dispute resolution.\n\n### Project Delivery \n\nAll milestones, acceptance criteria, payment amounts and expected delivery dates will be agreed between the Vendor and Intersect, acting on behalf of the CDH. The vendor will deliver according to the agreed-upon project schedule within the Legal Contract, of which the necessary information will be made public via the budget management platform via transaction metadata.\n\nDefined by the milestones within a Legal Contract, the vendor will submit and attest milestone acceptance to the community, Intersect or 3rd Party Assurer.\n\nProject progress will be monitored via Intersect's delivery assurance function which will be communicated to the community.\n\nAcceptance of the above work is expected to be supported by a 3rd Party Assurer, who will be responsible for reviewing and signing off the work completed at each project milestone against the corresponding milestone deliverables detailed within the Legal Contract. This work is funded from a portion of this treasury withdrawal.\n\n### Budget Management Tooling\n\nTo administrate treasury funds on-chain, Intersect will utilize the treasury management smart contract framework developed by Sundae Labs. The smart contracts have been [extensively tested](https://github.com/SundaeSwap-finance/treasury-contracts/tree/main/offchain/tests) including audits from TxPipe and MLabs. Examples of the usage of these contracts can be seen across mainnet described across Intersect authored [Blog 1](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-a-step-toward-on-chain-treasury-withdrawals), [Blog 2](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-two-update) and [Blog 3](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-three-update).\n\nFinal mainnet validation test can be seen via the Disburse action within transaction: 0f591dc544ae14102dbb4a74d5311a6acffc1772b163d8b7a9656b9525950b17\n\nWith the confirmed treasury reserve contract address being: stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr\n\n#### Specifics\n\nIntersect will utilize a single Treasury Reserve Smart Contract (TRSC), with many Project-Specific Smart Contracts (PSSC), managed by Intersect. Intersect's management consists of three 'admin' and two Intersect 'leadership' roles. An Oversight Committee consisting of five external, independent third-party entities will provide checks and balances on Intersect, and safeguard against errors and unilateral control. The administration of both TRSC and PSSCs will be managed by Intersect, with external oversight on certain actions from the Oversight Committee.\n\nThe Oversight Committee consists of Sundae Labs, Cardano Foundation, Dquadrant, Xerberus and NMKR. Their role is to independently verify key administrative actions using on-chain logic, ensuring accuracy and consistency without exercising discretion over governance decisions.\n\nFor all details on Intersect's configuration please see the **[Smart Contract Guide](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-budget/intersect-administration-services/smart-contracts-as-part-of-our-administration)** on the knowledgebase.\n\nThe high level permissions are as follows:\n\n- TRSC Fund and PSSC Modify\n\n  - Two of the three Intersect admins, two of the five trusted entities and one of the two Intersect leadership sign-off must authorize\n\n- TRSC Disperse\n\n  - Two of three Intersect admins, three of five trusted entities and two of two Intersect leadership sign-off must authorize\n\n- TRSC Pause and Resume\n\n  - Two of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Sweep\n\n  - One of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Reorganize\n\n  - Two of three Intersect admins and three of five trusted entities must authorize\n\n#### Processes\n\nUpon enactment of this governance action, funding for this project will be directed into the TRSC's stake account. All instances of TRSC and PSSC can not be staked with a SPO and will be delegated to the auto-abstain predefined DRep. From here funds will be withdrawn into a UTxO remaining at the TRSC.\n\nWhen the Legal contract is prepared and the vendor is ready, funding for this project will be transferred using the Fund action to a PSSC. All milestones will be outlined within the metadata.\n\nA dashboard will be available for the community to audit the TRSC or PSSC and track metrics related to this withdrawn ada as well as being immutably verifiable on chain.\n\nThe subsections; Contract Management, Project Delivery, and Budget Management Tooling described above cover the constitutional requirements specified in Article IV section 4 and 5.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "For additional information, documentation, and videos",
+        "uri": "https://shinid.notion.site/A-Catalyst-Alternative-Extended-Quadratic-Funding-Zero-Operational-Costs-1c03d106030b80ac8f00c891a16b3141?pvs=4"
+      },
+      {
+        "@type": "Other",
+        "label": "Socious Website",
+        "uri": "https://socious.org/"
+      },
+      {
+        "@type": "Other",
+        "label": "Socious Documentation",
+        "uri": "https://socious.gitbook.io/fund"
+      },
+      {
+        "@type": "Other",
+        "label": "日本語版 Executive Summary",
+        "uri": "https://shinid.notion.site/1de3d106030b80638e57f69cc0a5721b?pvs=4"
+      },
+      {
+        "@type": "Other",
+        "label": "Videos Complement Catalyst",
+        "uri": "https://shinid.notion.site/Videos-Complement-Catalyst-1df3d106030b80e58d24c0ca89f8691c?pvs=4"
+      },
+      {
+        "@type": "Other",
+        "label": "Project Proposal In Ekklesia",
+        "uri": "https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b63565577986442d162"
+      },
+      {
+        "@type": "Other",
+        "label": "Approved Budget Info Action submitted by Intersect via GovTool",
+        "uri": "https://gov.tools/outcomes/governance_actions/e14de8d9dc4f4ddf3fe9250a8a926e20f10e99b86bd0610b77d7a054981591ee#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Details of all successful proposals (CSV)",
+        "uri": "ipfs://bafybeicwrop4q7xvnyjdd5drumbe56sqtm5lbe2ul3c262zt4hgguzdycm"
+      },
+      {
+        "@type": "Other",
+        "label": "Automating Accountability: Cardano's Smart Contract Framework Blog",
+        "uri": "ipfs://bafybeihqx4ae72z7suqfnxrpqpqithp43cai7o2uuewnqtezgaoyc3ptyq"
+      },
+      {
+        "@type": "Other",
+        "label": "Sundae Labs Budget Management Smart Contracts Github Repository",
+        "uri": "https://github.com/SundaeSwap-finance/treasury-contracts"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts TxPipe Audit Report",
+        "uri": "ipfs://bafybeiccnwejbgj43wo6hrlseckkkmprtoqc5cfuy2hesm6c6yealwho3e"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts MLabs Audit Report",
+        "uri": "ipfs://bafybeiah5fnjhda5hemj3qvaehc4mre3qllqzw2l7mkdsguytn4ftgafw4"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "treasuryWithdrawals",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp",
+      "withdrawals": [
+        {
+          "withdrawalAddress": "stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr",
+          "withdrawalAmount": 1500000000000
+        }
+      ]
+    }
+  }
+}

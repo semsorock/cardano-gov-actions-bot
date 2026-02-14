@@ -1,0 +1,64 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "The Cardano Constitution, at Article IV, Section 3, requires that before withdrawal of Treasury funds, the community must have established a Net Change Limit (NCL). This means passing a NCL in a formal on-chain governance info action. The NCL represents the maximum amount of ada which may be withdrawn from the Cardano Treasury in a given period. We believe that the NCL covering the period from the start of epoch 563 to the end of epoch 635 should be 300M ADA.",
+    "motivation": "Existing and pending NCLs only cover periods through the end of 2025. However, many current and upcoming budget proposals are structured around 12-month timelines, extending into 2026. To support such proposals, a new NCL is needed that covers part of the 2026.",
+    "rationale": "We believe that the NCL covering the period from the start of epoch 563 to the end of epoch 635 should be 300M ADA. Due to delays in the budget process, some proposals may be approved after June 2025. Since many budgets span approximately 12 months, defining the NCL for a similar period ensures continuity in Treasury-funded activities. 300M ADA is close to the expected inflow into the Treasury during this period. A 'yes' vote on this proposal means agreeing to the proposed NCL, which will replace any previous NCL if approved.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "HisSim Data Model (PDF)",
+        "uri": "https://ipfs.io/ipfs/bafybeihms6haw35awizxa37kuo4qghgmjkldr6lvrcl26mdsk4f6rxdwv4"
+      }
+    ],
+    "title": "Set a 300 million ADA Net Change Limit for Epochs 563–635"
+  }
+}

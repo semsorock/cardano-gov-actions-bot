@@ -1,0 +1,91 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The governance action proposing to update the Plutus V3 Cost Model is deemed unconstitutional due to violations of Article III, Section 6 of the Interim Constitution. Specifically, the inability to verify the governance action's metadata because of a broken URL prevents confirmation that the on-chain proposal is identical to the off-chain version. Additionally, the action does not impact any changes to the network parameters, conflicting with its stated intent, and lacks sufficient rationale to justify the requested change. This vote solely assesses the constitutionality of the action and does not indicate support or express any opinion regarding the underlying proposal. Voicing an opinion is the duty of the Delegated Representatives (DReps) and Stake Pool Operators (SPOs) and remains outside the scope of the Interim Constitutional Committee (iCC).",
+    "rationaleStatement": "**Understanding the Governance Action** The governance action aims to update the Plutus V3 Cost Model by adding new costing variables for upcoming Plutus Primitives enabled by the Chang 2 hard fork. However, due to an error during submission, the action does not produce any changes to the network parameters, conflicting with its stated goal. Furthermore, the metadata URL provided with the governance action is broken, returning a '404: Not Found' error, which prevents verification of the proposal's content and hash. We attempted to access the metadata URL [(https://raw.githubusercontent.com/IntersectMBO/governance-actions/refs/heads/main/mainnet/2024-10-21-ppu/metadata.jsonld](https://raw.githubusercontent.com/IntersectMBO/governance-actions/refs/heads/main/mainnet/2024-10-21-ppu/metadata.jsonld)) on November 11, 2024, at 10:55 UTC, and found it inaccessible.' **Role of the Constitutional Committee** As Article VI, Section 1 of the Interim Constitution outlines, the Constitutional Committee's primary responsibility is to assess the constitutionality of governance actions and vote accordingly. This includes ensuring that all procedural requirements are met to maintain the integrity of the governance process. **Voting Decision and Explanation** We deem this governance action to be unconstitutional due to the following reasons: 1. Broken Metadata URL: The URL provided for the governance action's metadata is inaccessible, preventing verification of the off-chain proposal. This violates Article III, Section 6, which requires a valid URL linked to documented off-chain content.  2. Inability to Verify Content: Without access to the metadata, we cannot confirm that the on-chain proposal is identical to the off-chain version, as mandated by the Constitution.  3. No Changes Effected: The action does not produce any changes to the network parameters, conflicting with its stated intent to modify the Plutus V3 Cost Model. This inconsistency violates the requirement for governance actions to address their expected impact on the Cardano Blockchain ecosystem.  4. Insufficient Rationale: The absence of accessible metadata means no sufficient rationale is provided to justify the requested change, as Article III, Section 6 requires. **Key Constitutional Non-compliance:** * Article III, Section 6, Paragraph 1: * Requirement: 'Any governance action submitted to Ada holders for approval shall require a standardized and legible format including a URL and hash linked to documented off-chain content. Sufficient rationale shall be provided to justify the requested change to the Cardano Blockchain.' * Issue: The broken URL prevents verification of the off-chain content and the hash, and there is insufficient rationale to justify the action. * Article III, Section 6, Paragraph 2 & 3: * Requirement: 'Any governance action proposal reaching the on-chain governance stage shall be identical in content as to the final off-chain version of such governance action proposal. … . Governance actions should address their expected impact on the Cardano Blockchain ecosystem.' * Issue: Due to the submission error, the published action does not match the circulated intent or outcomes in the off-chain version and does not address its expected impact. **Importance of Voting as a Constitutional Committee Member:** Voting is a fundamental responsibility of a CC Member. It ensures that governance actions align with the foundational principles and governance frameworks established by the Interim Constitution. By casting a 'No' vote, the CC member deems the governance action unconstitutional. This participation reinforces the CC's role in safeguarding the ecosystem's governance processes and maintaining community trust. **Actionable Recommendation** We suggest the following to help the proposer align with the constitutional requirements: 1. Restore the Metadata URL: Ensure that the URL provided is accessible and points to the correct metadata document. 2. Confirm Hash Matching: Verify that the hash of the off-chain proposal matches the hash submitted on-chain to ensure consistency between the versions. 3. Provide Sufficient Rationale: Include a detailed rationale that justifies the requested change, outlining the expected impact on the Cardano Blockchain ecosystem. 4. Consider Immutable Storage Solutions: To prevent future issues, host governance action metadata on immutable file storage solutions that prevent tampering after submission.",
+    "precedentDiscussion": "Approving a governance action with inaccessible metadata and insufficient rationale could set a precedent that undermines the procedural requirements outlined in the Constitution. It could lead to uncertainty and confusion in future governance actions, especially if mutable links are used and altered post-submission. Rejecting this action reinforces the necessity for proposers to ensure all submission guidelines are meticulously followed, thereby maintaining the integrity of the governance process.",
+    "counterargumentDiscussion": "Some may argue that the proposer intended to invalidate the action to discourage voting due to the error, as indicated in their statement: 'This action was intended to update the Plutus V3 Cost Model by adding new costing variables for the upcoming Plutus Primitives enabled by the Chang 2 hard fork. However, upon review, we found that the action did not produce the intended on-chain effect because the new costing variables were unintentionally omitted. This was an error but an expected one at this stage. Once this was spotted, the decision was made to invalidate the action’s metadata to discourage voting.' However, the Constitution does not provide exceptions based on intent or subsequent actions to invalidate a proposal. Compliance with procedural requirements is mandatory to uphold governance integrity. Additionally, the possibility that the proposer could restore the metadata at a later stage underscores the need for strict adherence to constitutional protocols to prevent unnecessary uncertainty and doubt.",
+    "conclusion": "We conclude as follows: * The governance action proposing to update the Plutus V3 Cost Model is unconstitutional.  * It violates Article III, Section 6 of the Interim Constitution due to the inability to verify that the on-chain proposal is identical to the off-chain version, lacks sufficient rationale, and does not effect any changes to the network parameters as stated. Therefore, the Cardano Foundation, as an iCC member, deems this action unconstitutional, without expressing any opinion regarding the underlying proposal. We encourage the proposer to revise the submission by restoring the metadata URL, ensuring that the on-chain and off-chain proposals are identical, providing sufficient rationale, and complying with all constitutional requirements.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 7,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": [
+      {
+        "@type": "relevantArticles",
+        "label": "Article III section 6.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "relevantArticles",
+        "label": "Article VI sections 1.",
+        "uri": "ipfs://bafkreifnwj6zpu3ixa4siz2lndqybyc5wnnt3jkwyutci4e2tmbnj3xrdm"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale pdf",
+        "uri": "ipfs://QmQ8RZiiHSgojE65SBBbrCcHa2j4aH3zarBwP8CM5VofLq"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Cardano Foundation"
+    }
+  ]
+}

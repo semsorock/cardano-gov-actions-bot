@@ -1,0 +1,98 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action13pzmlsmmktmfareqpl3gzj9nm63ugwvmp3y7urkjhd8rf89tn6msq95mp3f",
+    "summary": "Ace Alliance finds the Info Action \"Name Protocol Version 11 hard fork - van Rossem\" Constitutional.",
+    "rationaleStatement": "According to Article III, Section 1(4) of the Cardano Constitution, Constitutional Committee (CC) members are responsible for determining the Constitutionality of “any proposed or contemplated actions contained within ‘Info’ actions.” Because the Hard Fork Working Group has made the name of the upcoming hard fork event subject to community governance, the state of Constitutionality must be assessed as part of the process.\nUnder the Guardrails and by its performance on the Cardano ledger, an Info action is understood to have no direct on-chain effect beyond creating an on-chain record, and no guardrails are imposed on Info actions. Even so, the Constitution’s Tenets still provide the standard for whether the contemplated action is acceptable. Here, the contemplated naming is a commemorative convention.\nAs such, this proposal aligns strongly with Tenet 4, which emphasizes that community contributions should be recognized and recorded. Naming hard forks has become one of the Cardano community’s ways of doing exactly that, as it has become a tradition to name hard forks after dedicated community members who have passed away. This Info action fits cleanly within that tradition and within the intended use of Info actions as a way to capture and preserve community sentiment on-chain.\nMax van Rossem is exactly the kind of person this tradition is meant to honor. He was a dedicated member of the Cardano community and consistently showed up for the hard work of improving processes, educating others, and helping the community navigate complex decisions. He contributed meaningfully to governance workstreams, including his role in the Constitutional Convention and his service as a DRep in the Dutch DRep collective. \nMax was a builder with a human touch, founding the AdaMoments platform to help ada owners preserve personal images, videos, and text as permanent on-chain “moments,” in order to give users full control over their data, robust protection against Al overreach, customizable governance, and cutting-edge monetization opportunities. Above all, Max was known for his helpfulness and generosity. He made time for people, answered questions, connected others, and treated newcomers and veterans alike with patience and respect. Naming this hard fork in his memory is a fitting way to recognize the example he set and share his legacy with the Cardano Blockchain Ecosystem.",
+    "precedentDiscussion": "The Constitutional Committee’s role is to ensure that all governance actions are consistent with the principles and provisions of the Cardano Blockchain Ecosystem Constitution. For that reason, CC rulings, including on Info actions, are binding for governance purposes and must be applied to any downstream actions that rely on them, so constitutional constraints carry forward consistently through the governance pipeline.\n\nThis matters in particular for Info actions because, since the start of Cardano Governance with the Chang and Plomin hard forks, Info actions have been intended to give ada owners a flexible way to express policy, set expectations, and establish “parameters” (i.e. the Net Change Limit) that are not enforced by the ledger, but are still meant to be upheld through constitutional interpretation and consistent governance practice. Info actions do not create ledger-level enforcement, but they do create an on-chain record of intent that should shape how later actions are evaluated and implemented. In this case, it would mean that the future Hard Fork Governance Action must bear the name “van Rossem Hard Fork” when it is submitted on chain.\n\nBecause the contemplated action is the memorial naming of a hard fork, the CC’s role is to evaluate that naming choice against the Constitution’s principles and Tenets as they were originally adopted. More generally, the same interpretive approach applies to every governance action. Whenever an action proposes or implies a commitment the community expects to be upheld through votes by ada holders via their DReps, the CC must assess that substance under the Constitution’s original meaning. That constitutional interpretation then governs any downstream actions that depend on it.",
+    "counterargumentDiscussion": "Some may argue that the Constitutional Committee should not issue a constitutional ruling on the naming of a hard fork because the name does not affect ledger execution. We reject that view. The Constitution is explicit that the CC shall vote on the constitutionality of governance actions, including any proposed or contemplated actions contained within “Info” actions (Article III, Section 1(4)). The contemplated action here is the choice to name a hard fork, and it therefore falls within the scope of CC review.\nHard fork naming is more than cosmetic. It functions as a durable social signal about what the Cardano community values and how it chooses to define itself. For that reason, the CC has a responsibility to apply the Constitution consistently to this action, and to treat its constitutional interpretation as binding for governance purposes, including for any downstream actions that rely on the community’s recorded intent.",
+    "conclusion": "For these reasons, we find this Info Action constitutional.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "RelevantArticles",
+        "label": "Cardano Constitution",
+        "uri": "ipfs://bafkreieyuknozbtewyurfqoagvplvykadn6a4u6wglupavdz46bbsnnl6e"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Proposal Metadata Anchor URI",
+        "uri": "ipfs://bafkreiaaevieqcufh6or65xtva2r2txy2tre45p4vlesfz5l3l5kpd6djm"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Proposal Metadata Anchor Hash",
+        "uri": "25dcffe8d87e955b1637272b3650907e2cd9af7c914c1f6600c88ad97adc2469"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmeNj5w1XLUULNdmAKvj1feuLrA18iPtydhvzDcxrDBZ1F"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Ace Alliance"
+    }
+  ]
+}

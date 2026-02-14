@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We have determined that this Info Action does not meet the criteria deemed necessary for the Constitutional Committee to assess its constitutionality.",
+    "rationaleStatement": "Based on the provisions of the Interim Constitution described in the two considerations below, the Interim Constitutional Committee should in principle submit an abstention vote on information actions that do not measure sentiment for other governance actions enacted on-chain.\n\nThe governance action with ID \"7fd6429add8f2611ad8d48c0cc49101463093aec285faea402e8cfde78ea58d7#0\" and title \"Should K increased?\" states \"This governance action is by no means a suggestion of what Cardano protocol parameters should be modified to or if they should be modified at this time.\", indicating that it is an information action that does not measure sentiment for other governance actions enacted on-chain. This also does not mandate any changes to the Cardano blockchain in any broader sense.\n\nTherefore we **Abstain**.\n\n### Consideration 1\nArticle VI Section 1 of the Cardano Blockchain Ecosystem Interim Constitution states \"The Constitutional Committee shall comprise a set of Ada holders that is collectively responsible for ensuring that on-chain governance actions prior to enactment on-chain, are constitutional.\"\n\nGiven that \"Info\" actions cannot be performed on-chain, the Constitutional Committee may not necessarily need to evaluate the constitutionality of “Info” governance actions.\n### Consideration 2\nArticle III Section 5 of the Cardano Blockchain Ecosystem Interim Constitution states \"A special form of governance action exists to allow community sentiment to be gauged without committing to any on-chain change. \"Info\" actions have no on-chain effect other than recording the votes on the action.\"\n\nIt may therefore be reasonable to assume that for any \"Info\" governance actions that are meant to gauge the sentiment towards another type of governance action which CAN be enacted on-chain, an assessment of the constitutionality of that future governance action would be beneficial to the purpose of the \"Info\" governance action being used to assess it.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "conclusion": "We abstain from assessing the constitutionality of this governance action as it is not enforceable.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 0,
+      "abstain": 6,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Eastern Cardano Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "a12e0d6516828fd47afc70e2eccdfa11a4f4c76cb5eca55bdc9349865a70e4fe",
+        "signature": "3926413ba22b3b3e5ae38de720021c61af65e992c3401be8e98cf9e1e66159103ad513a13e2cd570b607e9eb9720ebc2a51f10fc22ea712dcaa75700eb189902"
+      }
+    }
+  ]
+}

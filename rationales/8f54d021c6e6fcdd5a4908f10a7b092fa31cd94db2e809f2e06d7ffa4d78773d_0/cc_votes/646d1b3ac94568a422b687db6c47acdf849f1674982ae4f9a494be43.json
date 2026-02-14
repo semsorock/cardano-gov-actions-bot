@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action13a2dqgwxum7d6kjfprcs57cf9733ek2dkt5qnuhqd4ll5ntcwu7sqluwkxd",
+    "summary": "Tingvard judges the Cardano Critical Integrations Budget constitutional.",
+    "rationaleStatement": "This governance action is properly submitted as a Budget Info Action under Article III, § 4 and Article IV, § 1 of the Cardano Constitution. It proposes a ₳70,000,000 ecosystem budget to support integrations critical to Cardano’s infrastructure, including institutional custody solutions, tooling, analytics, cross-chain bridges, and globally recognized pricing oracles. These activities fall within the scope of Article IV, § 1, which authorizes budgets for “the ongoing operation, maintenance and future development of the Cardano Blockchain ecosystem.”\n\nThe proposal satisfies the formal requirements of Article III, § 5 by providing a complete and legible rationale including title, abstract, motivation, and supporting explanation. As an Info action, it has no direct on-chain effect and cannot be blocked, but because it proposes an ecosystem budget, Article VII, § 4 requires the Constitutional Committee to record an opinion on whether the proposed budget, if implemented as written, would violate the Constitution.\n\nUnder Article IV, § 1, a budget must outline an administrative framework and identify responsible parties. This proposal designates Intersect as administrator, supported by a Steering Committee and an Oversight Committee, each with clearly defined roles. This satisfies the structural requirements for budget administration and oversight at the budget stage.\n\nArticle IV, § 2 requires that smart contracts and blockchain-based tools be used “to the extent possible and beneficial.” The proposal’s hybrid administrative design — relying on on-chain tools where appropriate and off-chain operational processes where necessary — fits comfortably within this flexibility. The Constitution does not mandate fully on-chain execution, only that blockchain-based tools be used where they are meaningfully beneficial.\n\nArticle IV, § 4 and Article IV, § 5 apply specifically to treasury withdrawals, not to budgets. At the budget stage, Article IV, § 1 requires only that a process for oversight and administration exists, and this proposal clearly provides such a process. Execution-specific details are not constitutionally required at the budget-definition phase.\n\nFor these reasons, Tingvard finds this governance action constitutional.",
+    "precedentDiscussion": "This decision reinforces the constitutional distinction between budget creation and budget execution. Budget Info Actions may specify administrative structure, governance processes, and intended scope without needing the withdrawal-level detail required under Articles IV, § 4–5. The hybrid on-chain/off-chain administrative model described here is consistent with Article IV, § 2, which allows flexibility in how administrative processes are implemented so long as smart contract tools are used where they provide benefit.\n\nThis review further affirms that budgets may support infrastructure, integrations, and ecosystem services without violating constitutional constraints, provided that oversight and administrative structures are defined at a high level consistent with Article IV, § 1.",
+    "counterargumentDiscussion": "Potential concerns regarding confidentiality, hybrid administrative structures, or reliance on off-chain processes do not render the action unconstitutional. Article IV, § 2 explicitly permits administrative processes that mix on-chain and off-chain mechanisms when that approach is beneficial. Article III, § 5 requires clarity and completeness of rationale, not disclosure of confidential vendor-level or proprietary information.\n\nSince all requirements applicable to budgets at this stage — purpose, rationale, administrative structure, and process definition — are satisfied, no constitutional issues remain.",
+    "conclusion": "Tingvard judges this Budget Info Action constitutional.\n It satisfies Articles III, § 4–5 and IV, § 1–2, aligns with the Cardano Blockchain Tenets, and presents a valid and well-structured ecosystem budget under the Constitution.",
+    "internalVote": {
+      "constitutional": 4,
+      "unconstitutional": 0,
+      "abstain": 1,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Tingvard"
+    }
+  ]
+}

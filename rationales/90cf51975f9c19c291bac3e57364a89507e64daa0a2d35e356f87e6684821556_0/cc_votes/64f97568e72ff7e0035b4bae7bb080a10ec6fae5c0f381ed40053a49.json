@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1jr84r96lnsvu9yd6c0jhxe9gj5r7vnd2pgkntc6klplxdpyzz4tqqc9uldx",
+    "summary": "👍 Ok, while slightly deceptive in some claims, the proposal is clear in its intent and abide by the rules pertaining to budget proposals.",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/QmRg9NRER9nzzbbeHNkzrAQBGtYx71gCermXHBEyqU1Fmq\n\nThe proposal describes a budget of 5M ADA, still within the current net-change limit. It designates an administrator who has signed the rationale with a well-known key ( https://intersectmbo.org/news/treasury-withdrawal-security-verifying-governance-action-authors ). It also makes room for periodic (yearly) financial audits. \n\nThe proposal provides an extensive rationale although several claims are hard to verify, if not simply deceptive or inflated. Article III. Section 5 could challenge the proposal on the basis of relevancy and clarity. Data and sources backing those claims would have been better reference materials than respective LinkedIn accounts of the proposed Board of Advisors.\n\nHowever, there's no doubt that SNEK is an active project which has had a significant impact on Cardano's adoption and usage. There's no apparent intent to mislead the Cardano community in that regard and, the proposal is otherwise well articulated.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmRg9NRER9nzzbbeHNkzrAQBGtYx71gCermXHBEyqU1Fmq"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "KtorZ",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "ce0e80c60a0e16a9254d613dfadbcbdca2ac60ec105dc2f136636807d75dab01",
+        "signature": "5c0e09941e660233c73af64ea7b71aae516ea3983bd196193a644b4cc0039b5331ffb9607d75aae664bab0500689211c8c95a9af46c497294ff68eb2c4982e02"
+      }
+    }
+  ]
+}

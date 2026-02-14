@@ -1,0 +1,144 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "onChain": {
+          "@id": "intersectSpec:onChain",
+          "@context": {
+            "governanceActionType": "intersectSpec:governanceActionType",
+            "depositReturnAddress": "intersectSpec:depositReturnAddress",
+            "withdrawals": {
+              "@id": "intersectSpec:withdrawals",
+              "@container": "@set",
+              "@context": {
+                "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                "withdrawalAmount": "intersectSpec:withdrawalAmount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "2df724716fd4ff9a717432a887adc3d71cd0ff82b5f7d7eb0f5ff448c4ed972e8861f951b2fe6aaec30f4da5b9d136922967769dcfd589ff28742c9dcb63a307"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Withdraw ₳605,000 for A free Native Asset CDN for Cardano Developers",
+    "abstract": "This treasury withdrawal funds **A free Native Asset CDN for Cardano Developers** which will provide the following services:\n\nBuilding reliable infrastructure to display Cardano native assets (NFTs &FTs) efficiently, at scale, can cost upwards of $100,000 and take 9+ months of development effort. **We propose to deliver a free Native Asset Content Delivery Network (CDN) for Cardano, by making our existing NFTCDN services free to use for anyone building on Cardano**. NFTCDN has been operating since 2022 and provides fast, reliable and resilient multimedia and metadata delivery through a globally distributed CDN, enabling projects to display native assets effortlessly. By removing technical and financial barriers, NFTCDN allows developers to focus on product innovation and growth, accelerate time-to-market, and promotes wider adoption and implementation of native assets within apps across the Cardano ecosystem.\n\nThis Treasury Withdrawal is submitted by Intersect on behalf of the vendor. The following sections; Abstract, Motivation, Rationale and Vendor Profile have been sourced from the approved proposal submitted by the Vendor as part of the Intersect budget process.\n\nThis treasury withdrawal funds one of 39 proposals to give effect to the approved budget info action for ₳275,269,340, administered by Intersect via gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh. The information provided herein is intended to fulfill the spirit of the constitutional requirement for a treasury withdrawal info action by also providing the details of the proposed solution, alignment to the budget, and amount to be withdrawn from the Cardano Treasury.",
+    "motivation": "This proposal aims to solve the following problem:\n\n### Background - Native Assets\n\n- Native assets (NFTs & FTs) are widely used on Cardano across diverse use cases\n\n- Often used to store multimedia content - images, music, videos, documents, etc\n\n- Media is stored on decentralised systems - IPFS, Arweave, and on-chain embeds\n\n- Centralised storage options also used - HTTP, FTP & commercial cloud providers\n\n- File locations are referenced as links within the native asset's metadata\n\n### Pain Point - Technical Complexity\n\n- Accessing native asset media requires querying the blockchain (Cardano node + DB-Sync)\n\n- And fetching content via middleware (e.g. IPFS gateway/node)\n\n- Apps must handle this process programmatically, at scale, with robust exception handling\n\n- Developers face challenges from:\n\n- Human error (e.g. typos in metadata links)\n\n- Evolving standards (e.g. NFT v0.01, CIP-25, CIP-68)\n\n- Protocol updates (e.g. Chang HF impacting Node & DB-Sync)\n\n- Performance, efficiency, and reliability must be maintained across all layers\n\n- Apps must build and maintain complex, resilient backend infrastructure to support native asset display as both a capability & feature\n\n### Solution -- NFTCDN\n\n- NFTCDN is a managed Infrastructure-as-a-Service (IaaS) provider\n\n- Provides high-availability native asset media & metadata delivery via globally distributed, high-speed Content Delivery Network\n\n- Developers access content using only the native asset fingerprint ID - no complex setup needed\n\n- Eliminates the need to design, build, test, & maintain complex end-to-end infra\n\n- Enables focus on innovation of their product - not backend ops\n\n### Problem Statement - Cost to Build/Access\n\n- Building native asset delivery infra in-house costs ~$100,000 and 9+ months (internal benchmarks)\n\n- NFTCDN solves upfront CAPEX/OPEX needs\n\n- But we are a paid service (pay-per-API-call) - limiting adoption\n\n- Only well-funded teams have been able to integrate NFTCDN to date\n\n- Many projects cannot afford the cost, leading to delays, increased risk, or total shutdown\n\n- Market headwinds further impacted adoption, with some customers forced to shut down due to reduced user base",
+    "rationale": "### Project Solution\n\n####  Proposal -- The Ask\n\n- Fund NFTCDN to make it free for all Cardano builders for 18 months under an SLA contract\n\n- Cover operational & infra scale-up costs to deliver enterprise-grade Native Asset CDN\n\n- Enables us to provide our solution to the Cardano community for free\n\n- Removes cost barriers, fuelling innovation, faster development, and wider adoption\n\n$5.5m cost avoidance opportunity & ~39,000 dev. hours savings for products seeking to integrate native asset display -- removing barriers to entry, faster new product launches, improved end-user exp. & increased innovation prospects.\n\n#### Tangible Benefits ($5.5m cost savings | 39,000 dev. hours savings | >17x ROI)\n\n* Eliminate up-front infrastructure costs (~$100,000 per product) for native asset display\n\n* Accelerate product development by 9+ months by removing the need to build and maintain complex, scalable infrastructure\n\n* Immediate cost avoidance opportunity of **~$1.5m** and **~23,400 developer hours** across 15+ existing NFTCDN customers\n\n* Additional cost avoidance opportunity of **~$1m** and **~15,600 developer hours** during proposal funding cycle by onboarding at least 10 additional products\n\n* Maintenance & operational cost avoidance of **$3m** for 25 NFTCDN users during proposal funding cycle\n\n* Proposal cost of ~$320k with a **ROI of 17.20x**\n\n# ROI Calculations Breakdown\n\n- **Typical development cost of infrastructure to support native asset display:**\n\n- ~9 months / 1,560 dev hours\n\n- ~$100k (developer, PM, infra) per product\n\n- **Typical annual running & maintenance cost:**\n\n- ~$100,000 in salaries for labour (back- & front-end, networking, storage, cyber security, admin)\n\n- ~$20,000 infra cost (servers, hosting, licenses)\n\n- **Tasks avoided by using NFTCDN:**\n\n- Cardano node + DB-Sync + Other Cardano software setup & upgrades\n\n- Middleware for native Asset metadata parsing (CIP-25, CIP-68, v0.01)\n\n- Middleware for metadata error and edge case handling\n\n- Integration with IPFS, Arweave, HTTP, on-chain storage systems/protocols\n\n- Middleware for multimedia content optimisation\n\n- Security handling (e.g., malware in native assets)\n\n- Real-time monitoring pipeline of native asset minting & updates\n\n- End-to-end routing pipeline, including maintenance and updating\n\n- Regulatory compliance review & management process overhead\n\n- Performance, reliability, and redundancy infrastructure\n\n- **Savings for Current NFTCDN Users (15 active projects)**\n\n- Dev Hours Savings = 23,400 (1,560 hrs x 15 current projects)\n\n- Labour & Infra Savings = $1.5M in cost avoidance ($100k x 15 current projects)\n\n- **Savings from +10 new projects onboarded during proposal period (conservative est.)**\n\n- Adds 15,600 dev. hours and $1M in additional savings for newly onboarded projects into NFTCDN for duration of proposal (18 months)\n\n- **Savings for on-going maint. & ops cost (25 projects)**\n\n- Adds $3m in additional savings ($100k + $20k x 25 total projects using NFTCDN)\n\n- **Total value returned:**\n\n- ~39,000 dev hours saved for initial development\n\n- ~$5.5M total ecosystem cost avoidance\n\n- **Proposal cost:** ~$320k\n\n- **Estimated ROI:** ~17.2x\n\n- Equivalent of ~19 years of cumulative dev time saved\n\n####  Intangible Benefits\n\n* **Removes Adoption Barriers** - Eliminates financial (OPEX/CAPEX) & technical (dev. complexity) barriers to entry\n\n* **Accelerates Time-to-Market** - Enables fast and easy integration of native asset features/capabilities\n\n* **Frees Up Product Teams** - Reduces backend overhead, letting teams focus on core feature dev, growth & adoption\n\n* **Boosts Developer Adoption** - Makes accessible for early-stage, under/unfunded and community (free-product) builders\n\n* **Enables Broader Innovation** - Enables exploration of new native asset use cases (RWA, identity, media, education)\n\n* **Future-Proof Native Asset Delivery** - Adapts to evolving standards; all users benefit from shared upgrades and fixes\n\n* **Eliminates Redundancy** - Shared infrastructure avoids every project building redundant, costly systems\n\n* **Improves End-User Experience** - A high-speed, enterprise-grade, globally distributed CDN for multimedia content substantially improves loading speeds\n\n* **Drives Ecosystem Growth** -- Native asset adoption across more apps creates compounding utility and user adoption\n\n* **Aligns with Cardano's Goals & Roadmap** -- Directly supports Cardano's 2025 roadmaps goals around simplifying developer experience, increasing real-world utility and improving end-user experience\n\n# Aligns w/ Proposed Cardano 2025 Goals & Roadmap\n\n* \"Get More Usage\" Category\n\n* Goal: Attract DApps and users - product market fit\n\n* Goal: Easier to build on and to use Cardano\n\n* Goal: Cardano competitive option\n\n* Goal: Clear funding mechanisms\n\n* \"Developer/User Experience\" Category\n\n### Vendor Profile\n\n# About NFTCDN\n\n* Established in 2022\n\n* Testnet (Preview & Pre-Prod) and Mainnet coverage of all native assets\n\n* Service(s) offered on pay-per-API-use tiered pricing model\n\n* Existing customers include Verspr, Eternl, Tokeo, NEWM, NMKR, Pool.pm\n\n* Have served 800+ million API requests as of April-2025\n\n* Currently running with 100% uptime since launch\n\n# How is NFTCDN different from a basic CDN (e.g. Cloudflare, Vercel, etc)\n\n- **NFTCDN is purpose-built for Cardano**: NFTCDN is more than a CDN. Direct API access to `/metadata`, `/image`, `/file` native assets using only their fingerprint ID. Cloudflare offers no blockchain/NFT support; this would have to be custom built by devs.\n\n- **Multi-protocol/system support**: NFTCDN auto-handles multimedia storage fetching from IPFS, Arweave, HTTP, on-chain. Cloudflare requires devs to build fetch/parsing logic manually on their own infra setup.\n\n- **Standards-aware infra**: NFTCDN supports CIP-25, 68, v0.01 and adapts as they evolve. Cloudflare has no protocol awareness - devs must implement parsing module compliance manually and cater for human error and edge cases.\n\n- **No infra required**: NFTCDN handles full resolution flow (parsing, error fall-back, and format support) out of the box. Cloudflare needs origin setup and content pre-hosted on their proprietary solutions.\n\n- **Real-time chain indexing**: Native assets state updated live (minting & updating) from chain. Cloudflare requires manual indexing, pointer mgmt, and cache invalidation.\n\n- **Cloudflare TOS risk**: Large or non-web file caching (image, audio, video, 3D files) is restricted; in-production use will violate TOS unless using proprietary paid products (Stream/Images/R2, c. ~$5k+/yr).\n\n- **Global cross-app caching**: NFTCDN caches assets at the asset level, so cache `HITS` benefit all products (websites & dApps). Cloudflare caches per domain/site - no sharing resulting in low CDN performance resulting in higher cache `MISS` states.\n\n- **Built-in content safety**: NFTCDN provides CSP headers + dev. controls over rendering. Cloudflare lacks native asset-specific safeguards, increasing risk of suspension due to embedded malicious multimedia content.\n\n### Contract Management\n\nA written off-chain Legal Contract will be created between the Vendor and the Cardano Development Holdings (CDH), as mandated by the constitution, and will be administered by Intersect. This will include details of the project delivery schedule and dispute resolution.\n\n### Project Delivery \n\nAll milestones, acceptance criteria, payment amounts and expected delivery dates will be agreed between the Vendor and Intersect, acting on behalf of the CDH. The vendor will deliver according to the agreed-upon project schedule within the Legal Contract, of which the necessary information will be made public via the budget management platform via transaction metadata.\n\nDefined by the milestones within a Legal Contract, the vendor will submit and attest milestone acceptance to the community, Intersect or 3rd Party Assurer.\n\nProject progress will be monitored via Intersect's delivery assurance function which will be communicated to the community.\n\nAcceptance of the above work is expected to be supported by a 3rd Party Assurer, who will be responsible for reviewing and signing off the work completed at each project milestone against the corresponding milestone deliverables detailed within the Legal Contract. This work is funded from a portion of this treasury withdrawal.\n\n### Budget Management Tooling\n\nTo administrate treasury funds on-chain, Intersect will utilize the treasury management smart contract framework developed by Sundae Labs. The smart contracts have been [extensively tested](https://github.com/SundaeSwap-finance/treasury-contracts/tree/main/offchain/tests) including audits from TxPipe and MLabs. Examples of the usage of these contracts can be seen across mainnet described across Intersect authored [Blog 1](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-a-step-toward-on-chain-treasury-withdrawals), [Blog 2](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-two-update) and [Blog 3](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-three-update).\n\nFinal mainnet validation test can be seen via the Disburse action within transaction: 0f591dc544ae14102dbb4a74d5311a6acffc1772b163d8b7a9656b9525950b17\n\nWith the confirmed treasury reserve contract address being: stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr\n\n#### Specifics\n\nIntersect will utilize a single Treasury Reserve Smart Contract (TRSC), with many Project-Specific Smart Contracts (PSSC), managed by Intersect. Intersect's management consists of three 'admin' and two Intersect 'leadership' roles. An Oversight Committee consisting of five external, independent third-party entities will provide checks and balances on Intersect, and safeguard against errors and unilateral control. The administration of both TRSC and PSSCs will be managed by Intersect, with external oversight on certain actions from the Oversight Committee.\n\nThe Oversight Committee consists of Sundae Labs, Cardano Foundation, Dquadrant, Xerberus and NMKR. Their role is to independently verify key administrative actions using on-chain logic, ensuring accuracy and consistency without exercising discretion over governance decisions.\n\nFor all details on Intersect's configuration please see the **[Smart Contract Guide](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-budget/intersect-administration-services/smart-contracts-as-part-of-our-administration)** on the knowledgebase.\n\nThe high level permissions are as follows:\n\n- TRSC Fund and PSSC Modify\n\n  - Two of the three Intersect admins, two of the five trusted entities and one of the two Intersect leadership sign-off must authorize\n\n- TRSC Disperse\n\n  - Two of three Intersect admins, three of five trusted entities and two of two Intersect leadership sign-off must authorize\n\n- TRSC Pause and Resume\n\n  - Two of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Sweep\n\n  - One of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Reorganize\n\n  - Two of three Intersect admins and three of five trusted entities must authorize\n\n#### Processes\n\nUpon enactment of this governance action, funding for this project will be directed into the TRSC's stake account. All instances of TRSC and PSSC can not be staked with a SPO and will be delegated to the auto-abstain predefined DRep. From here funds will be withdrawn into a UTxO remaining at the TRSC.\n\nWhen the Legal contract is prepared and the vendor is ready, funding for this project will be transferred using the Fund action to a PSSC. All milestones will be outlined within the metadata.\n\nA dashboard will be available for the community to audit the TRSC or PSSC and track metrics related to this withdrawn ada as well as being immutably verifiable on chain.\n\nThe subsections; Contract Management, Project Delivery, and Budget Management Tooling described above cover the constitutional requirements specified in Article IV section 4 and 5.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "NFTCDN Website",
+        "uri": "https://nftcdn.io/"
+      },
+      {
+        "@type": "Other",
+        "label": "NFTCDN Support Documentation Github Repository",
+        "uri": "https://github.com/nftcdn/support.nftcdn.io"
+      },
+      {
+        "@type": "Other",
+        "label": "NFTCDN Discord",
+        "uri": "https://discord.nftcdn.io/"
+      },
+      {
+        "@type": "Other",
+        "label": "Project Proposal In Ekklesia",
+        "uri": "https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b63565577986442d1d8"
+      },
+      {
+        "@type": "Other",
+        "label": "Approved Budget Info Action submitted by Intersect via GovTool",
+        "uri": "https://gov.tools/outcomes/governance_actions/e14de8d9dc4f4ddf3fe9250a8a926e20f10e99b86bd0610b77d7a054981591ee#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Details of all successful proposals (CSV)",
+        "uri": "ipfs://bafybeicwrop4q7xvnyjdd5drumbe56sqtm5lbe2ul3c262zt4hgguzdycm"
+      },
+      {
+        "@type": "Other",
+        "label": "Automating Accountability: Cardano's Smart Contract Framework Blog",
+        "uri": "ipfs://bafybeihqx4ae72z7suqfnxrpqpqithp43cai7o2uuewnqtezgaoyc3ptyq"
+      },
+      {
+        "@type": "Other",
+        "label": "Sundae Labs Budget Management Smart Contracts Github Repository",
+        "uri": "https://github.com/SundaeSwap-finance/treasury-contracts"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts TxPipe Audit Report",
+        "uri": "ipfs://bafybeiccnwejbgj43wo6hrlseckkkmprtoqc5cfuy2hesm6c6yealwho3e"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts MLabs Audit Report",
+        "uri": "ipfs://bafybeiah5fnjhda5hemj3qvaehc4mre3qllqzw2l7mkdsguytn4ftgafw4"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "treasuryWithdrawals",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp",
+      "withdrawals": [
+        {
+          "withdrawalAddress": "stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr",
+          "withdrawalAmount": 605000000000
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP136:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "relevantArticles": "CIP136:references"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1q0m8z7glm9cprucwf44hdjdfra8khnakpm3hu5ueh929hvljw4aqqzuxfxz",
+    "summary": "Tingvard judge the “₳5,000,000 Loan for Cardano Global Listing Expansion – Snek Foundation” treasury withdrawal governance action constitutional.",
+    "rationaleStatement": "This governance action is properly framed as a treasury withdrawal under Article IV. It requests 5,000,000 ada for execution of the Cardano Global Listing Expansion initiative, a loan-based program designed to increase Cardano’s exchange visibility and liquidity through SNEK’s proven listing track record. Under Article IV, § 1, treasury withdrawals must correspond to an approved budget. This action directly follows the approved budget Info action gov_action1jr84r96lnsvu9yd6c0jhxe9gj5r7vnd2pgkntc6klplxdpyzz4tqqc9uldx, satisfying this requirement. The governance action meets Article IV, § 2 by specifying that Intersect shall administer the loan under the treasury-contracts framework. This framework includes Project-Specific Smart Contracts (PSSCs), milestone-based disbursement, delivery assurance, and an Oversight Committee. These mechanisms collectively meet the constitutional expectations for accountability, structured administration, and transparent fund handling. The proposal satisfies Article IV, § 4, which requires independent audits and oversight metrics for treasury-funded activity. The action allocates annual resources for external audits and mandates bi-yearly public reporting, including KPIs, expenditure summaries, receipts where permitted, and documentation of exchange engagement procedures. These measures are aligned with the Constitution’s transparency and auditing requirements. The custody and delegation rules in Article IV, § 5 are also satisfied. Funds held in the Treasury Reserve Smart Contract (TRSC) and PSSCs cannot be delegated to a stake pool and will instead be delegated to the auto-abstain predefined DRep. This is explicitly reiterated in the action’s description of TRSC/PSSC mechanics. The governance action further aligns with the Tenets of Article I, particularly Tenet 9, by promoting long-term sustainability and fairness through a loan rather than a grant structure. The repayable design introduces an accountability model consistent with constitutional principles of responsible treasury use, especially given the scale of the withdrawal.",
+    "precedentDiscussion": "This action reinforces the precedent established in the earlier approval of the Snek budget Info action: loan-based treasury financing is constitutionally valid when supported by adequate oversight, clear administration, transparent reporting, and compliant custody structures. It also strengthens the precedent that large-scale ecosystem growth initiatives — including those addressing liquidity, exchange accessibility, and mainstream visibility — fall within the scope of “operation, maintenance, and development” under Article IV, § 1.",
+    "counterargumentDiscussion": "Some may argue that the absence of a public cost breakdown reduces transparency. While financial specificity can support community deliberation, the Constitution does not require full public disclosure of competitively sensitive or negotiation-protected data. Article IV requires audits, oversight mechanisms, and transparent reporting — all of which this withdrawal provides. Therefore, this concern does not rise to the level of constitutional deficiency. A further potential concern is concentration of ecosystem benefit in a single project. However, Article IV does not mandate distributional parity; it requires constitutionally compliant administration, oversight, and alignment with ecosystem development. Given the existence of a repayable loan structure, continuous audits, and milestone-based controls, this action remains within constitutional boundaries. Finally, a question is the scope of enforceable rights in the event of a loan default associated with a treasury withdrawal. However, the Constitution does not prescribe specific default procedures or recovery mechanisms for treasury-backed loans. These matters fall within the community’s policy discretion rather than constitutional mandate. As Tingvard notes, no binding precedent is created by a single experimental loan arrangement, and the community retains full autonomy to shape or revise such mechanisms in future treasury actions.",
+    "conclusion": "Tingvard judge this treasury withdrawal governance action constitutional. It conforms to the requirements of Article IV, §§ 1–5, respects the Cardano Blockchain Tenets, and implements a structured, auditable, contract-based loan administration that ensures transparency, oversight, and safeguarding of treasury funds. The action represents an evolution in treasury use that remains fully consistent with constitutional standards.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Tingvard"
+    }
+  ]
+}

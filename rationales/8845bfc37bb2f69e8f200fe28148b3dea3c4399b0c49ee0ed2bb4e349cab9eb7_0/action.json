@@ -1,0 +1,100 @@
+{
+  "@context": {
+    "@context": {
+      "@language": "en",
+      "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+      "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+      "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+      "hashAlgorithm": "CIP100:hashAlgorithm",
+      "body": {
+        "@id": "CIP108:body",
+        "@context": {
+          "references": {
+            "@id": "CIP108:references",
+            "@container": "@set",
+            "@context": {
+              "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+              "Other": "CIP100:OtherReference",
+              "label": "CIP100:reference-label",
+              "uri": "CIP100:reference-uri",
+              "referenceHash": {
+                "@id": "CIP108:referenceHash",
+                "@context": {
+                  "hashDigest": "CIP108:hashDigest",
+                  "hashAlgorithm": "CIP100:hashAlgorithm"
+                }
+              }
+            }
+          },
+          "title": "CIP108:title",
+          "abstract": "CIP108:abstract",
+          "motivation": "CIP108:motivation",
+          "rationale": "CIP108:rationale",
+          "onChain": {
+            "@id": "intersectSpec:onChain",
+            "@context": {
+              "governanceActionType": "intersectSpec:governanceActionType",
+              "depositReturnAddress": "intersectSpec:depositReturnAddress",
+              "withdrawals": {
+                "@id": "intersectSpec:withdrawals",
+                "@container": "@set",
+                "@context": {
+                  "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                  "withdrawalAmount": "intersectSpec:withdrawalAmount"
+                }
+              }
+            }
+          }
+        }
+      },
+      "authors": {
+        "@id": "CIP100:authors",
+        "@container": "@set",
+        "@context": {
+          "name": "http://xmlns.com/foaf/0.1/name",
+          "witness": {
+            "@id": "CIP100:witness",
+            "@context": {
+              "witnessAlgorithm": "CIP100:witnessAlgorithm",
+              "publicKey": "CIP100:publicKey",
+              "signature": "CIP100:signature"
+            }
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "22153c8264bcb50639238fbd137d539063ea8e463eebe9c92777aa5b397307eabdaa586263dd3ae9893d1850815d0bd8e184982853f8a295e7d5b11c7319520e"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Name Protocol Version 11 hard fork - van Rossem",
+    "abstract": "Intersect’s Hard Fork Working Group proposes to name the next Cardano hard fork, to Protocol Version 11, the “van Rossem Hard Fork” in memory of Cardano community contributor Max van Rossem.",
+    "motivation": "There is a tradition of naming hard forks in memory of notable historical figures or significant contributors to the Cardano community.\n\nIt started with Byron and continued up until today with Shelley, Allegra, Mary, Alonzo, Vasil, Valentine, Chang and Plomin, with Vasil, Chang and Plomin named after honoured community members who recently passed away.\n\nNaming this hard fork in memory of Max van Rossem would continue the tradition of weaving lasting memories of impactful contributors to the Cardano blockchain ecosystem for their families and ecosystem as a whole.",
+    "rationale": "Max was a much-loved member of the Cardano community, always thoughtful, generous, sharp-minded, and deeply committed to those he worked alongside.\n\nHe made significant contributions to the development of Cardano’s constitution and to many of the governance discussions and optimizations that will help shape the network’s future.\n\nMax was integral to the election of the first fully elected Constitutional Committee (CC), serving as both a member and co-lead of the Constitutional Committee Election Working Group.\n\nHis impact on the network's founding governance documents was profound; as a delegate representing the Dutch Cardano community at the Constitutional Convention in Buenos Aires, he was one of the primary driving forces behind the inclusion of Article VIII in the Constitution.\n\nMax was a dedicated DRep as a vital part of the Dutch DRep Collective, ensuring the voices of his community were heard. He was also a creative technologist, founding AdaMoments, a project that enabled ada holders to preserve their personal history by storing images, videos, and text as permanent \"moments\" on the Cardano blockchain. Beyond his own initiatives, Max was deeply committed to the Dutch community, facilitating meetups and connecting people across the ecosystem.\n\nMax’s legacy lives on through the frameworks he helped build and the moments he helped archive.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Technical Steering Committee’s Recommendation via 2025-12-17 Meeting minutes",
+        "uri": "https://committees.docs.intersectmbo.org/intersect-technical-steering-committee/meeting-minutes/2025-tsc-meeting-minutes/meeting-minutes-december-17-2025#decisions-actions"
+      },
+      {
+        "@type": "Other",
+        "label": "Hard Fork Working Group’s Recommendation via 2025-12-16 Meeting minutes",
+        "uri": "https://cardanoupgrades.docs.intersectmbo.org/proposed-intra-era-scope/hard-fork-working-group-meeting-minutes/16th-december-2025#action-items-and-next-steps"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "info",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp"
+    }
+  }
+}

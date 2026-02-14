@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We consider this governance action to be unconstitutional.",
+    "rationaleStatement": "This proposal is determined to be unconstitutional, as it fails to satisfy multiple requirements of the amended Cardano Constitution. First, the off-chain documentation associated with this governance action is hosted on a mutable GitHub URL, such that the contents of the referenced documents remain technically alterable even after submission. However, Article II, Section 6 of the Cardano Constitution explicitly requires that “any document hosted at the referenced URL must be immutable.” Because the proposal relies on documentation that does not meet this immutability requirement at the time of submission, the proposal fails to ensure the verifiability and integrity of the governance action as required by the Constitution. Second, the proposal asserts that the requested Treasury Withdrawal is based on an “approved budget,” citing a previously ratified Stablecoin DeFi Liquidity Budget via a Budget Info Action. Under the amended Constitution, the Budget Info Action has been abolished, and Info Actions no longer possess any legal or constitutional authority to approve budgets. Accordingly, the cited Budget Info Action cannot constitute a valid constitutional basis for an approved budget, and the prerequisite conditions for a Treasury Withdrawal are therefore not met. For these reasons, this proposal does not comply with the amended Cardano Constitution and is thus determined to be unconstitutional.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "conclusion": "For the reasons stated above, we determine that it is unconstitutional.",
+    "internalVote": {
+      "constitutional": 0,
+      "unconstitutional": 3,
+      "abstain": 1,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Cardano Japan Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "833ddc6eedc272e763c33b9e6ed91efea5f0a5161f05bf72c83326a9b11507de",
+        "signature": "8fcc02f6800714b5053ca189e3b4e679b12b0f8a1519c44ad6c3d5a0b220c079dfd93bebc3853ba5aa2b8b43c8133fa202d9c7c405ffad496368a7db4ffef407"
+      }
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "@context": {
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "authors": {
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@context": {
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature",
+            "witnessAlgorithm": "CIP100:witnessAlgorithm"
+          },
+          "@id": "CIP100:witness"
+        }
+      },
+      "@id": "CIP100:authors"
+    },
+    "body": {
+      "@context": {
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "references": {
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "referenceHash": {
+              "@context": {
+                "hashAlgorithm": "CIP100:hashAlgorithm",
+                "hashDigest": "CIP108:hashDigest"
+              },
+              "@id": "CIP108:referenceHash"
+            },
+            "uri": "CIP100:reference-uri"
+          },
+          "@id": "CIP108:references"
+        },
+        "title": "CIP108:title"
+      },
+      "@id": "CIP108:body"
+    },
+    "hashAlgorithm": "CIP100:hashAlgorithm"
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "The Cardano Constitution, at Article IV, Section 3, requires that before withdrawal of Treasury funds, the community must have established a Net Change Limit (NCL). This means passing a NCL in a formal on-chain governance info action. The NCL represents the maximum amount of ada which may be withdrawn from the Cardano Treasury in a given period. It is a guardrail which, by definition in the Cardano Blockchain Ecosystem Constitution Definitions referenced below, protects the sustainability of the Cardano Treasury by preventing excessive withdrawals.",
+    "motivation": "No funds may be withdrawn from the Cardano Treasury without establishing a NCL. If the community wishes to use the Treasury to continue to maintain and grow the Cardano ecosystem it’s necessary to establish a NCL.",
+    "rationale": "Article IV, Section I of the Cardano Constitution states: “The Cardano Community may propose one aggregate budget or multiple budgets for the Cardano Blockchain ecosystem. Such budgets are expected to cover not less than a period of 73 epochs (approximately one calendar year) but nothing shall prevent the Cardano Community from proposing budgets for shorter or longer time periods (emphasis added).\n\nAt this time, there are approximately eight (8) months left of 2025. It will take at least 30–60 more days to pass a budget. We believe the NCL for 2025, covering the period from the start of Epoch 532 to the end of Epoch 604, should be 200M ada.\n\nThere are several reasons for this. Members of the Cardano community have generated models showing 350M+/- ada per calendar year was added to the Cardano Treasury in 2024 and therefore, setting NCL at 350M ada preserves the Treasury principal. Regardless of whether such models are accurate, we believe that the community should not set NCL so high at first. There is no reason not to continue to grow the Treasury while the community sorts out its priorities for development and its funding processes.\n\nThis NCL guides the first budget ‘experiment’ of the first ever on-chain Cardano governance. The community has never before been solely responsible for payment to core Cardano developers and has little first-hand knowledge of those expenses. The community is still working out budget processes and evaluating proposed budgets as well as determining appropriate audit and administration methods. For the 2025 year, we should be cautious, while at the same time, permitting use of Treasury funds to continue core maintenance, enhance scaling and other goals. We need to evaluate the impacts to the ecosystem of this funding, the administration of the budget, and the effect of selling 200M ada in a short period of time. We need to let our budget processes mature and to understand risks they may pose to Treasury and the Cardano protocol. A new NCL can and should be set for 2026 after the community has more experience behind it. This may result in an increase, or a decrease, in the limit set in future NCLs.\n\nThis NCL shall be applied to budget actions and treasury withdrawal actions to ensure compliance with Article IV of the Cardano Constitution and the Treasury Withdrawal Guardrails specified in Appendix I.\n\nA vote in favor of this proposal shall indicate agreement with the proposed NCL, allowing for the submission of budget info actions and treasury withdrawal governance actions. The maximum amount that can be withdrawn from the treasury during the specified period shall not exceed the total sum outlined herein.\n\nThe provisions set forth in the Cardano Constitution state that the approval of a NCL requires a threshold of greater than 50% of the active voting DRep stake. Therefore, this NCL will be considered passed if it is greater than 50+1 lovelace%.\n\nIn the event of conflict, this NCL supersedes any prior NCL covering all or part of calendar year 2025.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Cardano Constitution",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "Other",
+        "label": "Definitions for the Cardano Constitution",
+        "uri": "ipfs://bafkreiewp5bgrdiesq6ft3qypykgcjhvfgpp4s5o4yrjrvko4wuhi4iecu"
+      },
+      {
+        "@type": "Other",
+        "label": "HisSim Data Model (PDF)",
+        "uri": "ipfs://bafybeihms6haw35awizxa37kuo4qghgmjkldr6lvrcl26mdsk4f6rxdwv4"
+      }
+    ],
+    "title": "2025 Cardano NCL"
+  }
+}

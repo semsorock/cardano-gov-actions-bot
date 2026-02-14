@@ -1,0 +1,76 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVoting": "CIP136:againstVoting"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "The Intersect Constitutional Council votes that the net change limit info action, “637e3c256da9c1350847ca3211e8c44e3660a4471e8b6f68a8c537746b4aeb73#0”, to be constitutional.",
+    "rationaleStatement": "The net change limit info action adjusts the currently approved net change limit (NCL) window from January-December 2025 and proposes a 12-month duration from June 2025 to June 2026 in order to account for the time already passed in 2025. It is a proposal to set the net change limit to 300 million ada. Due to the fact that no treasury withdrawals have taken place against the currently approved net change limit, this makes evaluating this revision slightly more straightforward than if the ecosystem were already part-way through an agreed NCL with active budgets and treasury withdrawals. \n\nThe proposal meets the standardized and legible format requirements as outlined in Article III Section 5. The rationale contains a title, abstract, reason for the proposal and relevant supporting materials, meeting the minimum requirements of Article III Section 5.\n\nThe proposal also provides a clear, unambiguous timeline for its proposed NCL, does not confuse the situation by attempting to reiterate or declare its own vote threshold and clearly delineates that passing this proposal would replace any previously accepted proposal. All of these measures help to provide open and transparent conditions by which ada holders can vote.",
+    "precedentDiscussion": "As this is now the fourth net change limit proposal in a short space of time, questions have been raised regarding what is acceptable with regards to the frequency and time frames in which a new NCL can be proposed. Currently, there are no guardrails in the Constitution to control the number of proposals in any given time frame or how future proposals may interact with previous ones.",
+    "counterargumentDiscussion": "The Council would like to raise a minor point regarding the provision of IPFS links in governance actions. It is recommended that a neutral IPFS link be provided with a governance action proposal rather than a specified gateway as it can cause difficulties with accessing the correct metadata during the course of a governance actions lifetime. However, this is not a constitutional requirement and more of a recommendation for future proposals.",
+    "conclusion": "The Intersect Constitutional Council votes that the 300M ada net change limit info action is constitutional.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 2,
+      "againstVoting": 0
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect Constitutional Council"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "@context": {
+    "@context": {
+      "@language": "en",
+      "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+      "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+      "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+      "hashAlgorithm": "CIP100:hashAlgorithm",
+      "body": {
+        "@id": "CIP108:body",
+        "@context": {
+          "references": {
+            "@id": "CIP108:references",
+            "@container": "@set",
+            "@context": {
+              "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+              "Other": "CIP100:OtherReference",
+              "label": "CIP100:reference-label",
+              "uri": "CIP100:reference-uri",
+              "referenceHash": {
+                "@id": "CIP108:referenceHash",
+                "@context": {
+                  "hashDigest": "CIP108:hashDigest",
+                  "hashAlgorithm": "CIP100:hashAlgorithm"
+                }
+              }
+            }
+          },
+          "title": "CIP108:title",
+          "abstract": "CIP108:abstract",
+          "motivation": "CIP108:motivation",
+          "rationale": "CIP108:rationale",
+          "onChain": {
+            "@id": "intersectSpec:onChain",
+            "@context": {
+              "governanceActionType": "intersectSpec:governanceActionType",
+              "depositReturnAddress": "intersectSpec:depositReturnAddress",
+              "withdrawals": {
+                "@id": "intersectSpec:withdrawals",
+                "@container": "@set",
+                "@context": {
+                  "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                  "withdrawalAmount": "intersectSpec:withdrawalAmount"
+                }
+              }
+            }
+          }
+        }
+      },
+      "authors": {
+        "@id": "CIP100:authors",
+        "@container": "@set",
+        "@context": {
+          "name": "http://xmlns.com/foaf/0.1/name",
+          "witness": {
+            "@id": "CIP100:witness",
+            "@context": {
+              "witnessAlgorithm": "CIP100:witnessAlgorithm",
+              "publicKey": "CIP100:publicKey",
+              "signature": "CIP100:signature"
+            }
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "e861634d04bcf3be04dacf23e08553f847bae86ba45848920ffad80ea29c21aeec1bee3c4ae93eb42d13ee573057f5009d82fb78c0777f855d3a20cfaaf0ea0b"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Add Constitutional Committee Member",
+    "abstract": "This governance action proposes to add a new Constitutional Committee member selected by participating DReps during the [Intersect hosted snap-election process](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-governance/2025-cc-snap-election-overview) from 26th of November to 5th of December.\n\nAdding one more member brings the Constitutional Committee member count to meet the `committeeMinSize` parameter, enabling on-chain governance to resume in full.",
+    "motivation": "### Emergence of Governance\n\nThe Chang Hard Fork was initiated by the Genesis Key Holders and approved by stake pool operators becoming effective on September 1st, 2024. Deploying initial on-chain governance features to Cardano and ushering in an interim (or technical bootstrap phase) for Cardano governance. This instated an interim Constitutional Committee, including the founding entities, three community consortiums and Intersect for an 74 epoch term (~1 year).\n\nThe second upgrade, known as Plomin, moved governance out of the interim and technical bootstrap phase into full minimum viable on-chain governance as described in [CIP-1694 | A First Step Towards On-Chain Decentralized Governance](https://github.com/cardano-foundation/CIPs/blob/master/CIP-1694/README.md).\n\n### Replacing the Interim Constitutional Committee\n\nWith the interim Constitutional Committee term nearing an end, Intersect hosted an election process from May 5th to July 6th, 2025. This process intended to transition  the interim Constitutional Committee into full community control, electing seven members.\n\nDReps and stake pool operators ratified and enacted the Constitutional Committee on-chain via an Update Committee action [gov_action1g7sw….pyyt](https://cardanoscan.io/govAction/gov_action1g7sw0f8e8qa34lppj2erksvzf4j6e9udwaq6efslc8apdqeazygsq2spyyt).\n\n### Constitutional Committee Member Retiring\n\nDuring epoch 597, a Constitutional Committee member - Cardano Atlantic Council resigned from the Committee, before the end of their current term. Formally submitting their retirement certificate within transaction [7e9e3….9cc59](https://cardanoscan.io/transaction/7e9e3621aa95b51f90117ddde998e67a38f98b169f42cb12a2b7134bf089cc59).\n\n### Impact\n\nFrom epoch 597 the Constitutional Committee has had six members, bringing the total member count below the `committeeMinSize` parameter, currently set at seven.\n\nHaving a smaller Constitutional Committee than `committeeMinSize` means that the Constitutional Committee is unable to ratify any new governance actions - limiting Cardano’s on-chain governance functionality. Only governance actions not requiring Constitutional Committee ratification are able to pass, namely Update Committee/Threshold, Info Actions*, and Motion of no-confidence.\n\nElecting a new committee member is essential to ensure the seamless continuation of Cardano governance.\n\n**Budgets and Net Change Limits are Info Actions, but these do require Constitutional Committee consideration.*",
+    "rationale": "In accordance with the constitution and its current guardrails, one committee seat was elected to restore continuity. The elected member will have their term expiration to match the retired seat, serving until epoch 653.\n\nFollowing the tallying of off-chain stake-weighted votes, the candidate with the highest amount of participating DRep voting stake was elected.\n\nThis governance action officially endorses the results of that electoral process, proposing the composition of the committee with its staggered terms installed when the interim CC transition to full community control.  \n\nThe audited results recorded a total of 3,160,499,917 participating stake represented by 88 DReps on the Ekklesia platform. Cardano Curia received support from 33 DReps, representing 1,679,248,296 in ada stake.\n\n| Member | Cold Credential | Cold Credential (CIP-129 Bech32) | Term Expiration Epoch |\n| :---: | :---: | :---: | :---: |\n| Cardano Curia | scriptHash-16feefc225e06f75a3c917f4aa50acffde7631ea0355721f2ac12542 | cc_cold1zvt0am7zyhsx7adreytlf2js4nlaua33agp42usl9tqj2ssazjmn9 | 653 |\n\nRatifying this governance action will **add one member** to the Constitutional Committee, the remaining six committee members and their terms will be unchanged.\n\n### Election Details\n\nIntersect facilitated a snap election, an unscheduled vote called earlier than the ordinary election cycle, to restore the Constitutional Committee. By filling the vacant seat promptly it seeks to maintain continuity in Cardano’s on-chain governance and aligns with Article VII, Section 3 of the Cardano Constitution:\n\n*“The Cardano Community shall establish and make public a process from time to time for election of members of the Constitutional Committee consistent with the requirements of the Guardrails.”*\n\nThis election follows the same principles as the Constitutional Committee election held earlier this year (to replace the Interim Committee), but in a condensed format given the urgency and importance of restoring the minimum Constitutional Committee membership:\n\n* **Adhering to the Cardano Constitution:** Ensuring all procedures were compliant with the foundational rules of the ecosystem.  \n* **Accessible**: Allowing any Ada owner to register as a candidate.  \n* **Transparent and Verifiable**: Building trust through an open process with verifiable, on-chain results.\n\nThe off-chain phase of the election process ran between November 17th 2025 - December 9th 2025, and included distinct periods for candidate applications, DRep voting on Ekklesia, and a final audit, prior to this on-chain governance action.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Audited election Results",
+        "uri": "ipfs://bafkreiajs2ntt7jjbdnrs7gcavb54c6jla7ptyaxnstg4br5covqn7y6x4"
+      },
+      {
+        "@type": "Other",
+        "label": "Audit File #1 - Ekklesia results",
+        "uri": "ipfs://bafkreibf7iijzmunbz6dogxdrn532pua6owwkk46t35emslolqrhcoky6a"
+      },
+      {
+        "@type": "Other",
+        "label": "Audit File #2 - Ekklesia results with signatures",
+        "uri": "ipfs://bafkreiauybk5bty6n2hr277mbl6hep72ini7wpjso45b6gqs5xey76beau"
+      },
+      {
+        "@type": "Other",
+        "label": "Audit File #3 - Sample script to verify Merkle hash",
+        "uri": "ipfs://bafkreibwl3itfcyotyuvvyhxwotn5tro576tcmol6kvosxficq5aylw6w4  "
+      },
+      {
+        "@type": "Other",
+        "label": "The Cardano Atlantic Council Retirement Transaction (cardanoscan)",
+        "uri": "https://cardanoscan.io/transaction/7e9e3621aa95b51f90117ddde998e67a38f98b169f42cb12a2b7134bf089cc59"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Atlantic Council Retirement Announcement",
+        "uri": "https://x.com/CardanoAtlantic/status/1993482209353924852?t=crGTZpgdgS2AwAXrAXG9dw&s=19"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Atlantic Council Retirement on-chain metadata",
+        "uri": "https://ipfs.io/ipfs/QmfY4Nwea4nmuuRdA2APrtoDNJQhaVVkfRkkZoueZgWcaZ"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "update_committee",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp"
+    }
+  }
+}

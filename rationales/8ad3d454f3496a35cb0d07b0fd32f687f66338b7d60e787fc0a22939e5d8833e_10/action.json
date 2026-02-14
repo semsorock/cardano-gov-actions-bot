@@ -1,0 +1,139 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "onChain": {
+          "@id": "intersectSpec:onChain",
+          "@context": {
+            "governanceActionType": "intersectSpec:governanceActionType",
+            "depositReturnAddress": "intersectSpec:depositReturnAddress",
+            "withdrawals": {
+              "@id": "intersectSpec:withdrawals",
+              "@container": "@set",
+              "@context": {
+                "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                "withdrawalAmount": "intersectSpec:withdrawalAmount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "06c90ab8ee1a258735affa29508928dd27924754c72a663b8a28df0b579938d92841d4dc2dc87684d187176600bb5ca0684febd8e489e0b4f0e2216569924201"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Withdraw ₳600,000 for Complete Web3 developer stack to make Cardano the smart...",
+    "abstract": "This treasury withdrawal funds **Complete Web3 developer stack to make Cardano the smart contract layer for Bitcoin** which will provide the following services:\n\nMaestro proposes a comprehensive infrastructure solution that positions Cardano as Bitcoin's primary smart contract and DeFi execution layer. Leveraging Maestro's enterprise-grade UTXO infrastructure platform, this integration will bridge Bitcoin's substantial liquidity and large user base directly into the Cardano ecosystem.\n\nMaestro's solution will provide a complete suite of developer-friendly infrastructure services and tools, including:\n\nBlockchain Indexer: For real-time blockchain data querying and insights.\n\n- Blockchain Indexer: For real-time blockchain data querying and insights.\n\n- Mempool Monitoring: Enabling developers to detect transactions and on-chain events instantly, even before they are confirmed.\n\n- Event Notification System: Allowing instant webhook alerts for on-chain activities, significantly enhancing the responsiveness of dApps.\n\n- Wallet Manager: Facilitating secure, efficient wallet management, address derivation, and user transaction tracking.\n\nThese tools significantly improve the developer experience, dramatically reducing complexity and integration overhead. By abstracting away blockchain complexities, Maestro empowers developers to quickly build and deploy advanced DeFi applications, wallets, and Layer-2 integrations, directly utilizing Bitcoin liquidity.\n\nThis Treasury Withdrawal is submitted by Intersect on behalf of the vendor. The following sections; Abstract, Motivation, Rationale and Vendor Profile have been sourced from the approved proposal submitted by the Vendor as part of the Intersect budget process.\n\nThis treasury withdrawal funds one of 39 proposals to give effect to the approved budget info action for ₳275,269,340, administered by Intersect via gov_action1u9x73kwufaxa70lfy59g4ynwyrcsaxdcd0gxzzmh67s9fxq4j8hqqk2phgh. The information provided herein is intended to fulfill the spirit of the constitutional requirement for a treasury withdrawal info action by also providing the details of the proposed solution, alignment to the budget, and amount to be withdrawn from the Cardano Treasury.",
+    "motivation": "This proposal aims to solve the following problem:\n\nMaestro will help make Cardano the smart contract layer for Bitcoin.\n\nCurrently, Bitcoin faces inherent limitations in supporting DeFi and advanced smart contracts due to its minimal scripting capabilities and simpler UTXO model. Meanwhile, Cardano, despite being a highly capable smart contract platform leveraging an extended UTXO (EUTXO) model, struggles with attracting Bitcoin's substantial liquidity and integrating directly with Bitcoin's massive economic ecosystem. Without seamless interoperability, both blockchains remain limited: Bitcoin as a largely static asset store and Cardano without access to Bitcoin's immense capital pool and user base. Maestro seeks to address this by bridging the two ecosystems---leveraging Cardano's superior smart contract capabilities to unleash Bitcoin's latent liquidity, thus creating a robust decentralized financial layer powered by Bitcoin's underlying asset security.",
+    "rationale": "### Project Solution\n\nIntegrating Maestro's infrastructure to enable Cardano as the smart contract layer for Bitcoin would generate substantial benefits across several layers of the Cardano developer ecosystem:\n\n1. Cardano DeFi Developers:\n\nDevelopers of DeFi applications (such as lending protocols like Fluidtokens) will gain immediate access to Bitcoin's immense liquidity pool, significantly expanding their potential user base and TVL. Maestro's integration enables developers to tap directly into Bitcoin's economic activity, dramatically increasing capital efficiency and profitability. Demonstrated value includes:\n\n- Significant growth in TVL, user engagement, and protocol revenues.\n\n- Easier user onboarding from Bitcoin-native communities.\n\n2. Wallet Developers (Tokeo, Begin, Lace, etc.):\n\nWallet applications will benefit from vastly expanded user functionality. By supporting direct Bitcoin-to-Cardano interactions, wallets can offer their users advanced features like Bitcoin-backed lending, staking, governance, and seamless cross-chain payments. Demonstrated value includes:\n\n- Increased wallet adoption and user retention.\n\n- Expanded revenue streams through cross-chain transaction fees and premium DeFi services.\n\n3. Layer 2 Solutions and Protocols (Midgard, Sundial, zkFold, BitcoinOS, Midnight):\n\nCardano's Layer 2 ecosystems will benefit by directly integrating with Bitcoin's user base. L2 solutions gain additional utility and liquidity, allowing their technologies (privacy layers, zero-knowledge rollups, sidechains) to achieve broader adoption and market validation. Demonstrated value includes:\n\n- Accelerated adoption and developer traction for L2 solutions.\n\n- Enabling innovative financial products and privacy-oriented services previously unavailable to Bitcoin holders.\n\n4. Cardano Ecosystem Overall:\n\nThe direct Bitcoin integration positions Cardano uniquely in the broader blockchain landscape. It would transform Cardano into the default execution and innovation layer for Bitcoin DeFi, attracting both institutional and retail adoption. Demonstrated value includes:\n\n- Enhanced market positioning as the leading decentralized finance ecosystem linked to Bitcoin.\n\n- Substantial increase in ecosystem visibility, credibility, and investment inflows.\n\nUltimately, the proposed integration presents Cardano with an opportunity to become the primary hub for Bitcoin's smart contract innovation and DeFi, unlocking extensive economic value, developer growth, and cross-chain collaboration.\n\n### Vendor Profile\n\nMaestro has a proven track record of delivering high-performance infrastructure and developer tooling for UTXO-based blockchains, including extensive experience within the Cardano ecosystem. Maestro's platform already supports various high-profile Cardano projects and integrations, successfully handling millions of transactions and servicing numerous applications across DeFi, wallets, analytics, and Layer-2 scaling solutions. The Maestro team comprises seasoned blockchain engineers and industry experts with deep technical expertise in indexing, transaction management, and API development, demonstrating a commitment to high reliability, security, and scalability in enterprise-grade blockchain solutions.\n\nMaestro already supports numerous Cardano projects expanding into Bitcoin (e.g., Fluidtokens lending protocol, Tokeo Wallet, Begin Wallet, Lace Wallet) and Cardano L2s like Midgard, Sundial, zkFold, and BitcoinOS. Recent support for Midnight further expands these possibilities, enabling private DeFi transactions anchored by Bitcoin's economic security.\n\n### Contract Management\n\nA written off-chain Legal Contract will be created between the Vendor and the Cardano Development Holdings (CDH), as mandated by the constitution, and will be administered by Intersect. This will include details of the project delivery schedule and dispute resolution.\n\n### Project Delivery \n\nAll milestones, acceptance criteria, payment amounts and expected delivery dates will be agreed between the Vendor and Intersect, acting on behalf of the CDH. The vendor will deliver according to the agreed-upon project schedule within the Legal Contract, of which the necessary information will be made public via the budget management platform via transaction metadata.\n\nDefined by the milestones within a Legal Contract, the vendor will submit and attest milestone acceptance to the community, Intersect or 3rd Party Assurer.\n\nProject progress will be monitored via Intersect's delivery assurance function which will be communicated to the community.\n\nAcceptance of the above work is expected to be supported by a 3rd Party Assurer, who will be responsible for reviewing and signing off the work completed at each project milestone against the corresponding milestone deliverables detailed within the Legal Contract. This work is funded from a portion of this treasury withdrawal.\n\n### Budget Management Tooling\n\nTo administrate treasury funds on-chain, Intersect will utilize the treasury management smart contract framework developed by Sundae Labs. The smart contracts have been [extensively tested](https://github.com/SundaeSwap-finance/treasury-contracts/tree/main/offchain/tests) including audits from TxPipe and MLabs. Examples of the usage of these contracts can be seen across mainnet described across Intersect authored [Blog 1](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-a-step-toward-on-chain-treasury-withdrawals), [Blog 2](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-two-update) and [Blog 3](https://www.intersectmbo.org/news/smart-contract-mainnet-demo-day-three-update).\n\nFinal mainnet validation test can be seen via the Disburse action within transaction: 0f591dc544ae14102dbb4a74d5311a6acffc1772b163d8b7a9656b9525950b17\n\nWith the confirmed treasury reserve contract address being: stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr\n\n#### Specifics\n\nIntersect will utilize a single Treasury Reserve Smart Contract (TRSC), with many Project-Specific Smart Contracts (PSSC), managed by Intersect. Intersect's management consists of three 'admin' and two Intersect 'leadership' roles. An Oversight Committee consisting of five external, independent third-party entities will provide checks and balances on Intersect, and safeguard against errors and unilateral control. The administration of both TRSC and PSSCs will be managed by Intersect, with external oversight on certain actions from the Oversight Committee.\n\nThe Oversight Committee consists of Sundae Labs, Cardano Foundation, Dquadrant, Xerberus and NMKR. Their role is to independently verify key administrative actions using on-chain logic, ensuring accuracy and consistency without exercising discretion over governance decisions.\n\nFor all details on Intersect's configuration please see the **[Smart Contract Guide](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-budget/intersect-administration-services/smart-contracts-as-part-of-our-administration)** on the knowledgebase.\n\nThe high level permissions are as follows:\n\n- TRSC Fund and PSSC Modify\n\n  - Two of the three Intersect admins, two of the five trusted entities and one of the two Intersect leadership sign-off must authorize\n\n- TRSC Disperse\n\n  - Two of three Intersect admins, three of five trusted entities and two of two Intersect leadership sign-off must authorize\n\n- TRSC Pause and Resume\n\n  - Two of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Sweep\n\n  - One of three Intersect admins, and one of two Intersect leadership sign-off must authorize\n\n- TRSC Reorganize\n\n  - Two of three Intersect admins and three of five trusted entities must authorize\n\n#### Processes\n\nUpon enactment of this governance action, funding for this project will be directed into the TRSC's stake account. All instances of TRSC and PSSC can not be staked with a SPO and will be delegated to the auto-abstain predefined DRep. From here funds will be withdrawn into a UTxO remaining at the TRSC.\n\nWhen the Legal contract is prepared and the vendor is ready, funding for this project will be transferred using the Fund action to a PSSC. All milestones will be outlined within the metadata.\n\nA dashboard will be available for the community to audit the TRSC or PSSC and track metrics related to this withdrawn ada as well as being immutably verifiable on chain.\n\nThe subsections; Contract Management, Project Delivery, and Budget Management Tooling described above cover the constitutional requirements specified in Article IV section 4 and 5.",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Maestro Website",
+        "uri": "https://www.gomaestro.org/"
+      },
+      {
+        "@type": "Other",
+        "label": "Maestro Documentation",
+        "uri": "https://docs.gomaestro.org/"
+      },
+      {
+        "@type": "Other",
+        "label": "Project Proposal In Ekklesia",
+        "uri": "https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b63565577986442d236"
+      },
+      {
+        "@type": "Other",
+        "label": "Approved Budget Info Action submitted by Intersect via GovTool",
+        "uri": "https://gov.tools/outcomes/governance_actions/e14de8d9dc4f4ddf3fe9250a8a926e20f10e99b86bd0610b77d7a054981591ee#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Details of all successful proposals (CSV)",
+        "uri": "ipfs://bafybeicwrop4q7xvnyjdd5drumbe56sqtm5lbe2ul3c262zt4hgguzdycm"
+      },
+      {
+        "@type": "Other",
+        "label": "Automating Accountability: Cardano's Smart Contract Framework Blog",
+        "uri": "ipfs://bafybeihqx4ae72z7suqfnxrpqpqithp43cai7o2uuewnqtezgaoyc3ptyq"
+      },
+      {
+        "@type": "Other",
+        "label": "Sundae Labs Budget Management Smart Contracts Github Repository",
+        "uri": "https://github.com/SundaeSwap-finance/treasury-contracts"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts TxPipe Audit Report",
+        "uri": "ipfs://bafybeiccnwejbgj43wo6hrlseckkkmprtoqc5cfuy2hesm6c6yealwho3e"
+      },
+      {
+        "@type": "Other",
+        "label": "Budget Management Smart Contracts MLabs Audit Report",
+        "uri": "ipfs://bafybeiah5fnjhda5hemj3qvaehc4mre3qllqzw2l7mkdsguytn4ftgafw4"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "treasuryWithdrawals",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp",
+      "withdrawals": [
+        {
+          "withdrawalAddress": "stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr",
+          "withdrawalAmount": 600000000000
+        }
+      ]
+    }
+  }
+}

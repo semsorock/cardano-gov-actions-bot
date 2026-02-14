@@ -1,0 +1,103 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action169kllwhfmp488je5x5rwvufd08p8sztdcf0ghf5sp6ey2gnjdwaqql47xry",
+    "summary": "Ace Alliance finds the proposed \"2025 Net Change Limit Extension\" Info Action Constitutional, subject to meeting the required DRep voting threshold of \\>50% of the active voting stake when the Action expires at epoch boundary 603-604.",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/QmWkQwEdRNqunkFXmedoFZCubvZbm2zxuU3Yv1hokZdRBC\n\nIf approved, this Net Change Limit (NCL) type Info Action (`gov_action169kllwhfmp488je5x5rwvufd08p8sztdcf0ghf5sp6ey2gnjdwaqql47xry`) would extend the duration of  the previously approved 2025 NCL (`gov_action1nd3t833j7v5sz65k3tp9yyvztw60sjcjgcgjr37682s3m7frwrusqmd2k80`)by eight (8) epochs, concluding at the end of Epoch 612, without changing the total authorized amount of 350 million ada.\n\nWe find that this Action satisfies the applicable requirements of the Cardano Constitution.\n\n**Constitutional Alignment** \n\nThis governance action::\n\n* **Satisfies the procedural requirements of Article III, Section 5:** The action is presented in a standardized, legible format including a URL and hash for off-chain materials. It provides sufficient rationale for the extension, satisfying the transparency requirements of the Constitution.  \n* **Is the appropriate mechanism for changing the NCL state (Article III, Section 4):** Because the Net Change Limit is currently enforced through Constitutional Committee oversight rather than engrained protocol parameters, an Info Action is the correct mechanism for this adjustment. This Action creates an on-chain record of the community's intent to extend the NCL duration, applied and enforced by the Constitutional Committee through its evaluation of pertinent Treasury Withdrawal Governance Actions.  \n* **Adheres to Guardrail TREASURY-01a:** The Constitution mandates that \"A net change limit for the Cardano treasury's balance per period of time must be agreed by the DReps via an on-chain governance action with a threshold of greater than 50% of the active voting stake\". Because the \"period of time\" is a defining parameter of any Net Change Limit, modifying the expiration date requires the explicit agreement of the DReps. This Info Action serves as the constitutionally prescribed mechanism to solicit and secure such agreement on-chain.",
+    "precedentDiscussion": "This action follows the precedent of the original \"2025 Net Change Limit\" governance action, utilizing the Info Action to define the parameters of the limit. We find this to be consistent with the current technical implementation of Treasury guardrails. A Net Change Limit may be set or changed at any time according to the Cardano Constitution, provided that it satisfies relevant constitutional requirements.",
+    "counterargumentDiscussion": "It might be asserted that an Info Action cannot establish an enforceable condition for subsequent adjudication. This hasty generalization improperly conflates Info Actions in general with the Constitution-enabled subset of Info Actions pertaining to the Net Change Limit. Because the Constitution (Appendix I, TREASURY-01a) explicitly requires the NCL to be agreed by DReps via an on-chain action, this Info Action is the constitutionally prescribed method for establishing that agreement.\n\nHowever, we emphasize that the enforceability of this extension is strictly conditional. As required by Guardrail `TREASURY-01a`, this NCL extension will only be considered valid and binding for future assessments if it receives greater than 50% of the active voting stake of DReps at the time of its expiration. Without meeting this specific threshold, the extension cannot be validly enforced by the Constitutional Committee.",
+    "conclusion": "This Net Change Limit type Info Action meets the applicable constitutional requirements.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "RelevantArticles",
+        "label": "Cardano Constitution (IPFS)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "Other",
+        "label": "2025 Net Change Limit",
+        "uri": "gov_action1nd3t833j7v5sz65k3tp9yyvztw60sjcjgcgjr37682s3m7frwrusqmd2k80"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor URL (IPFS)",
+        "uri": "ipfs://Qmeme8EWugVPQeVghpqB53nvG5U4VT9zy3Ta545fEJPn"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor Hash",
+        "uri": "25b56befe5ef4e472e3020b81162b4076f4e274f68fcdacb2ec686ca6197771e"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmWkQwEdRNqunkFXmedoFZCubvZbm2zxuU3Yv1hokZdRBC"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Ace Alliance"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale"
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "We propose to upgrade Cardano mainnet to Protocol Version 10.  This upgrade will be achieved via a Hard Fork (called \"Plomin\"). Following the upgrade:\n\n1. The Cardano mainnet protocol will be upgraded to Major Version 10 and Minor Version 0;\n2. All 7 governance actions that are described in CIP-1694 will be enabled;\n3. DRep voting will be enabled on all 7 governance actions;\n4. SPO voting will be enabled on all applicable governance actions, as defined in CIP-1694;\n5. Constitutional Committee voting will be enabled on all applicable governance actions, also as defined in CIP-1694;\n6. Staking rewards can be accumulated as usual, but can only be withdrawn following delegation to a DRep (including the pre-defined abstain/no-confidence options);\n7. Several new Plutus primitives will be available.\n\nIn line with the Interim Cardano Constitution:\n\n1. More than 90 days will have elapsed from the date of the Chang hard fork before ratification of this governance action;\n2. At least 85% of stake pools by stake should have upgraded to a version of the node that can support protocol version 10 before ratification of this governance action.\n\nThese conditions will be verified by the Interim Constitutional Committee and SPOs, supported by readiness reports from Intersect's Hard Fork Working Group.",
+    "motivation": "Protocol Version 10 enables the remainder of the CIP-1694 functionality, ensuring that DReps can participate in voting on all governance actions.  It enables treasury withdrawals, the ability to record a new constitution, updates to the constitutional committee, and votes of no confidence.  These are in addition to the 3 existing governance actions that were enabled for Protocol Version 9 by the Chang hard fork (hard forks, parameter updates, and info actions). \n\nFollowing the hard fork, the protocol will support a number of new Plutus primitives that have been defined in CIP-0122, CIP-0123 and CIP-0127.  These provide bitwise and logical operations on byte strings, plus RIPEMD-160 cryptographic hashing functionality (for compatibility with BitCoin).",
+    "rationale": "We propose to upgrade Cardano mainnet to Protocol Version 10.  This upgrade will be achieved via a Hard Fork (called \"Plomin\"). Following the upgrade:\n\n1. The Cardano mainnet protocol will be upgraded to Major Version 10 and Minor Version 0;\n2. All 7 governance actions that are described in CIP-1694 will be enabled;\n3. DRep voting will be enabled on all 7 governance actions;\n4. SPO voting will be enabled on all applicable governance actions, as defined in CIP-1694;\n5. Constitutional Committee voting will be enabled on all applicable governance actions, also as defined in CIP-1694;\n6. Staking rewards can be accumulated as usual, but can only be withdrawn following delegation to a DRep (including the pre-defined abstain/no-confidence options);\n7. Several new Plutus primitives will be available.\n\nIn line with the Interim Cardano Constitution:\n\n1. More than 90 days will have elapsed from the date of the Chang hard fork before ratification of this governance action;\n2. At least 85% of stake pools by stake should have upgraded to a version of the node that can support protocol version 10 before ratification of this governance action.\n\nThese conditions will be verified by the Interim Constitutional Committee and SPOs, supported by readiness reports from Intersect's Hard Fork Working Group.\n\n## Technical Evaluation\n\nThe submission of this governance action has been recommended by Intersect’s Hard Fork Working Group on 2024-12-10, and subsequently ratified by Intersect's Technical Steering Committee on 2024-12-11, as evidenced by [these minutes](https://app.gitbook.com/o/Prbm1mtkwSsGWSvG1Bfd/s/Yzy77cQuAEYNjeNy3YrN/about/tsc-meeting-minutes/tsc-decisions-log).\n\n\nTo support voting decisions by the Interim Constitutional Committee and SPOs, the Hard Fork Working Group will maintain a readiness report that will report on key metrics, including SPO, Exchange, DApp and voter readiness for the hard fork.  This can be used to inform risk management.\n\n\n### Functionality\n\nThe upgrade enables two main items: \n\n\n\n\n1. The remainder of the CIP-1694 functionality, as described below - notably: DRep voting on all action types, the remaining governance actions, and restrictions on rewards withdrawals.\n2. New Plutus primitives as described below.\n\nOtherwise, all existing functionality from Protocol Version 9 will be maintained.\n\nFull testing reports have been produced for the Cardano node that demonstrate:\n\n\n\n1. No behavioral regressions for existing functionality;\n2. Conformance between the specification and implementation of the Cardano node for the new CIP-1694 functionality;\n3. Correct operation of the new Plutus primitives.\n\n\n### Security\n\nSecurity audits have been undertaken for: \n\n\n\n\n1. The formal specification for CIP-1694 in Agda;\n2. The ledger implementation in Haskell that corresponds to this formal specification.\n\n\n### Performance\n\n[Performance results for Cardano Node version 10.1.1](https://updates.cardano.intersectmbo.org/reports/2024-10-performance-10.1.1/) show no regressions from previous versions of the Cardano node for the standard value and Plutus benchmarks, and acceptable baseline performance for the new voting benchmark.\n\n\n### Sustainability\n\nThe upgrade provides new functionality that will enhance existing governance capabilities. It also provides new Plutus functionality that will enhance its bitwise and cryptographic capabilities and provide better interoperability with BitCoin and Ethereum.\n\n\n\n## New Functionality that will be enabled by the Upgrade\n\n\n### DRep Voting Changes following the Upgrade \n \nDReps will be able to vote on all 7 types of governance action, as described in CIP-1694, and will no longer be restricted to voting on Info actions. \n\n\n\n### New Governance Actions that will be Available following the Upgrade\n\nFour new governance actions will be enabled as described in CIP-1694.\n\n1. Treasury withdrawals.  Funds may be withdrawn from the treasury and deposited in designated stake credentials.\n2. New constitution/guardrails script.  A new constitution may be proposed and/or a new guardrails script may be proposed.\n3. Updates to the constitutional committee. Constitutional committee members may be removed, replaced, or new members may be elected.  The threshold for Constitutional committee voting may also be changed.\n4. Votes of no confidence.  A vote of no confidence may be raised.\n\n\n### Other Governance Changes following the Upgrade\n\nThe main other governance changes in Protocol Version 10 are:\n\n1. Rewards will still be accumulated by Ada holders when delegating to stake pools for block production as in Protocol Version 9 and before, but these rewards can only be withdrawn once the Ada holder has also delegated their stake to a DRep for voting purposes.  This vote delegation may be to a self-created DRep, to a third-party DRep, or to the pre-defined Abstain or No Confidence DReps.\n2. SPO votes will default to **No**.  It will be possible for SPOs to default to **Abstain** or **No Confidence** by delegating their reward address to the pre-defined DRep. \n\n\n## New Plutus Primitives that will be Enabled after the Plomin Hard Fork\n\n\nThe new Plutus primitives are defined in three CIPs: [CIP-0122](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0122), [CIP-0123](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0123) and [CIP-0127](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0127).  A separate protocol parameter update governance action has already been enacted on Cardano mainnet that updates the Plutus cost model so that these primitives will become available immediately after the Plomin Hard Fork.\n\n### CIP-0122\nBitwise operations, both over fixed-width and variable-width blocks of bits, have a range of uses, including data structures (especially succinct ones) and cryptography. Currently, operations on individual bits in Plutus Core are difficult, or outright impossible, while also keeping within the tight constraints required on-chain. While it is possible to some degree to work with individual bytes over BuiltinByteStrings, this isn't sufficient, or efficient, when bit manipulations are required.\n\nThe new Plutus primitives defined by CIP-0122 are:\n\n- Bitwise logical AND, OR, XOR and complement;\n- Reading a bit value at a given index;\n- Setting bits value at given indices; and\n- Replicating a byte a given number of times.\n\n> ``\n> andByteString, orByteString, xorByteString, complementByteString, readBit, writeBits, replicateByte\n> ``\n\n### CIP-0123\nThe new bitwise operations that are defined in CIP-0123 extend the set that is provided by CIP-0122 to provide a usefully 'complete' set of bitwise operations.\n\nThe new Plutus primitives defined by CIP-0123 are:\n\n- Bit shifts and rotations\n- Counting the number of set bits (popcount)\n- Finding the first set bit\n\n> ``\n> shiftByteString,\n> rotateByteString,\n> countSetBits,\n> findFirstSetBit\n> ``\n\n\n### CIP-0127\nThe integration of the ECDSA and Schnorr signatures over the secp256k1 curve into Plutus was a significant step towards interoperability with the Ethereum and Bitcoin ecosystems. However, full compatibility is still impossible due to the absence of the RIPEMD-160 hashing algorithm in the Plutus interpreter. This is a fundamental component of Bitcoin's cryptographic framework.\n\nAdding RIPEMD-160 support to Plutus enhances the potential for cross-chain solutions between Cardano and Bitcoin blockchains and complements the set of primitives which are already available. It will allow for the verification of Bitcoin addresses and transactions on-chain. This addition also enables the verification of signed messages that identify the signer by the public key hash, which has not yet been witnessed on the Bitcoin blockchain.\n\nThe new Plutus primitive defined by CIP-0127 is:\n\n- [RIPEMD-160 hashing](https://homes.esat.kuleuven.be/~bosselae/ripemd160/pdf/AB-9601/AB-9601.pdf)\n\n> ``\n> ripemd_160\n> ``\n\n## Consistency with Guardrails\n\n\nThe text of the guardrails states:\n\n\n*“The hard fork initiation action requires both a new major and a new minor protocol version to be specified as positive integers.  As the result of a hard fork, new updatable protocol parameters may be introduced. Guardrails may be defined for these parameters, which will take effect following the hard fork. Existing updatable protocol parameters may also be deprecated by the hard fork, in which case the guardrails become obsolete for all future changes.”*\n\nAll these conditions apply to this proposal.  The upgrade will have major protocol version 10 and minor protocol version 0.  No new updatable parameters will be introduced or deprecated.\n\nThe relevant guardrails in the Interim Constitution are:\n\n* **HARDFORK-01:** “The major protocol version must be the same as or one greater than the major version that will be enacted immediately prior to this change. If the major protocol version is one greater, then the minor protocol version must be zero.”\n* **HARDFORK-02:** “The minor protocol version must be no less than the minor version that will be enacted immediately prior to this change.”\n* **HARDFORK-03:** “At least one of the protocol versions (major or minor or both) must change.”\n* **HARDFORK-04** “At least 85% of stake pools by active stake should have upgraded to a Cardano node version that is capable of processing the rules associated with the new protocol version.”\n* **HARDFORK-05** “Any new updatable protocol parameters that are introduced with a hard fork must be included in this Appendix and suitable guardrails defined for those parameters.”\n* **HARDFORK-06:** “Settings for any new protocol parameters that are introduced with a hard fork must be included in the appropriate Genesis file.”\n* **HARDFORK-07:** “Any deprecated protocol parameters must be indicated in this Appendix.”\n* **HARDFORK-08:** “New Plutus versions must be supported by a version-specific Plutus cost model that covers each primitive that is available in the new Plutus version.”\n* **INTERIM-01**: “To provide sufficient time for DReps to register and campaign and for Ada holders to choose their initial voting delegations, at least 18 epochs (90 days, or approximately 3 months) must elapse after the Chang hard fork before the subsequent hard fork can be ratified. Once the subsequent hard fork is enacted, DRep voting can occur as described in CIP-1694.”\n\nThis governance action is consistent with all nine guardrails, provided attention is paid to HARDFORK-04, as described below.  None of these guardrails can be checked by the automated guardrails script.\n\n\n### Consistency with HARDFORK-01: \n\nThe protocol version will be changed from major version 9 (minor version 0) to major version 10 (minor version 0).\n\n\n### Consistency with HARDFORK-02: \n\nThe minor protocol version will be unchanged (0 in both cases).\n\n\n### Consistency with HARDFORK-03: \n\nThe major protocol version will change from 9 to 10.\n\n\n### Consistency with HARDFORK-04: \n\nThe stake pool upgrade status will need to be determined prior to ratification of the governance action.  If insufficient stake pools by stake have been upgraded, the action should not be ratified.\n\n\n### Consistency with HARDFORK-05: \n\nNo new updatable protocol parameters will be introduced by this hard fork, so the guardrails do not need to be updated.\n\n\n### Consistency with HARDFORK-06: \n\nNo new protocol parameters will be introduced by this hard fork, so a new Genesis file is not needed.\n\n\n### Consistency with HARDFORK-07: \n\nNo protocol parameters are deprecated by this hard fork.\n\n\n### Consistency with HARDFORK-08: \n\nNo new Plutus version is introduced.  The new Plutus primitives are provided as part of Plutus v3.\n\n### Consistency with INTERIM-01: \n\nThe Chang hard fork took place on September 1st, 2024.  More than 90 days will have elapsed prior to the submission of this governance action.\n\n\n## Reversion Plan\n\nThe hard fork represents a permanent change to the on-chain ledger rules.  Reversion is only possible in extreme circumstances, using the disaster recovery process that is described in [CIP-0135](https://github.com/cardano-foundation/CIPs/blob/master/CIP-0135/README.md).",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "CIP-0122",
+        "uri": "https://github.com/cardano-foundation/CIPs/tree/master/CIP-0122"
+      },
+      {
+        "@type": "Other",
+        "label": "CIP-0123",
+        "uri": "https://github.com/cardano-foundation/CIPs/tree/master/CIP-0123"
+      },
+      {
+        "@type": "Other",
+        "label": "CIP-0127",
+        "uri": "https://github.com/cardano-foundation/CIPs/tree/master/CIP-0127"
+      },
+      {
+        "@type": "Other",
+        "label": "CIP-0135",
+        "uri": "https://github.com/cardano-foundation/CIPs/tree/master/CIP-0135"
+      },
+      {
+        "@type": "Other",
+        "label": "Full List of Ledger Fixes for Protocol Version 10",
+        "uri": "https://github.com/IntersectMBO/cardano-ledger/issues/4572"
+      },
+      {
+        "@type": "Other",
+        "label": "RIPEMD-160 hashing",
+        "uri": "https://homes.esat.kuleuven.be/~bosselae/ripemd160/pdf/AB-9601/AB-9601.pdf"
+      },
+      {
+        "@type": "Other",
+        "label": "Overview of the Plutus Primitve Benchmarking Process",
+        "uri": "https://github.com/IntersectMBO/plutus/blob/master/doc/cost-model-overview/cost-model-overview.pdf"
+      },
+      {
+        "@type": "Other",
+        "label": "Generating and Updating the Plutus Cost Model",
+        "uri": "https://github.com/IntersectMBO/plutus/blob/master/plutus-core/cost-model/CostModelGeneration.md"
+      },
+      {
+        "@type": "Other",
+        "label": "Plutus Primitive Benchmarking Code",
+        "uri": "https://github.com/IntersectMBO/plutus/tree/master/plutus-core/cost-model/create-cost-model"
+      },
+      {
+        "@type": "Other",
+        "label": "Plutus Primitive Performance Results (CSV)",
+        "uri": "https://github.com/IntersectMBO/plutus/blob/master/plutus-core/cost-model/data/benching-conway.csv"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Node 10.1.1 Performance Report",
+        "uri": "https://updates.cardano.intersectmbo.org/reports/2024-10-performance-10.1.1/"
+      },
+      {
+        "@type": "Other",
+        "label": "All Cardano Node Performance Reports",
+        "uri": "https://updates.cardano.intersectmbo.org/reports/tags/benchmarking-reports"
+      },
+      {
+        "@type": "Other",
+        "label": "Public Record of Intersect Technical Steering Committee Approval",
+        "uri": "https://app.gitbook.com/o/Prbm1mtkwSsGWSvG1Bfd/s/Yzy77cQuAEYNjeNy3YrN/about/tsc-meeting-minutes/tsc-decisions-log"
+      }
+    ],
+    "title": "Hard Fork to Protocol Version 10 (\"Plomin\" Hard Fork)"
+  }
+}

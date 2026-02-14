@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "We have determined that this parameter change governance action is constitutional.",
+    "rationaleStatement": "Article III Section 6 Paragraph 3 of the Interim Constitution states \"Hard Fork Initiation and Protocol Parameter Change governance actions should undergo sufficient technical review and scrutiny as mandated by the Cardano Blockchain Guardrails to ensure that the governance action does not endanger the security, functionality or performance of the Cardano Blockchain. Governance actions should address their expected impact on the Cardano Blockchain ecosystem.\"\n\nThe guardrails that require consideration for the governance action with ID \"b2a591ac219ce6dcca5847e0248015209c7cb0436aa6bd6863d0c1f152a60bc5#0\" and title \"Plutus V3 Cost Model Parameter Changes Prior to Chang#2\" are PCM-01, PCM-02 and PCM-03.  The rationale supplied with this governance action sufficiently addresses the criteria in these guardrails.\n\nFurther, the rationale provides information regarding the technical review that was performed in relation to this change.  As the cost model parameter change is only enabled with the next hard fork and is something that needs to be optionally used by dapps, we are satisfied with the technical evaluation that was performed.\n\nWe therefore find this governance action **Constitutional**.",
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "conclusion": "This governance action sufficiently addresses the technical review and guardrails criteria of the Interim Constitution, so is deemed constitutional.",
+    "internalVote": {
+      "constitutional": 6,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Eastern Cardano Council",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "a12e0d6516828fd47afc70e2eccdfa11a4f4c76cb5eca55bdc9349865a70e4fe",
+        "signature": "2ad4dedbb52e5f0c66873e4dc8df523c8cc0f34862a0d1f05dab5130b65f77145e77b0914d9ef8332f3f273fe1686fa7b957da932a4dd0ccb91299d2c6d93f0c"
+      }
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1lqun78lcznfa2gek49m3ydslakfnm8heargfp8sax9fk54yl6ghsqp042zv",
+    "summary": "Tingvard judges this Treasury Withdrawal constitutional.",
+    "rationaleStatement": "This governance action is submitted as a Treasury Withdrawal under Article IV of the Cardano Constitution. Because it is made pursuant to an ecosystem budget that has already been approved, it follows the proper constitutional sequence for executing a community-ratified budget. The purpose of the withdrawal aligns directly with the budget’s scope, which authorizes funding for critical integrations essential to the operation, maintenance, and future development of the Cardano ecosystem.\n\nThe submission satisfies Article III, § 5 by presenting a clear and complete title, abstract, rationale, motivation, and supporting information in a standardized format suitable for constitutional review. It provides the clarity required for a governance action to be transparently evaluated.\n\nUnder Article IV, § 1, withdrawals must be used to implement an approved budget for the ecosystem’s advancement. The components described—stablecoin infrastructure, custody systems, analytics platforms, interoperability tooling, and pricing oracle integrations—fall squarely within the purpose of the approved budget and therefore comply with this requirement.\n\nArticle IV, § 2 requires that administrators and administrative processes be clearly identified. This proposal designates Intersect as the Administrator and describes in detail how funds will be custodied, disbursed, contracted, verified, and reported. It explains how smart contracts will be used where appropriate and where institutional custodianship is required, demonstrating compliance with the constitutional requirement to use blockchain-based tools “to the extent possible and beneficial.”\n\nArticle IV, § 3 is also satisfied. The withdrawal amount fits within the current Net Change Limit applicable for its enactment period. This ensures that the withdrawal stays within the treasury spending limits set by the community.\n\nThe oversight and auditability requirements under Article IV, § 4 are met through the detailed governance structure described in the proposal. It establishes milestone verification processes, independent audits, regular reporting, and clear roles for both a Steering Committee and an Oversight Committee. The constitutional requirement for independent oversight, transparency, and financial accountability is fully addressed.\n\nArticle IV, § 5 governs custody of treasury funds, requiring that funds be held in publicly viewable accounts delegated to the Auto-Abstain DRep and not delegated to any SPO. The proposal provides the address where funds will be held, confirms its delegation status, and outlines how custody transparency will be maintained throughout execution. These provisions satisfy the constitutional custody rules.\n\nThe governance action also complies with the Treasury Guardrails. The withdrawal is denominated in ada, remains within the applicable Net Change Limit, and is properly made pursuant to an approved budget, as required.\n\nTaken together, these elements show that the proposal satisfies each constitutional requirement for a Treasury Withdrawal. It presents a clear administrative structure, transparent custody model, appropriate use of smart contracts, and robust oversight mechanisms that support constitutional execution of the approved budget.",
+    "precedentDiscussion": "This decision reinforces the proper constitutional structure for multi-stage funding initiatives: budgets establish scope and governance expectations, while withdrawals supply the execution-level detail required by Article IV. The withdrawal demonstrates that complex ecosystem integrations may constitutionally rely on hybrid administration—combining smart contracts with institutional custodians—so long as transparency, auditability, and oversight remain intact.",
+    "counterargumentDiscussion": "Concerns may arise regarding confidentiality, hybrid administrative processes, or the use of both smart-contract and custodial systems. However, the Constitution does not require that all execution be performed exclusively on-chain, nor does it prohibit confidentiality where commercially necessary. The controlling requirements are auditability, custody transparency, and clear administrative responsibility, all of which appear explicitly in this governance action. As such, no constitutional conflict arises from the model described.",
+    "conclusion": "Tingvard judges this Treasury Withdrawal constitutional. It satisfies Articles III, § 5 and IV, §§ 1–5 of the Cardano Constitution, remains within the applicable Net Change Limit, and is properly made pursuant to the approved Cardano Critical Integrations Budget.\n\nThis constitutional vote is submitted in advance of the referenced budget info action’s expiration; should that budget info action fail to meet the required thresholds, this vote will be changed to “unconstitutional.” This approach is taken to ensure procedural continuity and to allow Tingvard a calm and quiet Christmas break.\n\nMerry Christmas to the Cardano community.",
+    "internalVote": {
+      "constitutional": 4,
+      "unconstitutional": 0,
+      "abstain": 1,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Tingvard"
+    }
+  ]
+}

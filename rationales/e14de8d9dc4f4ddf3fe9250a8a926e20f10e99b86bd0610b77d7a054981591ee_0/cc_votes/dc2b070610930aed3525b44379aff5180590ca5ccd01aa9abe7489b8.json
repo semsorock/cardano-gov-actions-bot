@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md",
+    "CIP136": "https://github.com/Ryun1/CIPs/tree/e56f704918061e63ce2076cc3644a946b286c8d1/CIP-governance-metadata-cc-rationale/README.md",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP136:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "summary": "EMURGO concludes to vote in favour of this Budget Info Action, based on the rationale provided below.\n",
+    "rationaleStatement": "After reviewing the proposal in light of the Cardano Blockchain Ecosystem Constitution, we find it compliant with the constitutional requirements:\n\nArticle IV, Section 1:\nThis proposal outlines a detailed plan for allocating treasury funds to support the continued development, maintenance, and strategic growth of the Cardano Blockchain. It meets the constitutional intent of enabling long-term ecosystem development through community-led input.\n\nArticle IV, Section 2:\nThe budget info explicitly specifies Intersect as administrator for the use of funds and describes a clear process for overseeing treasury disbursements. \n\nArticle IV, Section 4:\nThe proposal contains provisions for financial oversight and transparency, including mechanisms to ensure appropriate use of treasury funds. This aligns with the constitutional mandate for auditability and public accountability in budget execution.\n\nArticle IV, Section 5\nThis Budget Info Action serves as the constitutionally required checkpoint that must precede any treasury withdrawal. It complies with the rule that funds can only be accessed after passing through constitutional governance processes.\n\nArticle III, Section 5\nThe proposal is well-structured, legible, and includes all relevant links and documentation. It provides justification for the allocation based on community needs, past feedback, and strategic priorities, upholding standards of transparency and good governance.\n",
+    "conclusion": "In conclusion, based on the rationales above we confirm that Cardano Blockchain Ecosystem Budget - 275M ada Administered by Intersect is constitutional.",
+    "internalVote": {
+      "constitutional": 3,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0
+    },
+    "precedentDiscussion": "None",
+    "counterargumentDiscussion": "None",
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Emurgo",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "30288ff913de8ae9ce8b914e262b41fbb2a92bac74e4756fa0454dbdd4ad8ff1",
+        "signature": "6109e1c2360bb440e6036ce4b16e821aad2cd667b3f6e01b6bb6f597524bb3edad999caad1b67e9b3376ddc02a4a1ef00856dfbdfb90af5c727bcc39f4ba4102"
+      }
+    }
+  ]
+}

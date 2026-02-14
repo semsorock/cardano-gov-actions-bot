@@ -1,0 +1,201 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "intersectSpec": "https://github.com/IntersectMBO/governance-actions/blob/main/schemas/specification.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP108:body",
+      "@context": {
+        "references": {
+          "@id": "CIP108:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "referenceHash": {
+              "@id": "CIP108:referenceHash",
+              "@context": {
+                "hashDigest": "CIP108:hashDigest",
+                "hashAlgorithm": "CIP100:hashAlgorithm"
+              }
+            }
+          }
+        },
+        "title": "CIP108:title",
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "onChain": {
+          "@id": "intersectSpec:onChain",
+          "@context": {
+            "governanceActionType": "intersectSpec:governanceActionType",
+            "depositReturnAddress": "intersectSpec:depositReturnAddress",
+            "withdrawals": {
+              "@id": "intersectSpec:withdrawals",
+              "@container": "@set",
+              "@context": {
+                "withdrawalAddress": "intersectSpec:withdrawalAddress",
+                "withdrawalAmount": "intersectSpec:withdrawalAmount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "authors": [
+    {
+      "name": "Darlington @ Lido Nation Foundation",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "71a8b4ce60125e8b010657f84349b6cba2606868627b1f8c136a173fbce1b512",
+        "signature": "0733b5515c2e2cecba4dd84d9fc68f58a83795518dd2b00868024a903b59be2b695c46f058c6bb0cb2be2dad4940029f7fe98e539a75e61a30c8493496a47d0b"
+      }
+    },
+    {
+      "name": "Stojan Ivanisevic WE DELIVER IT",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "a1e91d8204cc3d79c98548ab2d0a6cacc0c75b2646bcfa8f5373c82253990c40",
+        "signature": "748456ab608451f6f9ca214b49b4434c9524182357142a45926e5acdc7292b8b0f5490a7e3c28e6793542b849da66d499374823b5e1963077b692c2d85274f05"
+      }
+    },
+    {
+      "name": "Byron Network",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "7d82bfad53cf7ef5794b25ec101feea4658cc6cad3b242ee07cd6fa3daf53125",
+        "signature": "8455214758243732f88607a77c61976cd2c04416cd9bab277b941ae6799937773d8a26ec0b7ed87f8929aa072cc646393ebd63a2ca911261bc0224bddfd21501"
+      }
+    },
+    {
+      "name": "Dquadrant",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "69a4ad7d146790b1d8b98dea6d44af7247a0120040da54d39cccbee498ec45ed",
+        "signature": "0609796e655eee925eadf6d900bc7e07db5a58c3a57cdb05ab6ef700872589d877d4593aca9df9603c734299bafb3206e7a410bedbe151f7af48c2a79aec480b"
+      }
+    },
+    {
+      "name": "Intersect",
+      "witness": {
+        "witnessAlgorithm": "ed25519",
+        "publicKey": "05568f86955e65c1a59df5ac1985449b167c3828dccd00b3da9df36a1cf1c743",
+        "signature": "2bfaae506d2e7a4147b61eb834bb26abcb8f90de81e39df9837354b12814a54f655df359a67fb3bb8af7f7096ed3eaec8f88a0b184cb6873392f3654392be609"
+      }
+    }
+  ],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "title": "Withdraw ₳1,150,000 for GovTool 12 months active maintenance and development",
+    "abstract": "This Treasury Withdrawal funds **12 months** of full active maintenance and development for GovTool, the open-source, community-owned set of governance tools that form Cardano’s core low-barrier platform for participation in on-chain governance.\n\nGovTool enables ada holders to register, delegate, propose, vote, and transparently view outcomes. It is actively maintained and expanded by the Cardano GovTool Consortium which consists of ByronNetwork, WeDeliver, LidoNation and Dquadrant with additional open source contributors, guided by the Governance Tools Working Group.\n\nFunding will ensure operational stability, incentivisation for community contributions, support for other open source governance tools using GovTool open-source code and APIs, and deliver accelerated functional updates across all governance pillars. Any unused funds will be returned to the Cardano Treasury.\n\nThis withdrawal follows the approved budget Info Action for ₳1.15M (gov_action1n5sn54mgf47a7men2ryq6ppx88kta4wvenz2qkl4f9v6ppje8easqxwm88m) and it will be administered by Intersect via smart contract framework, fulfilling the constitutional requirement to detail the proposed solution, its alignment to the approved budget, and the amount to be withdrawn.",
+    "motivation": "This proposal addresses the risk of governance participation becoming fragmented or dependent on closed-sourced, privately-owned, commercialised tools. In Cardano’s Voltaire era, without an open, neutral, and accessible platform like GovTool, Cardano’s decentralisation and legitimacy would be weakened.\n\nGovTool is already widely used:\n\n* 50,000+ unique mainnet users across 170+ countries (metrics via [analytics.gov.tools](https://analytics.gov.tools/))  \n* Three networks supported  \n* Thousands of governance transactions  \n* Integration with ecosystem tools (1694.io, cardanobudget.com, tempo.vote, Governancespace.com, budget.cardano.africa, 1694.tools, and others)\n\nFunding will preserve and expand this infrastructure, sustain its open source nature, and ensure it continues to serve as a public good underpinning Cardano governance. Furthermore, it will onboard more individual contributors making maintenance more distributed and efficient going forward.\n\n* [GovTool repository (voting and delegation pillars)](https://github.com/IntersectMBO/govtool/)  \n* [Proposal Pillar repository](https://github.com/IntersectMBO/govtool-proposal-pillar)  \n* [Outcomes Pillar repository](https://github.com/IntersectMBO/govtool-outcomes-pillar)",
+    "rationale": "### **Project Solution**\n\nAs approved in the Budget Info action, the funding will deliver:\n\nHosting, infrastructure maintenance, CI-CD, security, and minimum maintenance of\n\n* $5k / ₳6.25k per month for hosting costs (further detailed breakdown [here](https://docs.gov.tools/important-updates/govtool-maintenance-ending-soon/updated-budget-proposal/budget-proposal-faqs#whats-included-in-the-usd5000-per-month-for-hosting)) including Dev, QA environments for the dev of each of the pillars and Preview, PreProd and Mainnet production environments  \n* $30k / ₳37.5k (0.25 FTE) for 12 months of infrastructure maintenance\n\nIncentives for contributors\n\n* ₳150,000 to be allocated organically via direct contribution on the repos  \n* ₳100,000 to be allocated to other open source governance tools that provide new and better ways to participate in Cardano Governance leveraging (and where possible expanding) GovTool code or GovTool APIs  \n* Note: it is planned to utilize the [Andamio platform](https://www.andamio.io/) to transparently distribute incentives to contributors\n\nActive development and maintenance of all pillars\n\n* Overall end-to-end testing $120k / ₳150k (1 FTE)  \n* Proposal Pillar $120k / ₳150k (1 FTE)  \n* Delegation Pillar $180k / ₳225k (1.5 FTE)  \n* Voting Pillar $180k / ₳225k (1.5 FTE)  \n* Outcomes Pillar $90k / ₳122.5k (0.75 FTE)  \n* Budget discussion Pillar $60k / ₳75k (0.5 FTE)\n\nThis was budgeted based upon the ADA-USD value of 0.8. Any unused funds will be returned to the Cardano Treasury.\n\n#### Active Development - Roadmap\n\nBecause GovTool's roadmap is directly defined by the Cardano community, so subject to change and evolution. The best place to check what's coming next is the community backlog [Governance Tools Community Backlog](https://github.com/orgs/IntersectMBO/projects/34/views/1) and the community discussion (recently started to make it easier to define direction) [GovTool discussions](https://github.com/IntersectMBO/govtool/discussions). \n\nHowever there are some key initiatives that already have clear community support and that this proposal commits to deliver (full details can be seen in the [shared GovTool roadmap](https://docs.gov.tools/important-updates/govtool-maintenance-ending-soon/updated-budget-proposal/proposed-roadmap)). High-level details below (the initiatives are in order of readiness for development):\n\n* Add support to **create and operate group (script-based) DReps**, this will enable smaller DReps to easily come together and build strong coalitions so further distributing voting power.  \n* **DRep history on the DRep page** to show what that DRep voted on, how and (if available) with what rationale, also show the delegations moving in and out. All this will provide better context to the delegator, also opening new options to sort and filter DReps so supporting liquid democracy.  \n* **DRep voting history on Governance Actions** to allow DReps and Ada holders to see directly on the Governance Action page, alongside all the context coming from the metadata, the details related to voting, making it easier also to see if their DRep voted as they expected, thus enabling liquid democracy.  \n* **Ability to submit more than one vote in one transaction**  \n* **Constitutional Committee details on Governance Actions** (both those up for voting and those that have been ratified or rejected). This will make it easier to see which constitutional committee voted on a specific Governance Action and why they voted in that way, all on the same page.  \n* **Add support for group proposers** to foster the creation of more governance actions, provide more clarity on-chain about where the proposal comes from  \n* **Integration with CoSponsor** to allow authors to crowdfund the cost of the Governance Action deposit, hence lowering the barrier for participation to the global community  \n* Add an **easier way for delegators to identify DReps** by helping find DReps that have voting history aligned with delegators voting principles.  \n* **Further expand open APIs coverage** to include access to submission for all types of governance actions. This will make it easier for other builders to include this critical feature faster, dramatically lowering the barriers to submit a governance action.  \n* Generally **expand options for individual contributions to the open source code**. Specifically integrate the GitHub backlog with the Andamio platform to allow anyone to get onboarded to the repos and be rewarded for meaningful contributions to key identified issues  \n* **Optimise the hosting and deployment infrastructure** to reduce cost and make general maintenance more efficient\n\n#### Governance\n\nThe Governance Tools working group in Intersect, is responsible for coordinating efforts related to governance tooling in general, hosting discussions about current and future needs. Over the past 18 months, the working group focused on channeling community direction for the GovTool project. Going forward the working group, on top of supporting broader discussions across tools, will continue supporting the newly formed GovTool consortium, acting also the meeting space for it when useful.\n\nThe GovTool Consortium, open to any contributor who actively joins the discussions, will keep collecting input and feedback from the users and owners of GovTool (Cardano Community) and shape the roadmap direction. This will also act as the coordinator to transparently allocate and distribute the incentives of this budget to individual contributors by leveraging the Andamio platform. In the short-term, this group will also help facilitate the open process to award to a builder the hosting and infrastructure maintenance role described in this budget.\n\n#### Vendor Profiles\n\nThe **Cardano GovTool Consortium** is made of all the builders currently actively working on the development of GovTool, the builders of tools who leverage GovTool APIs and code, and anyone who actively participates in the Governance tools working group. The following builders who are submitting this governance action are leading the Consortium effort:\n\n* [**LidoNation**](https://www.lidonation.com/en) - Outcomes pillar  \n* [**ByronNetwork**](https://byron.network) - Delegation & Voting pillars  \n* [**WeDeliver**](https://we-deliver.io/) - Proposal Discussion & Budget Proposals pillars  \n* [**Dquadrant**](https://dquadrant.com/) - End-to-end testing\n\nThese teams have been building governance tools since before CIP-1694, through SanchoNet GovTool, Voltaire GovTool, and the Chang&Plomin upgrades. All code is open-source and maintained in public repositories, with contributions from a global community of developers.\n\n#### Contract Management\n\nA written off-chain Legal Contract will be created between each member of the GovTool consortium (vendor) and Cardano Development Holdings (CDH), administered by Intersect, detailing delivery schedules, milestones, and dispute resolution processes.\n\n#### Project Delivery\n\nMilestones, acceptance criteria, payment amounts, and timelines will be agreed upon between Intersect and the vendors. Vendors will deliver according to the Legal Contract, with milestone completion attested by the vendors and verified by Intersect or a 3rd Party Assurer.\n\nIntersect’s delivery assurance function will monitor progress and communicate status to the community. A 3rd Party Assurer will review and sign off on milestone deliverables before payments are released.\n\n#### Budget Management Tooling\n\nIntersect will use the treasury management smart contract framework developed by Sundae Labs, audited by TxPipe and MLabs. Funds will be held in a Treasury Reserve Smart Contract (TRSC) and disbursed to Project-Specific Smart Contracts (PSSCs) as milestones are met.\n\nThe Oversight Committee — consisting of Sundae Labs, Cardano Foundation, Dquadrant, Xerberus, and NMKR — will verify key administrative actions on-chain.\n\nNote: Dquadrant is present within the Oversight Committee and as a builder within the GovTools Consortium, they will abstain from any oversight of GovTool-related contracts.\n\nA public dashboard ([cardanotreasury.fi](http://cardanotreasury.fi)) will allow the community to audit fund flows, track milestones, and verify spending immutably on-chain.\n\n##### Specifics\n\nIntersect will reuse the infrastructure used for the Cardano Blockchain Ecosystem Budget. The same Treasury Reserve Smart Contract (TRSC), with many Project-Specific Smart Contracts (PSSC), will be used. Intersect's management consists of three 'admin' and two Intersect 'leadership' roles. A Oversight Committee consisting of five external, independent third-party entities will provide checks and balances on Intersect, and safeguard against errors and unilateral control. The administration of both TRSC and PSSCs will be managed by Intersect, with external oversight on certain actions from the Oversight Committee.\n\nThe Oversight Committee consists of Sundae Labs, Cardano Foundation, Xerberus, Dquadrant and NMKR. Their role is to independently verify key administrative actions using on-chain logic, ensuring accuracy and consistency without exercising discretion over governance decisions.\n\nFor all details on Intersect's configuration, please see the [Smart Contract Guide](https://docs.intersectmbo.org/cardano-facilitation-services/cardano-budget/intersect-administration-services/smart-contracts-as-part-of-our-administration) on the knowledge base.\n\nThe high level permissions are as follows:\n\n* TRSC Fund and PSSC Modify  \n  * Two of the three Intersect admins, two of the five trusted entities and one of the two Intersect leadership sign-offs must authorize  \n* TRSC Disperse  \n  * Two of three Intersect admins, three of five trusted entities and two of two Intersect leadership sign-off must authorize  \n* TRSC Pause and Resume  \n  * Two of three Intersect admins, and one of two Intersect leadership sign-off must authorize  \n* TRSC Sweep  \n  * One of three Intersect admins, and one of two Intersect leadership sign-off must authorize  \n* TRSC Reorganize  \n  * Two of three Intersect admins and three of five trusted entities must authorize\n\n##### Processes\n\nUpon enactment of this governance action, funding for this project will be directed into the TRSC's stake account. The logic of the TRSC and PSSC prevent them from delegating to SPOs, only allowing delegation to the auto-abstain predefined DRep. Thus funds held in administration by these contracts will be delegated to auto-abstain predefined DRep.\n\nWhen the Legal contract is prepared and the vendor is ready, funding for this project will be transferred using the Fund action to a PSSC. All milestones will be outlined within the metadata.\n\nA dashboard is available for the community to audit the TRSC or PSSC and track metrics related to this withdrawn ada as well as being immutably verifiable on chain. Please see [cardanotreasury.fi](http://cardanotreasury.fi).\n\nThe subsections; Contract Management, Project Delivery, and Budget Management Tooling described above cover the constitutional requirements specified in Article IV sections 4 and 5.\n\n### References",
+    "references": [
+      {
+        "@type": "Other",
+        "label": "Approved Budget Info Action in GovTool",
+        "uri": "https://gov.tools/outcomes/governance_actions/9d213a57684d7ddf6f3350c80d042639ecbed5ccccc4a05bf54959a086593e7b#0"
+      },
+      {
+        "@type": "Other",
+        "label": "Sundae Labs Budget Management Smart Contracts Github Repository",
+        "uri": "https://github.com/SundaeSwap-finance/treasury-contracts"
+      },
+      {
+        "@type": "Other",
+        "label": "Proposed GovTool Roadmap",
+        "uri": "https://docs.gov.tools/important-updates/govtool-maintenance-ending-soon/updated-budget-proposal/proposed-roadmap"
+      },
+      {
+        "@type": "Other",
+        "label": "Open Community Backlog",
+        "uri": "https://github.com/IntersectMBO/govtool/"
+      },
+      {
+        "@type": "Other",
+        "label": "Maintenance contracts builders responsibilities",
+        "uri": "https://docs.gov.tools/important-updates/govtool-maintenance-ending-soon/updated-budget-proposal/govtool-builder-monthly-responsibilities"
+      },
+      {
+        "@type": "Other",
+        "label": "GovTool repository (voting and delegation)",
+        "uri": "https://github.com/IntersectMBO/govtool/"
+      },
+      {
+        "@type": "Other",
+        "label": "Proposal Pillar repository",
+        "uri": "https://github.com/IntersectMBO/govtool-proposal-pillar"
+      },
+      {
+        "@type": "Other",
+        "label": "Outcomes Pillar repository",
+        "uri": "https://github.com/IntersectMBO/govtool-outcomes-pillar"
+      },
+      {
+        "@type": "Other",
+        "label": "GovTool Test Reports",
+        "uri": "https://intersectmbo.github.io/govtool-test-reports/"
+      },
+      {
+        "@type": "Other",
+        "label": "GovTool open app analytics",
+        "uri": "https://analytics.gov.tools/"
+      },
+      {
+        "@type": "Other",
+        "label": "GovTool Docs",
+        "uri": "https://docs.gov.tools"
+      },
+      {
+        "@type": "Other",
+        "label": "GovTool Proposal Pillar API docs",
+        "uri": "https://be.pdf.gov.tools/api-docs/"
+      },
+      {
+        "@type": "Other",
+        "label": "GovTool Outcomes Pillar API docs",
+        "uri": "https://be.outcomes.gov.tools/"
+      },
+      {
+        "@type": "Other",
+        "label": "GovTool Voting and Delegation Pillar API docs",
+        "uri": "https://be.gov.tools/swagger-ui/#/"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano GovTool X Account",
+        "uri": "https://x.com/cardano_govtool"
+      }
+    ],
+    "onChain": {
+      "governanceActionType": "treasuryWithdrawals",
+      "depositReturnAddress": "stake1uyvjdz9rxsfsmv44rtk75k2rqyqskrga96dgdfrqjvjjpwsefcjnp",
+      "withdrawals": [
+        {
+          "withdrawalAddress": "stake17xzc8pt7fgf0lc0x7eq6z7z6puhsxmzktna7dluahrj6g6ghh5qjr",
+          "withdrawalAmount": 1150000000000
+        }
+      ]
+    }
+  }
+}

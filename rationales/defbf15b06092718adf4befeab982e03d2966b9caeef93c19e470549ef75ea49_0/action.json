@@ -1,0 +1,57 @@
+{
+  "@context": {
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+    "authors": {
+      "@container": "@set",
+      "@context": {
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@context": {
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature",
+            "witnessAlgorithm": "CIP100:witnessAlgorithm"
+          },
+          "@id": "CIP100:witness"
+        }
+      },
+      "@id": "CIP100:authors"
+    },
+    "body": {
+      "@context": {
+        "abstract": "CIP108:abstract",
+        "motivation": "CIP108:motivation",
+        "rationale": "CIP108:rationale",
+        "references": {
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "referenceHash": {
+              "@context": {
+                "hashAlgorithm": "CIP100:hashAlgorithm",
+                "hashDigest": "CIP108:hashDigest"
+              },
+              "@id": "CIP108:referenceHash"
+            },
+            "uri": "CIP100:reference-uri"
+          },
+          "@id": "CIP108:references"
+        },
+        "title": "CIP108:title"
+      },
+      "@id": "CIP108:body"
+    },
+    "hashAlgorithm": "CIP100:hashAlgorithm"
+  },
+  "authors": [],
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "abstract": "The Cardano 2025 on-chain budget process introduces a constitutionally driven, community-led model for treasury allocation. ADA holders, through Delegated Representatives (DReps) and Constitutional Committee oversight, vote on funding proposals within a capped Net Change Limit of 350 million ADA. The process includes two stages: community signaling and a binding on-chain Info Action vote.\nIntersect, a member-based organization, facilitates the process by organizing submissions and offering domain expertise, while final decisions rest with the community. Intersect also serves as the administrator for the use of approved funds.\nCurrent metrics show 11.22B ADA delegated, with 3.92B cast in Ekklesia—72% participation of active voting power. Yet, several proposals advanced without meeting a basic 50 + 1 Lovelace% threshold (2.69B ADA), raising concerns about legitimacy and governance integrity.\nThis info action aim to help community builders to quickly get approval onchain while individually they might not have 100k ADA deposit readily available. We submit all proposals (except founding entity proposals) that have met the 2.69B threshold for inclusion. Without respecting the safeguards put in place within the Cardano Constitution, low-support proposals may continue to pass, risking public confidence within the entire budgetary process. \nThe 2025 budget process reflects Cardano’s Voltaire vision—but its long-term success depends on transparency and accountability aligned with the constitution.",
+    "motivation": "The 2025 Cardano budget, established through the Intersect-led process, is designed to ensure Cardano remains secure, competitive, and growth-oriented during this pivotal first year of decentralized, constitutional governance. The total treasury allocation adheres to the community-approved Net Change Limit (NCL) of ₳350 million ada, reflecting our shared commitment to long-term financial sustainability.\nA key issue in the initial budget process was the misapplication of the participation threshold. The 50% + 1 Lovelace threshold was calculated based on total ada participating in the vote, rather than the active voting stake—which significantly alters the democratic weight of participating DReps. This discrepancy risks enabling governance distortion through low-turnout manipulation, akin to gerrymandering.\nTo safeguard against such vulnerabilities and uphold the integrity of Cardano’s governance process, this Info Action includes only those proposals submitted by community builders (that might not have 100k ADA deposit) and met the corrected threshold of 2.69B ada, equivalent to 50% + 1 Lovelace of the active registered voting stake. This ensures that community-driven proposals with broad support are prioritized.\nWe invite the founding entities to formally submit their respective budget proposals for community approval through the same transparent and constitutional mechanisms. This approach preserves fairness, encourages decentralization, and reinforces the principle that all proposals—regardless of origin—must meet the same community-backed standards.\n| Title                                                             | Ekklesia Vote Count Link                                                                                                                                                 | Allocation (ADA) | Ekklesia Vote Count (ADA)      |\n|-------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|-------------------------------|\n| Midgard - Optimistic Rollups                                      | [Link](https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b64565577986442d276)                                                         | 2,162,096        | 3,580,699,128 ADA             |\n| Starstream: next gen VM[t]                                        | [Link](https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b64565577986442d2ac)                                                         | 2,000,000        | 3,470,904,894 ADA             |\n| Blockfrost Platform community budget proposal | [Link](https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b63565577986442d14a)                                                                                                                                                                         | 1,300,000        | 3,185,834,713 ADA             |\n| zkFold ZK Rollup                                                  | [Link](https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b63565577986442d1c4)                                                         | 1,161,000        | 3,202,699,128 ADA             |\n| Hardware Wallets Maintenance                                      | [Link](https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b64565577986442d2aa)                                                         | 424,800          | 3,431,605,268 ADA             |\n| Ledger App Rewrite                                                | [Link](https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b63565577986442d202)                                                         | 300,000          | 2,829,275,087 ADA             |\n| Dolos: Sustaining a Lightweight Cardano Data Node                 | [Link](https://2025budget.intersectmbo.org/ballots/680d1b63565577986442d123/proposals/680d1b64565577986442d29a)                                                         | 220,914          | 2,695,223,782 ADA             |\n|                  | Total Allocation                                                         | 7,568,810          |              |\n\n**Total Allocation**: Sum of all proposals that met threshold of 2.69B minus the founding entity proposals\n\n**Bottom line for DReps**: The 2025 budget is guided by one core question: *What mix of spending best transforms Cardano’s roadmap into real-world adoption and long-term resilience—without overspending the treasury?* The proposed allocations reflect the community’s best answer, shaped by 2024 cost data, strategic modeling, and public feedback.\nThis plan **excludes proposals from founding entities** (Intersect, IOG, Cardano Foundation, Emurgo) and **omits any proposal that failed to meet the 2.69B ADA threshold (50% + 1 Lovelace)**—ensuring that only those with clear community support advance. It does **not push through borderline or low-participation proposals**, and it **respects the constitutional framework** governing treasury withdrawals.\nYour vote determines whether this budget—and the projects it empowers—moves forward with legitimacy, accountability, and alignment with Cardano’s long-term vision.",
+    "rationale": "The 2025 Cardano budget process is built to reconcile strategic planning with decentralized authority, ensuring that treasury allocations are community-driven, constitutionally sound, and economically sustainable. It emphasizes transparency, voting legitimacy, and fiscal restraint—all within the framework of the Cardano Constitution and Net Change Limit (NCL).\n\n---\n\n### 1. Proposal Submission & Consolidation\n\nThe process began with dual intake:\n\n- **Block Budgets** from Intersect’s seven working committees (technical, governance, marketing, etc.)\n- **Open Submissions** from any Cardano contributor, regardless of Intersect membership.\n\nAll submissions were standardized—detailing problem, benefit, roadmap alignment, and cost—to ensure fair and structured evaluation. Founding entities (Intersect, IOG, Cardano Foundation, Emurgo) were expected to submit **independent Info Actions** and were **not bundled** with the general budget. This ensures neutrality and reinforces that **this budget includes only community and committee proposals that met threshold—excluding those from founding entities**.\n\n---\n\n### 2. Community Signaling\n\nAn off-chain signaling phase enabled DReps and ADA holders to express preliminary support via GovTool and Ekklesia. Only proposals that achieved **more than 50% approval by voting power** (a minimum of **2.69 billion ADA**, or 50%+1 Lovelace of the 5.38B active voting stake) were advanced to the *Budget Info Action*.\n\nEkklesia recorded just **3.92B in voting participation**, raising concerns that **proposals receiving less than 2.69B ADA in support—but still included—would not represent majority consensus**. This budget seeks to correct that by **excluding all proposals that failed to meet the full quorum** and by **removing founding entity proposals**, even if they surpassed the threshold. This aims to address prior practices resembling **voter engineering or gerrymandering**, where under-supported proposals were pushed through by bundling or procedural manipulation.\n\n---\n\n### 3. On-Chain Budget Approval (Budget Info Action)\n\nProposals that passed community signaling with >2.69B ADA were packaged into this *Budget Info Action* for on-chain ratification. In accordance with **Article IV of the Cardano Constitution**, a valid budget requires:\n\n- A **DRep vote surpassing 50%+1 Lovelace of active voting power** (≥2.69B ADA)\n- A **minimum of 5 out of 7 Constitutional Committee votes** affirming that the budget complies with the Constitution\n- All treasury disbursements to remain **within the 2025 Net Change Limit** (350 million ADA)\n\n---\n\nThis *Budget Info Action* complies with all of the above. DReps now vote knowing that **only proposals that passed the threshold and are constitutionally sound are included**.",
+    "references": [],
+    "title": "2025 Cardano Blockchain Ecosystem Budget - 7.5M ₳ for community builders"
+  }
+}

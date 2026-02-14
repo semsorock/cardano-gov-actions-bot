@@ -1,0 +1,113 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action1lqun78lcznfa2gek49m3ydslakfnm8heargfp8sax9fk54yl6ghsqp042zv",
+    "summary": "Ace Alliance finds the proposed “Withdraw ₳70,000,000 for Cardano Critical Integrations Budget” Treasury Withdrawal Governance Action Constitutional.",
+    "rationaleStatement": "A [PDF version][pdf-link] of this rationale is also made available.\n\n[pdf-link]: https://ipfs.io/ipfs/QmPfRPG1HXeNTXX79grgpL5rc6XUoAzU9XPrXHAmHMWKXy\n\nAce Alliance finds this Treasury Withdrawal Governance Action (TWGA) Constitutional. The Action fits within the Constitution’s Blockchain Ecosystem Budget framework of Article IV, which expects the community to periodically approve budgets for ongoing operation, maintenance, and future development, and contemplates withdrawals “to give effect” to budgets that are then in effect. \n\nThis proposal is linked to and aligns with the previously passed “Cardano Critical Integrations Budget” (CCIB) Budget Info Action (gov\\_action13a2dqgwxum7d6kjfprcs57cf9733ek2dkt5qnuhqd4ll5ntcwu7sqluwkxd). Intersect is the named Administrator for oversight and the proposal anticipates the  contracts and other blockchain-based tools to support decision-making and transparency, to the extent possible and beneficial as expected in Article IV, Section 2\\. \n\nUnder Article IV, Section 3,  proposed withdrawals from the Cardano Treasury that would violate the then-applicable Net Change Limit are precluded, and no withdrawal is permitted unless it is authorized and made pursuant to a Cardano budget then in effect that has not been determined unconstitutional by the Constitutional Committee. While thisTWGA was submitted before the CCIB and 2025 Net Change Limit Extension were ratified, both Actions are now ratified and satisfy these necessary conditions.\n\nThis Action meets the independent audit and oversight requirements of Article IV, Section 4, specifying  an allocation of funds for audit and including dispute resolution provisions. It adopts the custody safeguards required by Article IV, Section 5, by committing that any ada held by an administrator prior to disbursement will be kept in separate, community auditable, non-delegated accounts set to the predefined auto-abstain DRep.\n\nFinally, as with all governance actions, the submission satisfies the standardized-format expectations in Article III, Section 5, including a URL and hash of the off-chain materials and rationale (title, abstract, reason, and supporting materials), and with the on-chain content matching the final off-chain version.",
+    "precedentDiscussion": "Notably, this Treasury Withdrawal Governance Action was submitted on-chain for voting prior to the final on-chain disposition of two required precursor Governance Actions: the corresponding Budget Info Action and a Net Change Limit Info Action. Here, the failure of either required Action’s ratification at least one (1) epoch boundary before the close of this Action’s voting window would have resulted in this Action being found Unconstitutional. That is not the case here, as both required precursor Actions were ratified at the Epoch 603-604 boundary (12/30/2025), and voting on this Action remains open through at least the Epoch 604-605 boundary (1/4/2026).\n\nWhile staggered submissions with overlapping voting periods for dependent Actions can facilitate shorter combined ratification time and streamlined Community review, Action submitters must ensure that sufficient epoch separation provides for the review of Actions after the final on-chain disposition of any required precursor Actions. Before submitting dependent Actions with overlapping voting periods, submitters are responsible for evaluating the specific Action types involved, their respective ratification and enactment conditions, and other relevant variables to mitigate constitutionally deficient outcomes. If the submitter is in doubt evaluating these factors, they should seek guidance before submitting. Alternatively, such Actions can be submitted series, first observing the successful on-chain disposition of any required precursor Actions before submitting the subsequent Action.",
+    "counterargumentDiscussion": "Some may argue that a Treasury Withdrawal of this size must disclose, up front, the specific vendors who will receive funds and detailed line-item costs for each integration. It could be asserted that, without vendor-level transparency, the community cannot adequately evaluate the proposal or hold recipients accountable.\n\nThe Constitution provides specific requirements for proposed withdrawals: they must be pursuant to an approved budget, within the applicable Net Change Limit, and administered under a framework that provides sufficient auditability, oversight, and appropriate controls. Moreover, as stated in our assessment of the corresponding Budget Info Action, preventing funding based on the normative confidentiality requirements of vendors and partners could both preclude engagement with such actors from the outset and undermine the negotiation of favorable terms in the best interest of the Community. Despite the unavailability of more granular information on vendor pricing and partner disclosures due to normative confidentiality obligations, Administrator oversight and independent audit can ensure Community receipt of meaningful reporting on disbursements and delivery outcomes. \n\nWhile this counterargument raises important considerations involving governance judgement, such considerations are best weighed through Community evaluation as expressed through the voting of DReps. A group of established Cardano institutions is asking the community to entrust them with negotiating and executing sensitive trade deals intended to benefit the ecosystem. It is for the Cardano Community and their DReps to decide whether that level of discretion is acceptable, whether the proposed oversight and reporting are sufficient, and whether the trust assumptions match their risk tolerance.",
+    "conclusion": "Ace Alliance finds this Treasury Withdrawal Governance Action Constitutional.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": [
+      {
+        "@type": "RelevantArticles",
+        "label": "Cardano Constitution (IPFS)",
+        "uri": "ipfs://bafkreiazhhawe7sjwuthcfgl3mmv2swec7sukvclu3oli7qdyz4uhhuvmy"
+      },
+      {
+        "@type": "Other",
+        "label": "2025 Net Change Limit",
+        "uri": "gov_action1nd3t833j7v5sz65k3tp9yyvztw60sjcjgcgjr37682s3m7frwrusqmd2k80"
+      },
+      {
+        "@type": "Other",
+        "label": "2025 Net Change Limit Extension",
+        "uri": "gov_action169kllwhfmp488je5x5rwvufd08p8sztdcf0ghf5sp6ey2gnjdwaqql47xry"
+      },
+      {
+        "@type": "Other",
+        "label": "Cardano Critical Integrations Budget",
+        "uri": "gov_action13a2dqgwxum7d6kjfprcs57cf9733ek2dkt5qnuhqd4ll5ntcwu7sqluwkxd"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor URL (IPFS)",
+        "uri": "ipfs://bafkreiecqskxkmakkrzrs2xs2olh5jcwbuz5qr5gesp6merwcaydcaojiq"
+      },
+      {
+        "@type": "GovernanceMetadata",
+        "label": "Metadata Anchor Hash",
+        "uri": "1ff4e21156b94a8609545f96e68f005fcd1bf4c790fb6f613b7f8e49e1e71da6"
+      },
+      {
+        "@type": "Other",
+        "label": "Rationale PDF",
+        "uri": "ipfs://QmPfRPG1HXeNTXX79grgpL5rc6XUoAzU9XPrXHAmHMWKXy"
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Ace Alliance"
+    }
+  ]
+}

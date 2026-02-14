@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "@language": "en-us",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote",
+            "againstVote": "CIP136:againstVote"
+          }
+        }
+      }
+    },
+    "authors": {
+      "@id": "CIP100:authors",
+      "@container": "@set",
+      "@context": {
+        "did": "@id",
+        "name": "http://xmlns.com/foaf/0.1/name",
+        "witness": {
+          "@id": "CIP100:witness",
+          "@context": {
+            "witnessAlgorithm": "CIP100:witnessAlgorithm",
+            "publicKey": "CIP100:publicKey",
+            "signature": "CIP100:signature"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "body": {
+    "govActionId": "gov_action13pzmlsmmktmfareqpl3gzj9nm63ugwvmp3y7urkjhd8rf89tn6msq95mp3f",
+    "summary": "Tingvard supports this Info Action and records its vote in remembrance of Max van Rossem.",
+    "rationaleStatement": "Max van Rossem was one of those rare people who made Cardano better not by being loud, but by being present. Thoughtful. Careful. Kind. He gave his time generously, asked the right questions, and never lost sight of the fact that governance is about people before it is about process.\nMax played a meaningful role in shaping Cardano’s governance foundations. His work on the Constitution, his leadership in the Constitutional Committee Election Working Group, and his contributions as a delegate at the Constitutional Convention helped turn abstract principles into something the community could actually live with and believe in. Article VIII exists in large part because Max insisted that community discussion, participation, and openness mattered enough to be written into the network’s DNA.\nBeyond formal roles, Max was a builder of connections. Through his work with the Dutch DRep Collective, his local community engagement, and projects like AdaMoments, he reminded us that blockchains are ultimately memory machines — not just for transactions, but for people, moments, and shared history.\nNaming Protocol Version 11 the “van Rossem Hard Fork” is not about protocol mechanics. It is about acknowledgement. About gratitude. About ensuring that when Cardano moves forward, it does so carrying the names of those who helped guide it there.\nWe record this vote with respect, appreciation, and remembrance. Max’s legacy is already written into Cardano. This simply makes it visible.",
+    "precedentDiscussion": "NA",
+    "counterargumentDiscussion": "NA",
+    "conclusion": "This vote is cast in memory of Max van Rossem, with gratitude for his contributions and respect for the legacy he leaves behind.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0,
+      "againstVote": 0
+    },
+    "references": []
+  },
+  "authors": [
+    {
+      "name": "Tingvard"
+    }
+  ]
+}

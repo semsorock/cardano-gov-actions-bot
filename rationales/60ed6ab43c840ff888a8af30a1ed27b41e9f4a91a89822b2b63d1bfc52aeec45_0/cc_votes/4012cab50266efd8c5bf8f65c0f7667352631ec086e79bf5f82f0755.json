@@ -1,0 +1,55 @@
+{
+  "@context": {
+    "@language": "en",
+    "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+    "CIP136": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md#",
+    "hashAlgorithm": "CIP100:hashAlgorithm",
+    "body": {
+      "@id": "CIP136:body",
+      "@context": {
+        "references": {
+          "@id": "CIP100:references",
+          "@container": "@set",
+          "@context": {
+            "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+            "Other": "CIP100:OtherReference",
+            "label": "CIP100:reference-label",
+            "uri": "CIP100:reference-uri",
+            "RelevantArticles": "CIP136:RelevantArticles"
+          }
+        },
+        "summary": "CIP136:summary",
+        "rationaleStatement": "CIP136:rationaleStatement",
+        "precedentDiscussion": "CIP136:precedentDiscussion",
+        "counterargumentDiscussion": "CIP136:counterargumentDiscussion",
+        "conclusion": "CIP136:conclusion",
+        "internalVote": {
+          "@id": "CIP136:internalVote",
+          "@container": "@set",
+          "@context": {
+            "constitutional": "CIP136:constitutional",
+            "unconstitutional": "CIP136:unconstitutional",
+            "abstain": "CIP136:abstain",
+            "didNotVote": "CIP136:didNotVote"
+          }
+        }
+      }
+    }
+  },
+  "hashAlgorithm": "blake2b-256",
+  "authors": [
+    {
+      "name": "Cardano Japan"
+    }
+  ],
+  "body": {
+    "summary": "Amaru Treasury Withdrawal 2025 ---- > Constitutional",
+    "rationaleStatement": "[Constitutional] We concluded the Governance Action is constitutional. We have reviewed the Governance Action, particularly focusing on Article IV, Sections 1 through 4, which address budget authorization, fund allocation, oversight responsibilities, and independent audits. The proposal satisfies the constitutional requirements for treasury withdrawals. It explicitly states that the ₳1.5M withdrawal is aligned with a previously approved and well-documented budget. The distribution plan is transparent, with detailed information about scope categories, responsible maintainers, budgets, and specific stake addresses. This aligns with the requirement under Section 2 for clear designation of administrators and oversight processes. The governance mechanism includes the use of audited smart contracts developed by Sundae Labs and a provisional setup that prioritizes safety until the final system is ready. Each scope has a clearly named owner accountable for budget usage, and PRAGMA, the overseeing organization, has implemented a 5-out-of-5 multisig approval process for contingency adjustments. This fulfills the transparency and supervisory criteria of Article IV, Section 2. Regarding Section 4, which suggests the inclusion of regular independent audits, some members noted that the current audit arrangement—although not yet finalized—is acknowledged and planned. While the auditor will be selected at a later stage, the integration of external audits is part of the roadmap, which is deemed acceptable in the absence of a strict constitutional definition of “independent institution.” Additionally, in accordance with Article V, Section 2, the stake addresses receiving the funds have been configured with the “Auto-Abstain” setting, ensuring that recipients of treasury withdrawals do not vote on future governance actions. This is an important safeguard for neutrality and governance integrity. In summary, this governance action exhibits strong alignment with constitutional mandates, with significant improvements in transparency, accountability, and supervisory structures. The proposal demonstrates a robust framework for fund administration and is therefore judged constitutional.",
+    "internalVote": {
+      "constitutional": 5,
+      "unconstitutional": 0,
+      "abstain": 0,
+      "didNotVote": 0
+    }
+  }
+}
