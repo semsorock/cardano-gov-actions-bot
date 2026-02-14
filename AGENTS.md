@@ -2,19 +2,23 @@
 
 ## Project Purpose
 
-This is a **Cardano blockchain governance monitoring bot** that watches for new governance actions and Constitutional Committee (CC) votes, then automatically posts summaries to Twitter/X. It's deployed as a Google Cloud Function that responds to webhook events from Blockfrost.
+This is a **Cardano blockchain governance monitoring bot** that watches for new governance actions and Constitutional Committee (CC) votes, then automatically posts summaries to Twitter/X. It also archives governance rationale files to GitHub via automated PRs. It's deployed as a Google Cloud Function that responds to webhook events from Blockfrost.
 
 ## Architecture Overview
 
 ### Core Data Flow
 
-1. **Blockfrost webhook** → Cloud Run endpoint (`/block` or `/epoch`)
+1. **Blockfrost webhook** → Cloud Run unified `/` endpoint
 
 2. **Query Cardano DB-Sync** (PostgreSQL) for governance data
 
 3. **Fetch metadata** from IPFS URLs (governance action details, vote rationales)
 
-4. **Post tweet** via Twitter API with formatted summaries and external links
+4. **Validate metadata** against CIP-0108/CIP-0136 standards (warnings only)
+
+5. **Post tweet** via Twitter API with formatted summaries and external links
+
+6. **Archive rationale** to GitHub via PR (branch + commit + PR via PyGithub)
 
 ### Project Structure
 
@@ -22,12 +26,14 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 ├── main.py                      # Thin shim — re-exports handle_webhook from bot.main
 ├── bot/
 │   ├── __init__.py
-│   ├── config.py                # Centralised config, validation + feature flags
+│   ├── config.py                # Centralised config (.env via dotenv), validation + feature flags
 │   ├── logging.py               # Logging setup (setup_logging, get_logger)
 │   ├── models.py                # Dataclasses: GovAction, CcVote, GaExpiration, TreasuryDonation
 │   ├── links.py                 # External link builders (AdaStat, GovTools, CExplorer)
-│   ├── main.py                  # Webhook router & orchestration (handle_webhook entry point)
+│   ├── main.py                  # Unified webhook handler (handle_webhook entry point)
 │   ├── webhook_auth.py          # Blockfrost HMAC-SHA256 signature verification
+│   ├── rationale_archiver.py    # Archive rationales to GitHub via PR (PyGithub)
+│   ├── rationale_validator.py   # CIP-0108/CIP-0136 metadata validation
 │   ├── db/
 │   │   ├── __init__.py
 │   │   ├── queries.py           # SQL query constants
@@ -39,20 +45,27 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │       ├── __init__.py
 │       ├── client.py            # Tweepy wrapper with TWEET_POSTING_ENABLED gate
 │       └── formatter.py         # Tweet text builders for all event types
-├── tests/                       # Pytest test suite (45 tests)
+├── scripts/
+│   └── backfill_rationales.py   # One-off: fetch all historical rationales from DB-Sync
+├── rationales/                  # Archived rationale JSON files (gitignored during backfill)
+│   └── <tx_hash>_<index>/
+│       ├── action.json           # Gov action rationale (CIP-0108)
+│       └── cc_votes/
+│           └── <voter_hash>.json # CC vote rationale (CIP-0136)
+├── tests/                       # Pytest test suite (62 tests)
 ├── .github/workflows/ci.yml     # CI pipeline (ruff + pytest)
 ├── .env.example                 # Template for required env vars
 ├── .dockerignore                # Docker build context exclusions
 ├── pyproject.toml               # Project config, dependencies, ruff & pytest settings
 ├── uv.lock                      # Locked dependency versions
 ├── Dockerfile                   # Container image (uses uv, non-root user)
-├── docs/                        # Reference documentation (DB-Sync schema)
+├── docs/                        # Reference docs (DB-Sync schema, CIP-0108, CIP-0136)
 └── drafts/                      # Development drafts and sample data (not deployed)
 ```
 
 ### Key Components
 
-- `bot/config.py`: All env vars loaded into a frozen `Config` dataclass. Includes `TWEET_POSTING_ENABLED` feature flag.
+- `bot/config.py`: All env vars loaded into a frozen `Config` dataclass via `python-dotenv` (`.env` overrides system vars). Includes feature flags.
 
 - `bot/models.py`: Typed dataclasses for all domain objects. Replaces raw tuple indexing.
 
@@ -66,7 +79,11 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 
 - `bot/links.py`: URL builders for AdaStat, GovTools, CExplorer.
 
-- `bot/main.py`: Webhook router (`handle_webhook`) and orchestration (`process_block`, `process_epoch`).
+- `bot/main.py`: Unified webhook handler — single `/` endpoint processes blocks, detects epoch transitions, validates rationales, archives to GitHub.
+
+- `bot/rationale_archiver.py`: Archives rationale JSON to GitHub via PyGithub (create branch → commit file → open PR). Skips gracefully if `GITHUB_TOKEN` not set.
+
+- `bot/rationale_validator.py`: Non-blocking CIP-0108/CIP-0136 validation. Returns warning lists — tweets always sent regardless.
 
 - `bot/logging.py`: `setup_logging()` + `get_logger()` — stdlib logging, structured for Cloud Run.
 
@@ -94,6 +111,9 @@ All SQL is in `bot/db/queries.py`:
 - `QUERY_CC_VOTES`: Get CC votes by block number
 - `QUERY_GA_EXPIRATIONS`: Get actions expiring next epoch
 - `QUERY_TREASURY_DONATIONS`: Sum donations per epoch
+- `QUERY_BLOCK_EPOCH`: Get epoch number for a block by hash
+- `QUERY_ALL_GOV_ACTIONS`: All gov actions (backfill)
+- `QUERY_ALL_CC_VOTES`: All CC votes (backfill)
 
 **Important**: Governance actions are identified by `tx_hash + index`, forming a compound key.
 
@@ -157,13 +177,23 @@ The bot generates links to governance explorers via `bot/links.py`:
 
   - Managed in `bot/db/repository.py` — all queries go through `_query()` helper
 
-### Environment Variables (Required)
+### Environment Variables
+
+Loaded from `.env` file (overrides system env vars) via `python-dotenv`.
 
 ```bash
-API_KEY, API_SECRET_KEY           # Twitter OAuth 1.0a
-ACCESS_TOKEN, ACCESS_TOKEN_SECRET # Twitter access credentials
-DB_SYNC_URL                       # PostgreSQL connection string
-TWEET_POSTING_ENABLED             # "true" to enable tweet posting (default: false)
+# Required
+DB_SYNC_URL                        # PostgreSQL connection string
+BLOCKFROST_WEBHOOK_AUTH_TOKEN      # Blockfrost webhook HMAC secret
+
+# Twitter (required if TWEET_POSTING_ENABLED=true)
+API_KEY, API_SECRET_KEY            # Twitter OAuth 1.0a
+ACCESS_TOKEN, ACCESS_TOKEN_SECRET  # Twitter access credentials
+TWEET_POSTING_ENABLED              # "true" to enable tweet posting (default: false)
+
+# GitHub (optional — rationale archiving)
+GITHUB_TOKEN                       # Personal access token for PR creation
+GITHUB_REPO                        # e.g. "user/repo"
 ```
 
 ### Code Style & Patterns
@@ -186,11 +216,13 @@ Google Cloud Run (`functions-framework` library, containerized)
 - Docker image built automatically by Cloud Build on push to `main`
 - Entry point: `handle_webhook(request)` (exposed via root `main.py` shim)
 
-- Routes: `/block` and `/epoch`
+- Single unified `/` endpoint — handles both block and epoch events
 
-- Returns encoded response string (webhook acknowledgment)
+- Epoch transitions detected by comparing current vs previous block epoch
 
-- Webhook triggered by Blockfrost when new blocks/epochs occur
+- Returns JSON responses with appropriate HTTP status codes
+
+- Webhook triggered by Blockfrost when new blocks occur
 
 ### Local Development
 
@@ -203,7 +235,7 @@ uv sync
 
 # Run locally
 uv run functions-framework --target=handle_webhook --debug
-# Access at http://localhost:8080/block or http://localhost:8080/epoch
+# Access at http://localhost:8080/
 
 # Run tests
 uv run pytest -v
@@ -225,15 +257,6 @@ uv run ruff check --fix .
 
 ## Important Quirks & Edge Cases
 
-### Skipped Governance Actions
-
-Hard-coded skip logic exists in `bot/main.py` for specific transaction:
-
-```python
-_SKIP_TX_HASH = "8ad3d454f..."
-_SKIP_INDEX_BELOW = 17
-```
-
 ### Vote Classification
 
 Vote strings map to human-readable text in `bot/twitter/formatter.py`:
@@ -249,7 +272,8 @@ VOTES_MAPPING = {
 ### Feature Flags
 
 - **Tweet posting**: Controlled by `TWEET_POSTING_ENABLED` env var (default: off)
-- **GA expiration alerts**: Disabled in `process_epoch()` — uncomment when ready
+- **Rationale archiving**: Controlled by `GITHUB_TOKEN` + `GITHUB_REPO` (skipped if not set)
+- **Webhook signature verification**: Skipped if `BLOCKFROST_WEBHOOK_AUTH_TOKEN` not set
 
 ## When Modifying Code
 
@@ -292,6 +316,8 @@ tweepy>=4.15,<5             # Twitter API v2 client
 psycopg2-binary>=2.9,<3    # PostgreSQL adapter (binary dist)
 requests>=2.32,<3           # HTTP client for IPFS
 tenacity>=9,<10             # Retry/backoff decorator
+python-dotenv>=1.2.1        # .env file loading
+pygithub>=2,<3              # GitHub API for rationale archiving
 
 # Dev
 pytest>=8                   # Test runner
