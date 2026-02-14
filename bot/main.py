@@ -6,7 +6,12 @@ import flask
 import functions_framework
 
 from bot.config import config
-from bot.db.repository import get_cc_votes, get_gov_actions, get_treasury_donations
+from bot.db.repository import (
+    get_block_epoch,
+    get_cc_votes,
+    get_gov_actions,
+    get_treasury_donations,
+)
 from bot.logging import get_logger, setup_logging
 from bot.metadata.fetcher import fetch_metadata, sanitise_url
 from bot.twitter.client import post_tweet
@@ -65,15 +70,6 @@ def _process_cc_votes(block_no: int) -> None:
         post_tweet(tweet)
 
 
-def process_block(request_json: dict) -> None:
-    block_no = request_json.get("payload", {}).get("height")
-    if block_no is None:
-        logger.warning("Missing block height in payload")
-        return
-    _process_gov_actions(block_no)
-    _process_cc_votes(block_no)
-
-
 # ---------------------------------------------------------------------------
 # Epoch processing
 # ---------------------------------------------------------------------------
@@ -91,22 +87,33 @@ def _process_treasury_donations(epoch_no: int) -> None:
     post_tweet(tweet)
 
 
-def process_epoch(request_json: dict) -> None:
-    epoch_no = request_json.get("payload", {}).get("current_epoch", {}).get("epoch")
-    if epoch_no is None:
-        logger.warning("Missing epoch number in payload")
+def _check_epoch_transition(payload: dict) -> None:
+    """Detect epoch boundary and run epoch processing if one occurred."""
+    current_epoch = payload.get("epoch")
+    previous_block_hash = payload.get("previous_block")
+
+    if current_epoch is None or not previous_block_hash:
+        logger.debug("No epoch or previous_block in payload — skipping epoch check")
         return
 
-    logger.info("Processing epoch: %s", epoch_no)
+    previous_epoch = get_block_epoch(previous_block_hash)
 
-    # GA expirations disabled for now — uncomment when ready:
-    # _process_ga_expirations(epoch_no)
+    if previous_epoch is None:
+        logger.warning("Could not find previous block %s in DB", previous_block_hash)
+        return
 
-    _process_treasury_donations(epoch_no - 1)
+    if current_epoch != previous_epoch:
+        logger.info(
+            "Epoch transition detected: %s → %s",
+            previous_epoch,
+            current_epoch,
+        )
+        # Process the completed epoch (previous_epoch).
+        _process_treasury_donations(previous_epoch)
 
 
 # ---------------------------------------------------------------------------
-# Webhook router
+# Webhook handler
 # ---------------------------------------------------------------------------
 
 
@@ -129,26 +136,31 @@ def handle_webhook(request: flask.Request) -> flask.Response:
         logger.warning("Webhook signature verification failed")
         return _json_response({"error": "Unauthorized"}, 401)
 
-    # --- Route to handler ---
+    # --- Parse payload ---
     request_json = request.get_json(silent=True)
-    request_path = request.path
 
-    logger.info("Incoming webhook — path: %s", request_path)
+    logger.info("Incoming webhook")
     logger.debug("Webhook payload: %s", request_json)
 
     if not request_json:
         return _json_response({"error": "Invalid or missing JSON body"}, 400)
 
+    payload = request_json.get("payload", {})
+    block_no = payload.get("height")
+
+    if block_no is None:
+        logger.warning("Missing block height in payload")
+        return _json_response({"error": "Missing block height"}, 400)
+
     try:
-        if request_path == "/block":
-            process_block(request_json)
-        elif request_path == "/epoch":
-            process_epoch(request_json)
-        else:
-            logger.warning("Unknown request path: %s", request_path)
-            return _json_response({"error": f"Unknown path: {request_path}"}, 404)
+        # Always process block events.
+        _process_gov_actions(block_no)
+        _process_cc_votes(block_no)
+
+        # Detect epoch transitions and process if needed.
+        _check_epoch_transition(payload)
     except Exception:
-        logger.exception("Error processing webhook for path: %s", request_path)
+        logger.exception("Error processing webhook for block: %s", block_no)
         return _json_response({"error": "Internal server error"}, 500)
 
     return _json_response({"status": "ok"})

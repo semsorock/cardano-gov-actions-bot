@@ -4,6 +4,7 @@ from psycopg2 import pool
 
 from bot.config import config
 from bot.db.queries import (
+    QUERY_BLOCK_EPOCH,
     QUERY_CC_VOTES,
     QUERY_GA_EXPIRATIONS,
     QUERY_GOV_ACTIONS,
@@ -77,3 +78,9 @@ def get_treasury_donations(epoch_no: int) -> list[TreasuryDonation]:
         )
         for row in rows
     ]
+
+
+def get_block_epoch(block_hash: str) -> int | None:
+    """Return the epoch number for a block identified by its hex hash."""
+    rows = _query(QUERY_BLOCK_EPOCH, (block_hash,))
+    return rows[0][0] if rows else None

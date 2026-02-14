@@ -52,3 +52,9 @@ QUERY_TREASURY_DONATIONS = """
     WHERE t.treasury_donation > 0
     AND b.epoch_no = %s
 """
+
+QUERY_BLOCK_EPOCH = """
+    SELECT b.epoch_no
+    FROM block b
+    WHERE b.hash = decode(%s, 'hex')
+"""
