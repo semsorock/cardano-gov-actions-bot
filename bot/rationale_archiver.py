@@ -2,16 +2,11 @@
 
 from __future__ import annotations
 
-import functools
 import json
-from typing import TYPE_CHECKING
 
 from github import Github, GithubException
 
 from bot.config import config
-
-if TYPE_CHECKING:
-    from github.Repository import Repository
 from bot.logging import get_logger
 from bot.models import CcVote, GovAction
 
@@ -23,12 +18,6 @@ def _get_github() -> Github | None:
     if not config.github_token or not config.github_repo:
         return None
     return Github(config.github_token)
-
-
-@functools.lru_cache(maxsize=1)
-def _get_repo(repo_name: str, token: str) -> Repository:
-    """Fetch and cache the GitHub repository object."""
-    return Github(token).get_repo(repo_name)
 
 
 def _action_dir(action: GovAction) -> str:
@@ -93,7 +82,8 @@ def _open_pr(repo, branch: str, title: str) -> None:
 
 def archive_gov_action(action: GovAction, metadata: dict | None) -> None:
     """Archive a governance action rationale via GitHub PR."""
-    if not config.github_token or not config.github_repo:
+    gh = _get_github()
+    if gh is None:
         logger.debug("GitHub not configured — skipping rationale archive")
         return
 
@@ -101,7 +91,7 @@ def archive_gov_action(action: GovAction, metadata: dict | None) -> None:
         metadata = {"error": "Failed to fetch rationale", "url": action.raw_url}
 
     try:
-        repo = _get_repo(config.github_repo, config.github_token)
+        repo = gh.get_repo(config.github_repo)
         action_id = _action_dir(action)
         branch = f"rationale/{action_id}"
 
@@ -124,7 +114,8 @@ def archive_gov_action(action: GovAction, metadata: dict | None) -> None:
 
 def archive_cc_vote(vote: CcVote, metadata: dict | None) -> None:
     """Archive a CC vote rationale via GitHub PR."""
-    if not config.github_token or not config.github_repo:
+    gh = _get_github()
+    if gh is None:
         logger.debug("GitHub not configured — skipping vote archive")
         return
 
@@ -132,7 +123,7 @@ def archive_cc_vote(vote: CcVote, metadata: dict | None) -> None:
         metadata = {"error": "Failed to fetch rationale", "url": vote.raw_url}
 
     try:
-        repo = _get_repo(config.github_repo, config.github_token)
+        repo = gh.get_repo(config.github_repo)
         action_id = f"{vote.ga_tx_hash}_{vote.ga_index}"
         branch = f"rationale/{action_id}"
 
