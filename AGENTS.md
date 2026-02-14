@@ -16,9 +16,11 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 
 4. **Validate metadata** against CIP-0108/CIP-0136 standards (warnings only)
 
-5. **Post tweet** via Twitter API with formatted summaries and external links
+5. **Post tweet** via X API (XDK) with formatted summaries.
+   - **Gov Actions**: Posted as new tweets. Tweet ID is stored in GitHub `tweet_id.txt`.
+   - **CC Votes**: Posted as **quote-retweets** of the original action (if ID found), or regular tweets (fallback).
 
-6. **Archive rationale** to GitHub via PR (branch + commit + PR via PyGithub)
+6. **Archive rationale** to GitHub (direct commit to `main`).
 
 ### Project Structure
 
