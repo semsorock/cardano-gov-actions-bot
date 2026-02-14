@@ -7,7 +7,7 @@ Use Python str.format() placeholders — see formatter.py for available variable
 GOV_ACTION = """\
 🚨 NEW GOVERNANCE ACTION ALERT! 🚨
 
-{title_line}🏷️ Type: {action_type}
+{title_line}{authors_line}🏷️ Type: {action_type}
 🔗 Details: {link}
 
 #Cardano #Blockchain #Governance"""
