@@ -28,10 +28,6 @@ logger = get_logger("main")
 # Validate config at startup — fail fast on missing required vars.
 config.validate()
 
-# Hard-coded skip for known test transactions from the original code.
-_SKIP_TX_HASH = "8ad3d454f3496a35cb0d07b0fd32f687f66338b7d60e787fc0a22939e5d8833e"
-_SKIP_INDEX_BELOW = 17
-
 
 # ---------------------------------------------------------------------------
 # Block processing
@@ -46,10 +42,6 @@ def _process_gov_actions(block_no: int) -> None:
         return
 
     for action in actions:
-        if action.tx_hash == _SKIP_TX_HASH and action.index < _SKIP_INDEX_BELOW:
-            logger.debug("Skipping gov action: %s#%s", action.tx_hash, action.index)
-            continue
-
         url = sanitise_url(action.raw_url)
         metadata = fetch_metadata(url)
         tweet = format_gov_action_tweet(action, metadata)
