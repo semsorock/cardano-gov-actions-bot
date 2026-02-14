@@ -1,2 +1,31 @@
-[tool.flake8]
-max-line-length = 120
+[project]
+name = "gov-actions-bot"
+version = "0.1.0"
+description = "Cardano governance actions monitoring bot for Twitter/X"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+
+dependencies = [
+    "functions-framework>=3,<4",
+    "tweepy>=4.15,<5",
+    "psycopg2-binary>=2.9,<3",
+    "requests>=2.32,<3",
+    "tenacity>=9,<10",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "ruff>=0.9",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

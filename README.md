@@ -38,6 +38,7 @@ The bot requires the following environment variables, stored in **Google Secret 
 | `ACCESS_TOKEN` | Twitter access token |
 | `ACCESS_TOKEN_SECRET` | Twitter access token secret |
 | `DB_SYNC_URL` | PostgreSQL connection string (e.g. `postgresql://user:pass@host:5432/dbname`) |
+| `TWEET_POSTING_ENABLED` | Set to `true` to enable posting tweets (default: `false`) |
 
 ## Local Development
 
@@ -46,12 +47,11 @@ The bot requires the following environment variables, stored in **Google Secret 
 git clone https://github.com/semsorock/govactions.git
 cd govactions
 
-# Create virtual environment
-python -m venv .venv
-source .venv/bin/activate
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Install dependencies
-pip install -r requirements.txt
+# Sync dependencies (creates .venv automatically)
+uv sync
 
 # Set environment variables
 export API_KEY=your_key
@@ -60,10 +60,17 @@ export ACCESS_TOKEN=your_token
 export ACCESS_TOKEN_SECRET=your_token_secret
 export DB_SYNC_URL=postgresql://user:pass@host:5432/dbname
 
-# Run locally (uses main.py by default)
-functions-framework --target=hello_http --debug
+# Run locally
+uv run functions-framework --target=handle_webhook --debug
 # Server starts at http://localhost:8080
 # Routes: /block and /epoch
+
+# Run tests
+uv run pytest -v
+
+# Format & lint
+uv run ruff format .
+uv run ruff check --fix .
 ```
 
 ### Local Docker Build
@@ -110,10 +117,20 @@ Every push to the `main` branch automatically triggers:
 ## Project Structure
 
 ```
-├── main.py              # Main application (webhook handlers, DB queries, tweet logic)
-├── ipfs.py              # IPFS gateway utility
-├── requirements.txt     # Python dependencies
-├── Dockerfile           # Container image definition
+├── main.py              # Entry point shim (re-exports handle_webhook)
+├── bot/                 # Application package
+│   ├── config.py        # Centralised env config + feature flags
+│   ├── logging.py       # Structured logging setup
+│   ├── models.py        # Domain dataclasses
+│   ├── links.py         # External link builders
+│   ├── main.py          # Webhook router & orchestration
+│   ├── db/              # Database layer (queries + repository)
+│   ├── metadata/        # IPFS metadata fetching
+│   └── twitter/         # Tweet client + formatters
+├── tests/               # Pytest test suite
+├── pyproject.toml       # Project config, deps, ruff & pytest settings
+├── uv.lock              # Locked dependency versions
+├── Dockerfile           # Container image (uses uv)
 ├── docs/                # Reference documentation (DB-Sync schema)
 └── drafts/              # Development drafts and sample data (not deployed)
 ```

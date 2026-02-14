@@ -1,11 +1,13 @@
 FROM python:3.12-slim
 
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-dev --no-install-project
 
 COPY main.py .
-COPY ipfs.py .
+COPY bot/ bot/
 
-CMD ["functions-framework", "--target=hello_http", "--port=8080"]
+CMD ["uv", "run", "functions-framework", "--target=handle_webhook", "--port=8080"]
