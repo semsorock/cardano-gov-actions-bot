@@ -46,6 +46,10 @@ class Config:
     # Feature flags
     tweet_posting_enabled: bool = False
 
+    # GitHub integration (for rationale archiving)
+    github_token: str = ""
+    github_repo: str = ""
+
     @classmethod
     def from_env(cls) -> "Config":
         return cls(
@@ -58,6 +62,8 @@ class Config:
             ),
             blockfrost_webhook_auth_token=os.environ.get("BLOCKFROST_WEBHOOK_AUTH_TOKEN", ""),
             tweet_posting_enabled=_parse_bool(os.environ.get("TWEET_POSTING_ENABLED"), default=False),
+            github_token=os.environ.get("GITHUB_TOKEN", ""),
+            github_repo=os.environ.get("GITHUB_REPO", ""),
         )
 
     def validate(self) -> None:

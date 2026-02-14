@@ -14,6 +14,7 @@ from bot.db.repository import (
 )
 from bot.logging import get_logger, setup_logging
 from bot.metadata.fetcher import fetch_metadata, sanitise_url
+from bot.rationale_archiver import archive_cc_vote, archive_gov_action
 from bot.twitter.client import post_tweet
 from bot.twitter.formatter import (
     format_cc_vote_tweet,
@@ -46,6 +47,7 @@ def _process_gov_actions(block_no: int) -> None:
         metadata = fetch_metadata(url)
         tweet = format_gov_action_tweet(action, metadata)
         post_tweet(tweet)
+        archive_gov_action(action, metadata)
 
 
 def _process_cc_votes(block_no: int) -> None:
@@ -60,6 +62,7 @@ def _process_cc_votes(block_no: int) -> None:
         metadata = fetch_metadata(url)
         tweet = format_cc_vote_tweet(vote, metadata)
         post_tweet(tweet)
+        archive_cc_vote(vote, metadata)
 
 
 # ---------------------------------------------------------------------------
