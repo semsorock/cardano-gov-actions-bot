@@ -22,11 +22,12 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 ├── main.py                      # Thin shim — re-exports handle_webhook from bot.main
 ├── bot/
 │   ├── __init__.py
-│   ├── config.py                # Centralised config from env vars + feature flags
+│   ├── config.py                # Centralised config, validation + feature flags
 │   ├── logging.py               # Logging setup (setup_logging, get_logger)
 │   ├── models.py                # Dataclasses: GovAction, CcVote, GaExpiration, TreasuryDonation
 │   ├── links.py                 # External link builders (AdaStat, GovTools, CExplorer)
 │   ├── main.py                  # Webhook router & orchestration (handle_webhook entry point)
+│   ├── webhook_auth.py          # Blockfrost HMAC-SHA256 signature verification
 │   ├── db/
 │   │   ├── __init__.py
 │   │   ├── queries.py           # SQL query constants
@@ -38,14 +39,13 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │       ├── __init__.py
 │       ├── client.py            # Tweepy wrapper with TWEET_POSTING_ENABLED gate
 │       └── formatter.py         # Tweet text builders for all event types
-├── tests/                       # Pytest test suite
-│   ├── test_models.py
-│   ├── test_links.py
-│   ├── test_formatter.py
-│   └── test_fetcher.py
+├── tests/                       # Pytest test suite (45 tests)
+├── .github/workflows/ci.yml     # CI pipeline (ruff + pytest)
+├── .env.example                 # Template for required env vars
+├── .dockerignore                # Docker build context exclusions
 ├── pyproject.toml               # Project config, dependencies, ruff & pytest settings
 ├── uv.lock                      # Locked dependency versions
-├── Dockerfile                   # Container image definition (uses uv)
+├── Dockerfile                   # Container image (uses uv, non-root user)
 ├── docs/                        # Reference documentation (DB-Sync schema)
 └── drafts/                      # Development drafts and sample data (not deployed)
 ```
