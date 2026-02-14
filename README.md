@@ -1,17 +1,20 @@
 # Cardano Governance Actions Bot
 
-A monitoring bot that watches the Cardano blockchain for new governance actions and Constitutional Committee (CC) votes, then automatically posts summaries to Twitter/X.
+A monitoring bot that watches the Cardano blockchain for governance activity, posts summaries to Twitter/X, and archives rationale metadata to GitHub.
+
+X bot account: [@GovActions](https://x.com/GovActions)
 
 ## How It Works
 
 ```
-Blockfrost Webhook → Cloud Run → Query DB-Sync → Post Tweet
+Blockfrost Webhook → Cloud Run (`/`) → Query DB-Sync → Fetch IPFS metadata → Post to X + Archive rationale
 ```
 
-1. **Blockfrost** sends webhook events when new blocks or epochs occur
-2. The bot queries a **Cardano DB-Sync** PostgreSQL database for governance data
-3. Metadata is fetched from **IPFS** (governance action details, vote rationales)
-4. Formatted summaries are posted to **Twitter/X**
+1. **Blockfrost** sends block webhooks to a unified `/` endpoint
+2. The bot queries a **Cardano DB-Sync** PostgreSQL database for governance actions, CC votes, and epoch donations
+3. Metadata is fetched from **IPFS** and validated (CIP-0108 / CIP-0136 warnings only)
+4. Formatted summaries are posted to **Twitter/X** via `xdk`
+5. Rationale JSON is archived to GitHub through an automated branch + PR flow
 
 ### What It Monitors
 
@@ -25,11 +28,11 @@ Blockfrost Webhook → Cloud Run → Query DB-Sync → Post Tweet
 - **Cardano DB-Sync** PostgreSQL database access
 - **Twitter/X API** credentials (OAuth 1.0a with read/write access)
 - **Blockfrost** account with webhook configured
-- **Docker** (for local testing)
+- **GitHub token + repo access** (optional, for rationale archiving)
 
 ## Environment Variables
 
-The bot requires the following environment variables, stored in **Google Secret Manager** and linked to the Cloud Run service:
+The bot loads `.env` locally (`python-dotenv`) and can also read from Cloud Run environment variables / Secret Manager.
 
 | Variable | Description |
 |---|---|
@@ -38,14 +41,17 @@ The bot requires the following environment variables, stored in **Google Secret 
 | `ACCESS_TOKEN` | Twitter access token |
 | `ACCESS_TOKEN_SECRET` | Twitter access token secret |
 | `DB_SYNC_URL` | PostgreSQL connection string (e.g. `postgresql://user:pass@host:5432/dbname`) |
+| `BLOCKFROST_WEBHOOK_AUTH_TOKEN` | Shared secret used to verify `Blockfrost-Signature` |
 | `TWEET_POSTING_ENABLED` | Set to `true` to enable posting tweets (default: `false`) |
+| `GITHUB_TOKEN` | GitHub token for rationale archiving PRs (optional) |
+| `GITHUB_REPO` | Repository in `owner/name` format for rationale archives (optional) |
 
 ## Local Development
 
 ```bash
 # Clone the repository
-git clone https://github.com/semsorock/govactions.git
-cd govactions
+git clone https://github.com/semsorock/cardano-gov-actions-bot.git
+cd cardano-gov-actions-bot
 
 # Install uv (if not already installed)
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -53,17 +59,13 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # Sync dependencies (creates .venv automatically)
 uv sync
 
-# Set environment variables
-export API_KEY=your_key
-export API_SECRET_KEY=your_secret
-export ACCESS_TOKEN=your_token
-export ACCESS_TOKEN_SECRET=your_token_secret
-export DB_SYNC_URL=postgresql://user:pass@host:5432/dbname
+# Configure environment variables (or copy from .env.example)
+cp .env.example .env
 
 # Run locally
 uv run functions-framework --target=handle_webhook --debug
 # Server starts at http://localhost:8080
-# Routes: /block and /epoch
+# Endpoint: /
 
 # Run tests
 uv run pytest -v
@@ -83,6 +85,8 @@ docker run --rm -p 8080:8080 \
   -e ACCESS_TOKEN=your_token \
   -e ACCESS_TOKEN_SECRET=your_token_secret \
   -e DB_SYNC_URL=postgresql://user:pass@host:5432/dbname \
+  -e BLOCKFROST_WEBHOOK_AUTH_TOKEN=your_webhook_secret \
+  -e TWEET_POSTING_ENABLED=false \
   gov-actions-bot
 ```
 
@@ -93,19 +97,20 @@ The bot is deployed to **Google Cloud Run** with continuous deployment from this
 ### One-Time Setup
 
 1. **Store secrets** in Google Secret Manager for your GCP project:
-   - `api-key`, `api-secret-key`, `access-token`, `access-token-secret`, `db-sync-url`
+   - `api-key`, `api-secret-key`, `access-token`, `access-token-secret`
+   - `db-sync-url`, `blockfrost-webhook-auth-token`
+   - Optional: `github-token`, `github-repo`
 
 2. **Create a Cloud Run service**:
    - Go to [Cloud Run Console](https://console.cloud.google.com/run)
    - Click **Create Service** → **Continuously deploy from a repository**
-   - Connect to `github.com/semsorock/govactions`, branch: `main`
+   - Connect to `github.com/semsorock/cardano-gov-actions-bot`, branch: `main`
    - Build type: **Dockerfile**
    - Configure environment variables to reference Secret Manager secrets
    - Allow unauthenticated invocations (required for Blockfrost webhooks)
 
 3. **Configure Blockfrost webhook** to point to your Cloud Run service URL:
-   - Block events → `https://YOUR_SERVICE_URL/block`
-   - Epoch events → `https://YOUR_SERVICE_URL/epoch`
+   - Block event webhook URL: `https://YOUR_SERVICE_URL/`
 
 ### How Deployments Work
 
@@ -117,22 +122,35 @@ Every push to the `main` branch automatically triggers:
 ## Project Structure
 
 ```
-├── main.py              # Entry point shim (re-exports handle_webhook)
-├── bot/                 # Application package
-│   ├── config.py        # Centralised env config + feature flags
-│   ├── logging.py       # Structured logging setup
-│   ├── models.py        # Domain dataclasses
-│   ├── links.py         # External link builders
-│   ├── main.py          # Webhook router & orchestration
-│   ├── db/              # Database layer (queries + repository)
-│   ├── metadata/        # IPFS metadata fetching
-│   └── twitter/         # Tweet client + formatters
-├── tests/               # Pytest test suite
-├── pyproject.toml       # Project config, deps, ruff & pytest settings
-├── uv.lock              # Locked dependency versions
-├── Dockerfile           # Container image (uses uv)
-├── docs/                # Reference documentation (DB-Sync schema)
-└── drafts/              # Development drafts and sample data (not deployed)
+├── main.py                      # Entry point shim (re-exports handle_webhook)
+├── bot/
+│   ├── cc_profiles.py           # CC voter hash -> X handle mapping loader
+│   ├── config.py                # Centralised env config + feature flags
+│   ├── links.py                 # External governance/vote link builders
+│   ├── logging.py               # Structured logging setup
+│   ├── main.py                  # Unified webhook handler
+│   ├── models.py                # Domain dataclasses
+│   ├── rationale_archiver.py    # GitHub rationale archiving (branch + PR)
+│   ├── rationale_validator.py   # CIP-0108/CIP-0136 warning-only validation
+│   ├── webhook_auth.py          # Blockfrost HMAC signature verification
+│   ├── db/                      # SQL constants + repository layer
+│   ├── metadata/                # IPFS URL sanitisation and metadata fetch
+│   └── twitter/
+│       ├── client.py            # XDK posting client
+│       ├── formatter.py         # Tweet composition logic
+│       └── templates.py         # Editable tweet templates
+├── data/
+│   └── cc_profiles.yaml         # CC member profile mappings
+├── scripts/
+│   ├── backfill_rationales.py   # Backfill historical rationales from DB-Sync
+│   └── backfill_tweet_ids.py    # Backfill tweet_id.txt from historical posts
+├── rationales/                  # Archived rationale files
+├── tests/                       # Pytest test suite (70 collected)
+├── docs/                        # Reference docs (schema + CIPs)
+├── pyproject.toml               # Dependency/tool config
+├── uv.lock                      # Locked dependency versions
+├── Dockerfile                   # Container image
+└── .env.example                 # Environment variable template
 ```
 
 ## License

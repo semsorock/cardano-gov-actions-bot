@@ -2,7 +2,7 @@
 
 ## Project Purpose
 
-This is a **Cardano blockchain governance monitoring bot** that watches for new governance actions and Constitutional Committee (CC) votes, then automatically posts summaries to Twitter/X. It also archives governance rationale files to GitHub via automated PRs. It's deployed as a Google Cloud Function that responds to webhook events from Blockfrost.
+This is a **Cardano blockchain governance monitoring bot** that watches for new governance actions and Constitutional Committee (CC) votes, then automatically posts summaries to Twitter/X. It also archives governance rationale files to GitHub via automated PRs. It's deployed as a Google Cloud Run service that responds to webhook events from Blockfrost.
 
 ## Architecture Overview
 
@@ -20,7 +20,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
    - **Gov Actions**: Posted as new tweets. Tweet ID is stored in GitHub `tweet_id.txt`.
    - **CC Votes**: Posted as **quote-retweets** of the original action (if ID found), or regular tweets (fallback).
 
-6. **Archive rationale** to GitHub (direct commit to `main`).
+6. **Archive rationale** to GitHub (branch + PR flow).
 
 ### Project Structure
 
@@ -28,6 +28,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 ├── main.py                      # Thin shim — re-exports handle_webhook from bot.main
 ├── bot/
 │   ├── __init__.py
+│   ├── cc_profiles.py           # CC voter hash -> X handle lookup loader
 │   ├── config.py                # Centralised config (.env via dotenv), validation + feature flags
 │   ├── logging.py               # Logging setup (setup_logging, get_logger)
 │   ├── models.py                # Dataclasses: GovAction, CcVote, GaExpiration, TreasuryDonation
@@ -45,16 +46,20 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │   │   └── fetcher.py           # IPFS URL sanitisation & JSON metadata fetching
 │   └── twitter/
 │       ├── __init__.py
-│       ├── client.py            # Tweepy wrapper with TWEET_POSTING_ENABLED gate
-│       └── formatter.py         # Tweet text builders for all event types
+│       ├── client.py            # XDK wrapper with TWEET_POSTING_ENABLED gate
+│       ├── formatter.py         # Tweet text builders for all event types
+│       └── templates.py         # Editable tweet text templates
 ├── scripts/
-│   └── backfill_rationales.py   # One-off: fetch all historical rationales from DB-Sync
-├── rationales/                  # Archived rationale JSON files (gitignored during backfill)
+│   ├── backfill_rationales.py   # One-off: fetch all historical rationales from DB-Sync
+│   └── backfill_tweet_ids.py    # One-off: backfill tweet_id.txt from historical posts
+├── data/
+│   └── cc_profiles.yaml         # CC profile mappings (voter hash -> X handle)
+├── rationales/                  # Archived rationale JSON files
 │   └── <tx_hash>_<index>/
 │       ├── action.json           # Gov action rationale (CIP-0108)
 │       └── cc_votes/
 │           └── <voter_hash>.json # CC vote rationale (CIP-0136)
-├── tests/                       # Pytest test suite (62 tests)
+├── tests/                       # Pytest test suite (currently 70 tests)
 ├── .github/workflows/ci.yml     # CI pipeline (ruff + pytest)
 ├── .env.example                 # Template for required env vars
 ├── .dockerignore                # Docker build context exclusions
@@ -75,9 +80,13 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 
 - `bot/metadata/fetcher.py`: `fetch_metadata()` with retry (tenacity) and `sanitise_url()` for IPFS.
 
-- `bot/twitter/client.py`: `post_tweet()` — always logs the tweet, only posts when `TWEET_POSTING_ENABLED=true`.
+- `bot/twitter/client.py`: `post_tweet()`/`post_quote_tweet()` via XDK — logs content and only posts when `TWEET_POSTING_ENABLED=true`.
 
 - `bot/twitter/formatter.py`: Pure functions that build tweet text strings for each event type.
+
+- `bot/twitter/templates.py`: Centralised tweet copy templates used by formatters.
+
+- `bot/cc_profiles.py`: Loads `data/cc_profiles.yaml` and maps CC voter hashes to X handles.
 
 - `bot/links.py`: URL builders for AdaStat, GovTools, CExplorer.
 
@@ -195,7 +204,7 @@ TWEET_POSTING_ENABLED              # "true" to enable tweet posting (default: fa
 
 # GitHub (optional — rationale archiving)
 GITHUB_TOKEN                       # Personal access token for PR creation
-GITHUB_REPO                        # e.g. "user/repo"
+GITHUB_REPO                        # e.g. "semsorock/cardano-gov-actions-bot"
 ```
 
 ### Code Style & Patterns
@@ -314,7 +323,7 @@ Managed via `uv` (see `pyproject.toml`). Lockfile: `uv.lock`.
 ```text
 # Production
 functions-framework>=3,<4   # Google Cloud Functions runtime
-tweepy>=4.15,<5             # Twitter API v2 client
+xdk>=0.8.1                  # X API SDK (OAuth 1.0a + posts client)
 psycopg2-binary>=2.9,<3    # PostgreSQL adapter (binary dist)
 requests>=2.32,<3           # HTTP client for IPFS
 tenacity>=9,<10             # Retry/backoff decorator
