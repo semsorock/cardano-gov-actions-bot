@@ -35,8 +35,8 @@ class Config:
     # Twitter credentials
     twitter: TwitterConfig = field(default_factory=TwitterConfig)
 
-    # Blockfrost webhook secret (for signature verification)
-    blockfrost_webhook_secret: str = ""
+    # Blockfrost webhook auth token (for signature verification)
+    blockfrost_webhook_auth_token: str = ""
 
     # Feature flags
     tweet_posting_enabled: bool = False
@@ -51,7 +51,7 @@ class Config:
                 access_token=os.environ.get("ACCESS_TOKEN", ""),
                 access_token_secret=os.environ.get("ACCESS_TOKEN_SECRET", ""),
             ),
-            blockfrost_webhook_secret=os.environ.get("BLOCKFROST_WEBHOOK_SECRET", ""),
+            blockfrost_webhook_auth_token=os.environ.get("BLOCKFROST_WEBHOOK_AUTH_TOKEN", ""),
             tweet_posting_enabled=_parse_bool(os.environ.get("TWEET_POSTING_ENABLED"), default=False),
         )
 
@@ -72,8 +72,8 @@ class Config:
                 if not getattr(self.twitter, field_name):
                     missing.append(env_name)
 
-        if not self.blockfrost_webhook_secret:
-            logger.warning("BLOCKFROST_WEBHOOK_SECRET not set — webhook signature verification disabled")
+        if not self.blockfrost_webhook_auth_token:
+            logger.warning("BLOCKFROST_WEBHOOK_AUTH_TOKEN not set — webhook signature verification disabled")
 
         if missing:
             raise ConfigError(f"Missing required environment variables: {', '.join(missing)}")

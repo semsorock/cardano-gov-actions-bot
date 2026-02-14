@@ -19,7 +19,7 @@ def verify_webhook_signature(signature_header: str | None, body: bytes) -> bool:
     The signature header format is: t=<timestamp>,v1=<signature>
     See: https://blockfrost.dev/docs/start-building/webhooks/#signature-verification
     """
-    secret = config.blockfrost_webhook_secret
+    secret = config.blockfrost_webhook_auth_token
 
     if not secret:
         logger.debug("No webhook secret configured — skipping verification")
