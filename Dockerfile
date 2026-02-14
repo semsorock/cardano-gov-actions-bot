@@ -10,9 +10,10 @@ RUN uv sync --frozen --no-dev --no-install-project
 COPY main.py .
 COPY bot/ bot/
 
-RUN useradd --create-home appuser
+RUN useradd --create-home appuser \
+    && chown -R appuser:appuser /app
 USER appuser
 
 EXPOSE 8080
 
-CMD ["uv", "run", "functions-framework", "--target=handle_webhook", "--port=8080"]
+CMD ["uv", "run", "--no-sync", "functions-framework", "--target=handle_webhook", "--port=8080"]
