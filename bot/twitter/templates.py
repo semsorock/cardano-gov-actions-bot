@@ -16,6 +16,14 @@ CC_VOTE = """\
 📜 CC MEMBER VOTE ALERT! 📜
 
 🗳️ The vote is: {vote_display}
+{voted_by_line}🔗 The vote rationale: {rationale_url}
+
+#Cardano #Blockchain #Governance"""
+
+CC_VOTE_NO_QUOTE = """\
+📜 CC MEMBER VOTE ALERT! 📜
+
+🗳️ The vote is: {vote_display}
 {voted_by_line}🔗 Gov Action: {ga_link}
 🔗 The vote rationale: {rationale_url}
 

@@ -80,7 +80,11 @@ def _open_pr(repo, branch: str, title: str) -> None:
     logger.info("Opened PR #%d: %s", pr.number, title)
 
 
-def archive_gov_action(action: GovAction, metadata: dict | None) -> None:
+def archive_gov_action(
+    action: GovAction,
+    metadata: dict | None,
+    tweet_id: str | None = None,
+) -> None:
     """Archive a governance action rationale via GitHub PR."""
     gh = _get_github()
     if gh is None:
@@ -107,9 +111,43 @@ def archive_gov_action(action: GovAction, metadata: dict | None) -> None:
             content,
             message=f"Add rationale for gov action {action_id}",
         )
+
+        # Store tweet ID alongside rationale for quote-tweet lookups.
+        if tweet_id:
+            _create_or_update_file(
+                repo,
+                branch,
+                f"rationales/{action_id}/tweet_id.txt",
+                tweet_id + "\n",
+                message=f"Add tweet ID for gov action {action_id}",
+            )
+
         _open_pr(repo, branch, f"Rationale: gov action {action_id}")
     except Exception:
         logger.exception("Failed to archive gov action %s", action.tx_hash)
+
+
+def get_action_tweet_id(tx_hash: str, index: int) -> str | None:
+    """Look up the tweet ID for a governance action from GitHub."""
+    gh = _get_github()
+    if gh is None:
+        return None
+
+    action_id = f"{tx_hash}_{index}"
+    path = f"rationales/{action_id}/tweet_id.txt"
+
+    try:
+        repo = gh.get_repo(config.github_repo)
+        content = repo.get_contents(path, ref="main")
+        tweet_id = content.decoded_content.decode().strip()
+        logger.debug("Found tweet ID for %s: %s", action_id, tweet_id)
+        return tweet_id if tweet_id else None
+    except GithubException:
+        logger.debug("No tweet ID found for %s", action_id)
+        return None
+    except Exception:
+        logger.exception("Error fetching tweet ID for %s", action_id)
+        return None
 
 
 def archive_cc_vote(vote: CcVote, metadata: dict | None) -> None:

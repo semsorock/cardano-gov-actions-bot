@@ -46,10 +46,24 @@ def format_gov_action_tweet(action: GovAction, metadata: dict | None) -> str:
     )
 
 
-def format_cc_vote_tweet(vote: CcVote, metadata: dict | None) -> str:
+def format_cc_vote_tweet(
+    vote: CcVote,
+    metadata: dict | None,
+    *,
+    quote_tweet_id: str | None = None,
+) -> str:
     voted_by_line = _authors_line(metadata, label="Voted by", emoji="👥")
 
-    return templates.CC_VOTE.format(
+    if quote_tweet_id:
+        # Quote-tweet: no GA link needed (it's embedded in the quoted tweet).
+        return templates.CC_VOTE.format(
+            vote_display=_vote_display(vote.vote),
+            voted_by_line=voted_by_line,
+            rationale_url=sanitise_url(vote.raw_url),
+        )
+
+    # Fallback: include GA link in the tweet text.
+    return templates.CC_VOTE_NO_QUOTE.format(
         vote_display=_vote_display(vote.vote),
         voted_by_line=voted_by_line,
         ga_link=make_adastat_link(vote.ga_tx_hash, vote.ga_index),

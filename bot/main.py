@@ -14,9 +14,9 @@ from bot.db.repository import (
 )
 from bot.logging import get_logger, setup_logging
 from bot.metadata.fetcher import fetch_metadata, sanitise_url
-from bot.rationale_archiver import archive_cc_vote, archive_gov_action
+from bot.rationale_archiver import archive_cc_vote, archive_gov_action, get_action_tweet_id
 from bot.rationale_validator import validate_cc_vote_rationale, validate_gov_action_rationale
-from bot.twitter.client import post_tweet
+from bot.twitter.client import post_quote_tweet, post_tweet
 from bot.twitter.formatter import (
     format_cc_vote_tweet,
     format_gov_action_tweet,
@@ -53,8 +53,8 @@ def _process_gov_actions(block_no: int) -> None:
             logger.warning("CIP-0108 validation [%s#%s]: %s", action.tx_hash[:8], action.index, w)
 
         tweet = format_gov_action_tweet(action, metadata)
-        post_tweet(tweet)
-        archive_gov_action(action, metadata)
+        tweet_id = post_tweet(tweet)
+        archive_gov_action(action, metadata, tweet_id=tweet_id)
 
 
 def _process_cc_votes(block_no: int) -> None:
@@ -73,8 +73,20 @@ def _process_cc_votes(block_no: int) -> None:
         for w in warnings:
             logger.warning("CIP-0136 validation [%s]: %s", vote.voter_hash[:8], w)
 
-        tweet = format_cc_vote_tweet(vote, metadata)
-        post_tweet(tweet)
+        # Look up the original gov action tweet for quote-tweeting.
+        quote_id = get_action_tweet_id(vote.ga_tx_hash, vote.ga_index)
+        tweet = format_cc_vote_tweet(vote, metadata, quote_tweet_id=quote_id)
+
+        if quote_id:
+            post_quote_tweet(tweet, quote_id)
+        else:
+            logger.info(
+                "No tweet ID for action %s_%s — posting without quote",
+                vote.ga_tx_hash[:8],
+                vote.ga_index,
+            )
+            post_tweet(tweet)
+
         archive_cc_vote(vote, metadata)
 
 
