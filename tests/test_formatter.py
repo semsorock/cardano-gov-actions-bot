@@ -7,6 +7,8 @@ from bot.twitter.formatter import (
 )
 
 
+MAX_TWEET_LENGTH = 280
+
 class TestFormatGovActionTweet:
     def _make_action(self, **overrides):
         defaults = dict(tx_hash="aabb", action_type="ParameterChange", index=0, raw_url="http://example.com")
@@ -22,6 +24,7 @@ class TestFormatGovActionTweet:
         assert "Parameter Change" in tweet
         assert "adastat.net" in tweet
         assert "#Cardano" in tweet
+        assert len(tweet) <= MAX_TWEET_LENGTH
 
     def test_without_metadata(self):
         action = self._make_action()
@@ -29,6 +32,7 @@ class TestFormatGovActionTweet:
         assert "NEW GOVERNANCE ACTION ALERT" in tweet
         assert "Parameter Change" in tweet
         assert "Test Proposal" not in tweet
+        assert len(tweet) <= MAX_TWEET_LENGTH
 
     def test_metadata_without_title(self):
         action = self._make_action()
@@ -57,6 +61,7 @@ class TestFormatCcVoteTweet:
         assert "CC MEMBER VOTE ALERT" in tweet
         assert "Constitutional" in tweet
         assert "Cardano Foundation" in tweet
+        assert len(tweet) <= MAX_TWEET_LENGTH
 
     def test_no_vote(self):
         vote = self._make_vote(vote="NO")
@@ -75,6 +80,7 @@ class TestFormatGaExpirationTweet:
         tweet = format_ga_expiration_tweet(exp)
         assert "EXPIRY ALERT" in tweet
         assert "adastat.net" in tweet
+        assert len(tweet) <= MAX_TWEET_LENGTH
 
 
 class TestFormatTreasuryDonationsTweet:
@@ -84,6 +90,8 @@ class TestFormatTreasuryDonationsTweet:
         assert "TREASURY DONATIONS" in tweet
         assert "Donations Count: 1" in tweet
         assert "5" in tweet
+        assert len(tweet) <= MAX_TWEET_LENGTH
+
 
     def test_multiple_donations(self):
         donations = [
