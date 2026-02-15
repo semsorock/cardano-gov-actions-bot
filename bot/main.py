@@ -225,12 +225,12 @@ def _process_x_mentions(payload: dict) -> None:
         else:
             reason = triage.short_reply or "Thanks. I did not open an issue for this one."
 
+        # Update with final decision, then attempt to post reply
+        mark_mention_processed(mention.post_id, decision=triage.decision)
         try:
             post_reply_tweet(f"@{mention.author_handle} {reason}".strip(), mention.post_id)
         except Exception:
             logger.exception("Failed to post reply tweet for mention %s", mention.post_id)
-
-        mark_mention_processed(mention.post_id, decision=triage.decision)
 
 
 # ---------------------------------------------------------------------------

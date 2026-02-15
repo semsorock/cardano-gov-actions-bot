@@ -202,11 +202,10 @@ class TestXMentionsWorkflow:
         )
 
         # Simulate LLM failure
-        monkeypatch.setattr(
-            main,
-            "classify_mention",
-            lambda *_args, **_kwargs: (_ for _ in ()).throw(RuntimeError("LLM timeout")),
-        )
+        def raise_llm_error(*_args, **_kwargs):
+            raise RuntimeError("LLM timeout")
+
+        monkeypatch.setattr(main, "classify_mention", raise_llm_error)
 
         replies = []
         monkeypatch.setattr(main, "post_reply_tweet", lambda text, post_id: replies.append((text, post_id)))
@@ -253,11 +252,10 @@ class TestXMentionsWorkflow:
         )
 
         # Simulate GitHub API failure
-        monkeypatch.setattr(
-            main,
-            "create_or_get_issue_for_mention",
-            lambda *_args, **_kwargs: (_ for _ in ()).throw(RuntimeError("GitHub API error")),
-        )
+        def raise_github_error(*_args, **_kwargs):
+            raise RuntimeError("GitHub API error")
+
+        monkeypatch.setattr(main, "create_or_get_issue_for_mention", raise_github_error)
 
         replies = []
         monkeypatch.setattr(main, "post_reply_tweet", lambda text, post_id: replies.append((text, post_id)))
