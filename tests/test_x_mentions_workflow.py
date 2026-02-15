@@ -188,3 +188,86 @@ class TestXMentionsWorkflow:
 
         assert len(replies) == 1
         assert replies[0][1] == "1005"
+
+    def test_llm_failure_marks_processed_to_prevent_retry_loop(self, monkeypatch):
+        cfg = replace(main.config, llm_model="mock-model", llm_issue_confidence_threshold=0.8)
+        monkeypatch.setattr(main, "config", cfg)
+
+        processed: set[str] = set()
+        monkeypatch.setattr(main, "was_mention_processed", lambda post_id: post_id in processed)
+        monkeypatch.setattr(
+            main,
+            "mark_mention_processed",
+            lambda post_id, decision, issue_number=None: processed.add(post_id),
+        )
+
+        # Simulate LLM failure
+        def raise_llm_error(*_args, **_kwargs):
+            raise RuntimeError("LLM timeout")
+
+        monkeypatch.setattr(main, "classify_mention", raise_llm_error)
+
+        replies = []
+        monkeypatch.setattr(main, "post_reply_tweet", lambda text, post_id: replies.append((text, post_id)))
+        monkeypatch.setattr(
+            main,
+            "create_or_get_issue_for_mention",
+            lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("should not create issue")),
+        )
+
+        payload = _payload("1006", "@GovActions this needs attention")
+        main._process_x_mentions(payload)
+
+        # Verify the mention was marked as processed despite the LLM failure
+        assert "1006" in processed
+        # Verify no reply was sent (because LLM failed before we could determine what to say)
+        assert len(replies) == 0
+
+        # Second delivery should be ignored
+        main._process_x_mentions(payload)
+        assert len(replies) == 0
+
+    def test_issue_creation_failure_marks_processed_to_prevent_retry_loop(self, monkeypatch):
+        cfg = replace(main.config, llm_model="mock-model", llm_issue_confidence_threshold=0.8)
+        monkeypatch.setattr(main, "config", cfg)
+
+        processed: set[str] = set()
+        monkeypatch.setattr(main, "was_mention_processed", lambda post_id: post_id in processed)
+        monkeypatch.setattr(
+            main,
+            "mark_mention_processed",
+            lambda post_id, decision, issue_number=None: processed.add(post_id),
+        )
+
+        monkeypatch.setattr(
+            main,
+            "classify_mention",
+            lambda *_args, **_kwargs: TriageResult(
+                decision="bug_report",
+                confidence=0.95,
+                reason="clear bug report",
+                issue_title="Bug: crash",
+                issue_body_markdown="Steps to reproduce...",
+            ),
+        )
+
+        # Simulate GitHub API failure
+        def raise_github_error(*_args, **_kwargs):
+            raise RuntimeError("GitHub API error")
+
+        monkeypatch.setattr(main, "create_or_get_issue_for_mention", raise_github_error)
+
+        replies = []
+        monkeypatch.setattr(main, "post_reply_tweet", lambda text, post_id: replies.append((text, post_id)))
+
+        payload = _payload("1007", "@GovActions found a bug")
+        main._process_x_mentions(payload)
+
+        # Verify the mention was marked as processed despite the issue creation failure
+        assert "1007" in processed
+        # Verify no reply was sent (because issue creation failed)
+        assert len(replies) == 0
+
+        # Second delivery should be ignored
+        main._process_x_mentions(payload)
+        assert len(replies) == 0
