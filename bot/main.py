@@ -17,8 +17,17 @@ from bot.github_issues import create_or_get_issue_for_mention
 from bot.llm_triage import classify_mention
 from bot.logging import get_logger, setup_logging
 from bot.metadata.fetcher import fetch_metadata, sanitise_url
-from bot.rationale_archiver import archive_cc_vote, archive_gov_action, get_action_tweet_id
+from bot.rationale_archiver import archive_cc_vote, archive_gov_action
+from bot.rationale_archiver import get_action_tweet_id as get_action_tweet_id_from_github
 from bot.rationale_validator import validate_cc_vote_rationale, validate_gov_action_rationale
+from bot.state_store import (
+    get_action_tweet_id,
+    mark_cc_vote_archived,
+    mark_mention_processed,
+    save_action_tweet_id,
+    set_checkpoint,
+    was_mention_processed,
+)
 from bot.twitter.client import post_quote_tweet, post_reply_tweet, post_tweet
 from bot.twitter.formatter import (
     format_cc_vote_tweet,
@@ -26,7 +35,7 @@ from bot.twitter.formatter import (
     format_treasury_donations_tweet,
 )
 from bot.webhook_auth import verify_webhook_signature
-from bot.x_mentions import extract_actionable_mentions, mark_processed, was_already_processed
+from bot.x_mentions import extract_actionable_mentions
 from bot.x_webhook_auth import build_crc_response_token, verify_x_webhook_signature
 
 setup_logging()
@@ -62,6 +71,7 @@ def _process_gov_actions(block_no: int) -> None:
         tweet = format_gov_action_tweet(action, metadata)
         tweet_id = post_tweet(tweet)
         archive_gov_action(action, metadata, tweet_id=tweet_id)
+        save_action_tweet_id(action.tx_hash, action.index, tweet_id or "", source_block=block_no)
 
 
 def _process_cc_votes(block_no: int) -> None:
@@ -82,6 +92,8 @@ def _process_cc_votes(block_no: int) -> None:
 
         # Look up the original gov action tweet for quote-tweeting.
         quote_id = get_action_tweet_id(vote.ga_tx_hash, vote.ga_index)
+        if not quote_id:
+            quote_id = get_action_tweet_id_from_github(vote.ga_tx_hash, vote.ga_index)
         voter_x_handle = get_x_handle_for_voter_hash(vote.voter_hash)
         if not voter_x_handle:
             logger.warning("No X handle mapping for CC voter hash: %s", vote.voter_hash)
@@ -104,6 +116,12 @@ def _process_cc_votes(block_no: int) -> None:
             post_tweet(tweet)
 
         archive_cc_vote(vote, metadata)
+        mark_cc_vote_archived(
+            vote.ga_tx_hash,
+            vote.ga_index,
+            vote.voter_hash,
+            source_block=block_no,
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -154,7 +172,7 @@ def _check_epoch_transition(payload: dict) -> None:
 
 
 def _process_x_mentions(payload: dict) -> None:
-    mentions, ignored_mentions = extract_actionable_mentions(payload, is_duplicate=was_already_processed)
+    mentions, ignored_mentions = extract_actionable_mentions(payload, is_duplicate=was_mention_processed)
 
     for ignored in ignored_mentions:
         logger.info("Ignored X mention post_id=%s reason=%s", ignored.post_id, ignored.reason)
@@ -169,7 +187,11 @@ def _process_x_mentions(payload: dict) -> None:
 
         if should_create_issue:
             issue = create_or_get_issue_for_mention(mention, triage)
-            mark_processed(mention.post_id)
+            mark_mention_processed(
+                mention.post_id,
+                decision=triage.decision,
+                issue_number=issue.issue_number,
+            )
             if issue.created:
                 reply_text = f"@{mention.author_handle} Thanks - tracked here: {issue.issue_url}"
                 post_reply_tweet(reply_text, mention.post_id)
@@ -179,7 +201,7 @@ def _process_x_mentions(payload: dict) -> None:
 
         if triage.decision == "ignore":
             logger.info("Ignored X mention %s after triage: %s", mention.post_id, triage.reason)
-            mark_processed(mention.post_id)
+            mark_mention_processed(mention.post_id, decision=triage.decision)
             continue
 
         if triage.decision in {"bug_report", "feature_request"}:
@@ -188,7 +210,7 @@ def _process_x_mentions(payload: dict) -> None:
             reason = triage.short_reply or "Thanks. I did not open an issue for this one."
 
         post_reply_tweet(f"@{mention.author_handle} {reason}".strip(), mention.post_id)
-        mark_processed(mention.post_id)
+        mark_mention_processed(mention.post_id, decision=triage.decision)
 
 
 # ---------------------------------------------------------------------------
@@ -237,6 +259,11 @@ def _handle_blockfrost_webhook(request: flask.Request) -> flask.Response:
 
         # Detect epoch transitions and process if needed.
         _check_epoch_transition(payload)
+        set_checkpoint(
+            name="blockfrost_main",
+            block_no=block_no,
+            epoch_no=payload.get("epoch"),
+        )
     except Exception:
         logger.exception("Error processing webhook for block: %s", block_no)
         return _json_response({"error": "Internal server error"}, 500)

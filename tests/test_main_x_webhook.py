@@ -67,11 +67,12 @@ class TestMainXWebhook:
         )
         monkeypatch.setattr(main, "config", cfg)
 
-        calls = {"gov": 0, "cc": 0, "epoch": 0}
+        calls = {"gov": 0, "cc": 0, "epoch": 0, "checkpoint": 0}
         monkeypatch.setattr(main, "verify_webhook_signature", lambda *_: True)
         monkeypatch.setattr(main, "_process_gov_actions", lambda *_: calls.__setitem__("gov", calls["gov"] + 1))
         monkeypatch.setattr(main, "_process_cc_votes", lambda *_: calls.__setitem__("cc", calls["cc"] + 1))
         monkeypatch.setattr(main, "_check_epoch_transition", lambda *_: calls.__setitem__("epoch", calls["epoch"] + 1))
+        monkeypatch.setattr(main, "set_checkpoint", lambda *_args, **_kwargs: calls.__setitem__("checkpoint", 1))
 
         app = Flask(__name__)
         with app.test_request_context(
@@ -83,4 +84,4 @@ class TestMainXWebhook:
             response = main.handle_webhook(main.flask.request)
 
         assert response.status_code == 200
-        assert calls == {"gov": 1, "cc": 1, "epoch": 1}
+        assert calls == {"gov": 1, "cc": 1, "epoch": 1, "checkpoint": 1}

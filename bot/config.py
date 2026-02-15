@@ -66,6 +66,10 @@ class Config:
     github_token: str = ""
     github_repo: str = ""
 
+    # Firestore integration (for persistent runtime state)
+    firestore_project_id: str = ""
+    firestore_database: str = "(default)"
+
     @classmethod
     def from_env(cls) -> "Config":
         return cls(
@@ -83,6 +87,8 @@ class Config:
             llm_issue_confidence_threshold=_parse_float(os.environ.get("LLM_ISSUE_CONFIDENCE_THRESHOLD"), default=0.8),
             github_token=os.environ.get("GITHUB_TOKEN", ""),
             github_repo=os.environ.get("GITHUB_REPO", ""),
+            firestore_project_id=os.environ.get("FIRESTORE_PROJECT_ID", ""),
+            firestore_database=os.environ.get("FIRESTORE_DATABASE", "(default)"),
         )
 
     def validate(self) -> None:

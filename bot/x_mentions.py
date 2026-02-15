@@ -2,13 +2,8 @@
 
 from __future__ import annotations
 
-from collections import deque
 from collections.abc import Callable
 from dataclasses import dataclass
-
-MAX_TRACKED_POST_IDS = 10_000
-_PROCESSED_POST_IDS: set[str] = set()
-_POST_ID_QUEUE: deque[str] = deque()
 
 
 @dataclass(frozen=True)
@@ -24,25 +19,6 @@ class MentionEvent:
 class IgnoredMention:
     post_id: str | None
     reason: str
-
-
-def was_already_processed(post_id: str) -> bool:
-    """Return whether this post ID has been handled by this process."""
-    return post_id in _PROCESSED_POST_IDS
-
-
-def mark_processed(post_id: str) -> None:
-    """Track post IDs to avoid duplicate processing within one process lifetime."""
-    if post_id in _PROCESSED_POST_IDS:
-        return
-
-    _PROCESSED_POST_IDS.add(post_id)
-    _POST_ID_QUEUE.append(post_id)
-
-    while len(_POST_ID_QUEUE) > MAX_TRACKED_POST_IDS:
-        evicted = _POST_ID_QUEUE.popleft()
-        _PROCESSED_POST_IDS.discard(evicted)
-
 
 def extract_actionable_mentions(
     payload: dict,

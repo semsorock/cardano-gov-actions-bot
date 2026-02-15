@@ -15,8 +15,9 @@ X Webhook (`/x/webhook`) → Cloud Run → LLM triage → GitHub issue + X reply
 2. The bot queries a **Cardano DB-Sync** PostgreSQL database for governance actions, CC votes, and epoch donations
 3. Metadata is fetched from **IPFS** and validated (CIP-0108 / CIP-0136 warnings only)
 4. Formatted summaries are posted to **Twitter/X** via `xdk`
-5. Rationale JSON is archived to GitHub through automated direct commits to `main`
-6. **X** sends mention webhooks to `/x/webhook`; mentions are triaged by an LLM and optionally create GitHub issues
+5. Mutable runtime state (tweet IDs, mention dedupe, checkpoints) is stored in **Google Cloud Firestore**
+6. Rationale JSON is archived to GitHub through automated direct commits to `main`
+7. **X** sends mention webhooks to `/x/webhook`; mentions are triaged by an LLM and optionally create GitHub issues
 
 ### What It Monitors
 
@@ -52,6 +53,8 @@ The bot loads `.env` locally (`python-dotenv`) and can also read from Cloud Run 
 | `X_WEBHOOK_CALLBACK_URL` | Full callback URL used by `scripts/setup_x_webhook.py` |
 | `GITHUB_TOKEN` | GitHub token for rationale archiving commits (optional) |
 | `GITHUB_REPO` | Repository in `owner/name` format for rationale archives (optional) |
+| `FIRESTORE_PROJECT_ID` | Optional Firestore project override; default uses ADC project |
+| `FIRESTORE_DATABASE` | Firestore database ID (default: `(default)`) |
 
 ## Local Development
 

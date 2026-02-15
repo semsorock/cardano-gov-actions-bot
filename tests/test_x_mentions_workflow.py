@@ -1,6 +1,8 @@
 import os
 from dataclasses import replace
 
+import pytest
+
 os.environ.setdefault("DB_SYNC_URL", "postgresql://localhost/test")
 
 from bot import main
@@ -23,6 +25,16 @@ def _payload(post_id: str, text: str = "@GovActions please help") -> dict:
 
 
 class TestXMentionsWorkflow:
+    @pytest.fixture(autouse=True)
+    def _stub_mention_state_store(self, monkeypatch):
+        processed: set[str] = set()
+        monkeypatch.setattr(main, "was_mention_processed", lambda post_id: post_id in processed)
+        monkeypatch.setattr(
+            main,
+            "mark_mention_processed",
+            lambda post_id, decision, issue_number=None: processed.add(post_id),
+        )
+
     def test_bug_mention_creates_issue_and_replies(self, monkeypatch):
         cfg = replace(main.config, llm_model="mock-model", llm_issue_confidence_threshold=0.8)
         monkeypatch.setattr(main, "config", cfg)
@@ -138,3 +150,41 @@ class TestXMentionsWorkflow:
         main._process_x_mentions(_payload("1004", "@GovActions can we add this feature?"))
 
         assert replies == []
+
+    def test_duplicate_post_id_is_ignored_on_second_delivery(self, monkeypatch):
+        cfg = replace(main.config, llm_model="mock-model", llm_issue_confidence_threshold=0.8)
+        monkeypatch.setattr(main, "config", cfg)
+
+        processed: set[str] = set()
+        monkeypatch.setattr(main, "was_mention_processed", lambda post_id: post_id in processed)
+        monkeypatch.setattr(
+            main,
+            "mark_mention_processed",
+            lambda post_id, decision, issue_number=None: processed.add(post_id),
+        )
+
+        monkeypatch.setattr(
+            main,
+            "classify_mention",
+            lambda *_args, **_kwargs: TriageResult(
+                decision="no_issue",
+                confidence=0.9,
+                reason="question only",
+                short_reply="Thanks for the mention.",
+            ),
+        )
+
+        replies = []
+        monkeypatch.setattr(main, "post_reply_tweet", lambda text, post_id: replies.append((text, post_id)))
+        monkeypatch.setattr(
+            main,
+            "create_or_get_issue_for_mention",
+            lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("should not create issue")),
+        )
+
+        payload = _payload("1005", "@GovActions what changed?")
+        main._process_x_mentions(payload)
+        main._process_x_mentions(payload)
+
+        assert len(replies) == 1
+        assert replies[0][1] == "1005"
