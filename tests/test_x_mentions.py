@@ -60,3 +60,28 @@ def test_repost_of_other_account_is_ignored() -> None:
     assert len(ignored) == 1
     assert ignored[0].post_id == "post-1"
     assert ignored[0].reason == "not_mentioning_bot"
+
+
+def test_post_create_events_alias_is_supported() -> None:
+    payload = {"for_user_id": "999", "post_create_events": [_base_event()]}
+
+    actionable, ignored = extract_actionable_mentions(payload)
+
+    assert len(actionable) == 1
+    assert actionable[0].post_id == "post-1"
+    assert ignored == []
+
+
+def test_nested_data_payload_is_supported() -> None:
+    payload = {
+        "data": {
+            "for_user_id": "999",
+            "post_create_events": [_base_event()],
+        }
+    }
+
+    actionable, ignored = extract_actionable_mentions(payload)
+
+    assert len(actionable) == 1
+    assert actionable[0].post_id == "post-1"
+    assert ignored == []

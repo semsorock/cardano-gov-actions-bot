@@ -30,11 +30,11 @@ def extract_actionable_mentions(
     actionable: list[MentionEvent] = []
     ignored: list[IgnoredMention] = []
 
-    events = payload.get("tweet_create_events")
+    events = _extract_create_events(payload)
     if not isinstance(events, list):
         return actionable, [IgnoredMention(post_id=None, reason="missing_tweet_create_events")]
 
-    for_user_id = str(payload.get("for_user_id") or "").strip()
+    for_user_id = _extract_for_user_id(payload)
 
     for event in events:
         if not isinstance(event, dict):
@@ -125,3 +125,37 @@ def _is_targeting_bot(event: dict, for_user_id: str) -> bool:
                 return True
 
     return False
+
+
+def _extract_create_events(payload: dict) -> list | None:
+    candidates: list[object] = [
+        payload.get("tweet_create_events"),
+        payload.get("post_create_events"),
+    ]
+
+    nested = payload.get("data")
+    if isinstance(nested, dict):
+        candidates.extend(
+            [
+                nested.get("tweet_create_events"),
+                nested.get("post_create_events"),
+            ]
+        )
+
+    for candidate in candidates:
+        if isinstance(candidate, list):
+            return candidate
+
+    return None
+
+
+def _extract_for_user_id(payload: dict) -> str:
+    for_user_id = str(payload.get("for_user_id") or "").strip()
+    if for_user_id:
+        return for_user_id
+
+    nested = payload.get("data")
+    if isinstance(nested, dict):
+        return str(nested.get("for_user_id") or "").strip()
+
+    return ""

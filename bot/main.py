@@ -328,6 +328,22 @@ def _handle_x_webhook(request: flask.Request) -> flask.Response:
     if not isinstance(request_json, dict):
         return _json_response({"error": "Invalid or missing JSON body"}, 400)
 
+    nested = request_json.get("data")
+    nested_keys = sorted(nested.keys()) if isinstance(nested, dict) else []
+    has_tweet_create_events = isinstance(request_json.get("tweet_create_events"), list) or (
+        isinstance(nested, dict) and isinstance(nested.get("tweet_create_events"), list)
+    )
+    has_post_create_events = isinstance(request_json.get("post_create_events"), list) or (
+        isinstance(nested, dict) and isinstance(nested.get("post_create_events"), list)
+    )
+    logger.info(
+        "X webhook payload summary: keys=%s nested_keys=%s tweet_create_events=%s post_create_events=%s",
+        sorted(request_json.keys()),
+        nested_keys,
+        has_tweet_create_events,
+        has_post_create_events,
+    )
+
     try:
         _process_x_mentions(request_json)
     except Exception:
