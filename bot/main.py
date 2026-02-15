@@ -13,23 +13,29 @@ from bot.db.repository import (
     get_gov_actions,
     get_treasury_donations,
 )
+from bot.github_issues import create_or_get_issue_for_mention
+from bot.llm_triage import classify_mention
 from bot.logging import get_logger, setup_logging
 from bot.metadata.fetcher import fetch_metadata, sanitise_url
 from bot.rationale_archiver import archive_cc_vote, archive_gov_action, get_action_tweet_id
 from bot.rationale_validator import validate_cc_vote_rationale, validate_gov_action_rationale
-from bot.twitter.client import post_quote_tweet, post_tweet
+from bot.twitter.client import post_quote_tweet, post_reply_tweet, post_tweet
 from bot.twitter.formatter import (
     format_cc_vote_tweet,
     format_gov_action_tweet,
     format_treasury_donations_tweet,
 )
 from bot.webhook_auth import verify_webhook_signature
+from bot.x_mentions import extract_actionable_mentions, mark_processed, was_already_processed
+from bot.x_webhook_auth import build_crc_response_token, verify_x_webhook_signature
 
 setup_logging()
 logger = get_logger("main")
 
 # Validate config at startup — fail fast on missing required vars.
 config.validate()
+
+X_WEBHOOK_PATH = "/x/webhook"
 
 
 # ---------------------------------------------------------------------------
@@ -143,7 +149,50 @@ def _check_epoch_transition(payload: dict) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Webhook handler
+# X mentions processing
+# ---------------------------------------------------------------------------
+
+
+def _process_x_mentions(payload: dict) -> None:
+    mentions, ignored_mentions = extract_actionable_mentions(payload, is_duplicate=was_already_processed)
+
+    for ignored in ignored_mentions:
+        logger.info("Ignored X mention post_id=%s reason=%s", ignored.post_id, ignored.reason)
+
+    for mention in mentions:
+        triage = classify_mention(mention, model=config.llm_model)
+
+        should_create_issue = (
+            triage.decision in {"bug_report", "feature_request"}
+            and triage.confidence >= config.llm_issue_confidence_threshold
+        )
+
+        if should_create_issue:
+            issue = create_or_get_issue_for_mention(mention, triage)
+            mark_processed(mention.post_id)
+            if issue.created:
+                reply_text = f"@{mention.author_handle} Thanks - tracked here: {issue.issue_url}"
+                post_reply_tweet(reply_text, mention.post_id)
+            else:
+                logger.info("Issue already existed for mention %s; skipping reply", mention.post_id)
+            continue
+
+        if triage.decision == "ignore":
+            logger.info("Ignored X mention %s after triage: %s", mention.post_id, triage.reason)
+            mark_processed(mention.post_id)
+            continue
+
+        if triage.decision in {"bug_report", "feature_request"}:
+            reason = triage.short_reply or "Thanks. I could not confidently classify this as a trackable issue yet."
+        else:
+            reason = triage.short_reply or "Thanks. I did not open an issue for this one."
+
+        post_reply_tweet(f"@{mention.author_handle} {reason}".strip(), mention.post_id)
+        mark_processed(mention.post_id)
+
+
+# ---------------------------------------------------------------------------
+# Webhook handlers
 # ---------------------------------------------------------------------------
 
 
@@ -155,9 +204,8 @@ def _json_response(data: dict, status: int = 200) -> flask.Response:
     )
 
 
-@functions_framework.http
-def handle_webhook(request: flask.Request) -> flask.Response:
-    """Main entry point for Blockfrost webhook events."""
+def _handle_blockfrost_webhook(request: flask.Request) -> flask.Response:
+    """Handle Blockfrost webhook events."""
     # --- Signature verification ---
     raw_body = request.get_data()
     signature = request.headers.get("Blockfrost-Signature")
@@ -194,3 +242,51 @@ def handle_webhook(request: flask.Request) -> flask.Response:
         return _json_response({"error": "Internal server error"}, 500)
 
     return _json_response({"status": "ok"})
+
+
+def _handle_x_webhook(request: flask.Request) -> flask.Response:
+    """Handle X webhook CRC and mention events."""
+    if not config.x_webhook_enabled:
+        return _json_response({"error": "Not found"}, 404)
+
+    if request.method == "GET":
+        crc_token = (request.args.get("crc_token") or "").strip()
+        if not crc_token:
+            return _json_response({"error": "Missing crc_token"}, 400)
+
+        response_token = build_crc_response_token(crc_token, config.twitter.api_secret_key)
+        return _json_response({"response_token": response_token})
+
+    if request.method != "POST":
+        return _json_response({"error": "Method not allowed"}, 405)
+
+    raw_body = request.get_data()
+    signature = request.headers.get("X-Twitter-Webhooks-Signature")
+
+    if not verify_x_webhook_signature(signature, raw_body, config.twitter.api_secret_key):
+        logger.warning("X webhook signature verification failed")
+        return _json_response({"error": "Unauthorized"}, 401)
+
+    request_json = request.get_json(silent=True)
+    logger.info("Incoming X webhook")
+    logger.debug("X webhook payload: %s", request_json)
+
+    if not isinstance(request_json, dict):
+        return _json_response({"error": "Invalid or missing JSON body"}, 400)
+
+    try:
+        _process_x_mentions(request_json)
+    except Exception:
+        logger.exception("Error processing X webhook")
+        return _json_response({"error": "Internal server error"}, 500)
+
+    return _json_response({"status": "ok"})
+
+
+@functions_framework.http
+def handle_webhook(request: flask.Request) -> flask.Response:
+    """Main entry point for Blockfrost and X webhooks."""
+    if request.path.rstrip("/") == X_WEBHOOK_PATH:
+        return _handle_x_webhook(request)
+
+    return _handle_blockfrost_webhook(request)

@@ -14,6 +14,7 @@ dependencies = [
     "python-dotenv>=1.2.1",
     "pygithub>=2,<3",
     "xdk>=0.8.1",
+    "litellm>=1.63,<2",
 ]
 
 [dependency-groups]

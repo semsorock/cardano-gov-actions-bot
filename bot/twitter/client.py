@@ -1,6 +1,6 @@
 from xdk import Client
 from xdk.oauth1_auth import OAuth1
-from xdk.posts.models import CreateRequest
+from xdk.posts.models import CreateRequest, CreateRequestReply
 
 from bot.config import config
 from bot.logging import get_logger
@@ -65,4 +65,28 @@ def post_quote_tweet(text: str, quote_tweet_id: str) -> str | None:
     response = client.posts.create(CreateRequest(text=text, quote_tweet_id=quote_tweet_id))
     post_id = _extract_post_id(response)
     logger.info("Quote tweet posted: %s", response)
+    return post_id
+
+
+def post_reply_tweet(text: str, in_reply_to_tweet_id: str) -> str | None:
+    """Post a reply tweet. Controlled by the TWEET_POSTING_ENABLED flag in config."""
+    logger.info("Reply tweet content:\n%s", text)
+    logger.info("Reply target tweet id: %s", in_reply_to_tweet_id)
+
+    if not config.tweet_posting_enabled:
+        logger.info("Tweet posting disabled — set TWEET_POSTING_ENABLED=true to enable")
+        return None
+
+    client = _get_client()
+    response = client.posts.create(
+        CreateRequest(
+            text=text,
+            reply=CreateRequestReply(
+                in_reply_to_tweet_id=in_reply_to_tweet_id,
+                auto_populate_reply_metadata=True,
+            ),
+        )
+    )
+    post_id = _extract_post_id(response)
+    logger.info("Reply tweet posted: %s", response)
     return post_id
