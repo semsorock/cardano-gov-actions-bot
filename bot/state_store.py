@@ -19,7 +19,6 @@ _FIRESTORE_UNAVAILABLE_LOGGED = False
 
 GOV_ACTION_STATE_COLLECTION = "gov_action_state"
 CC_VOTE_STATE_COLLECTION = "cc_vote_state"
-X_MENTIONS_STATE_COLLECTION = "x_mentions_state"
 CHECKPOINTS_COLLECTION = "checkpoints"
 
 
@@ -145,44 +144,6 @@ def mark_cc_vote_archived(
             voter_hash[:8],
             exc_info=True,
         )
-
-
-def was_mention_processed(post_id: str) -> bool:
-    """Return True if a mention was already processed in Firestore."""
-    client = _get_firestore_client()
-    if client is None:
-        return False
-
-    try:
-        doc = client.collection(X_MENTIONS_STATE_COLLECTION).document(post_id).get()
-        if not doc.exists:
-            return False
-
-        return bool((doc.to_dict() or {}).get("processed"))
-    except Exception:
-        logger.warning("Failed to read mention state in Firestore [%s]", post_id, exc_info=True)
-        return False
-
-
-def mark_mention_processed(post_id: str, decision: str, issue_number: int | None = None) -> None:
-    """Mark an X mention as processed in Firestore."""
-    client = _get_firestore_client()
-    if client is None:
-        return
-
-    payload: dict[str, Any] = {
-        "processed": True,
-        "decision": decision,
-        "issue_number": issue_number,
-    }
-    timestamp = _server_timestamp()
-    if timestamp is not None:
-        payload["processed_at"] = timestamp
-
-    try:
-        client.collection(X_MENTIONS_STATE_COLLECTION).document(post_id).set(payload, merge=True)
-    except Exception:
-        logger.warning("Failed to write mention state in Firestore [%s]", post_id, exc_info=True)
 
 
 def get_checkpoint(name: str) -> dict[str, Any] | None:
