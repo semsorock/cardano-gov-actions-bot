@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from typing import Literal
 
@@ -12,6 +13,21 @@ from bot.x_mentions import MentionEvent
 logger = get_logger("llm_triage")
 
 Decision = Literal["bug_report", "feature_request", "no_issue", "ignore"]
+
+# Maximum length for mention text to prevent excessive LLM token usage
+MAX_MENTION_LENGTH = 2000
+
+# Patterns that may indicate prompt injection attempts
+SUSPICIOUS_PATTERNS = [
+    re.compile(
+        r"(ignore|forget|disregard).{0,20}(previous|prior|above).{0,20}(instruction|prompt|rule|command)",
+        re.IGNORECASE,
+    ),
+    re.compile(r"system\s*:\s*", re.IGNORECASE),
+    re.compile(r"(you\s+are|act\s+as|pretend\s+to\s+be|behave\s+like)\s+(a|an|now)", re.IGNORECASE),
+    re.compile(r"[{}\[\]]{5,}"),  # Excessive braces/brackets
+    re.compile(r"(.)\1{9,}"),  # Same character repeated 10+ times (e.g., !!!!!!!!!!)
+]
 
 
 @dataclass(frozen=True)
@@ -28,6 +44,41 @@ class LlmTriageError(Exception):
     """Raised when triage output cannot be parsed or validated."""
 
 
+def _sanitize_mention_text(text: str, post_id: str) -> str:
+    """Sanitize user-provided mention text before including in LLM prompt.
+
+    Args:
+        text: Raw mention text from user
+        post_id: Post ID for logging purposes
+
+    Returns:
+        Sanitized text safe for inclusion in prompt
+    """
+    # Normalize whitespace
+    sanitized = " ".join(text.split())
+
+    # Apply length limit
+    if len(sanitized) > MAX_MENTION_LENGTH:
+        logger.warning(
+            "Mention text exceeds max length (%d > %d) for post %s, truncating",
+            len(sanitized),
+            MAX_MENTION_LENGTH,
+            post_id,
+        )
+        sanitized = sanitized[:MAX_MENTION_LENGTH]
+
+    # Check for suspicious patterns
+    for pattern in SUSPICIOUS_PATTERNS:
+        if pattern.search(sanitized):
+            logger.warning(
+                "Mention text contains suspicious pattern (possible injection attempt) for post %s: %s",
+                post_id,
+                pattern.pattern,
+            )
+
+    return sanitized
+
+
 def classify_mention(mention: MentionEvent, *, model: str) -> TriageResult:
     """Classify a mention and optionally draft GitHub issue content."""
     if not model:
@@ -37,6 +88,9 @@ def classify_mention(mention: MentionEvent, *, model: str) -> TriageResult:
         from litellm import completion
     except Exception as exc:
         raise LlmTriageError("litellm is not installed or failed to import") from exc
+
+    # Sanitize user input before including in prompt
+    sanitized_text = _sanitize_mention_text(mention.text, mention.post_id)
 
     messages = [
         {
@@ -57,7 +111,7 @@ def classify_mention(mention: MentionEvent, *, model: str) -> TriageResult:
                 "Analyze this mention and return JSON only.\n"
                 f"author_handle: @{mention.author_handle}\n"
                 f"post_id: {mention.post_id}\n"
-                f"text: {mention.text}\n"
+                f"text: {sanitized_text}\n"
             ),
         },
     ]
