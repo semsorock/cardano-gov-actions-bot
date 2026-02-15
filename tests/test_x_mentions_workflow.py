@@ -1,4 +1,7 @@
+import os
 from dataclasses import replace
+
+os.environ.setdefault("DB_SYNC_URL", "postgresql://localhost/test")
 
 from bot import main
 from bot.github_issues import GithubIssueResult

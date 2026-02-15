@@ -1,7 +1,10 @@
+import os
 import json
 from dataclasses import replace
 
 from flask import Flask
+
+os.environ.setdefault("DB_SYNC_URL", "postgresql://localhost/test")
 
 from bot import main
 from bot.config import TwitterConfig
