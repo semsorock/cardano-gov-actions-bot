@@ -217,6 +217,7 @@ def _process_x_mentions(payload: dict) -> None:
 
         if triage.decision == "ignore":
             logger.info("Ignored X mention %s after triage: %s", mention.post_id, triage.reason)
+            mark_mention_processed(mention.post_id, decision=triage.decision)
             continue
 
         if triage.decision in {"bug_report", "feature_request"}:
@@ -228,6 +229,8 @@ def _process_x_mentions(payload: dict) -> None:
             post_reply_tweet(f"@{mention.author_handle} {reason}".strip(), mention.post_id)
         except Exception:
             logger.exception("Failed to post reply tweet for mention %s", mention.post_id)
+
+        mark_mention_processed(mention.post_id, decision=triage.decision)
 
 
 # ---------------------------------------------------------------------------
