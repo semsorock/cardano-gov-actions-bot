@@ -23,6 +23,7 @@ class _FakeClient:
 class TestTwitterClient:
     def test_exports_quote_tweet_function(self):
         assert callable(twitter_client.post_quote_tweet)
+        assert callable(twitter_client.post_reply_tweet)
 
     def test_post_tweet_disabled_returns_none(self, monkeypatch):
         cfg = replace(
@@ -81,3 +82,29 @@ class TestTwitterClient:
         assert isinstance(body, CreateRequest)
         assert body.text == "cc vote update"
         assert body.quote_tweet_id == "987654321"
+
+    def test_post_reply_tweet_enabled_sends_reply_metadata(self, monkeypatch):
+        fake_client = _FakeClient()
+        cfg = replace(
+            twitter_client.config,
+            tweet_posting_enabled=True,
+            twitter=TwitterConfig(
+                api_key="k",
+                api_secret_key="s",
+                access_token="t",
+                access_token_secret="ts",
+            ),
+        )
+        monkeypatch.setattr(twitter_client, "config", cfg)
+        monkeypatch.setattr(twitter_client, "_get_client", lambda: fake_client)
+
+        post_id = twitter_client.post_reply_tweet("thanks for reporting", "123456789")
+
+        assert post_id == "12345"
+        assert len(fake_client.posts.calls) == 1
+        body = fake_client.posts.calls[0]
+        assert isinstance(body, CreateRequest)
+        assert body.text == "thanks for reporting"
+        assert body.reply is not None
+        assert body.reply.in_reply_to_tweet_id == "123456789"
+        assert body.reply.auto_populate_reply_metadata is True

@@ -1,0 +1,218 @@
+"""Persistent state helpers backed by Firestore with safe fallbacks."""
+
+from __future__ import annotations
+
+from typing import Any
+
+from bot.config import config
+from bot.logging import get_logger
+
+try:
+    from google.cloud import firestore
+except Exception:  # pragma: no cover - exercised via runtime fallback.
+    firestore = None
+
+logger = get_logger("state_store")
+
+_FIRESTORE_CLIENT = None
+_FIRESTORE_UNAVAILABLE_LOGGED = False
+
+GOV_ACTION_STATE_COLLECTION = "gov_action_state"
+CC_VOTE_STATE_COLLECTION = "cc_vote_state"
+X_MENTIONS_STATE_COLLECTION = "x_mentions_state"
+CHECKPOINTS_COLLECTION = "checkpoints"
+
+
+def _get_firestore_client():
+    global _FIRESTORE_CLIENT  # noqa: PLW0603
+
+    if _FIRESTORE_CLIENT is not None:
+        return _FIRESTORE_CLIENT
+
+    if firestore is None:
+        _log_firestore_unavailable_once("google-cloud-firestore is not installed")
+        return None
+
+    kwargs: dict[str, Any] = {}
+    if config.firestore_project_id:
+        kwargs["project"] = config.firestore_project_id
+    if config.firestore_database:
+        kwargs["database"] = config.firestore_database
+
+    try:
+        _FIRESTORE_CLIENT = firestore.Client(**kwargs)
+        return _FIRESTORE_CLIENT
+    except Exception:
+        _log_firestore_unavailable_once("failed to initialize Firestore client")
+        logger.warning("Firestore init error", exc_info=True)
+        return None
+
+
+def _log_firestore_unavailable_once(reason: str) -> None:
+    global _FIRESTORE_UNAVAILABLE_LOGGED  # noqa: PLW0603
+
+    if _FIRESTORE_UNAVAILABLE_LOGGED:
+        return
+
+    logger.warning("Firestore unavailable: %s. Runtime state reads/writes will be skipped.", reason)
+    _FIRESTORE_UNAVAILABLE_LOGGED = True
+
+
+def _server_timestamp() -> Any | None:
+    if firestore is None:
+        return None
+    return firestore.SERVER_TIMESTAMP
+
+
+def _action_id(tx_hash: str, index: int) -> str:
+    return f"{tx_hash}_{index}"
+
+
+def _cc_vote_id(ga_tx_hash: str, ga_index: int, voter_hash: str) -> str:
+    return f"{ga_tx_hash}_{ga_index}_{voter_hash}"
+
+
+def get_action_tweet_id(tx_hash: str, index: int) -> str | None:
+    """Return the persisted action tweet ID from Firestore."""
+    client = _get_firestore_client()
+    if client is None:
+        return None
+
+    try:
+        doc = client.collection(GOV_ACTION_STATE_COLLECTION).document(_action_id(tx_hash, index)).get()
+        if not doc.exists:
+            return None
+
+        tweet_id = (doc.to_dict() or {}).get("tweet_id")
+        if not tweet_id:
+            return None
+        return str(tweet_id).strip() or None
+    except Exception:
+        logger.warning("Failed to read action tweet ID from Firestore [%s_%s]", tx_hash[:8], index, exc_info=True)
+        return None
+
+
+def save_action_tweet_id(tx_hash: str, index: int, tweet_id: str, source_block: int | None = None) -> None:
+    """Persist action tweet ID and archived progress in Firestore."""
+    client = _get_firestore_client()
+    if client is None:
+        return
+
+    payload: dict[str, Any] = {"archived_action": True}
+    if tweet_id.strip():
+        payload["tweet_id"] = tweet_id.strip()
+    if source_block is not None:
+        payload["source_block"] = source_block
+
+    timestamp = _server_timestamp()
+    if timestamp is not None:
+        payload["last_updated_at"] = timestamp
+
+    try:
+        client.collection(GOV_ACTION_STATE_COLLECTION).document(_action_id(tx_hash, index)).set(payload, merge=True)
+    except Exception:
+        logger.warning("Failed to save action state in Firestore [%s_%s]", tx_hash[:8], index, exc_info=True)
+
+
+def mark_cc_vote_archived(
+    ga_tx_hash: str,
+    ga_index: int,
+    voter_hash: str,
+    source_block: int | None = None,
+) -> None:
+    """Persist CC vote archived status in Firestore."""
+    client = _get_firestore_client()
+    if client is None:
+        return
+
+    payload: dict[str, Any] = {"archived_vote": True}
+    if source_block is not None:
+        payload["source_block"] = source_block
+
+    timestamp = _server_timestamp()
+    if timestamp is not None:
+        payload["last_updated_at"] = timestamp
+
+    try:
+        client.collection(CC_VOTE_STATE_COLLECTION).document(_cc_vote_id(ga_tx_hash, ga_index, voter_hash)).set(
+            payload, merge=True
+        )
+    except Exception:
+        logger.warning(
+            "Failed to save CC vote state in Firestore [%s_%s_%s]",
+            ga_tx_hash[:8],
+            ga_index,
+            voter_hash[:8],
+            exc_info=True,
+        )
+
+
+def was_mention_processed(post_id: str) -> bool:
+    """Return True if a mention was already processed in Firestore."""
+    client = _get_firestore_client()
+    if client is None:
+        return False
+
+    try:
+        doc = client.collection(X_MENTIONS_STATE_COLLECTION).document(post_id).get()
+        if not doc.exists:
+            return False
+
+        return bool((doc.to_dict() or {}).get("processed"))
+    except Exception:
+        logger.warning("Failed to read mention state in Firestore [%s]", post_id, exc_info=True)
+        return False
+
+
+def mark_mention_processed(post_id: str, decision: str, issue_number: int | None = None) -> None:
+    """Mark an X mention as processed in Firestore."""
+    client = _get_firestore_client()
+    if client is None:
+        return
+
+    payload: dict[str, Any] = {
+        "processed": True,
+        "decision": decision,
+        "issue_number": issue_number,
+    }
+    timestamp = _server_timestamp()
+    if timestamp is not None:
+        payload["processed_at"] = timestamp
+
+    try:
+        client.collection(X_MENTIONS_STATE_COLLECTION).document(post_id).set(payload, merge=True)
+    except Exception:
+        logger.warning("Failed to write mention state in Firestore [%s]", post_id, exc_info=True)
+
+
+def get_checkpoint(name: str) -> dict[str, Any] | None:
+    """Return a checkpoint document by name."""
+    client = _get_firestore_client()
+    if client is None:
+        return None
+
+    try:
+        doc = client.collection(CHECKPOINTS_COLLECTION).document(name).get()
+        if not doc.exists:
+            return None
+        return doc.to_dict() or None
+    except Exception:
+        logger.warning("Failed to read checkpoint from Firestore [%s]", name, exc_info=True)
+        return None
+
+
+def set_checkpoint(name: str, block_no: int, epoch_no: int | None = None) -> None:
+    """Write/update a named checkpoint document."""
+    client = _get_firestore_client()
+    if client is None:
+        return
+
+    payload: dict[str, Any] = {"last_block_no": block_no, "last_epoch": epoch_no}
+    timestamp = _server_timestamp()
+    if timestamp is not None:
+        payload["updated_at"] = timestamp
+
+    try:
+        client.collection(CHECKPOINTS_COLLECTION).document(name).set(payload, merge=True)
+    except Exception:
+        logger.warning("Failed to write checkpoint to Firestore [%s]", name, exc_info=True)

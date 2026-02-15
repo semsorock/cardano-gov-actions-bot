@@ -22,6 +22,17 @@ def _parse_bool(value: str | None, default: bool = False) -> bool:
     return value.strip().lower() in ("1", "true", "yes")
 
 
+def _parse_float(value: str | None, default: float) -> float:
+    """Parse a float from an environment variable string."""
+    if value is None:
+        return default
+    try:
+        return float(value.strip())
+    except ValueError:
+        logger.warning("Invalid float value '%s' — using default %.2f", value, default)
+        return default
+
+
 @dataclass(frozen=True)
 class TwitterConfig:
     api_key: str = ""
@@ -45,10 +56,19 @@ class Config:
 
     # Feature flags
     tweet_posting_enabled: bool = False
+    x_webhook_enabled: bool = False
+
+    # LLM triage settings (used by X webhook flow)
+    llm_model: str = ""
+    llm_issue_confidence_threshold: float = 0.8
 
     # GitHub integration (for rationale archiving)
     github_token: str = ""
     github_repo: str = ""
+
+    # Firestore integration (for persistent runtime state)
+    firestore_project_id: str = ""
+    firestore_database: str = "(default)"
 
     @classmethod
     def from_env(cls) -> "Config":
@@ -62,8 +82,13 @@ class Config:
             ),
             blockfrost_webhook_auth_token=os.environ.get("BLOCKFROST_WEBHOOK_AUTH_TOKEN", ""),
             tweet_posting_enabled=_parse_bool(os.environ.get("TWEET_POSTING_ENABLED"), default=False),
+            x_webhook_enabled=_parse_bool(os.environ.get("X_WEBHOOK_ENABLED"), default=False),
+            llm_model=os.environ.get("LLM_MODEL", ""),
+            llm_issue_confidence_threshold=_parse_float(os.environ.get("LLM_ISSUE_CONFIDENCE_THRESHOLD"), default=0.8),
             github_token=os.environ.get("GITHUB_TOKEN", ""),
             github_repo=os.environ.get("GITHUB_REPO", ""),
+            firestore_project_id=os.environ.get("FIRESTORE_PROJECT_ID", ""),
+            firestore_database=os.environ.get("FIRESTORE_DATABASE", "(default)"),
         )
 
     def validate(self) -> None:
@@ -85,6 +110,19 @@ class Config:
 
         if not self.blockfrost_webhook_auth_token:
             logger.warning("BLOCKFROST_WEBHOOK_AUTH_TOKEN not set — webhook signature verification disabled")
+
+        if self.x_webhook_enabled:
+            if not self.twitter.api_secret_key:
+                missing.append("API_SECRET_KEY")
+            if not self.llm_model:
+                missing.append("LLM_MODEL")
+            if not self.github_token:
+                missing.append("GITHUB_TOKEN")
+            if not self.github_repo:
+                missing.append("GITHUB_REPO")
+
+        if not 0 <= self.llm_issue_confidence_threshold <= 1:
+            missing.append("LLM_ISSUE_CONFIDENCE_THRESHOLD (must be between 0 and 1)")
 
         if missing:
             raise ConfigError(f"Missing required environment variables: {', '.join(missing)}")
