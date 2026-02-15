@@ -185,7 +185,7 @@ def _process_x_mentions(payload: dict) -> None:
 
         try:
             triage = classify_mention(mention, model=config.llm_model)
-        except Exception:
+        except Exception:  # Catch all exceptions to ensure idempotent webhook processing
             logger.exception("LLM triage failed for mention %s", mention.post_id)
             continue
 
@@ -207,11 +207,11 @@ def _process_x_mentions(payload: dict) -> None:
                     reply_text = f"@{mention.author_handle} Thanks - tracked here: {issue.issue_url}"
                     try:
                         post_reply_tweet(reply_text, mention.post_id)
-                    except Exception:
+                    except Exception:  # Non-critical: tweet posting failure shouldn't block processing
                         logger.exception("Failed to post reply tweet for mention %s", mention.post_id)
                 else:
                     logger.info("Issue already existed for mention %s; skipping reply", mention.post_id)
-            except Exception:
+            except Exception:  # Catch all exceptions to prevent retry loops on issue creation failures
                 logger.exception("Failed to create issue for mention %s", mention.post_id)
             continue
 
@@ -229,7 +229,7 @@ def _process_x_mentions(payload: dict) -> None:
         mark_mention_processed(mention.post_id, decision=triage.decision)
         try:
             post_reply_tweet(f"@{mention.author_handle} {reason}".strip(), mention.post_id)
-        except Exception:
+        except Exception:  # Non-critical: tweet posting failure shouldn't block processing
             logger.exception("Failed to post reply tweet for mention %s", mention.post_id)
 
 
