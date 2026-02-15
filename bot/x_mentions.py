@@ -55,10 +55,6 @@ def extract_actionable_mentions(
             ignored.append(IgnoredMention(post_id=post_id, reason="empty_text"))
             continue
 
-        if "retweeted_status" in event or text.startswith("RT @"):
-            ignored.append(IgnoredMention(post_id=post_id, reason="retweet_style"))
-            continue
-
         user = event.get("user")
         if not isinstance(user, dict):
             ignored.append(IgnoredMention(post_id=post_id, reason="missing_user"))
@@ -74,8 +70,7 @@ def extract_actionable_mentions(
             ignored.append(IgnoredMention(post_id=post_id, reason="self_post"))
             continue
 
-        mention_ids = _extract_mention_ids(event)
-        if for_user_id and for_user_id not in mention_ids:
+        if for_user_id and not _is_targeting_bot(event, for_user_id):
             ignored.append(IgnoredMention(post_id=post_id, reason="not_mentioning_bot"))
             continue
 
@@ -109,3 +104,24 @@ def _extract_mention_ids(event: dict) -> set[str]:
         if mention_id is not None:
             ids.add(str(mention_id))
     return ids
+
+
+def _is_targeting_bot(event: dict, for_user_id: str) -> bool:
+    """Treat posts, replies, and reposts that target the bot as actionable."""
+    mention_ids = _extract_mention_ids(event)
+    if for_user_id in mention_ids:
+        return True
+
+    in_reply_to_user_id = str(event.get("in_reply_to_user_id") or "").strip()
+    if in_reply_to_user_id and in_reply_to_user_id == for_user_id:
+        return True
+
+    retweeted_status = event.get("retweeted_status")
+    if isinstance(retweeted_status, dict):
+        retweeted_user = retweeted_status.get("user")
+        if isinstance(retweeted_user, dict):
+            retweeted_user_id = str(retweeted_user.get("id_str") or retweeted_user.get("id") or "").strip()
+            if retweeted_user_id and retweeted_user_id == for_user_id:
+                return True
+
+    return False
