@@ -17,7 +17,14 @@ X Webhook (`/x/webhook`) → Cloud Run → LLM triage → GitHub issue + X reply
 4. Formatted summaries are posted to **Twitter/X** via `xdk`
 5. Mutable runtime state (tweet IDs, mention dedupe, checkpoints) is stored in **Google Cloud Firestore**
 6. Rationale JSON is archived to GitHub through automated direct commits to `main`
-7. **X** sends mention webhooks to `/x/webhook`; mentions are triaged by an LLM and optionally create GitHub issues
+7. **X** sends mention webhooks to `/x/webhook`; mentions are triaged by an LLM and can create GitHub issues + replies
+
+### X Mention Processing Notes
+
+- Mentions are marked as processed in Firestore before triage to prevent retry loops on webhook redelivery.
+- Mention text is sanitized (whitespace normalization, max length, suspicious-pattern logging) before being sent to the LLM.
+- Issue creation is gated by `LLM_ISSUE_CONFIDENCE_THRESHOLD` and only for `bug_report` / `feature_request`.
+- Idempotency is enforced with both Firestore mention-state checks and a hidden issue marker (`<!-- x_post_id:... -->`).
 
 ### What It Monitors
 
@@ -32,7 +39,8 @@ X Webhook (`/x/webhook`) → Cloud Run → LLM triage → GitHub issue + X reply
 - **Cardano DB-Sync** PostgreSQL database access
 - **Twitter/X API** credentials (OAuth 1.0a with read/write access)
 - **Blockfrost** account with webhook configured
-- **GitHub token + repo access** (optional, for rationale archiving)
+- **GitHub token + repo access** (required for X mention issue creation; optional if using only rationale archiving)
+- **LLM provider credentials** for your selected LiteLLM backend (for example `OPENAI_API_KEY`)
 
 ## Environment Variables
 
@@ -51,8 +59,8 @@ The bot loads `.env` locally (`python-dotenv`) and can also read from Cloud Run 
 | `LLM_MODEL` | LiteLLM model name for mention triage (required when `X_WEBHOOK_ENABLED=true`) |
 | `LLM_ISSUE_CONFIDENCE_THRESHOLD` | Confidence threshold (0-1) for issue creation (default: `0.80`) |
 | `X_WEBHOOK_CALLBACK_URL` | Full callback URL used by `scripts/setup_x_webhook.py` |
-| `GITHUB_TOKEN` | GitHub token for rationale archiving commits (optional) |
-| `GITHUB_REPO` | Repository in `owner/name` format for rationale archives (optional) |
+| `GITHUB_TOKEN` | GitHub token for rationale archiving and X-mention issue creation |
+| `GITHUB_REPO` | Repository in `owner/name` format for rationale archives and mention issues |
 | `FIRESTORE_PROJECT_ID` | Optional Firestore project override; default uses ADC project |
 | `FIRESTORE_DATABASE` | Firestore database ID (default: `(default)`) |
 
@@ -111,7 +119,7 @@ The bot is deployed to **Google Cloud Run** with continuous deployment from this
 1. **Store secrets** in Google Secret Manager for your GCP project:
    - `api-key`, `api-secret-key`, `access-token`, `access-token-secret`
    - `db-sync-url`, `blockfrost-webhook-auth-token`
-   - Optional: `github-token`, `github-repo`
+   - Optional unless X mention triage is enabled: `github-token`, `github-repo`
 
 2. **Create a Cloud Run service**:
    - Go to [Cloud Run Console](https://console.cloud.google.com/run)
@@ -164,6 +172,7 @@ Every push to the `main` branch automatically triggers:
 │   ├── x_mentions.py            # Mention extraction + ignore policy
 │   ├── llm_triage.py            # LiteLLM mention classification
 │   ├── github_issues.py         # GitHub issue creation + dedupe marker
+│   ├── state_store.py           # Firestore-backed runtime state (tweet IDs, dedupe, checkpoints)
 │   ├── db/                      # SQL constants + repository layer
 │   ├── metadata/                # IPFS URL sanitisation and metadata fetch
 │   └── twitter/
