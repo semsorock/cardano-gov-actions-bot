@@ -214,8 +214,7 @@ def main() -> None:
             if not webhook_id:
                 created_payload = _to_dict(created)
                 raise SystemExit(
-                    "Failed to create webhook: missing webhook ID in response. "
-                    f"response payload: {created_payload}"
+                    f"Failed to create webhook: missing webhook ID in response. response payload: {created_payload}"
                 )
         logger.info("Created webhook config: id=%s", webhook_id)
 
