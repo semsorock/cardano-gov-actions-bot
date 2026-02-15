@@ -37,7 +37,7 @@ X Webhook (`/x/webhook`) → Cloud Run → LLM triage → GitHub issue + X reply
 
 - **Google Cloud Platform** account with a project
 - **Cardano DB-Sync** PostgreSQL database access
-- **Twitter/X API** credentials (OAuth 1.0a with read/write access)
+- **Twitter/X API** credentials (OAuth 1.0a user tokens + app bearer token)
 - **Blockfrost** account with webhook configured
 - **GitHub token + repo access** (required for X mention issue creation; optional if using only rationale archiving)
 - **LLM provider credentials** for your selected LiteLLM backend (for example `OPENAI_API_KEY`)
@@ -52,6 +52,7 @@ The bot loads `.env` locally (`python-dotenv`) and can also read from Cloud Run 
 | `API_SECRET_KEY` | Twitter OAuth 1.0a consumer secret |
 | `ACCESS_TOKEN` | Twitter access token |
 | `ACCESS_TOKEN_SECRET` | Twitter access token secret |
+| `BEARER_TOKEN` | Twitter/X app bearer token (required by `scripts/setup_x_webhook.py`) |
 | `DB_SYNC_URL` | PostgreSQL connection string (e.g. `postgresql://user:pass@host:5432/dbname`) |
 | `BLOCKFROST_WEBHOOK_AUTH_TOKEN` | Shared secret used to verify `Blockfrost-Signature` |
 | `TWEET_POSTING_ENABLED` | Set to `true` to enable posting tweets/replies (default: `false`) |
@@ -117,8 +118,9 @@ The bot is deployed to **Google Cloud Run** with continuous deployment from this
 ### One-Time Setup
 
 1. **Store secrets** in Google Secret Manager for your GCP project:
-   - `api-key`, `api-secret-key`, `access-token`, `access-token-secret`
-   - `db-sync-url`, `blockfrost-webhook-auth-token`
+  - `api-key`, `api-secret-key`, `access-token`, `access-token-secret`
+  - `bearer-token`
+  - `db-sync-url`, `blockfrost-webhook-auth-token`
    - Optional unless X mention triage is enabled: `github-token`, `github-repo`
 
 2. **Create a Cloud Run service**:

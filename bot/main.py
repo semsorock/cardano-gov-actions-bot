@@ -296,6 +296,8 @@ def _handle_x_webhook(request: flask.Request) -> flask.Response:
     if not config.x_webhook_enabled:
         return _json_response({"error": "Not found"}, 404)
 
+    logger.info("X webhook request received: method=%s path=%s", request.method, request.path)
+
     if request.method == "GET":
         crc_token = (request.args.get("crc_token") or "").strip()
         if not crc_token:
@@ -309,6 +311,11 @@ def _handle_x_webhook(request: flask.Request) -> flask.Response:
 
     raw_body = request.get_data()
     signature = request.headers.get("X-Twitter-Webhooks-Signature")
+    logger.info(
+        "X webhook POST received: has_signature=%s body_bytes=%s",
+        bool(signature),
+        len(raw_body),
+    )
 
     if not verify_x_webhook_signature(signature, raw_body, config.twitter.api_secret_key):
         logger.warning("X webhook signature verification failed")
