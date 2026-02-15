@@ -29,9 +29,7 @@ def test_process_gov_actions_saves_action_state(monkeypatch):
     monkeypatch.setattr(
         main,
         "save_action_tweet_id",
-        lambda tx_hash, index, tweet_id, source_block=None: save_calls.append(
-            (tx_hash, index, tweet_id, source_block)
-        ),
+        lambda tx_hash, index, tweet_id, source_block=None: save_calls.append((tx_hash, index, tweet_id, source_block)),
     )
 
     main._process_gov_actions(321)

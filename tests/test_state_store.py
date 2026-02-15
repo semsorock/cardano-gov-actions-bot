@@ -66,12 +66,7 @@ def test_save_and_get_action_tweet_id(monkeypatch):
     state_store.save_action_tweet_id("abc123", 0, "987654", source_block=11)
 
     assert state_store.get_action_tweet_id("abc123", 0) == "987654"
-    doc = (
-        fake_client.collection(state_store.GOV_ACTION_STATE_COLLECTION)
-        .document("abc123_0")
-        .get()
-        .to_dict()
-    )
+    doc = fake_client.collection(state_store.GOV_ACTION_STATE_COLLECTION).document("abc123_0").get().to_dict()
     assert doc["archived_action"] is True
     assert doc["source_block"] == 11
     assert doc["last_updated_at"] == "SERVER_TS"
@@ -94,12 +89,7 @@ def test_mark_and_check_processed_mention(monkeypatch):
     state_store.mark_mention_processed(post_id, decision="ignore")
 
     assert state_store.was_mention_processed(post_id) is True
-    doc = (
-        fake_client.collection(state_store.X_MENTIONS_STATE_COLLECTION)
-        .document(post_id)
-        .get()
-        .to_dict()
-    )
+    doc = fake_client.collection(state_store.X_MENTIONS_STATE_COLLECTION).document(post_id).get().to_dict()
     assert doc["processed"] is True
     assert doc["decision"] == "ignore"
     assert doc["issue_number"] is None
@@ -139,12 +129,7 @@ def test_mark_cc_vote_archived_writes_state(monkeypatch):
 
     state_store.mark_cc_vote_archived("ga_hash", 5, "voter_hash", source_block=42)
 
-    doc = (
-        fake_client.collection(state_store.CC_VOTE_STATE_COLLECTION)
-        .document("ga_hash_5_voter_hash")
-        .get()
-        .to_dict()
-    )
+    doc = fake_client.collection(state_store.CC_VOTE_STATE_COLLECTION).document("ga_hash_5_voter_hash").get().to_dict()
     assert doc["archived_vote"] is True
     assert doc["source_block"] == 42
     assert doc["last_updated_at"] == "SERVER_TS"

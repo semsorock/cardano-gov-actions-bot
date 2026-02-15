@@ -20,6 +20,7 @@ class IgnoredMention:
     post_id: str | None
     reason: str
 
+
 def extract_actionable_mentions(
     payload: dict,
     *,
