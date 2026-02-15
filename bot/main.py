@@ -178,7 +178,16 @@ def _process_x_mentions(payload: dict) -> None:
         logger.info("Ignored X mention post_id=%s reason=%s", ignored.post_id, ignored.reason)
 
     for mention in mentions:
-        triage = classify_mention(mention, model=config.llm_model)
+        # Mark as processed immediately to prevent infinite retries if subsequent operations fail.
+        # This ensures failed processing attempts (LLM errors, GitHub API errors, Twitter errors)
+        # don't lead to repeated attempts on subsequent webhook deliveries.
+        mark_mention_processed(mention.post_id, decision="received")
+
+        try:
+            triage = classify_mention(mention, model=config.llm_model)
+        except Exception:
+            logger.exception("LLM triage failed for mention %s", mention.post_id)
+            continue
 
         should_create_issue = (
             triage.decision in {"bug_report", "feature_request"}
@@ -186,22 +195,28 @@ def _process_x_mentions(payload: dict) -> None:
         )
 
         if should_create_issue:
-            issue = create_or_get_issue_for_mention(mention, triage)
-            mark_mention_processed(
-                mention.post_id,
-                decision=triage.decision,
-                issue_number=issue.issue_number,
-            )
-            if issue.created:
-                reply_text = f"@{mention.author_handle} Thanks - tracked here: {issue.issue_url}"
-                post_reply_tweet(reply_text, mention.post_id)
-            else:
-                logger.info("Issue already existed for mention %s; skipping reply", mention.post_id)
+            try:
+                issue = create_or_get_issue_for_mention(mention, triage)
+                # Update with final decision and issue number for tracking.
+                mark_mention_processed(
+                    mention.post_id,
+                    decision=triage.decision,
+                    issue_number=issue.issue_number,
+                )
+                if issue.created:
+                    reply_text = f"@{mention.author_handle} Thanks - tracked here: {issue.issue_url}"
+                    try:
+                        post_reply_tweet(reply_text, mention.post_id)
+                    except Exception:
+                        logger.exception("Failed to post reply tweet for mention %s", mention.post_id)
+                else:
+                    logger.info("Issue already existed for mention %s; skipping reply", mention.post_id)
+            except Exception:
+                logger.exception("Failed to create issue for mention %s", mention.post_id)
             continue
 
         if triage.decision == "ignore":
             logger.info("Ignored X mention %s after triage: %s", mention.post_id, triage.reason)
-            mark_mention_processed(mention.post_id, decision=triage.decision)
             continue
 
         if triage.decision in {"bug_report", "feature_request"}:
@@ -209,8 +224,10 @@ def _process_x_mentions(payload: dict) -> None:
         else:
             reason = triage.short_reply or "Thanks. I did not open an issue for this one."
 
-        post_reply_tweet(f"@{mention.author_handle} {reason}".strip(), mention.post_id)
-        mark_mention_processed(mention.post_id, decision=triage.decision)
+        try:
+            post_reply_tweet(f"@{mention.author_handle} {reason}".strip(), mention.post_id)
+        except Exception:
+            logger.exception("Failed to post reply tweet for mention %s", mention.post_id)
 
 
 # ---------------------------------------------------------------------------
