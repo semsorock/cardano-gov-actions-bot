@@ -2,7 +2,7 @@
 
 ## Project Purpose
 
-This is a **Cardano blockchain governance monitoring bot** that watches for new governance actions and Constitutional Committee (CC) votes, posts summaries to Twitter/X, archives governance rationale files to GitHub, and triages inbound X mentions into GitHub issues. It's deployed as a Google Cloud Run service with two webhook paths: Blockfrost (`/`) and X Account Activity (`/x/webhook`).
+This is a **Cardano blockchain governance monitoring bot** that watches for new governance actions and Constitutional Committee (CC) votes, posts summaries to Twitter/X, and archives governance rationale files to GitHub. It's deployed as a Google Cloud Run service triggered by Blockfrost block webhooks (`/`).
 
 ## Architecture Overview
 
@@ -15,9 +15,8 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 5. **Post tweets** via X API (XDK) with formatted summaries
    - **Gov Actions**: posted as new tweets
    - **CC Votes**: posted as quote-tweets when action tweet ID is known, else normal tweets
-6. **Persist runtime state** to Firestore (`tweet_id`, mention dedupe state, checkpoints)
+6. **Persist runtime state** to Firestore (`tweet_id`, checkpoints)
 7. **Archive rationale** JSON to GitHub (direct commit to `main`)
-8. **X webhook** (`/x/webhook`) → verify signature → extract mentions → LLM triage → optional GitHub issue + X reply
 
 ### Project Structure
 
@@ -32,10 +31,6 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │   ├── links.py                 # External link builders (AdaStat, GovTools, CExplorer)
 │   ├── main.py                  # Unified webhook handler (handle_webhook entry point)
 │   ├── webhook_auth.py          # Blockfrost HMAC-SHA256 signature verification
-│   ├── x_webhook_auth.py        # X webhook CRC/signature verification
-│   ├── x_mentions.py            # Mention extraction and ignore policies
-│   ├── llm_triage.py            # LiteLLM classification for mention triage
-│   ├── github_issues.py         # GitHub issue creation + dedupe marker for mentions
 │   ├── state_store.py           # Firestore-backed runtime state helpers
 │   ├── rationale_archiver.py    # Archive rationales to GitHub via direct commits (PyGithub)
 │   ├── rationale_validator.py   # CIP-0108/CIP-0136 metadata validation
@@ -53,8 +48,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │       └── templates.py         # Editable tweet text templates
 ├── scripts/
 │   ├── backfill_rationales.py   # One-off: fetch all historical rationales from DB-Sync
-│   ├── backfill_tweet_ids.py    # One-off: backfill tweet_id.txt from historical posts
-│   └── setup_x_webhook.py       # One-off: create/validate X webhook + account subscription
+│   └── backfill_tweet_ids.py    # One-off: backfill tweet_id.txt from historical posts
 ├── data/
 │   └── cc_profiles.yaml         # CC profile mappings (voter hash -> X handle)
 ├── rationales/                  # Archived rationale JSON files
@@ -93,21 +87,13 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 
 - `bot/links.py`: URL builders for AdaStat, GovTools, CExplorer.
 
-- `bot/main.py`: Unified webhook router — handles Blockfrost on `/` and X webhook CRC/events on `/x/webhook`.
+- `bot/main.py`: Webhook handler for Blockfrost block events on `/`.
 
-- `bot/state_store.py`: Firestore-backed persistence for gov action tweet IDs, CC vote archive state, mention dedupe, and block checkpoints.
-
-- `bot/x_mentions.py`: Extracts actionable mention events and classifies ignored reasons (`duplicate_post_id`, `retweet_style`, `self_post`, etc.).
-
-- `bot/llm_triage.py`: Sanitizes mention text, calls LiteLLM, and validates strict JSON triage output.
-
-- `bot/github_issues.py`: Idempotent issue creation for mentions using hidden marker `<!-- x_post_id:... -->`.
+- `bot/state_store.py`: Firestore-backed persistence for gov action tweet IDs, CC vote archive state, and block checkpoints.
 
 - `bot/rationale_archiver.py`: Archives rationale JSON to GitHub via PyGithub (create/update files directly on `main`). Skips gracefully if `GITHUB_TOKEN` not set.
 
 - `bot/rationale_validator.py`: Non-blocking CIP-0108/CIP-0136 validation. Returns warning lists — tweets always sent regardless.
-
-- `bot/x_webhook_auth.py`: X webhook CRC token creation and HMAC signature verification using `API_SECRET_KEY`.
 
 - `bot/logging.py`: `setup_logging()` + `get_logger()` — stdlib logging, structured for Cloud Run.
 
@@ -215,13 +201,7 @@ API_KEY, API_SECRET_KEY            # Twitter OAuth 1.0a
 ACCESS_TOKEN, ACCESS_TOKEN_SECRET  # Twitter access credentials
 TWEET_POSTING_ENABLED              # "true" to enable tweet posting (default: false)
 
-# X webhook + LLM triage (required if X_WEBHOOK_ENABLED=true)
-X_WEBHOOK_ENABLED                  # enable /x/webhook handling (default: false)
-LLM_MODEL                          # LiteLLM model name
-LLM_ISSUE_CONFIDENCE_THRESHOLD     # issue creation threshold (0-1, default: 0.80)
-X_WEBHOOK_CALLBACK_URL             # used by scripts/setup_x_webhook.py
-
-# GitHub (required for X mention issue creation, optional for rationale archiving)
+# GitHub (optional for rationale archiving)
 GITHUB_TOKEN                       # Personal access token
 GITHUB_REPO                        # e.g. "semsorock/cardano-gov-actions-bot"
 
@@ -250,7 +230,6 @@ Google Cloud Run (`functions-framework` library, containerized)
 - Docker image built automatically by Cloud Build on push to `main`
 - Entry point: `handle_webhook(request)` (exposed via root `main.py` shim)
 - `/` handles Blockfrost block events (governance actions, CC votes, epoch donation checks)
-- `/x/webhook` handles X CRC (`GET`) and signed event delivery (`POST`) when `X_WEBHOOK_ENABLED=true`
 - Epoch transitions are detected by comparing current vs previous block epoch
 - Returns JSON responses with appropriate HTTP status codes
 
@@ -266,9 +245,7 @@ uv sync
 # Run locally
 uv run functions-framework --target=handle_webhook --debug
 # Access at http://localhost:8080/
-# Endpoints:
-#   POST /              (Blockfrost)
-#   GET/POST /x/webhook (X CRC + events)
+# Endpoint: POST / (Blockfrost)
 
 # Run tests
 uv run pytest -v
@@ -286,7 +263,7 @@ uv run ruff check --fix .
 
 3. **Webhook Simulation**: Sample payloads are in code comments in `bot/main.py`
 
-4. **Local Testing**: Set environment variables, then POST webhook JSON to `/` (Blockfrost) or `/x/webhook` (X events)
+4. **Local Testing**: Set environment variables, then POST webhook JSON to `/` (Blockfrost)
 
 ## Important Quirks & Edge Cases
 
@@ -305,16 +282,8 @@ VOTES_MAPPING = {
 ### Feature Flags
 
 - **Tweet posting**: Controlled by `TWEET_POSTING_ENABLED` env var (default: off)
-- **X webhook handling**: Controlled by `X_WEBHOOK_ENABLED` env var (default: off)
 - **Rationale archiving**: Controlled by `GITHUB_TOKEN` + `GITHUB_REPO` (skipped if not set)
 - **Webhook signature verification**: Skipped if `BLOCKFROST_WEBHOOK_AUTH_TOKEN` not set
-
-### X Mention Reliability Rules
-
-- Mentions are marked as processed before LLM triage to prevent retry loops if later steps fail.
-- Mention text is sanitized before prompting (whitespace normalization, max length, suspicious-pattern logging).
-- Issue creation happens only for `bug_report` / `feature_request` decisions meeting `LLM_ISSUE_CONFIDENCE_THRESHOLD`.
-- Deduplication is enforced in two places: Firestore mention state and hidden issue marker in GitHub issue bodies.
 
 ## When Modifying Code
 
@@ -360,7 +329,6 @@ tenacity>=9,<10             # Retry/backoff decorator
 python-dotenv>=1.2.1        # .env file loading
 pygithub>=2,<3              # GitHub API for rationale archiving
 google-cloud-firestore>=2.20,<3  # Firestore state store client
-litellm>=1.63,<2            # LLM provider abstraction for mention triage
 
 # Dev
 pytest>=8                   # Test runner

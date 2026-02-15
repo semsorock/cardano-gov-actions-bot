@@ -35,35 +35,3 @@ class TestConfigValidate:
             ),
         )
         cfg.validate()  # no exception
-
-    def test_x_webhook_enabled_requires_llm_and_github_and_secret(self):
-        cfg = Config(
-            db_sync_url="postgresql://localhost/test",
-            x_webhook_enabled=True,
-            twitter=TwitterConfig(api_secret_key=""),
-            llm_model="",
-            github_token="",
-            github_repo="",
-        )
-        with pytest.raises(ConfigError, match="API_SECRET_KEY"):
-            cfg.validate()
-
-    def test_x_webhook_enabled_with_required_config(self):
-        cfg = Config(
-            db_sync_url="postgresql://localhost/test",
-            x_webhook_enabled=True,
-            twitter=TwitterConfig(api_secret_key="secret"),
-            llm_model="openai/gpt-4o-mini",
-            github_token="token",
-            github_repo="owner/repo",
-            llm_issue_confidence_threshold=0.8,
-        )
-        cfg.validate()
-
-    def test_invalid_llm_issue_threshold(self):
-        cfg = Config(
-            db_sync_url="postgresql://localhost/test",
-            llm_issue_confidence_threshold=1.5,
-        )
-        with pytest.raises(ConfigError, match="LLM_ISSUE_CONFIDENCE_THRESHOLD"):
-            cfg.validate()

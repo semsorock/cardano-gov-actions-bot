@@ -79,33 +79,6 @@ def test_get_action_tweet_id_returns_none_for_missing_doc(monkeypatch):
     assert state_store.get_action_tweet_id("missing", 2) is None
 
 
-def test_mark_and_check_processed_mention(monkeypatch):
-    _reset_state_store(monkeypatch)
-    fake_client = _FakeFirestoreClient()
-    monkeypatch.setattr(state_store, "_get_firestore_client", lambda: fake_client)
-    monkeypatch.setattr(state_store, "firestore", _FakeFirestoreModule())
-
-    post_id = "mention-1001"
-    state_store.mark_mention_processed(post_id, decision="ignore")
-
-    assert state_store.was_mention_processed(post_id) is True
-    doc = fake_client.collection(state_store.X_MENTIONS_STATE_COLLECTION).document(post_id).get().to_dict()
-    assert doc["processed"] is True
-    assert doc["decision"] == "ignore"
-    assert doc["issue_number"] is None
-    assert doc["processed_at"] == "SERVER_TS"
-
-
-def test_mark_mention_processed_noops_without_firestore(monkeypatch):
-    _reset_state_store(monkeypatch)
-    monkeypatch.setattr(state_store, "_get_firestore_client", lambda: None)
-
-    post_id = "mention-no-firestore"
-    state_store.mark_mention_processed(post_id, decision="no_issue")
-
-    assert state_store.was_mention_processed(post_id) is False
-
-
 def test_set_and_get_checkpoint(monkeypatch):
     _reset_state_store(monkeypatch)
     fake_client = _FakeFirestoreClient()
