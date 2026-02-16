@@ -22,7 +22,7 @@ class TestFormatGovActionTweet:
         assert "Governance Action Update" in tweet
         assert "Test Proposal" in tweet
         assert "Parameter Change" in tweet
-        assert "adastat.net" in tweet
+        assert "explorer.cardano.org" in tweet
         assert "#Cardano" in tweet
         assert len(tweet) <= MAX_TWEET_LENGTH
 
@@ -91,7 +91,7 @@ class TestFormatGaExpirationTweet:
         exp = GaExpiration(tx_hash="aabb", index=0)
         tweet = format_ga_expiration_tweet(exp)
         assert "Expiry Notice" in tweet
-        assert "adastat.net" in tweet
+        assert "explorer.cardano.org" in tweet
         assert len(tweet) <= MAX_TWEET_LENGTH
 
 

@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from bot.links import make_adastat_link
+from bot.links import make_governance_action_link
 from bot.metadata.fetcher import sanitise_url
 from bot.models import CcVote, GaExpiration, GovAction, TreasuryDonation
 from bot.twitter import templates
@@ -43,7 +43,7 @@ def format_gov_action_tweet(action: GovAction, metadata: dict | None) -> str:
         title_line=title_line,
         authors_line=authors_line,
         action_type=action.action_type_display,
-        link=make_adastat_link(action.tx_hash, action.index),
+        link=make_governance_action_link(action.tx_hash, action.index),
     )
 
 
@@ -74,14 +74,14 @@ def format_cc_vote_tweet(
     return templates.CC_VOTE_NO_QUOTE.format(
         vote_display=_vote_display(vote.vote),
         voted_by_line=voted_by_line,
-        ga_link=make_adastat_link(vote.ga_tx_hash, vote.ga_index),
+        ga_link=make_governance_action_link(vote.ga_tx_hash, vote.ga_index),
         rationale_url=sanitise_url(vote.raw_url),
     )
 
 
 def format_ga_expiration_tweet(expiration: GaExpiration) -> str:
     return templates.GA_EXPIRATION.format(
-        link=make_adastat_link(expiration.tx_hash, expiration.index),
+        link=make_governance_action_link(expiration.tx_hash, expiration.index),
     )
 
 
