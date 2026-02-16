@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from psycopg2 import pool
+import psycopg2
 
 from bot.config import config
 from bot.db.queries import (
@@ -14,38 +14,23 @@ from bot.db.queries import (
 )
 from bot.models import CcVote, GaExpiration, GovAction, TreasuryDonation
 
-_pool: pool.SimpleConnectionPool | None = None
-
-
-def _get_pool() -> pool.SimpleConnectionPool:
-    """Lazily initialise the connection pool on first use."""
-    global _pool
-    if _pool is None:
-        _pool = pool.SimpleConnectionPool(minconn=1, maxconn=1, dsn=config.db_sync_url)
-    return _pool
-
 
 def _query(sql: str, params: tuple) -> list[tuple]:
-    """Execute a read query and return all rows."""
-    db_pool = _get_pool()
-    conn = db_pool.getconn()
+    """Execute a read query and return all rows.
+
+    Opens a fresh connection each time so that concurrent Cloud Run requests
+    never contend for a single pooled connection (the previous
+    SimpleConnectionPool with maxconn=1 caused "pool exhausted" errors under
+    concurrency).  Each connection is closed immediately after use, keeping at
+    most one connection per in-flight request.
+    """
+    conn = psycopg2.connect(dsn=config.db_sync_url)
     try:
         with conn.cursor() as cur:
             cur.execute(sql, params)
             return cur.fetchall()
-    except Exception:
-        # Connection may be in a bad state (broken pipe, transaction aborted,
-        # etc.).  Tear down the whole pool so _get_pool() creates a fresh one
-        # on the next call.  SimpleConnectionPool doesn't replace closed
-        # connections, so putconn(close=True) would leave the pool permanently
-        # empty.
-        global _pool
-        db_pool.putconn(conn, close=True)
-        db_pool.closeall()
-        _pool = None
-        raise
-    else:
-        db_pool.putconn(conn)
+    finally:
+        conn.close()
 
 
 def get_gov_actions(block_no: int) -> list[GovAction]:
