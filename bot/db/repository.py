@@ -33,18 +33,7 @@ def _query(sql: str, params: tuple) -> list[tuple]:
         with conn.cursor() as cur:
             cur.execute(sql, params)
             return cur.fetchall()
-    except Exception:
-        # Connection may be in a bad state (broken pipe, transaction aborted,
-        # etc.).  Tear down the whole pool so _get_pool() creates a fresh one
-        # on the next call.  SimpleConnectionPool doesn't replace closed
-        # connections, so putconn(close=True) would leave the pool permanently
-        # empty.
-        global _pool
-        db_pool.putconn(conn, close=True)
-        db_pool.closeall()
-        _pool = None
-        raise
-    else:
+    finally:
         db_pool.putconn(conn)
 
 
