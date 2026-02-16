@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from psycopg2 import pool
+import asyncio
+
+import psycopg
 
 from bot.config import config
 from bot.db.queries import (
@@ -14,42 +16,44 @@ from bot.db.queries import (
 )
 from bot.models import CcVote, GaExpiration, GovAction, TreasuryDonation
 
-_pool: pool.SimpleConnectionPool | None = None
+_conn: psycopg.AsyncConnection | None = None
+_lock = asyncio.Lock()
 
 
-def _get_pool() -> pool.SimpleConnectionPool:
-    """Lazily initialise the connection pool on first use."""
-    global _pool
-    if _pool is None:
-        _pool = pool.SimpleConnectionPool(minconn=1, maxconn=1, dsn=config.db_sync_url)
-    return _pool
+async def _get_conn() -> psycopg.AsyncConnection:
+    """Return the shared connection, creating it lazily on first use."""
+    global _conn
+    if _conn is None or _conn.closed:
+        _conn = await psycopg.AsyncConnection.connect(
+            conninfo=config.db_sync_url,
+            autocommit=True,
+        )
+    return _conn
 
 
-def _query(sql: str, params: tuple) -> list[tuple]:
-    """Execute a read query and return all rows."""
-    db_pool = _get_pool()
-    conn = db_pool.getconn()
-    try:
-        with conn.cursor() as cur:
-            cur.execute(sql, params)
-            return cur.fetchall()
-    except Exception:
-        # Connection may be in a bad state (broken pipe, transaction aborted,
-        # etc.).  Tear down the whole pool so _get_pool() creates a fresh one
-        # on the next call.  SimpleConnectionPool doesn't replace closed
-        # connections, so putconn(close=True) would leave the pool permanently
-        # empty.
-        global _pool
-        db_pool.putconn(conn, close=True)
-        db_pool.closeall()
-        _pool = None
-        raise
-    else:
-        db_pool.putconn(conn)
+async def _query(sql: str, params: tuple) -> list[tuple]:
+    """Execute a read query and return all rows.
+
+    Acquires the shared lock so only one query runs at a time.
+    Other callers await the lock asynchronously (non-blocking).
+    """
+    async with _lock:
+        conn = await _get_conn()
+        try:
+            async with conn.cursor() as cur:
+                await cur.execute(sql, params)
+                return await cur.fetchall()
+        except Exception:
+            # Connection may be in a bad state.  Close it so the next
+            # call to _get_conn() creates a fresh one.
+            global _conn
+            await conn.close()
+            _conn = None
+            raise
 
 
-def get_gov_actions(block_no: int) -> list[GovAction]:
-    rows = _query(QUERY_GOV_ACTIONS, (block_no,))
+async def get_gov_actions(block_no: int) -> list[GovAction]:
+    rows = await _query(QUERY_GOV_ACTIONS, (block_no,))
     return [
         GovAction(
             tx_hash=row[0],
@@ -61,8 +65,8 @@ def get_gov_actions(block_no: int) -> list[GovAction]:
     ]
 
 
-def get_cc_votes(block_no: int) -> list[CcVote]:
-    rows = _query(QUERY_CC_VOTES, (block_no,))
+async def get_cc_votes(block_no: int) -> list[CcVote]:
+    rows = await _query(QUERY_CC_VOTES, (block_no,))
     return [
         CcVote(
             ga_tx_hash=row[0],
@@ -76,13 +80,13 @@ def get_cc_votes(block_no: int) -> list[CcVote]:
     ]
 
 
-def get_ga_expirations(epoch_no: int) -> list[GaExpiration]:
-    rows = _query(QUERY_GA_EXPIRATIONS, (epoch_no,))
+async def get_ga_expirations(epoch_no: int) -> list[GaExpiration]:
+    rows = await _query(QUERY_GA_EXPIRATIONS, (epoch_no,))
     return [GaExpiration(tx_hash=row[0], index=row[1]) for row in rows]
 
 
-def get_treasury_donations(epoch_no: int) -> list[TreasuryDonation]:
-    rows = _query(QUERY_TREASURY_DONATIONS, (epoch_no,))
+async def get_treasury_donations(epoch_no: int) -> list[TreasuryDonation]:
+    rows = await _query(QUERY_TREASURY_DONATIONS, (epoch_no,))
     return [
         TreasuryDonation(
             block_no=row[0],
@@ -93,21 +97,21 @@ def get_treasury_donations(epoch_no: int) -> list[TreasuryDonation]:
     ]
 
 
-def get_block_epoch(block_hash: str) -> int | None:
+async def get_block_epoch(block_hash: str) -> int | None:
     """Return the epoch number for a block identified by its hex hash."""
-    rows = _query(QUERY_BLOCK_EPOCH, (block_hash,))
+    rows = await _query(QUERY_BLOCK_EPOCH, (block_hash,))
     return rows[0][0] if rows else None
 
 
-def get_all_gov_actions() -> list[GovAction]:
+async def get_all_gov_actions() -> list[GovAction]:
     """Return all governance actions (for backfill)."""
-    rows = _query(QUERY_ALL_GOV_ACTIONS, ())
+    rows = await _query(QUERY_ALL_GOV_ACTIONS, ())
     return [GovAction(tx_hash=row[0], action_type=row[1], index=row[2], raw_url=row[3]) for row in rows]
 
 
-def get_all_cc_votes() -> list[CcVote]:
+async def get_all_cc_votes() -> list[CcVote]:
     """Return all CC member votes (for backfill)."""
-    rows = _query(QUERY_ALL_CC_VOTES, ())
+    rows = await _query(QUERY_ALL_CC_VOTES, ())
     return [
         CcVote(
             ga_tx_hash=row[0],

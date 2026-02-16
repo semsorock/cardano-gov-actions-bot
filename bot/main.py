@@ -1,9 +1,7 @@
 """Cardano Governance Actions Bot — webhook entry point."""
 
-import json
-
-import flask
-import functions_framework
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 
 from bot.cc_profiles import get_x_handle_for_voter_hash
 from bot.config import config
@@ -38,14 +36,16 @@ logger = get_logger("main")
 # Validate config at startup — fail fast on missing required vars.
 config.validate()
 
+app = FastAPI()
+
 
 # ---------------------------------------------------------------------------
 # Block processing
 # ---------------------------------------------------------------------------
 
 
-def _process_gov_actions(block_no: int) -> None:
-    actions = get_gov_actions(block_no)
+async def _process_gov_actions(block_no: int) -> None:
+    actions = await get_gov_actions(block_no)
 
     if not actions:
         logger.info("No gov actions for block: %s", block_no)
@@ -66,8 +66,8 @@ def _process_gov_actions(block_no: int) -> None:
         save_action_tweet_id(action.tx_hash, action.index, tweet_id or "", source_block=block_no)
 
 
-def _process_cc_votes(block_no: int) -> None:
-    votes = get_cc_votes(block_no)
+async def _process_cc_votes(block_no: int) -> None:
+    votes = await get_cc_votes(block_no)
 
     if not votes:
         logger.info("No CC vote records for block: %s", block_no)
@@ -121,8 +121,8 @@ def _process_cc_votes(block_no: int) -> None:
 # ---------------------------------------------------------------------------
 
 
-def _process_treasury_donations(epoch_no: int) -> None:
-    donations = get_treasury_donations(epoch_no)
+async def _process_treasury_donations(epoch_no: int) -> None:
+    donations = await get_treasury_donations(epoch_no)
     logger.debug("Donations: %s", donations)
 
     if not donations:
@@ -133,7 +133,7 @@ def _process_treasury_donations(epoch_no: int) -> None:
     post_tweet(tweet)
 
 
-def _check_epoch_transition(payload: dict) -> None:
+async def _check_epoch_transition(payload: dict) -> None:
     """Detect epoch boundary and run epoch processing if one occurred."""
     current_epoch = payload.get("epoch")
     previous_block_hash = payload.get("previous_block")
@@ -142,7 +142,7 @@ def _check_epoch_transition(payload: dict) -> None:
         logger.debug("No epoch or previous_block in payload — skipping epoch check")
         return
 
-    previous_epoch = get_block_epoch(previous_block_hash)
+    previous_epoch = await get_block_epoch(previous_block_hash)
 
     if previous_epoch is None:
         logger.warning("Could not find previous block %s in DB", previous_block_hash)
@@ -155,7 +155,7 @@ def _check_epoch_transition(payload: dict) -> None:
             current_epoch,
         )
         # Process the completed epoch (previous_epoch).
-        _process_treasury_donations(previous_epoch)
+        await _process_treasury_donations(previous_epoch)
 
 
 # ---------------------------------------------------------------------------
@@ -163,48 +163,40 @@ def _check_epoch_transition(payload: dict) -> None:
 # ---------------------------------------------------------------------------
 
 
-def _json_response(data: dict, status: int = 200) -> flask.Response:
-    return flask.Response(
-        response=json.dumps(data),
-        status=status,
-        content_type="application/json",
-    )
-
-
-@functions_framework.http
-def handle_webhook(request: flask.Request) -> flask.Response:
+@app.post("/")
+async def handle_webhook(request: Request) -> JSONResponse:
     """Main entry point for Blockfrost webhooks."""
     # --- Signature verification ---
-    raw_body = request.get_data()
+    raw_body = await request.body()
     signature = request.headers.get("Blockfrost-Signature")
 
     if not verify_webhook_signature(signature, raw_body):
         logger.warning("Webhook signature verification failed")
-        return _json_response({"error": "Unauthorized"}, 401)
+        return JSONResponse({"error": "Unauthorized"}, status_code=401)
 
     # --- Parse payload ---
-    request_json = request.get_json(silent=True)
+    request_json = await request.json()
 
     logger.info("Incoming webhook")
     logger.debug("Webhook payload: %s", request_json)
 
     if not request_json:
-        return _json_response({"error": "Invalid or missing JSON body"}, 400)
+        return JSONResponse({"error": "Invalid or missing JSON body"}, status_code=400)
 
     payload = request_json.get("payload", {})
     block_no = payload.get("height")
 
     if block_no is None:
         logger.warning("Missing block height in payload")
-        return _json_response({"error": "Missing block height"}, 400)
+        return JSONResponse({"error": "Missing block height"}, status_code=400)
 
     try:
         # Always process block events.
-        _process_gov_actions(block_no)
-        _process_cc_votes(block_no)
+        await _process_gov_actions(block_no)
+        await _process_cc_votes(block_no)
 
         # Detect epoch transitions and process if needed.
-        _check_epoch_transition(payload)
+        await _check_epoch_transition(payload)
         set_checkpoint(
             name="blockfrost_main",
             block_no=block_no,
@@ -212,6 +204,6 @@ def handle_webhook(request: flask.Request) -> flask.Response:
         )
     except Exception:
         logger.exception("Error processing webhook for block: %s", block_no)
-        return _json_response({"error": "Internal server error"}, 500)
+        return JSONResponse({"error": "Internal server error"}, status_code=500)
 
-    return _json_response({"status": "ok"})
+    return JSONResponse({"status": "ok"})

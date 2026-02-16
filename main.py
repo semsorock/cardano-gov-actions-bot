@@ -1,3 +1,3 @@
-"""Thin shim — keeps functions-framework entry point at the project root."""
+"""Entry point — run with: uvicorn main:app --port 8080"""
 
-from bot.main import handle_webhook  # noqa: F401
+from bot.main import app  # noqa: F401
