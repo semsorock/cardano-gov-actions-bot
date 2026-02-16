@@ -33,7 +33,12 @@ def _query(sql: str, params: tuple) -> list[tuple]:
         with conn.cursor() as cur:
             cur.execute(sql, params)
             return cur.fetchall()
-    finally:
+    except Exception:
+        # Connection may be in a bad state (broken pipe, transaction aborted,
+        # etc.).  Close it so the pool replaces it with a fresh one next time.
+        db_pool.putconn(conn, close=True)
+        raise
+    else:
         db_pool.putconn(conn)
 
 
