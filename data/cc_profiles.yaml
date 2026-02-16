@@ -5,6 +5,7 @@ notes:
   - "Seeded from public sources, then bound to DB-Sync hashes using current epoch_state committee membership."
   - "Current DB-Sync snapshot: epoch 613, committee_id 3, member_count 8."
   - "Do not use rationale authors for identity; use voter_hash as canonical key."
+  - "Voter hash is the member's hot credential, either a key hash or script hash."
 
 members:
   - member_id: "tingvard"
@@ -41,7 +42,7 @@ members:
     display_name: "Ace Alliance"
     voter_hash: "9752e4306e5ae864441d21064f791174c8b626199b8e7a45f9e03b45"
     x_handle: "@AceAlliance_CC"
-    confidence: "medium"
+    confidence: "high"
     status: "active_dbsync"
     sources:
       - "https://cardanokorea.io/cardano-news/report/2025-constitutional-committee-by-cardano-korea/"
@@ -51,7 +52,7 @@ members:
     display_name: "Cardano Japan Council"
     voter_hash: "9cc3f387623f45dae6a68b7096b0c2e403d8601a82dc40221ead41e2"
     x_handle: "@Cardanojp_icc"
-    confidence: "medium"
+    confidence: "high"
     status: "active_dbsync"
     sources:
       - "https://cardanokorea.io/cardano-news/report/2025-constitutional-committee-by-cardano-korea/"
@@ -61,7 +62,7 @@ members:
     display_name: "phil_uplc"
     voter_hash: "13493790d9b03483a1e1e684ea4faf1ee48a58f402574e7f2246f4d4"
     x_handle: "@phil_uplc"
-    confidence: "medium"
+    confidence: "high"
     status: "active_dbsync"
     sources:
       - "https://cardanokorea.io/cardano-news/report/2025-constitutional-committee-by-cardano-korea/"
@@ -71,7 +72,7 @@ members:
     display_name: "Cardano Curia"
     voter_hash: "16feefc225e06f75a3c917f4aa50acffde7631ea0355721f2ac12542"
     x_handle: "@cardanocuria"
-    confidence: "medium"
+    confidence: "high"
     status: "active_dbsync"
     sources:
       - "https://www.intersectmbo.org/news/intersect-development-update-89-december-12-2025"
@@ -82,7 +83,7 @@ members:
     display_name: "Cardano Atlantic Council"
     voter_hash: "349e55f83e9af24813e6cb368df6a80d38951b2a334dfcdf26815558"
     x_handle: "@CardanoAtlantic"
-    confidence: "medium"
+    confidence: "high"
     status: "active_dbsync"
     sources:
       - "https://cardanokorea.io/cardano-news/report/2025-constitutional-committee-by-cardano-korea/"
