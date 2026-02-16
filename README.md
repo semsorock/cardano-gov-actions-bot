@@ -7,7 +7,7 @@ X bot account: [@GovActions](https://x.com/GovActions)
 ## How It Works
 
 ```
-Blockfrost Webhook (`/`) → Cloud Run → Query DB-Sync → Fetch IPFS metadata → Post to X + Archive rationale
+Blockfrost Webhook (POST /) → FastAPI on Cloud Run → Query DB-Sync (async) → Fetch IPFS metadata → Post to X + Archive rationale
 ```
 
 1. **Blockfrost** sends block webhooks to `/`
@@ -66,7 +66,7 @@ uv sync
 cp .env.example .env
 
 # Run locally
-uv run functions-framework --target=handle_webhook --debug
+uv run uvicorn bot.main:app --reload --port 8080
 # Server starts at http://localhost:8080
 # Endpoint: POST / (Blockfrost)
 
@@ -126,19 +126,19 @@ Every push to the `main` branch automatically triggers:
 ## Project Structure
 
 ```
-├── main.py                      # Entry point shim (re-exports handle_webhook)
+├── main.py                      # Entry point shim (re-exports FastAPI app)
 ├── bot/
 │   ├── cc_profiles.py           # CC voter hash -> X handle mapping loader
 │   ├── config.py                # Centralised env config + feature flags
 │   ├── links.py                 # External governance/vote link builders
 │   ├── logging.py               # Structured logging setup
-│   ├── main.py                  # Unified webhook handler
+│   ├── main.py                  # FastAPI app + async webhook handler
 │   ├── models.py                # Domain dataclasses
 │   ├── rationale_archiver.py    # GitHub rationale archiving (direct commits to main)
 │   ├── rationale_validator.py   # CIP-0108/CIP-0136 warning-only validation
 │   ├── webhook_auth.py          # Blockfrost HMAC signature verification
 │   ├── state_store.py           # Firestore-backed runtime state (tweet IDs, checkpoints)
-│   ├── db/                      # SQL constants + repository layer
+│   ├── db/                      # SQL constants + async repository layer
 │   ├── metadata/                # IPFS URL sanitisation and metadata fetch
 │   └── twitter/
 │       ├── client.py            # XDK posting client
