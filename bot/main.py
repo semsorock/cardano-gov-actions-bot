@@ -171,12 +171,11 @@ async def _process_voting_progress(epoch_no: int) -> None:
                 )
                 post_reply_tweet(tweet, original_tweet_id)
             else:
-                logger.info(
-                    "No tweet ID found for action %s_%s — posting standalone",
+                logger.warning(
+                    "No tweet ID found for action %s_%s — skipping voting progress tweet",
                     action.tx_hash[:8],
                     action.index,
                 )
-                post_tweet(tweet)
 
         except Exception:
             logger.exception(
