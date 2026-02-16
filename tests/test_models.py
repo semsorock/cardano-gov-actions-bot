@@ -91,6 +91,9 @@ class TestVotingProgress:
             cc_total=7,
             drep_voted=1234,
             drep_total=5000,
+            current_epoch=500,
+            created_epoch=495,
+            expiration=505,
         )
         # 1234 / 5000 = 0.2468 = 24.68%
         assert abs(progress.drep_percentage - 24.68) < 0.01
@@ -103,6 +106,9 @@ class TestVotingProgress:
             cc_total=7,
             drep_voted=0,
             drep_total=0,
+            current_epoch=500,
+            created_epoch=495,
+            expiration=505,
         )
         assert progress.drep_percentage == 0.0
 
@@ -114,6 +120,9 @@ class TestVotingProgress:
             cc_total=7,
             drep_voted=1000,
             drep_total=1000,
+            current_epoch=500,
+            created_epoch=495,
+            expiration=505,
         )
         assert progress.drep_percentage == 100.0
 
@@ -125,5 +134,41 @@ class TestVotingProgress:
             cc_total=7,
             drep_voted=0,
             drep_total=5000,
+            current_epoch=500,
+            created_epoch=495,
+            expiration=505,
         )
         assert progress.drep_percentage == 0.0
+
+    def test_epoch_progress_with_expiration(self):
+        progress = VotingProgress(
+            tx_hash="abc",
+            index=0,
+            cc_voted=3,
+            cc_total=7,
+            drep_voted=1234,
+            drep_total=5000,
+            current_epoch=500,
+            created_epoch=495,
+            expiration=505,
+        )
+        # Current epoch 500, created 495, expiration 505
+        # Total epochs = 505 - 495 = 10
+        # Current epoch num = 500 - 495 + 1 = 6
+        assert progress.epoch_progress == "Epoch 6 of 10"
+
+    def test_epoch_progress_without_expiration(self):
+        progress = VotingProgress(
+            tx_hash="abc",
+            index=0,
+            cc_voted=3,
+            cc_total=7,
+            drep_voted=1234,
+            drep_total=5000,
+            current_epoch=500,
+            created_epoch=495,
+            expiration=None,
+        )
+        # Current epoch 500, created 495, no expiration
+        # Current epoch num = 500 - 495 + 1 = 6
+        assert progress.epoch_progress == "Epoch 6"

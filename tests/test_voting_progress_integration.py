@@ -16,9 +16,11 @@ class TestVotingProgressIntegration:
 
     def test_active_gov_action_model(self):
         """Test ActiveGovAction model creation."""
-        action = ActiveGovAction(tx_hash="abc123", index=5)
+        action = ActiveGovAction(tx_hash="abc123", index=5, created_epoch=495, expiration=505)
         assert action.tx_hash == "abc123"
         assert action.index == 5
+        assert action.created_epoch == 495
+        assert action.expiration == 505
 
     def test_voting_progress_model_with_real_data(self):
         """Test VotingProgress model with realistic data."""
@@ -29,12 +31,16 @@ class TestVotingProgressIntegration:
             cc_total=7,
             drep_voted=2456,
             drep_total=10000,
+            current_epoch=500,
+            created_epoch=495,
+            expiration=505,
         )
         assert progress.cc_voted == 5
         assert progress.cc_total == 7
         assert progress.drep_voted == 2456
         assert progress.drep_total == 10000
         assert abs(progress.drep_percentage - 24.56) < 0.01
+        assert progress.epoch_progress == "Epoch 6 of 10"
 
     def test_voting_progress_formatter_integration(self):
         """Test that formatter produces valid tweet from VotingProgress."""
@@ -45,15 +51,19 @@ class TestVotingProgressIntegration:
             cc_total=7,
             drep_voted=1234,
             drep_total=5000,
+            current_epoch=500,
+            created_epoch=495,
+            expiration=505,
         )
 
         tweet = format_voting_progress_tweet(progress)
 
-        # Verify tweet structure
-        assert "📊 Voting Progress Update" in tweet
+        # Verify tweet structure (no emoji, no link)
+        assert "Voting Progress Update" in tweet
+        assert "Epoch 6 of 10" in tweet
         assert "CC Members: 3/7" in tweet
         assert "24.7%" in tweet
-        assert "adastat.net" in tweet
+        assert "adastat.net" not in tweet  # Link removed
         assert "@IntersectMBO" in tweet
         assert "#Cardano" in tweet
         assert "#Governance" in tweet
@@ -69,6 +79,9 @@ class TestVotingProgressIntegration:
             cc_total=7,
             drep_voted=0,
             drep_total=0,
+            current_epoch=500,
+            created_epoch=495,
+            expiration=505,
         )
         assert progress_zero.drep_percentage == 0.0
         tweet_zero = format_voting_progress_tweet(progress_zero)
@@ -82,6 +95,9 @@ class TestVotingProgressIntegration:
             cc_total=7,
             drep_voted=5000,
             drep_total=5000,
+            current_epoch=500,
+            created_epoch=495,
+            expiration=505,
         )
         assert progress_full.drep_percentage == 100.0
         tweet_full = format_voting_progress_tweet(progress_full)
@@ -97,6 +113,9 @@ class TestVotingProgressIntegration:
             cc_total=7,
             drep_voted=1000,
             drep_total=5000,
+            current_epoch=500,
+            created_epoch=495,
+            expiration=505,
         )
 
         with pytest.raises(Exception):  # FrozenInstanceError

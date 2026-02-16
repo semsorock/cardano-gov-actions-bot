@@ -130,10 +130,12 @@ async def get_all_cc_votes() -> list[CcVote]:
 async def get_active_gov_actions(epoch_no: int) -> list[ActiveGovAction]:
     """Return all active governance actions for the given epoch."""
     rows = await _query(QUERY_ACTIVE_GOV_ACTIONS, (epoch_no, epoch_no))
-    return [ActiveGovAction(tx_hash=row[0], index=row[1]) for row in rows]
+    return [ActiveGovAction(tx_hash=row[0], index=row[1], created_epoch=row[2], expiration=row[3]) for row in rows]
 
 
-async def get_voting_stats(tx_hash: str, index: int, epoch_no: int) -> VotingProgress | None:
+async def get_voting_stats(
+    tx_hash: str, index: int, epoch_no: int, created_epoch: int, expiration: int | None
+) -> VotingProgress | None:
     """Return voting statistics for a specific governance action."""
     rows = await _query(QUERY_VOTING_STATS, (epoch_no, tx_hash, index, epoch_no, tx_hash, index))
     if not rows:
@@ -146,4 +148,7 @@ async def get_voting_stats(tx_hash: str, index: int, epoch_no: int) -> VotingPro
         cc_total=row[1],
         drep_voted=row[2],
         drep_total=row[3],
+        current_epoch=epoch_no,
+        created_epoch=created_epoch,
+        expiration=expiration,
     )

@@ -97,8 +97,8 @@ def format_treasury_donations_tweet(donations: list[TreasuryDonation]) -> str:
 def format_voting_progress_tweet(progress: VotingProgress) -> str:
     """Format a voting progress update tweet for a governance action."""
     return templates.VOTING_PROGRESS.format(
+        epoch_progress=progress.epoch_progress,
         cc_voted=progress.cc_voted,
         cc_total=progress.cc_total,
         drep_percentage=f"{progress.drep_percentage:.1f}",
-        link=make_adastat_link(progress.tx_hash, progress.index),
     )

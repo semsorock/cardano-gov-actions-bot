@@ -124,12 +124,16 @@ class TestFormatVotingProgressTweet:
             cc_total=7,
             drep_voted=1234,
             drep_total=5000,
+            current_epoch=500,
+            created_epoch=495,
+            expiration=505,
         )
         tweet = format_voting_progress_tweet(progress)
         assert "Voting Progress Update" in tweet
+        assert "Epoch 6 of 10" in tweet  # 500-495+1 = 6, 505-495 = 10
         assert "CC Members: 3/7" in tweet
         assert "24.7%" in tweet  # 1234/5000 = 24.68%
-        assert "adastat.net" in tweet
+        assert "adastat.net" not in tweet  # Link removed since it's a reply
         assert len(tweet) <= MAX_TWEET_LENGTH
 
     def test_zero_dreps(self):
@@ -140,6 +144,9 @@ class TestFormatVotingProgressTweet:
             cc_total=7,
             drep_voted=0,
             drep_total=0,
+            current_epoch=500,
+            created_epoch=495,
+            expiration=505,
         )
         tweet = format_voting_progress_tweet(progress)
         assert "CC Members: 5/7" in tweet
@@ -154,8 +161,28 @@ class TestFormatVotingProgressTweet:
             cc_total=7,
             drep_voted=1000,
             drep_total=1000,
+            current_epoch=500,
+            created_epoch=495,
+            expiration=505,
         )
         tweet = format_voting_progress_tweet(progress)
         assert "CC Members: 7/7" in tweet
         assert "100.0%" in tweet
+        assert len(tweet) <= MAX_TWEET_LENGTH
+
+    def test_epoch_progress_without_expiration(self):
+        progress = VotingProgress(
+            tx_hash="aabbccdd",
+            index=3,
+            cc_voted=5,
+            cc_total=7,
+            drep_voted=500,
+            drep_total=1000,
+            current_epoch=500,
+            created_epoch=495,
+            expiration=None,
+        )
+        tweet = format_voting_progress_tweet(progress)
+        assert "Epoch 6" in tweet  # No "of X" when no expiration
+        assert "CC Members: 5/7" in tweet
         assert len(tweet) <= MAX_TWEET_LENGTH

@@ -144,7 +144,9 @@ async def _process_voting_progress(epoch_no: int) -> None:
     for action in active_actions:
         try:
             # Get voting statistics for this action
-            stats = await get_voting_stats(action.tx_hash, action.index, epoch_no)
+            stats = await get_voting_stats(
+                action.tx_hash, action.index, epoch_no, action.created_epoch, action.expiration
+            )
 
             if not stats:
                 logger.warning(

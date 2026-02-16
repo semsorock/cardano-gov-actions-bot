@@ -90,7 +90,9 @@ QUERY_ALL_CC_VOTES = """
 QUERY_ACTIVE_GOV_ACTIONS = """
     SELECT
         encode(t.hash, 'hex') AS tx_hash,
-        gap.index
+        gap.index,
+        b.epoch_no AS created_epoch,
+        gap.expiration
     FROM gov_action_proposal gap
     JOIN tx t ON gap.tx_id = t.id
     JOIN block b ON t.block_id = b.id
