@@ -29,7 +29,7 @@ members:
       - "https://x.com/EasternCardano/with_replies"
 
   - member_id: "ktorz"
-    display_name: "KTorZ"
+    display_name: "KtorZ"
     voter_hash: "dc0d6ef49590eb6880a50a00adde17596e6d76f7159572fa1ff85f2a"
     x_handle: "@_KtorZ_"
     confidence: "high"
