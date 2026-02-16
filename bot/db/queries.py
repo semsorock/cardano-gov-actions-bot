@@ -86,3 +86,58 @@ QUERY_ALL_CC_VOTES = """
     JOIN tx t2 ON vp.tx_id = t2.id
     WHERE vp.voter_role = 'ConstitutionalCommittee'
 """
+
+QUERY_ACTIVE_GOV_ACTIONS = """
+    SELECT
+        encode(t.hash, 'hex') AS tx_hash,
+        gap.index
+    FROM gov_action_proposal gap
+    JOIN tx t ON gap.tx_id = t.id
+    JOIN block b ON t.block_id = b.id
+    WHERE b.epoch_no < %s
+    AND gap.ratified_epoch IS NULL
+    AND gap.enacted_epoch IS NULL
+    AND gap.dropped_epoch IS NULL
+    AND gap.expired_epoch IS NULL
+    AND (gap.expiration IS NULL OR gap.expiration >= %s)
+"""
+
+QUERY_VOTING_STATS = """
+    WITH active_committee AS (
+        SELECT COUNT(DISTINCT cm.committee_hash_id) as total_members
+        FROM committee c
+        JOIN committee_member cm ON c.id = cm.committee_id
+        WHERE cm.expiration_epoch >= %s
+        AND c.gov_action_proposal_id IS NULL
+    ),
+    cc_votes_for_action AS (
+        SELECT COUNT(DISTINCT vp.committee_voter) as voted_count
+        FROM voting_procedure vp
+        JOIN gov_action_proposal gap ON vp.gov_action_proposal_id = gap.id
+        JOIN tx t ON gap.tx_id = t.id
+        WHERE encode(t.hash, 'hex') = %s
+        AND gap.index = %s
+        AND vp.voter_role = 'ConstitutionalCommittee'
+    ),
+    total_dreps AS (
+        SELECT COUNT(DISTINCT hash_id) as total_count
+        FROM drep_distr
+        WHERE epoch_no = %s - 1
+        AND amount > 0
+    ),
+    drep_votes_for_action AS (
+        SELECT COUNT(DISTINCT vp.drep_voter) as voted_count
+        FROM voting_procedure vp
+        JOIN gov_action_proposal gap ON vp.gov_action_proposal_id = gap.id
+        JOIN tx t ON gap.tx_id = t.id
+        WHERE encode(t.hash, 'hex') = %s
+        AND gap.index = %s
+        AND vp.voter_role = 'DRep'
+    )
+    SELECT
+        COALESCE(cc_votes.voted_count, 0) as cc_voted,
+        COALESCE(active_committee.total_members, 0) as cc_total,
+        COALESCE(drep_votes.voted_count, 0) as drep_voted,
+        COALESCE(total_dreps.total_count, 0) as drep_total
+    FROM active_committee, cc_votes_for_action cc_votes, total_dreps, drep_votes_for_action drep_votes
+"""

@@ -49,3 +49,26 @@ class TreasuryDonation:
     @property
     def amount_ada(self) -> Decimal:
         return Decimal(self.amount_lovelace) / Decimal("1000000")
+
+
+@dataclass(frozen=True)
+class ActiveGovAction:
+    tx_hash: str
+    index: int
+
+
+@dataclass(frozen=True)
+class VotingProgress:
+    tx_hash: str
+    index: int
+    cc_voted: int
+    cc_total: int
+    drep_voted: int
+    drep_total: int
+
+    @property
+    def drep_percentage(self) -> float:
+        """Calculate percentage of DReps that have voted."""
+        if self.drep_total == 0:
+            return 0.0
+        return (self.drep_voted / self.drep_total) * 100

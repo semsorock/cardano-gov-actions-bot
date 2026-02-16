@@ -6,6 +6,7 @@ import psycopg
 
 from bot.config import config
 from bot.db.queries import (
+    QUERY_ACTIVE_GOV_ACTIONS,
     QUERY_ALL_CC_VOTES,
     QUERY_ALL_GOV_ACTIONS,
     QUERY_BLOCK_EPOCH,
@@ -13,8 +14,9 @@ from bot.db.queries import (
     QUERY_GA_EXPIRATIONS,
     QUERY_GOV_ACTIONS,
     QUERY_TREASURY_DONATIONS,
+    QUERY_VOTING_STATS,
 )
-from bot.models import CcVote, GaExpiration, GovAction, TreasuryDonation
+from bot.models import ActiveGovAction, CcVote, GaExpiration, GovAction, TreasuryDonation, VotingProgress
 
 _conn: psycopg.AsyncConnection | None = None
 _lock = asyncio.Lock()
@@ -123,3 +125,25 @@ async def get_all_cc_votes() -> list[CcVote]:
         )
         for row in rows
     ]
+
+
+async def get_active_gov_actions(epoch_no: int) -> list[ActiveGovAction]:
+    """Return all active governance actions for the given epoch."""
+    rows = await _query(QUERY_ACTIVE_GOV_ACTIONS, (epoch_no, epoch_no))
+    return [ActiveGovAction(tx_hash=row[0], index=row[1]) for row in rows]
+
+
+async def get_voting_stats(tx_hash: str, index: int, epoch_no: int) -> VotingProgress | None:
+    """Return voting statistics for a specific governance action."""
+    rows = await _query(QUERY_VOTING_STATS, (epoch_no, tx_hash, index, epoch_no, tx_hash, index))
+    if not rows:
+        return None
+    row = rows[0]
+    return VotingProgress(
+        tx_hash=tx_hash,
+        index=index,
+        cc_voted=row[0],
+        cc_total=row[1],
+        drep_voted=row[2],
+        drep_total=row[3],
+    )

@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from bot.models import GaExpiration, GovAction, TreasuryDonation, camel_case_to_spaced
+from bot.models import GaExpiration, GovAction, TreasuryDonation, VotingProgress, camel_case_to_spaced
 
 # ---------------------------------------------------------------------------
 # camel_case_to_spaced
@@ -75,3 +75,55 @@ class TestGaExpiration:
         exp = GaExpiration(tx_hash="deadbeef", index=3)
         assert exp.tx_hash == "deadbeef"
         assert exp.index == 3
+
+
+# ---------------------------------------------------------------------------
+# VotingProgress
+# ---------------------------------------------------------------------------
+
+
+class TestVotingProgress:
+    def test_drep_percentage_basic(self):
+        progress = VotingProgress(
+            tx_hash="abc",
+            index=0,
+            cc_voted=3,
+            cc_total=7,
+            drep_voted=1234,
+            drep_total=5000,
+        )
+        # 1234 / 5000 = 0.2468 = 24.68%
+        assert abs(progress.drep_percentage - 24.68) < 0.01
+
+    def test_drep_percentage_zero_total(self):
+        progress = VotingProgress(
+            tx_hash="abc",
+            index=0,
+            cc_voted=0,
+            cc_total=7,
+            drep_voted=0,
+            drep_total=0,
+        )
+        assert progress.drep_percentage == 0.0
+
+    def test_drep_percentage_full_participation(self):
+        progress = VotingProgress(
+            tx_hash="abc",
+            index=0,
+            cc_voted=7,
+            cc_total=7,
+            drep_voted=1000,
+            drep_total=1000,
+        )
+        assert progress.drep_percentage == 100.0
+
+    def test_drep_percentage_no_votes(self):
+        progress = VotingProgress(
+            tx_hash="abc",
+            index=0,
+            cc_voted=0,
+            cc_total=7,
+            drep_voted=0,
+            drep_total=5000,
+        )
+        assert progress.drep_percentage == 0.0

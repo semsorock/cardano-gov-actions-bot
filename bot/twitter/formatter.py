@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from bot.links import make_adastat_link
 from bot.metadata.fetcher import sanitise_url
-from bot.models import CcVote, GaExpiration, GovAction, TreasuryDonation
+from bot.models import CcVote, GaExpiration, GovAction, TreasuryDonation, VotingProgress
 from bot.twitter import templates
 
 VOTES_MAPPING = {
@@ -91,4 +91,14 @@ def format_treasury_donations_tweet(donations: list[TreasuryDonation]) -> str:
     return templates.TREASURY_DONATIONS.format(
         count=len(donations),
         total_ada=total_ada,
+    )
+
+
+def format_voting_progress_tweet(progress: VotingProgress) -> str:
+    """Format a voting progress update tweet for a governance action."""
+    return templates.VOTING_PROGRESS.format(
+        cc_voted=progress.cc_voted,
+        cc_total=progress.cc_total,
+        drep_percentage=f"{progress.drep_percentage:.1f}",
+        link=make_adastat_link(progress.tx_hash, progress.index),
     )
