@@ -1,5 +1,5 @@
 version: 1
-as_of_date: "2026-02-14"
+as_of_date: "2026-02-16"
 network: "cardano-mainnet"
 notes:
   - "Seeded from public sources, then bound to DB-Sync hashes using current epoch_state committee membership."
