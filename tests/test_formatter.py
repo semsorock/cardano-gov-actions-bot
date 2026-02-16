@@ -169,20 +169,3 @@ class TestFormatVotingProgressTweet:
         assert "CC Members: 7/7" in tweet
         assert "100.0%" in tweet
         assert len(tweet) <= MAX_TWEET_LENGTH
-
-    def test_epoch_progress_without_expiration(self):
-        progress = VotingProgress(
-            tx_hash="aabbccdd",
-            index=3,
-            cc_voted=5,
-            cc_total=7,
-            drep_voted=500,
-            drep_total=1000,
-            current_epoch=500,
-            created_epoch=495,
-            expiration=None,
-        )
-        tweet = format_voting_progress_tweet(progress)
-        assert "Epoch 6" in tweet  # No "of X" when no expiration
-        assert "CC Members: 5/7" in tweet
-        assert len(tweet) <= MAX_TWEET_LENGTH

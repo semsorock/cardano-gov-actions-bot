@@ -134,7 +134,7 @@ async def get_active_gov_actions(epoch_no: int) -> list[ActiveGovAction]:
 
 
 async def get_voting_stats(
-    tx_hash: str, index: int, epoch_no: int, created_epoch: int, expiration: int | None
+    tx_hash: str, index: int, epoch_no: int, created_epoch: int, expiration: int
 ) -> VotingProgress | None:
     """Return voting statistics for a specific governance action."""
     rows = await _query(QUERY_VOTING_STATS, (epoch_no, tx_hash, index, epoch_no, tx_hash, index))

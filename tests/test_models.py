@@ -156,19 +156,3 @@ class TestVotingProgress:
         # Total epochs = 505 - 495 = 10
         # Current epoch num = 500 - 495 + 1 = 6
         assert progress.epoch_progress == "Epoch 6 of 10"
-
-    def test_epoch_progress_without_expiration(self):
-        progress = VotingProgress(
-            tx_hash="abc",
-            index=0,
-            cc_voted=3,
-            cc_total=7,
-            drep_voted=1234,
-            drep_total=5000,
-            current_epoch=500,
-            created_epoch=495,
-            expiration=None,
-        )
-        # Current epoch 500, created 495, no expiration
-        # Current epoch num = 500 - 495 + 1 = 6
-        assert progress.epoch_progress == "Epoch 6"

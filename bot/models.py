@@ -56,7 +56,7 @@ class ActiveGovAction:
     tx_hash: str
     index: int
     created_epoch: int
-    expiration: int | None
+    expiration: int
 
 
 @dataclass(frozen=True)
@@ -69,7 +69,7 @@ class VotingProgress:
     drep_total: int
     current_epoch: int
     created_epoch: int
-    expiration: int | None
+    expiration: int
 
     @property
     def drep_percentage(self) -> float:
@@ -81,8 +81,6 @@ class VotingProgress:
     @property
     def epoch_progress(self) -> str:
         """Return epoch progress string (e.g., 'Epoch 3 of 5')."""
-        if self.expiration is None:
-            return f"Epoch {self.current_epoch - self.created_epoch + 1}"
         total_epochs = self.expiration - self.created_epoch
         current_epoch_num = self.current_epoch - self.created_epoch + 1
         return f"Epoch {current_epoch_num} of {total_epochs}"
