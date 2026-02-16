@@ -56,7 +56,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │       ├── action.json           # Gov action rationale (CIP-0108)
 │       └── cc_votes/
 │           └── <voter_hash>.json # CC vote rationale (CIP-0136)
-├── tests/                       # Pytest test suite (currently 78 tests)
+├── tests/                       # Pytest test suite (currently 94 tests)
 ├── .github/workflows/ci.yml     # CI pipeline (ruff + pytest)
 ├── .env.example                 # Template for required env vars
 ├── .dockerignore                # Docker build context exclusions
@@ -71,7 +71,13 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 
 - `bot/config.py`: All env vars loaded into a frozen `Config` dataclass via `python-dotenv` (`.env` overrides system vars). Includes feature flags.
 
-- `bot/models.py`: Typed dataclasses for all domain objects. Replaces raw tuple indexing.
+- `bot/models.py`: Typed dataclasses for all domain objects. Replaces raw tuple indexing. Includes:
+  - `GovAction`: Governance action proposals
+  - `CcVote`: Constitutional Committee votes
+  - `GaExpiration`: Actions expiring soon
+  - `TreasuryDonation`: Treasury donation records
+  - `ActiveGovAction`: Currently active governance actions
+  - `VotingProgress`: Voting statistics for active actions (CC + DRep participation)
 
 - `bot/db/repository.py`: Async data access functions returning typed model instances. Uses a shared `psycopg.AsyncConnection` (lazy init) with an `asyncio.Lock` to serialise queries. On connection errors, closes and resets the connection so the next call reconnects.
 
@@ -79,15 +85,26 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 
 - `bot/twitter/client.py`: `post_tweet()` / `post_quote_tweet()` / `post_reply_tweet()` via XDK — logs content and only posts when `TWEET_POSTING_ENABLED=true`. All post functions return the tweet ID (extracted via `_extract_post_id()`) or `None`.
 
-- `bot/twitter/formatter.py`: Pure functions that build tweet text strings for each event type.
+- `bot/twitter/formatter.py`: Pure functions that build tweet text strings for each event type:
+  - `format_gov_action_tweet()`: New governance action announcements
+  - `format_cc_vote_tweet()`: CC vote updates
+  - `format_ga_expiration_tweet()`: Expiration warnings
+  - `format_treasury_donations_tweet()`: Epoch treasury donation summaries
+  - `format_voting_progress_tweet()`: Voting progress updates for active actions
 
-- `bot/twitter/templates.py`: Centralised tweet copy templates used by formatters.
+- `bot/twitter/templates.py`: Centralised tweet copy templates used by formatters:
+  - `GOV_ACTION`: New governance action template
+  - `CC_VOTE`: CC vote with quote-tweet template
+  - `CC_VOTE_NO_QUOTE`: CC vote standalone template
+  - `GA_EXPIRATION`: Expiration warning template
+  - `TREASURY_DONATIONS`: Treasury donations summary template
+  - `VOTING_PROGRESS`: Voting progress update template
 
 - `bot/cc_profiles.py`: Loads `data/cc_profiles.yaml` and maps CC voter hashes to X handles.
 
 - `bot/links.py`: URL builders for AdaStat, GovTools, CExplorer.
 
-- `bot/main.py`: FastAPI `app` instance with async `POST /` webhook handler. All processing functions (`_process_gov_actions`, `_process_cc_votes`, etc.) are async.
+- `bot/main.py`: FastAPI `app` instance with async `POST /` webhook handler. All processing functions (`_process_gov_actions`, `_process_cc_votes`, `_process_voting_progress`, etc.) are async. Handles epoch transitions and posts voting progress updates for active actions.
 
 - `bot/state_store.py`: Firestore-backed persistence for gov action tweet IDs, CC vote archive state, and block checkpoints.
 
@@ -124,6 +141,8 @@ All SQL is in `bot/db/queries.py`:
 - `QUERY_BLOCK_EPOCH`: Get epoch number for a block by hash
 - `QUERY_ALL_GOV_ACTIONS`: All gov actions (backfill)
 - `QUERY_ALL_CC_VOTES`: All CC votes (backfill)
+- `QUERY_ACTIVE_GOV_ACTIONS`: Get active governance actions for an epoch
+- `QUERY_VOTING_STATS`: Get voting statistics (CC + DRep) for a specific action
 
 **Important**: Governance actions are identified by `tx_hash + index`, forming a compound key.
 
@@ -231,8 +250,9 @@ Google Cloud Run (FastAPI + uvicorn, containerized)
 - Continuously deployed from GitHub via Cloud Run source-based deployment
 - Docker image built automatically by Cloud Build on push to `main`
 - Entry point: `uvicorn bot.main:app` (root `main.py` re-exports `app`)
-- `POST /` handles Blockfrost block events (governance actions, CC votes, epoch donation checks)
+- `POST /` handles Blockfrost block events (governance actions, CC votes, epoch donation checks, voting progress updates)
 - Epoch transitions are detected by comparing current vs previous block epoch
+- On epoch transition, posts voting progress updates for all active governance actions
 - Returns JSON responses with appropriate HTTP status codes
 
 ### Local Development
@@ -286,6 +306,14 @@ VOTES_MAPPING = {
 - **Tweet posting**: Controlled by `TWEET_POSTING_ENABLED` env var (default: off)
 - **Rationale archiving**: Controlled by `GITHUB_TOKEN` + `GITHUB_REPO` (skipped if not set)
 - **Webhook signature verification**: Skipped if `BLOCKFROST_WEBHOOK_AUTH_TOKEN` not set
+
+### Voting Progress Updates
+
+- Posted at **epoch transitions** for all active governance actions
+- Posted as **reply tweets** to the original governance action tweet (when tweet ID is available)
+- Includes CC member voting counts and DRep participation percentage
+- Shows epoch progress (e.g., "Epoch 3 of 5")
+- Only processes actions that are not yet ratified, enacted, dropped, or expired
 
 ## When Modifying Code
 
