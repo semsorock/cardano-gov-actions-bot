@@ -51,7 +51,7 @@ members:
   - member_id: "cardano-japan-council"
     display_name: "Cardano Japan Council"
     voter_hash: "9cc3f387623f45dae6a68b7096b0c2e403d8601a82dc40221ead41e2"
-    x_handle: "@Cardanojp_icc"
+    x_handle: "@JapanCardano"
     confidence: "high"
     status: "active_dbsync"
     sources:
