@@ -24,13 +24,22 @@ from bot.logging import get_logger, setup_logging  # noqa: E402
 setup_logging()
 logger = get_logger("backfill_tweet_ids")
 
-# AdaStat governance link pattern:  .../governances/<tx_hash><hex_index>
+# Governance link patterns for matching both old (adastat) and new (explorer.cardano.org) formats
 ADASTAT_RE = re.compile(r"adastat\.net/governances/([0-9a-f]{64})([0-9a-f]{2,})")
+EXPLORER_RE = re.compile(r"explorer\.cardano\.org/governance-action/([0-9a-f]{64})([0-9a-f]{2,})")
 
 
 def _parse_action_id(text: str) -> str | None:
-    """Extract '<tx_hash>_<index>' from an AdaStat governance link in tweet text."""
-    match = ADASTAT_RE.search(text)
+    """Extract '<tx_hash>_<index>' from a governance link in tweet text.
+
+    Supports both explorer.cardano.org and legacy adastat.net formats.
+    """
+    # Try new explorer.cardano.org format first
+    match = EXPLORER_RE.search(text)
+    if not match:
+        # Fall back to legacy adastat format
+        match = ADASTAT_RE.search(text)
+
     if not match:
         return None
     tx_hash = match.group(1)
