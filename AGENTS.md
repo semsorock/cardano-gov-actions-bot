@@ -2,7 +2,7 @@
 
 ## Project Purpose
 
-This is a **Cardano blockchain governance monitoring bot** that watches for new governance actions and Constitutional Committee (CC) votes, posts summaries to Twitter/X, and archives governance rationale files to GitHub. It's deployed as a Google Cloud Run service triggered by Blockfrost block webhooks (`/`).
+This is a **Cardano blockchain governance monitoring bot** that watches for new governance actions and Constitutional Committee (CC) votes, posts summaries to Twitter/X, and archives governance rationale files to GitHub. It's deployed as a Google Cloud Run service (FastAPI + uvicorn) triggered by Blockfrost block webhooks (`POST /`).
 
 ## Architecture Overview
 
@@ -21,7 +21,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 ### Project Structure
 
 ```
-├── main.py                      # Thin shim — re-exports handle_webhook from bot.main
+├── main.py                      # Entry point shim — re-exports FastAPI `app` from bot.main
 ├── bot/
 │   ├── __init__.py
 │   ├── cc_profiles.py           # CC voter hash -> X handle lookup loader
@@ -29,7 +29,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │   ├── logging.py               # Logging setup (setup_logging, get_logger)
 │   ├── models.py                # Dataclasses: GovAction, CcVote, GaExpiration, TreasuryDonation
 │   ├── links.py                 # External link builders (AdaStat, GovTools, CExplorer)
-│   ├── main.py                  # Unified webhook handler (handle_webhook entry point)
+│   ├── main.py                  # FastAPI app + async webhook handler
 │   ├── webhook_auth.py          # Blockfrost HMAC-SHA256 signature verification
 │   ├── state_store.py           # Firestore-backed runtime state helpers
 │   ├── rationale_archiver.py    # Archive rationales to GitHub via direct commits (PyGithub)
@@ -37,7 +37,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │   ├── db/
 │   │   ├── __init__.py
 │   │   ├── queries.py           # SQL query constants
-│   │   └── repository.py        # Data access layer (typed query functions)
+│   │   └── repository.py        # Async data access layer (typed query functions)
 │   ├── metadata/
 │   │   ├── __init__.py
 │   │   └── fetcher.py           # IPFS URL sanitisation & JSON metadata fetching
@@ -56,7 +56,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │       ├── action.json           # Gov action rationale (CIP-0108)
 │       └── cc_votes/
 │           └── <voter_hash>.json # CC vote rationale (CIP-0136)
-├── tests/                       # Pytest test suite (currently 114 tests)
+├── tests/                       # Pytest test suite (currently 78 tests)
 ├── .github/workflows/ci.yml     # CI pipeline (ruff + pytest)
 ├── .env.example                 # Template for required env vars
 ├── .dockerignore                # Docker build context exclusions
@@ -73,11 +73,11 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 
 - `bot/models.py`: Typed dataclasses for all domain objects. Replaces raw tuple indexing.
 
-- `bot/db/repository.py`: Data access functions returning typed model instances. Lazy connection pool init.
+- `bot/db/repository.py`: Async data access functions returning typed model instances. Uses a shared `psycopg.AsyncConnection` (lazy init) with an `asyncio.Lock` to serialise queries. On connection errors, closes and resets the connection so the next call reconnects.
 
 - `bot/metadata/fetcher.py`: `fetch_metadata()` with retry (tenacity) and `sanitise_url()` for IPFS.
 
-- `bot/twitter/client.py`: `post_tweet()` / `post_quote_tweet()` / `post_reply_tweet()` via XDK — logs content and only posts when `TWEET_POSTING_ENABLED=true`.
+- `bot/twitter/client.py`: `post_tweet()` / `post_quote_tweet()` / `post_reply_tweet()` via XDK — logs content and only posts when `TWEET_POSTING_ENABLED=true`. All post functions return the tweet ID (extracted via `_extract_post_id()`) or `None`.
 
 - `bot/twitter/formatter.py`: Pure functions that build tweet text strings for each event type.
 
@@ -87,7 +87,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 
 - `bot/links.py`: URL builders for AdaStat, GovTools, CExplorer.
 
-- `bot/main.py`: Webhook handler for Blockfrost block events on `/`.
+- `bot/main.py`: FastAPI `app` instance with async `POST /` webhook handler. All processing functions (`_process_gov_actions`, `_process_cc_votes`, etc.) are async.
 
 - `bot/state_store.py`: Firestore-backed persistence for gov action tweet IDs, CC vote archive state, and block checkpoints.
 
@@ -183,9 +183,11 @@ The bot generates links to governance explorers via `bot/links.py`:
 
 - Applied to `fetch_metadata()` in `bot/metadata/fetcher.py` (30s timeout)
 
-- Database connection pooling via `psycopg2.pool.SimpleConnectionPool` (lazy init)
+- Async PostgreSQL via `psycopg` (v3) with a shared `AsyncConnection` (lazy init, `autocommit=True`)
 
-  - Managed in `bot/db/repository.py` — all queries go through `_query()` helper
+  - Managed in `bot/db/repository.py` — all queries go through async `_query()` helper, serialised by an `asyncio.Lock`
+
+  - On connection errors, `_query()` closes the broken connection and resets it to `None` so the next call reconnects automatically
 
 ### Environment Variables
 
@@ -224,12 +226,12 @@ FIRESTORE_DATABASE                 # Firestore DB id (default: (default))
 
 ### Deployment Target
 
-Google Cloud Run (`functions-framework` library, containerized)
+Google Cloud Run (FastAPI + uvicorn, containerized)
 
 - Continuously deployed from GitHub via Cloud Run source-based deployment
 - Docker image built automatically by Cloud Build on push to `main`
-- Entry point: `handle_webhook(request)` (exposed via root `main.py` shim)
-- `/` handles Blockfrost block events (governance actions, CC votes, epoch donation checks)
+- Entry point: `uvicorn bot.main:app` (root `main.py` re-exports `app`)
+- `POST /` handles Blockfrost block events (governance actions, CC votes, epoch donation checks)
 - Epoch transitions are detected by comparing current vs previous block epoch
 - Returns JSON responses with appropriate HTTP status codes
 
@@ -243,7 +245,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 uv sync
 
 # Run locally
-uv run functions-framework --target=handle_webhook --debug
+uv run uvicorn bot.main:app --reload --port 8080
 # Access at http://localhost:8080/
 # Endpoint: POST / (Blockfrost)
 
@@ -321,9 +323,10 @@ Managed via `uv` (see `pyproject.toml`). Lockfile: `uv.lock`.
 
 ```text
 # Production
-functions-framework>=3,<4   # Google Cloud Functions runtime
+fastapi>=0.115,<1           # Async web framework
+uvicorn[standard]>=0.34,<1  # ASGI server
 xdk>=0.8.1                  # X API SDK (OAuth 1.0a + posts client)
-psycopg2-binary>=2.9,<3    # PostgreSQL adapter (binary dist)
+psycopg[binary]>=3,<4       # Async PostgreSQL adapter (psycopg v3)
 requests>=2.32,<3           # HTTP client for IPFS
 tenacity>=9,<10             # Retry/backoff decorator
 python-dotenv>=1.2.1        # .env file loading
@@ -332,6 +335,8 @@ google-cloud-firestore>=2.20,<3  # Firestore state store client
 
 # Dev
 pytest>=8                   # Test runner
+pytest-asyncio>=0.25        # Async test support (asyncio_mode = "auto")
+httpx>=0.28                 # Async HTTP client (FastAPI TestClient)
 ruff>=0.9                   # Formatter + linter
 ```
 
