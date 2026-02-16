@@ -51,3 +51,14 @@ Total Donated: {total_ada} ADA
 
 @IntersectMBO
 #Cardano #Treasury #Governance"""
+
+VOTING_PROGRESS = """\
+Voting Progress Update
+
+{epoch_progress}
+
+CC Members: {cc_voted}/{cc_total} voted
+DReps: {drep_percentage}% participated
+
+@IntersectMBO
+#Cardano #Governance"""

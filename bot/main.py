@@ -6,10 +6,12 @@ from fastapi.responses import JSONResponse
 from bot.cc_profiles import get_x_handle_for_voter_hash
 from bot.config import config
 from bot.db.repository import (
+    get_active_gov_actions,
     get_block_epoch,
     get_cc_votes,
     get_gov_actions,
     get_treasury_donations,
+    get_voting_stats,
 )
 from bot.logging import get_logger, setup_logging
 from bot.metadata.fetcher import fetch_metadata, sanitise_url
@@ -22,11 +24,12 @@ from bot.state_store import (
     save_action_tweet_id,
     set_checkpoint,
 )
-from bot.twitter.client import post_quote_tweet, post_tweet
+from bot.twitter.client import post_quote_tweet, post_reply_tweet, post_tweet
 from bot.twitter.formatter import (
     format_cc_vote_tweet,
     format_gov_action_tweet,
     format_treasury_donations_tweet,
+    format_voting_progress_tweet,
 )
 from bot.webhook_auth import verify_webhook_signature
 
@@ -133,6 +136,55 @@ async def _process_treasury_donations(epoch_no: int) -> None:
     post_tweet(tweet)
 
 
+async def _process_voting_progress(epoch_no: int) -> None:
+    """Post voting progress updates for all active governance actions."""
+    active_actions = await get_active_gov_actions(epoch_no)
+    logger.info("Found %s active gov actions for epoch %s", len(active_actions), epoch_no)
+
+    for action in active_actions:
+        try:
+            # Get voting statistics for this action
+            stats = await get_voting_stats(
+                action.tx_hash, action.index, epoch_no, action.created_epoch, action.expiration
+            )
+
+            if not stats:
+                logger.warning(
+                    "No voting stats for action %s_%s",
+                    action.tx_hash[:8],
+                    action.index,
+                )
+                continue
+
+            # Format the tweet
+            tweet = format_voting_progress_tweet(stats)
+
+            # Try to get the original tweet ID to reply to it
+            original_tweet_id = get_action_tweet_id(action.tx_hash, action.index)
+
+            if original_tweet_id:
+                logger.info(
+                    "Posting voting progress as reply to tweet %s for action %s_%s",
+                    original_tweet_id,
+                    action.tx_hash[:8],
+                    action.index,
+                )
+                post_reply_tweet(tweet, original_tweet_id)
+            else:
+                logger.warning(
+                    "No tweet ID found for action %s_%s — skipping voting progress tweet",
+                    action.tx_hash[:8],
+                    action.index,
+                )
+
+        except Exception:
+            logger.exception(
+                "Error processing voting progress for action %s_%s",
+                action.tx_hash[:8],
+                action.index,
+            )
+
+
 async def _check_epoch_transition(payload: dict) -> None:
     """Detect epoch boundary and run epoch processing if one occurred."""
     current_epoch = payload.get("epoch")
@@ -156,6 +208,8 @@ async def _check_epoch_transition(payload: dict) -> None:
         )
         # Process the completed epoch (previous_epoch).
         await _process_treasury_donations(previous_epoch)
+        # Post voting progress for active actions in the new epoch.
+        await _process_voting_progress(current_epoch)
 
 
 # ---------------------------------------------------------------------------
