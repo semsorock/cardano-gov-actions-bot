@@ -7,8 +7,9 @@ requires-python = ">=3.12"
 license = { text = "MIT" }
 
 dependencies = [
-    "functions-framework>=3,<4",
-    "psycopg2-binary>=2.9,<3",
+    "fastapi>=0.115,<1",
+    "uvicorn[standard]>=0.34,<1",
+    "psycopg[binary]>=3,<4",
     "requests>=2.32,<3",
     "tenacity>=9,<10",
     "python-dotenv>=1.2.1",
@@ -20,6 +21,8 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pytest>=8",
+    "pytest-asyncio>=0.25",
+    "httpx>=0.28",
     "ruff>=0.9",
 ]
 
@@ -32,3 +35,4 @@ select = ["E", "F", "W", "I", "UP"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+asyncio_mode = "auto"

@@ -8,6 +8,7 @@ Usage:
 
 from __future__ import annotations
 
+import asyncio
 import json
 import sys
 from pathlib import Path
@@ -32,9 +33,9 @@ def _save_json(path: Path, data: dict) -> None:
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
 
 
-def _backfill_gov_actions() -> tuple[int, int, int]:
+async def _backfill_gov_actions() -> tuple[int, int, int]:
     """Fetch and save all governance action rationales. Returns (total, skipped, failed)."""
-    actions = get_all_gov_actions()
+    actions = await get_all_gov_actions()
     logger.info("Found %d governance actions", len(actions))
 
     skipped = 0
@@ -63,9 +64,9 @@ def _backfill_gov_actions() -> tuple[int, int, int]:
     return len(actions), skipped, failed
 
 
-def _backfill_cc_votes() -> tuple[int, int, int]:
+async def _backfill_cc_votes() -> tuple[int, int, int]:
     """Fetch and save all CC vote rationales. Returns (total, skipped, failed)."""
-    votes = get_all_cc_votes()
+    votes = await get_all_cc_votes()
     logger.info("Found %d CC votes", len(votes))
 
     skipped = 0
@@ -94,11 +95,11 @@ def _backfill_cc_votes() -> tuple[int, int, int]:
     return len(votes), skipped, failed
 
 
-def main() -> None:
+async def _main() -> None:
     logger.info("Starting rationale backfill...")
     logger.info("Output directory: %s", RATIONALES_DIR)
 
-    ga_total, ga_skipped, ga_failed = _backfill_gov_actions()
+    ga_total, ga_skipped, ga_failed = await _backfill_gov_actions()
     logger.info(
         "Gov actions — total: %d, fetched: %d, skipped: %d, failed: %d",
         ga_total,
@@ -107,7 +108,7 @@ def main() -> None:
         ga_failed,
     )
 
-    cc_total, cc_skipped, cc_failed = _backfill_cc_votes()
+    cc_total, cc_skipped, cc_failed = await _backfill_cc_votes()
     logger.info(
         "CC votes — total: %d, fetched: %d, skipped: %d, failed: %d",
         cc_total,
@@ -126,4 +127,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(_main())

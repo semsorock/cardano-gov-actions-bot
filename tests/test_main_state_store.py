@@ -1,7 +1,6 @@
-import json
 import os
 
-from flask import Flask
+import pytest
 
 os.environ.setdefault("DB_SYNC_URL", "postgresql://localhost/test")
 
@@ -9,7 +8,8 @@ from bot import main
 from bot.models import CcVote, GovAction
 
 
-def test_process_gov_actions_saves_action_state(monkeypatch):
+@pytest.mark.asyncio
+async def test_process_gov_actions_saves_action_state(monkeypatch):
     action = GovAction(
         tx_hash="a" * 64,
         action_type="TreasuryWithdrawal",
@@ -17,7 +17,10 @@ def test_process_gov_actions_saves_action_state(monkeypatch):
         raw_url="ipfs://example",
     )
 
-    monkeypatch.setattr(main, "get_gov_actions", lambda *_: [action])
+    async def _fake_get_gov_actions(*_):
+        return [action]
+
+    monkeypatch.setattr(main, "get_gov_actions", _fake_get_gov_actions)
     monkeypatch.setattr(main, "sanitise_url", lambda url: url)
     monkeypatch.setattr(main, "fetch_metadata", lambda *_: {"body": {"title": "t"}})
     monkeypatch.setattr(main, "validate_gov_action_rationale", lambda *_: [])
@@ -32,12 +35,13 @@ def test_process_gov_actions_saves_action_state(monkeypatch):
         lambda tx_hash, index, tweet_id, source_block=None: save_calls.append((tx_hash, index, tweet_id, source_block)),
     )
 
-    main._process_gov_actions(321)
+    await main._process_gov_actions(321)
 
     assert save_calls == [(action.tx_hash, action.index, "tweet-123", 321)]
 
 
-def test_process_cc_votes_falls_back_to_github_tweet_id(monkeypatch):
+@pytest.mark.asyncio
+async def test_process_cc_votes_falls_back_to_github_tweet_id(monkeypatch):
     vote = CcVote(
         ga_tx_hash="b" * 64,
         ga_index=1,
@@ -47,7 +51,10 @@ def test_process_cc_votes_falls_back_to_github_tweet_id(monkeypatch):
         raw_url="ipfs://vote",
     )
 
-    monkeypatch.setattr(main, "get_cc_votes", lambda *_: [vote])
+    async def _fake_get_cc_votes(*_):
+        return [vote]
+
+    monkeypatch.setattr(main, "get_cc_votes", _fake_get_cc_votes)
     monkeypatch.setattr(main, "sanitise_url", lambda url: url)
     monkeypatch.setattr(main, "fetch_metadata", lambda *_: {"body": {"summary": "s"}})
     monkeypatch.setattr(main, "validate_cc_vote_rationale", lambda *_: [])
@@ -70,17 +77,24 @@ def test_process_cc_votes_falls_back_to_github_tweet_id(monkeypatch):
         ),
     )
 
-    main._process_cc_votes(654)
+    await main._process_cc_votes(654)
 
     assert quote_calls == [("cc vote tweet", "tweet-from-github")]
     assert cc_state_calls == [(vote.ga_tx_hash, vote.ga_index, vote.voter_hash, 654)]
 
 
-def test_handle_blockfrost_webhook_updates_checkpoint(monkeypatch):
+@pytest.mark.asyncio
+async def test_handle_blockfrost_webhook_updates_checkpoint(monkeypatch):
+    from httpx import ASGITransport, AsyncClient
+
     monkeypatch.setattr(main, "verify_webhook_signature", lambda *_: True)
-    monkeypatch.setattr(main, "_process_gov_actions", lambda *_: None)
-    monkeypatch.setattr(main, "_process_cc_votes", lambda *_: None)
-    monkeypatch.setattr(main, "_check_epoch_transition", lambda *_: None)
+
+    async def _noop(*_):
+        pass
+
+    monkeypatch.setattr(main, "_process_gov_actions", _noop)
+    monkeypatch.setattr(main, "_process_cc_votes", _noop)
+    monkeypatch.setattr(main, "_check_epoch_transition", _noop)
 
     checkpoint_calls = []
     monkeypatch.setattr(
@@ -89,16 +103,15 @@ def test_handle_blockfrost_webhook_updates_checkpoint(monkeypatch):
         lambda name, block_no, epoch_no=None: checkpoint_calls.append((name, block_no, epoch_no)),
     )
 
-    app = Flask(__name__)
     payload = {"payload": {"height": 111, "epoch": 222, "previous_block": "prev-hash"}}
-    with app.test_request_context(
-        "/",
-        method="POST",
-        data=json.dumps(payload),
-        headers={"Blockfrost-Signature": "sig"},
-        content_type="application/json",
-    ):
-        response = main.handle_webhook(main.flask.request)
+
+    transport = ASGITransport(app=main.app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        response = await client.post(
+            "/",
+            json=payload,
+            headers={"Blockfrost-Signature": "sig"},
+        )
 
     assert response.status_code == 200
     assert checkpoint_calls == [("blockfrost_main", 111, 222)]
