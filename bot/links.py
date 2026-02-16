@@ -1,4 +1,4 @@
-def make_adastat_link(tx_hash: str, gov_action_index: int) -> str:
+def make_governance_action_link(tx_hash: str, gov_action_index: int) -> str:
     """Build an explorer.cardano.org governance action link.
 
     Example: https://explorer.cardano.org/governance-action/0b1947...00
@@ -7,6 +7,10 @@ def make_adastat_link(tx_hash: str, gov_action_index: int) -> str:
     if len(index_hex) % 2:
         index_hex = "0" + index_hex
     return f"https://explorer.cardano.org/governance-action/{tx_hash}{index_hex}"
+
+
+# Legacy alias for backward compatibility
+make_adastat_link = make_governance_action_link
 
 
 def make_gov_tools_link(tx_hash: str, gov_action_index: int) -> str:
