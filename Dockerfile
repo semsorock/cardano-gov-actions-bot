@@ -9,6 +9,7 @@ RUN uv sync --frozen --no-dev --no-install-project
 
 COPY main.py .
 COPY bot/ bot/
+COPY data/ data/
 
 RUN useradd --create-home appuser \
     && chown -R appuser:appuser /app
