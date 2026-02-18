@@ -16,12 +16,20 @@ QUERY_CC_VOTES = """
         encode(t1.hash, 'hex') AS ga_tx_hash,
         gap.index AS ga_index,
         encode(t2.hash, 'hex') AS vote_tx_hash,
-        encode(ch.raw, 'hex') AS voter_hash,
+        COALESCE(encode(cold_ch.raw, 'hex'), encode(ch.raw, 'hex')) AS voter_hash,
         vp."vote",
         va.url
     FROM gov_action_proposal gap
     JOIN voting_procedure vp ON gap.id = vp.gov_action_proposal_id
     JOIN committee_hash ch ON vp.committee_voter = ch.id
+    LEFT JOIN LATERAL (
+        SELECT cr.cold_key_id
+        FROM committee_registration cr
+        WHERE cr.hot_key_id = ch.id
+        ORDER BY cr.id DESC
+        LIMIT 1
+    ) latest_reg ON true
+    LEFT JOIN committee_hash cold_ch ON latest_reg.cold_key_id = cold_ch.id
     JOIN voting_anchor va ON vp.voting_anchor_id = va.id
     JOIN tx t1 ON gap.tx_id = t1.id
     JOIN tx t2 ON vp.tx_id = t2.id
@@ -75,12 +83,20 @@ QUERY_ALL_CC_VOTES = """
         encode(t1.hash, 'hex') AS ga_tx_hash,
         gap.index AS ga_index,
         encode(t2.hash, 'hex') AS vote_tx_hash,
-        encode(ch.raw, 'hex') AS voter_hash,
+        COALESCE(encode(cold_ch.raw, 'hex'), encode(ch.raw, 'hex')) AS voter_hash,
         vp."vote",
         va.url
     FROM gov_action_proposal gap
     JOIN voting_procedure vp ON gap.id = vp.gov_action_proposal_id
     JOIN committee_hash ch ON vp.committee_voter = ch.id
+    LEFT JOIN LATERAL (
+        SELECT cr.cold_key_id
+        FROM committee_registration cr
+        WHERE cr.hot_key_id = ch.id
+        ORDER BY cr.id DESC
+        LIMIT 1
+    ) latest_reg ON true
+    LEFT JOIN committee_hash cold_ch ON latest_reg.cold_key_id = cold_ch.id
     JOIN voting_anchor va ON vp.voting_anchor_id = va.id
     JOIN tx t1 ON gap.tx_id = t1.id
     JOIN tx t2 ON vp.tx_id = t2.id
