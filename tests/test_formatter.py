@@ -1,9 +1,8 @@
-from bot.models import CcVote, GaExpiration, GovAction, TreasuryDonation, VotingProgress
+from bot.models import CcVote, GaExpiration, GovAction, VotingProgress
 from bot.twitter.formatter import (
     format_cc_vote_tweet,
     format_ga_expiration_tweet,
     format_gov_action_tweet,
-    format_treasury_donations_tweet,
     format_voting_progress_tweet,
 )
 
@@ -94,25 +93,6 @@ class TestFormatGaExpirationTweet:
         assert "Expiry Notice" in tweet
         assert "explorer.cardano.org" in tweet
         assert len(tweet) <= MAX_TWEET_LENGTH
-
-
-class TestFormatTreasuryDonationsTweet:
-    def test_single_donation(self):
-        donations = [TreasuryDonation(block_no=1, tx_hash="aabb", amount_lovelace=5_000_000)]
-        tweet = format_treasury_donations_tweet(donations)
-        assert "Treasury Donations Summary" in tweet
-        assert "Transactions: 1" in tweet
-        assert "5" in tweet
-        assert len(tweet) <= MAX_TWEET_LENGTH
-
-    def test_multiple_donations(self):
-        donations = [
-            TreasuryDonation(block_no=1, tx_hash="aabb", amount_lovelace=1_000_000),
-            TreasuryDonation(block_no=2, tx_hash="ccdd", amount_lovelace=2_000_000),
-        ]
-        tweet = format_treasury_donations_tweet(donations)
-        assert "Transactions: 2" in tweet
-        assert "3" in tweet  # 1 + 2 = 3 ADA
 
 
 class TestFormatVotingProgressTweet:

@@ -10,7 +10,6 @@ from bot.db.repository import (
     get_block_epoch,
     get_cc_votes,
     get_gov_actions,
-    get_treasury_donations,
     get_voting_stats,
 )
 from bot.logging import get_logger, setup_logging
@@ -28,7 +27,6 @@ from bot.twitter.client import post_quote_tweet, post_reply_tweet, post_tweet
 from bot.twitter.formatter import (
     format_cc_vote_tweet,
     format_gov_action_tweet,
-    format_treasury_donations_tweet,
     format_voting_progress_tweet,
 )
 from bot.webhook_auth import verify_webhook_signature
@@ -124,18 +122,6 @@ async def _process_cc_votes(block_no: int) -> None:
 # ---------------------------------------------------------------------------
 
 
-async def _process_treasury_donations(epoch_no: int) -> None:
-    donations = await get_treasury_donations(epoch_no)
-    logger.debug("Donations: %s", donations)
-
-    if not donations:
-        logger.info("No treasury donations for epoch: %s", epoch_no)
-        return
-
-    tweet = format_treasury_donations_tweet(donations)
-    post_tweet(tweet)
-
-
 async def _process_voting_progress(epoch_no: int) -> None:
     """Post voting progress updates for all active governance actions."""
     active_actions = await get_active_gov_actions(epoch_no)
@@ -206,8 +192,6 @@ async def _check_epoch_transition(payload: dict) -> None:
             previous_epoch,
             current_epoch,
         )
-        # Process the completed epoch (previous_epoch).
-        await _process_treasury_donations(previous_epoch)
         # Post voting progress for active actions in the new epoch.
         await _process_voting_progress(current_epoch)
 

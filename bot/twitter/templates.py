@@ -43,15 +43,6 @@ Review and vote if applicable.
 @IntersectMBO
 #Cardano #Governance"""
 
-TREASURY_DONATIONS = """\
-Treasury Donations Summary (Previous Epoch)
-
-Transactions: {count}
-Total Donated: {total_ada} ADA
-
-@IntersectMBO
-#Cardano #Treasury #Governance"""
-
 VOTING_PROGRESS = """\
 Voting Progress Update
 

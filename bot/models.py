@@ -41,17 +41,6 @@ class GaExpiration:
 
 
 @dataclass(frozen=True)
-class TreasuryDonation:
-    block_no: int
-    tx_hash: str
-    amount_lovelace: int
-
-    @property
-    def amount_ada(self) -> Decimal:
-        return Decimal(self.amount_lovelace) / Decimal("1000000")
-
-
-@dataclass(frozen=True)
 class ActiveGovAction:
     tx_hash: str
     index: int
