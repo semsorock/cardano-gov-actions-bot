@@ -34,8 +34,9 @@ class TwitterConfig:
 class Config:
     """Centralised application configuration loaded from environment variables."""
 
-    # Database
-    db_sync_url: str = ""
+    # Blockfrost API
+    blockfrost_project_id: str = ""
+    blockfrost_network: str = "mainnet"
 
     # Twitter credentials
     twitter: TwitterConfig = field(default_factory=TwitterConfig)
@@ -57,7 +58,8 @@ class Config:
     @classmethod
     def from_env(cls) -> "Config":
         return cls(
-            db_sync_url=os.environ.get("DB_SYNC_URL", ""),
+            blockfrost_project_id=os.environ.get("BLOCKFROST_PROJECT_ID", ""),
+            blockfrost_network=os.environ.get("BLOCKFROST_NETWORK", "mainnet"),
             twitter=TwitterConfig(
                 api_key=os.environ.get("API_KEY", ""),
                 api_secret_key=os.environ.get("API_SECRET_KEY", ""),
@@ -76,8 +78,8 @@ class Config:
         """Check that all required config is present. Call at startup."""
         missing = []
 
-        if not self.db_sync_url:
-            missing.append("DB_SYNC_URL")
+        if not self.blockfrost_project_id:
+            missing.append("BLOCKFROST_PROJECT_ID")
 
         if self.tweet_posting_enabled:
             for field_name, env_name in [
