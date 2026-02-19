@@ -3,8 +3,6 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
-from bot.cc_profiles import get_x_handle_for_voter_hash
-from bot.config import config
 from bot.blockfrost.repository import (
     get_active_gov_actions,
     get_block_epoch,
@@ -12,6 +10,8 @@ from bot.blockfrost.repository import (
     get_gov_actions,
     get_voting_stats,
 )
+from bot.cc_profiles import get_x_handle_for_voter_hash
+from bot.config import config
 from bot.logging import get_logger, setup_logging
 from bot.metadata.fetcher import fetch_metadata, sanitise_url
 from bot.rationale_archiver import archive_cc_vote, archive_gov_action

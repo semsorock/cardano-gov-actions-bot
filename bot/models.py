@@ -1,6 +1,5 @@
 import re
 from dataclasses import dataclass
-from decimal import Decimal
 
 
 def camel_case_to_spaced(value: str | None) -> str | None:

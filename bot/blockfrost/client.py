@@ -17,35 +17,35 @@ class BlockfrostClient:
     def __init__(self, project_id: str | None = None, network: str | None = None):
         self.project_id = project_id or config.blockfrost_project_id
         self.network = network or config.blockfrost_network
-        
+
         # Base URL mapping for different networks
         network_urls = {
             "mainnet": "https://cardano-mainnet.blockfrost.io/api/v0",
             "preprod": "https://cardano-preprod.blockfrost.io/api/v0",
             "preview": "https://cardano-preview.blockfrost.io/api/v0",
         }
-        
+
         self.base_url = network_urls.get(self.network, network_urls["mainnet"])
         self.headers = {"project_id": self.project_id}
 
     @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10))
     def _request(self, method: str, endpoint: str, params: dict | None = None) -> dict | list:
         """Make HTTP request to Blockfrost API with retry logic.
-        
+
         Args:
             method: HTTP method (GET, POST, etc.)
             endpoint: API endpoint path (without base URL)
             params: Query parameters
-            
+
         Returns:
             Parsed JSON response
-            
+
         Raises:
             requests.HTTPError: On HTTP errors
         """
         url = f"{self.base_url}{endpoint}"
         logger.debug("Blockfrost API request: %s %s params=%s", method, url, params)
-        
+
         response = requests.request(
             method=method,
             url=url,
@@ -81,10 +81,10 @@ class BlockfrostClient:
         return self._request("GET", "/blocks/latest")
 
     # Governance endpoints (note: these may need adjustment based on actual Blockfrost API availability)
-    
+
     def list_governance_proposals(self, page: int = 1, count: int = 100, order: str = "desc") -> list[dict]:
         """List all governance proposals.
-        
+
         Note: This endpoint might not be available in all Blockfrost versions.
         If not available, we'll need to parse transactions for governance actions.
         """

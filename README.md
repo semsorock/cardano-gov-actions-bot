@@ -7,11 +7,11 @@ X bot account: [@GovActions](https://x.com/GovActions)
 ## How It Works
 
 ```
-Blockfrost Webhook (POST /) → FastAPI on Cloud Run → Query DB-Sync (async) → Fetch IPFS metadata → Post to X + Archive rationale
+Blockfrost Webhook (POST /) → FastAPI on Cloud Run → Query Blockfrost API → Fetch IPFS metadata → Post to X + Archive rationale
 ```
 
 1. **Blockfrost** sends block webhooks to `/`
-2. The bot queries a **Cardano DB-Sync** PostgreSQL database for governance actions, CC votes, and epoch donations
+2. The bot queries the **Blockfrost API** for governance actions and CC votes
 3. Metadata is fetched from **IPFS** and validated (CIP-0108 / CIP-0136 warnings only)
 4. Formatted summaries are posted to **Twitter/X** via `xdk`
 5. Mutable runtime state (tweet IDs, checkpoints) is stored in **Google Cloud Firestore**
@@ -22,15 +22,14 @@ Blockfrost Webhook (POST /) → FastAPI on Cloud Run → Query DB-Sync (async) �
 - 🚨 **New governance actions** — proposals submitted on-chain
 - 📜 **CC member votes** — Constitutional Committee voting activity
 - 📊 **Voting progress** — periodic updates on active governance action voting status
-- 💸 **Treasury donations** — per-epoch donation statistics
 - ⏰ **Action expirations** — warnings when governance actions are about to expire
 
 ## Prerequisites
 
 - **Google Cloud Platform** account with a project
-- **Cardano DB-Sync** PostgreSQL database access
-- **Twitter/X API** credentials (OAuth 1.0a user tokens + app bearer token)
-- **Blockfrost** account with webhook configured
+- **Blockfrost** API project ID (mainnet or testnet)
+- **Twitter/X API** credentials (OAuth 1.0a user tokens)
+- **Blockfrost webhook** configured to send block events
 - **GitHub token + repo access** (optional, for rationale archiving)
 
 ## Environment Variables
@@ -43,7 +42,8 @@ The bot loads `.env` locally (`python-dotenv`) and can also read from Cloud Run 
 | `API_SECRET_KEY` | Twitter OAuth 1.0a consumer secret |
 | `ACCESS_TOKEN` | Twitter access token |
 | `ACCESS_TOKEN_SECRET` | Twitter access token secret |
-| `DB_SYNC_URL` | PostgreSQL connection string (e.g. `postgresql://user:pass@host:5432/dbname`) |
+| `BLOCKFROST_PROJECT_ID` | Blockfrost API project ID (e.g. `mainnetABC123XYZ`) |
+| `BLOCKFROST_NETWORK` | Network to use: `mainnet`, `preprod`, or `preview` (default: `mainnet`) |
 | `BLOCKFROST_WEBHOOK_AUTH_TOKEN` | Shared secret used to verify `Blockfrost-Signature` |
 | `TWEET_POSTING_ENABLED` | Set to `true` to enable posting tweets (default: `false`) |
 | `GITHUB_TOKEN` | GitHub token for rationale archiving (optional) |
@@ -89,7 +89,8 @@ docker run --rm -p 8080:8080 \
   -e API_SECRET_KEY=your_secret \
   -e ACCESS_TOKEN=your_token \
   -e ACCESS_TOKEN_SECRET=your_token_secret \
-  -e DB_SYNC_URL=postgresql://user:pass@host:5432/dbname \
+  -e BLOCKFROST_PROJECT_ID=mainnetABC123XYZ \
+  -e BLOCKFROST_NETWORK=mainnet \
   -e BLOCKFROST_WEBHOOK_AUTH_TOKEN=your_webhook_secret \
   -e TWEET_POSTING_ENABLED=false \
   gov-actions-bot
@@ -103,9 +104,8 @@ The bot is deployed to **Google Cloud Run** with continuous deployment from this
 
 1. **Store secrets** in Google Secret Manager for your GCP project:
   - `api-key`, `api-secret-key`, `access-token`, `access-token-secret`
-  - `bearer-token`
-  - `db-sync-url`, `blockfrost-webhook-auth-token`
-   - Optional: `github-token`, `github-repo` (for rationale archiving)
+  - `blockfrost-project-id`, `blockfrost-webhook-auth-token`
+  - Optional: `github-token`, `github-repo` (for rationale archiving)
 
 2. **Create a Cloud Run service**:
    - Go to [Cloud Run Console](https://console.cloud.google.com/run)
@@ -140,7 +140,7 @@ Every push to the `main` branch automatically triggers:
 │   ├── rationale_validator.py   # CIP-0108/CIP-0136 warning-only validation
 │   ├── webhook_auth.py          # Blockfrost HMAC signature verification
 │   ├── state_store.py           # Firestore-backed runtime state (tweet IDs, checkpoints)
-│   ├── db/                      # SQL constants + async repository layer
+│   ├── blockfrost/              # Blockfrost API client + async repository layer
 │   ├── metadata/                # IPFS URL sanitisation and metadata fetch
 │   └── twitter/
 │       ├── client.py            # XDK posting client

@@ -1,4 +1,3 @@
-from decimal import Decimal
 
 from bot.models import GaExpiration, GovAction, VotingProgress, camel_case_to_spaced
 
