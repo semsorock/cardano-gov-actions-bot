@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 
 from bot.cc_profiles import get_x_handle_for_voter_hash
 from bot.config import config
-from bot.db.repository import (
+from bot.blockfrost.repository import (
     get_active_gov_actions,
     get_block_epoch,
     get_cc_votes,
