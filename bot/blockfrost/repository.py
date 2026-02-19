@@ -49,15 +49,16 @@ async def get_gov_actions(block_no: int) -> list[GovAction]:
         try:
             # Get block details to find its hash
             block_data = await _run_in_executor(client.get_block, block_no)
+            # Note: block_hash would be used if we needed to fetch transactions directly,
+            # but current implementation uses the proposals endpoint instead
             _block_hash = block_data.get("hash")  # noqa: F841
 
             gov_actions = []
 
-            # Get all transactions in this block (for future use if needed)
-            # _txs = await _run_in_executor(client.get_block_transactions, _block_hash)
-
-            # Alternative approach: Get recent proposals and filter by block
+            # Alternative approach: Get recent proposals and filter by block number
             # Note: Blockfrost doesn't provide direct "get governance actions by block number" endpoint
+            # We could fetch transactions via: _txs = await _run_in_executor(client.get_block_transactions, _block_hash)
+            # but this requires parsing transaction structure to identify governance actions
             proposals = await _run_in_executor(client.list_governance_proposals, page=1, count=100, order="desc")
 
             # Filter proposals that match this block number
@@ -98,12 +99,14 @@ async def get_cc_votes(block_no: int) -> list[CcVote]:
         try:
             # Get block hash
             block_data = await _run_in_executor(client.get_block, block_no)
+            # Note: block_hash would be used if we needed to fetch transactions directly,
+            # but current implementation uses the proposals endpoint and vote filtering instead
             _block_hash = block_data.get("hash")  # noqa: F841
 
             cc_votes = []
 
-            # Get transactions in block (for future use if needed)
-            # _txs = await _run_in_executor(client.get_block_transactions, _block_hash)
+            # We could fetch transactions via: _txs = await _run_in_executor(client.get_block_transactions, _block_hash)
+            # but current approach uses proposal votes endpoint which is more efficient
 
             # Get recent proposals to check for votes
             proposals = await _run_in_executor(client.list_governance_proposals, page=1, count=100, order="desc")

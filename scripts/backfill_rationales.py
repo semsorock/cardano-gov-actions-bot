@@ -1,4 +1,4 @@
-"""Backfill governance rationale files from DB-Sync.
+"""Backfill governance rationale files from Blockfrost.
 
 Reads configuration from .env (or environment variables).
 
@@ -16,8 +16,7 @@ from pathlib import Path
 # Ensure the project root is on the import path.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from bot.db.repository import get_all_cc_votes, get_all_gov_actions
-
+from bot.blockfrost.repository import get_all_cc_votes, get_all_gov_actions
 from bot.logging import get_logger, setup_logging
 from bot.metadata.fetcher import fetch_metadata, sanitise_url
 
