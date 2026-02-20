@@ -1,6 +1,5 @@
 import re
 from dataclasses import dataclass
-from decimal import Decimal
 
 
 def camel_case_to_spaced(value: str | None) -> str | None:
@@ -38,17 +37,6 @@ class CcVote:
 class GaExpiration:
     tx_hash: str
     index: int
-
-
-@dataclass(frozen=True)
-class TreasuryDonation:
-    block_no: int
-    tx_hash: str
-    amount_lovelace: int
-
-    @property
-    def amount_ada(self) -> Decimal:
-        return Decimal(self.amount_lovelace) / Decimal("1000000")
 
 
 @dataclass(frozen=True)

@@ -1,8 +1,5 @@
-import os
 
 import pytest
-
-os.environ.setdefault("DB_SYNC_URL", "postgresql://localhost/test")
 
 from bot import main
 from bot.models import CcVote, GovAction
