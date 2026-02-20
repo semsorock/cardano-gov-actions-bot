@@ -177,3 +177,86 @@ def set_checkpoint(name: str, block_no: int, epoch_no: int | None = None) -> Non
         client.collection(CHECKPOINTS_COLLECTION).document(name).set(payload, merge=True)
     except Exception:
         logger.warning("Failed to write checkpoint to Firestore [%s]", name, exc_info=True)
+
+
+def get_last_processed_proposal() -> dict[str, Any] | None:
+    """Get the last processed proposal from Firestore.
+
+    Returns:
+        Dict with tx_hash and cert_index, or None if not found
+    """
+    client = _get_firestore_client()
+    if client is None:
+        return None
+
+    try:
+        doc = client.collection(CHECKPOINTS_COLLECTION).document("last_proposal").get()
+        if doc.exists:
+            return doc.to_dict()
+        return None
+    except Exception:
+        logger.warning("Failed to read last proposal checkpoint from Firestore", exc_info=True)
+        return None
+
+
+def set_last_processed_proposal(tx_hash: str, cert_index: int) -> None:
+    """Store the last processed proposal in Firestore.
+
+    Args:
+        tx_hash: Transaction hash of the proposal
+        cert_index: Certificate index within the transaction
+    """
+    client = _get_firestore_client()
+    if client is None:
+        return
+
+    payload: dict[str, Any] = {"tx_hash": tx_hash, "cert_index": cert_index}
+    timestamp = _server_timestamp()
+    if timestamp is not None:
+        payload["updated_at"] = timestamp
+
+    try:
+        client.collection(CHECKPOINTS_COLLECTION).document("last_proposal").set(payload, merge=True)
+    except Exception:
+        logger.warning("Failed to write last proposal checkpoint to Firestore", exc_info=True)
+
+
+def get_last_processed_vote() -> dict[str, Any] | None:
+    """Get the last processed vote from Firestore.
+
+    Returns:
+        Dict with tx_hash, or None if not found
+    """
+    client = _get_firestore_client()
+    if client is None:
+        return None
+
+    try:
+        doc = client.collection(CHECKPOINTS_COLLECTION).document("last_vote").get()
+        if doc.exists:
+            return doc.to_dict()
+        return None
+    except Exception:
+        logger.warning("Failed to read last vote checkpoint from Firestore", exc_info=True)
+        return None
+
+
+def set_last_processed_vote(tx_hash: str) -> None:
+    """Store the last processed vote transaction in Firestore.
+
+    Args:
+        tx_hash: Transaction hash of the vote
+    """
+    client = _get_firestore_client()
+    if client is None:
+        return
+
+    payload: dict[str, Any] = {"tx_hash": tx_hash}
+    timestamp = _server_timestamp()
+    if timestamp is not None:
+        payload["updated_at"] = timestamp
+
+    try:
+        client.collection(CHECKPOINTS_COLLECTION).document("last_vote").set(payload, merge=True)
+    except Exception:
+        logger.warning("Failed to write last vote checkpoint to Firestore", exc_info=True)

@@ -1,7 +1,8 @@
 """Blockfrost-based data repository for governance actions and votes.
 
-This module provides async data access functions that replicate the interface
-of the DB-Sync repository, but using Blockfrost API instead of PostgreSQL queries.
+This module provides async data access functions using Blockfrost's dedicated
+governance API endpoints. The webhook serves as a trigger only - we poll the
+/governance/proposals endpoint and track state in Firestore.
 """
 
 from __future__ import annotations
@@ -14,6 +15,12 @@ import requests
 from bot.blockfrost.client import get_client
 from bot.logging import get_logger
 from bot.models import ActiveGovAction, CcVote, GaExpiration, GovAction, VotingProgress
+from bot.state_store import (
+    get_last_processed_proposal,
+    get_last_processed_vote,
+    set_last_processed_proposal,
+    set_last_processed_vote,
+)
 
 logger = get_logger("blockfrost.repository")
 
@@ -29,148 +36,166 @@ async def _run_in_executor(func, *args) -> Any:
 
 
 async def get_gov_actions(block_no: int) -> list[GovAction]:
-    """Get governance actions submitted in a specific block.
+    """Get new governance actions since last check.
+
+    The block_no parameter is now used for logging only - we poll the proposals
+    API and track state in Firestore instead of iterating through block transactions.
 
     Strategy:
-    1. Get all transactions in the block
-    2. Query the governance proposals endpoint for each transaction
-    3. Parse governance action data from proposals
+    1. Get last processed proposal from Firestore
+    2. Query /governance/proposals endpoint in ascending order
+    3. Process new proposals since last checkpoint
+    4. Update Firestore checkpoint
     """
     async with _lock:
         client = get_client()
+        gov_actions = []
 
         try:
-            # Get block details
-            block_data = await _run_in_executor(client.get_block, block_no)
-            block_hash = block_data.get("hash")
+            # Get last processed proposal from Firestore
+            last_checkpoint = get_last_processed_proposal()
+            last_tx_hash = last_checkpoint.get("tx_hash") if last_checkpoint else None
+            last_cert_index = last_checkpoint.get("cert_index") if last_checkpoint else None
 
-            # Get all transactions in this block
-            txs = await _run_in_executor(client.get_block_transactions, block_hash, page=1, count=100)
+            # Fetch proposals in ascending order (oldest first)
+            page = 1
+            found_checkpoint = last_tx_hash is None  # If no checkpoint, process all
+            latest_proposal = None
 
-            gov_actions = []
+            while page <= 10:  # Limit to 10 pages per webhook call
+                proposals = await _run_in_executor(client.list_governance_proposals, page=page, count=100, order="asc")
 
-            # For each transaction, check if it contains governance proposals
-            for tx in txs:
-                tx_hash = tx.get("hash") if isinstance(tx, dict) else tx
+                if not proposals:
+                    break
 
-                # Try to find proposals in this transaction
-                # Blockfrost uses tx_hash + cert_index for proposals
-                # We need to try different cert_index values since we don't know in advance
-                for cert_index in range(10):  # Try up to 10 certificates per transaction
+                for proposal in proposals:
+                    tx_hash = proposal.get("tx_hash", "")
+                    cert_index = proposal.get("cert_index", 0)
+
+                    # Skip until we find our checkpoint
+                    if not found_checkpoint:
+                        if tx_hash == last_tx_hash and cert_index == last_cert_index:
+                            found_checkpoint = True
+                        continue
+
+                    # Process this new proposal
                     try:
-                        proposal = await _run_in_executor(client.get_proposal_by_tx, tx_hash, cert_index)
-
                         # Get proposal metadata for the anchor URL
-                        try:
-                            metadata = await _run_in_executor(client.get_proposal_metadata, tx_hash, cert_index)
-                            raw_url = metadata.get("url", "")
-                        except Exception:
-                            raw_url = ""
+                        metadata = await _run_in_executor(client.get_proposal_metadata, tx_hash, cert_index)
+                        raw_url = metadata.get("url", "")
+                    except Exception:
+                        raw_url = ""
 
-                        gov_actions.append(
-                            GovAction(
-                                tx_hash=tx_hash,
-                                action_type=proposal.get("type", ""),
-                                index=cert_index,
-                                raw_url=raw_url,
-                            )
+                    gov_actions.append(
+                        GovAction(
+                            tx_hash=tx_hash,
+                            action_type=proposal.get("type", ""),
+                            index=cert_index,
+                            raw_url=raw_url,
                         )
-                    except requests.HTTPError as e:
-                        if e.response.status_code == 404:
-                            # No more proposals in this transaction
-                            break
-                        # Other errors should be logged but not break the loop
-                        logger.debug("Error fetching proposal %s#%s: %s", tx_hash, cert_index, e)
-                        break
-                    except Exception as e:
-                        logger.debug("Error processing proposal %s#%s: %s", tx_hash, cert_index, e)
-                        break
+                    )
 
-            logger.debug("Found %d governance actions in block %s", len(gov_actions), block_no)
+                    # Track the latest proposal for checkpoint update
+                    latest_proposal = (tx_hash, cert_index)
+
+                page += 1
+
+            # Update checkpoint to latest processed proposal
+            if latest_proposal:
+                set_last_processed_proposal(latest_proposal[0], latest_proposal[1])
+
+            logger.info("Found %d new governance actions (triggered by block %s)", len(gov_actions), block_no)
             return gov_actions
 
         except Exception as e:
-            logger.error("Error fetching governance actions for block %s: %s", block_no, e)
+            logger.error("Error fetching governance actions: %s", e)
             return []
 
 
 async def get_cc_votes(block_no: int) -> list[CcVote]:
-    """Get Constitutional Committee votes submitted in a specific block.
+    """Get new Constitutional Committee votes since last check.
+
+    The block_no parameter is now used for logging only - we track votes via
+    the proposals API and Firestore state instead of iterating through blocks.
 
     Strategy:
-    1. Get all transactions in the block
-    2. For each transaction that contains a governance proposal, get its votes
-    3. Filter for CC votes only
+    1. Get recent proposals (up to 100)
+    2. For each proposal, get votes
+    3. Track which votes we've already processed in Firestore
+    4. Return only new CC votes
     """
     async with _lock:
         client = get_client()
+        cc_votes = []
 
         try:
-            # Get block hash
-            block_data = await _run_in_executor(client.get_block, block_no)
-            block_hash = block_data.get("hash")
+            # Get last processed vote transaction from Firestore
+            last_vote_checkpoint = get_last_processed_vote()
+            last_vote_tx = last_vote_checkpoint.get("tx_hash") if last_vote_checkpoint else None
 
-            # Get transactions in block
-            txs = await _run_in_executor(client.get_block_transactions, block_hash, page=1, count=100)
+            # Get recent proposals (descending order - newest first)
+            proposals = await _run_in_executor(client.list_governance_proposals, page=1, count=100, order="desc")
 
-            cc_votes = []
+            latest_vote_tx = None
+            found_checkpoint = last_vote_tx is None
 
-            # For each transaction, check if it contains governance proposals and get votes
-            for tx in txs:
-                tx_hash = tx.get("hash") if isinstance(tx, dict) else tx
+            for proposal in proposals:
+                tx_hash = proposal.get("tx_hash", "")
+                cert_index = proposal.get("cert_index", 0)
 
-                # Try to find proposals in this transaction
-                for cert_index in range(10):  # Try up to 10 certificates
-                    try:
-                        # Check if this transaction/cert has a proposal (will raise 404 if not)
-                        await _run_in_executor(client.get_proposal_by_tx, tx_hash, cert_index)
+                try:
+                    # Get votes for this proposal
+                    votes = await _run_in_executor(client.get_proposal_votes, tx_hash, cert_index, page=1, count=100)
 
-                        # Get votes for this proposal
-                        votes = await _run_in_executor(
-                            client.get_proposal_votes, tx_hash, cert_index, page=1, count=100
-                        )
+                    for vote in votes:
+                        vote_tx_hash = vote.get("tx_hash", "")
 
-                        for vote in votes:
-                            # Filter for Constitutional Committee votes
-                            voter_role = vote.get("voter_role")
-                            if voter_role == "constitutional_committee":
-                                # Get the vote transaction hash and voter ID
-                                vote_tx_hash = vote.get("tx_hash", "")
-                                voter = vote.get("voter", "")
+                        # Skip until we find our checkpoint
+                        if not found_checkpoint:
+                            if vote_tx_hash == last_vote_tx:
+                                found_checkpoint = True
+                            continue
 
-                                # Get metadata URL if available
-                                try:
-                                    vote_metadata = vote.get("metadata", {})
-                                    raw_url = vote_metadata.get("url", "") if isinstance(vote_metadata, dict) else ""
-                                except Exception:
-                                    raw_url = ""
+                        # Track latest vote for checkpoint
+                        if latest_vote_tx is None:
+                            latest_vote_tx = vote_tx_hash
 
-                                cc_votes.append(
-                                    CcVote(
-                                        ga_tx_hash=tx_hash,
-                                        ga_index=cert_index,
-                                        vote_tx_hash=vote_tx_hash,
-                                        voter_hash=voter,
-                                        vote=vote.get("vote", ""),
-                                        raw_url=raw_url,
-                                    )
+                        # Filter for Constitutional Committee votes
+                        voter_role = vote.get("voter_role")
+                        if voter_role == "constitutional_committee":
+                            # Get metadata URL if available
+                            try:
+                                vote_metadata = vote.get("metadata", {})
+                                raw_url = vote_metadata.get("url", "") if isinstance(vote_metadata, dict) else ""
+                            except Exception:
+                                raw_url = ""
+
+                            cc_votes.append(
+                                CcVote(
+                                    ga_tx_hash=tx_hash,
+                                    ga_index=cert_index,
+                                    vote_tx_hash=vote_tx_hash,
+                                    voter_hash=vote.get("voter", ""),
+                                    vote=vote.get("vote", ""),
+                                    raw_url=raw_url,
                                 )
+                            )
 
-                    except requests.HTTPError as e:
-                        if e.response.status_code == 404:
-                            # No more proposals in this transaction
-                            break
-                        logger.debug("Error fetching proposal votes %s#%s: %s", tx_hash, cert_index, e)
-                        break
-                    except Exception as e:
-                        logger.debug("Error processing votes %s#%s: %s", tx_hash, cert_index, e)
-                        break
+                except requests.HTTPError as e:
+                    if e.response.status_code != 404:
+                        logger.debug("Error fetching votes for proposal %s#%s: %s", tx_hash, cert_index, e)
+                except Exception as e:
+                    logger.debug("Error processing votes %s#%s: %s", tx_hash, cert_index, e)
 
-            logger.debug("Found %d CC votes in block %s", len(cc_votes), block_no)
+            # Update checkpoint to latest processed vote
+            if latest_vote_tx:
+                set_last_processed_vote(latest_vote_tx)
+
+            logger.info("Found %d new CC votes (triggered by block %s)", len(cc_votes), block_no)
             return cc_votes
 
         except Exception as e:
-            logger.error("Error fetching CC votes for block %s: %s", block_no, e)
+            logger.error("Error fetching CC votes: %s", e)
             return []
 
 

@@ -1,4 +1,3 @@
-
 from bot.links import make_governance_action_link
 from bot.metadata.fetcher import sanitise_url
 from bot.models import CcVote, GaExpiration, GovAction, VotingProgress
