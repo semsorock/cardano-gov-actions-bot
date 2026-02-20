@@ -7,15 +7,23 @@ X bot account: [@GovActions](https://x.com/GovActions)
 ## How It Works
 
 ```
-Blockfrost Webhook (POST /) → FastAPI on Cloud Run → Query Blockfrost API → Fetch IPFS metadata → Post to X + Archive rationale
+Blockfrost Webhook → Trigger → Poll Blockfrost Governance API → Track State in Firestore → Post to X + Archive
 ```
 
-1. **Blockfrost** sends block webhooks to `/`
-2. The bot queries the **Blockfrost API** for governance actions and CC votes
-3. Metadata is fetched from **IPFS** and validated (CIP-0108 / CIP-0136 warnings only)
-4. Formatted summaries are posted to **Twitter/X** via `xdk`
-5. Mutable runtime state (tweet IDs, checkpoints) is stored in **Google Cloud Firestore**
-6. Rationale JSON is archived to GitHub through automated direct commits to `main`
+1. **Blockfrost webhook** triggers the bot on each new block
+2. **Poll `/governance/proposals`** endpoint to get new proposals since last checkpoint
+3. **Firestore state tracking** - remember last processed proposal/vote to avoid duplicates
+4. **Fetch IPFS metadata** and validate against CIP-0108/CIP-0136 standards
+5. **Post summaries** to Twitter/X via `xdk`
+6. **Archive rationale** JSON to GitHub with direct commits
+
+### Efficient Design
+
+The bot uses Blockfrost's dedicated governance APIs properly:
+- **Webhook as trigger only** - doesn't iterate through block transactions
+- **Stateful polling** - queries `/governance/proposals` and tracks position via Firestore
+- **Incremental processing** - only handles new proposals/votes since last checkpoint
+- **Scalable architecture** - handles high governance activity without API rate limits
 
 ### What It Monitors
 
@@ -139,12 +147,15 @@ Every push to the `main` branch automatically triggers:
 │   ├── rationale_archiver.py    # GitHub rationale archiving (direct commits to main)
 │   ├── rationale_validator.py   # CIP-0108/CIP-0136 warning-only validation
 │   ├── webhook_auth.py          # Blockfrost HMAC signature verification
-│   ├── state_store.py           # Firestore-backed runtime state (tweet IDs, checkpoints)
-│   ├── blockfrost/              # Blockfrost API client + async repository layer
+│   ├── state_store.py           # Firestore state: tweet IDs, proposal/vote checkpoints
+│   ├── blockfrost/              # Blockfrost governance API integration
+│   │   ├── client.py            # REST API wrapper with dedicated governance endpoints
+│   │   └── repository.py        # Stateful data access with Firestore tracking
 │   ├── metadata/                # IPFS URL sanitisation and metadata fetch
 │   └── twitter/
 │       ├── client.py            # XDK posting client
 │       ├── formatter.py         # Tweet composition logic
+│       └── templates.py         # Editable tweet templates
 │       └── templates.py         # Editable tweet templates
 ├── data/
 │   └── cc_profiles.yaml         # CC member profile mappings
