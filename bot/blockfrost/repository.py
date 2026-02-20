@@ -9,6 +9,8 @@ from __future__ import annotations
 import asyncio
 from typing import Any
 
+import requests
+
 from bot.blockfrost.client import get_client
 from bot.logging import get_logger
 from bot.models import ActiveGovAction, CcVote, GaExpiration, GovAction, VotingProgress
@@ -26,56 +28,63 @@ async def _run_in_executor(func, *args) -> Any:
     return await loop.run_in_executor(None, func, *args)
 
 
-def _make_gov_action_id(tx_hash: str, index: int) -> str:
-    """Create governance action ID in the format used by Blockfrost API."""
-    return f"{tx_hash}#{index}"
-
-
 async def get_gov_actions(block_no: int) -> list[GovAction]:
     """Get governance actions submitted in a specific block.
 
     Strategy:
     1. Get all transactions in the block
-    2. For each transaction, check if it contains governance actions
-    3. Parse governance action data from transaction details
-
-    Note: This is an approximation since Blockfrost doesn't provide direct
-    "get governance actions by block number" endpoint. We fetch recent proposals
-    and filter by block number.
+    2. Query the governance proposals endpoint for each transaction
+    3. Parse governance action data from proposals
     """
     async with _lock:
         client = get_client()
 
         try:
-            # Get block details to find its hash
+            # Get block details
             block_data = await _run_in_executor(client.get_block, block_no)
-            # Note: block_hash would be used if we needed to fetch transactions directly,
-            # but current implementation uses the proposals endpoint instead
-            _block_hash = block_data.get("hash")  # noqa: F841
+            block_hash = block_data.get("hash")
+
+            # Get all transactions in this block
+            txs = await _run_in_executor(client.get_block_transactions, block_hash, page=1, count=100)
 
             gov_actions = []
 
-            # Alternative approach: Get recent proposals and filter by block number
-            # Note: Blockfrost doesn't provide direct "get governance actions by block number" endpoint
-            # We could fetch transactions via: _txs = await _run_in_executor(client.get_block_transactions, _block_hash)
-            # but this requires parsing transaction structure to identify governance actions
-            proposals = await _run_in_executor(client.list_governance_proposals, page=1, count=100, order="desc")
+            # For each transaction, check if it contains governance proposals
+            for tx in txs:
+                tx_hash = tx.get("hash") if isinstance(tx, dict) else tx
 
-            # Filter proposals that match this block number
-            for proposal in proposals:
-                # Blockfrost proposal structure may vary, adapt as needed
-                proposal_block = proposal.get("block_height") or proposal.get("block_no")
-                if proposal_block == block_no:
-                    gov_actions.append(
-                        GovAction(
-                            tx_hash=proposal.get("tx_hash", ""),
-                            action_type=proposal.get("type", ""),
-                            index=proposal.get("index", 0),
-                            raw_url=proposal.get("anchor", {}).get("url", "")
-                            if isinstance(proposal.get("anchor"), dict)
-                            else "",
+                # Try to find proposals in this transaction
+                # Blockfrost uses tx_hash + cert_index for proposals
+                # We need to try different cert_index values since we don't know in advance
+                for cert_index in range(10):  # Try up to 10 certificates per transaction
+                    try:
+                        proposal = await _run_in_executor(client.get_proposal_by_tx, tx_hash, cert_index)
+
+                        # Get proposal metadata for the anchor URL
+                        try:
+                            metadata = await _run_in_executor(client.get_proposal_metadata, tx_hash, cert_index)
+                            raw_url = metadata.get("url", "")
+                        except Exception:
+                            raw_url = ""
+
+                        gov_actions.append(
+                            GovAction(
+                                tx_hash=tx_hash,
+                                action_type=proposal.get("type", ""),
+                                index=cert_index,
+                                raw_url=raw_url,
+                            )
                         )
-                    )
+                    except requests.HTTPError as e:
+                        if e.response.status_code == 404:
+                            # No more proposals in this transaction
+                            break
+                        # Other errors should be logged but not break the loop
+                        logger.debug("Error fetching proposal %s#%s: %s", tx_hash, cert_index, e)
+                        break
+                    except Exception as e:
+                        logger.debug("Error processing proposal %s#%s: %s", tx_hash, cert_index, e)
+                        break
 
             logger.debug("Found %d governance actions in block %s", len(gov_actions), block_no)
             return gov_actions
@@ -88,10 +97,10 @@ async def get_gov_actions(block_no: int) -> list[GovAction]:
 async def get_cc_votes(block_no: int) -> list[CcVote]:
     """Get Constitutional Committee votes submitted in a specific block.
 
-    Similar to get_gov_actions, we need to:
-    1. Get proposals
-    2. For each proposal, get votes
-    3. Filter votes by block number and role (CC only)
+    Strategy:
+    1. Get all transactions in the block
+    2. For each transaction that contains a governance proposal, get its votes
+    3. Filter for CC votes only
     """
     async with _lock:
         client = get_client()
@@ -99,48 +108,63 @@ async def get_cc_votes(block_no: int) -> list[CcVote]:
         try:
             # Get block hash
             block_data = await _run_in_executor(client.get_block, block_no)
-            # Note: block_hash would be used if we needed to fetch transactions directly,
-            # but current implementation uses the proposals endpoint and vote filtering instead
-            _block_hash = block_data.get("hash")  # noqa: F841
+            block_hash = block_data.get("hash")
+
+            # Get transactions in block
+            txs = await _run_in_executor(client.get_block_transactions, block_hash, page=1, count=100)
 
             cc_votes = []
 
-            # We could fetch transactions via: _txs = await _run_in_executor(client.get_block_transactions, _block_hash)
-            # but current approach uses proposal votes endpoint which is more efficient
+            # For each transaction, check if it contains governance proposals and get votes
+            for tx in txs:
+                tx_hash = tx.get("hash") if isinstance(tx, dict) else tx
 
-            # Get recent proposals to check for votes
-            proposals = await _run_in_executor(client.list_governance_proposals, page=1, count=100, order="desc")
+                # Try to find proposals in this transaction
+                for cert_index in range(10):  # Try up to 10 certificates
+                    try:
+                        # Check if this transaction/cert has a proposal (will raise 404 if not)
+                        await _run_in_executor(client.get_proposal_by_tx, tx_hash, cert_index)
 
-            # For each proposal, get votes and filter
-            for proposal in proposals:
-                proposal_id = _make_gov_action_id(proposal.get("tx_hash", ""), proposal.get("index", 0))
+                        # Get votes for this proposal
+                        votes = await _run_in_executor(
+                            client.get_proposal_votes, tx_hash, cert_index, page=1, count=100
+                        )
 
-                try:
-                    votes = await _run_in_executor(client.get_proposal_votes, proposal_id, page=1, count=100)
+                        for vote in votes:
+                            # Filter for Constitutional Committee votes
+                            voter_role = vote.get("voter_role")
+                            if voter_role == "constitutional_committee":
+                                # Get the vote transaction hash and voter ID
+                                vote_tx_hash = vote.get("tx_hash", "")
+                                voter = vote.get("voter", "")
 
-                    for vote in votes:
-                        # Filter for CC votes in this block
-                        vote_block = vote.get("block_height") or vote.get("block_no")
-                        voter_role = vote.get("voter", {}).get("role") if isinstance(vote.get("voter"), dict) else None
+                                # Get metadata URL if available
+                                try:
+                                    vote_metadata = vote.get("metadata", {})
+                                    raw_url = vote_metadata.get("url", "") if isinstance(vote_metadata, dict) else ""
+                                except Exception:
+                                    raw_url = ""
 
-                        if vote_block == block_no and voter_role == "constitutional_committee":
-                            cc_votes.append(
-                                CcVote(
-                                    ga_tx_hash=proposal.get("tx_hash", ""),
-                                    ga_index=proposal.get("index", 0),
-                                    vote_tx_hash=vote.get("tx_hash", ""),
-                                    voter_hash=vote.get("voter", {}).get("id", "")
-                                    if isinstance(vote.get("voter"), dict)
-                                    else "",
-                                    vote=vote.get("vote", ""),
-                                    raw_url=vote.get("anchor", {}).get("url", "")
-                                    if isinstance(vote.get("anchor"), dict)
-                                    else "",
+                                cc_votes.append(
+                                    CcVote(
+                                        ga_tx_hash=tx_hash,
+                                        ga_index=cert_index,
+                                        vote_tx_hash=vote_tx_hash,
+                                        voter_hash=voter,
+                                        vote=vote.get("vote", ""),
+                                        raw_url=raw_url,
+                                    )
                                 )
-                            )
-                except Exception as e:
-                    logger.debug("Error fetching votes for proposal %s: %s", proposal_id, e)
-                    continue
+
+                    except requests.HTTPError as e:
+                        if e.response.status_code == 404:
+                            # No more proposals in this transaction
+                            break
+                        logger.debug("Error fetching proposal votes %s#%s: %s", tx_hash, cert_index, e)
+                        break
+                    except Exception as e:
+                        logger.debug("Error processing votes %s#%s: %s", tx_hash, cert_index, e)
+                        break
 
             logger.debug("Found %d CC votes in block %s", len(cc_votes), block_no)
             return cc_votes
@@ -266,31 +290,34 @@ async def get_all_cc_votes() -> list[CcVote]:
 
             # For each proposal, get votes
             for action in proposals:
-                proposal_id = _make_gov_action_id(action.tx_hash, action.index)
-
                 try:
-                    votes = await _run_in_executor(client.get_proposal_votes, proposal_id, page=1, count=100)
+                    votes = await _run_in_executor(
+                        client.get_proposal_votes, action.tx_hash, action.index, page=1, count=100
+                    )
 
                     for vote in votes:
-                        voter_role = vote.get("voter", {}).get("role") if isinstance(vote.get("voter"), dict) else None
+                        voter_role = vote.get("voter_role")
 
                         if voter_role == "constitutional_committee":
+                            # Get metadata URL if available
+                            try:
+                                vote_metadata = vote.get("metadata", {})
+                                raw_url = vote_metadata.get("url", "") if isinstance(vote_metadata, dict) else ""
+                            except Exception:
+                                raw_url = ""
+
                             all_votes.append(
                                 CcVote(
                                     ga_tx_hash=action.tx_hash,
                                     ga_index=action.index,
                                     vote_tx_hash=vote.get("tx_hash", ""),
-                                    voter_hash=vote.get("voter", {}).get("id", "")
-                                    if isinstance(vote.get("voter"), dict)
-                                    else "",
+                                    voter_hash=vote.get("voter", ""),
                                     vote=vote.get("vote", ""),
-                                    raw_url=vote.get("anchor", {}).get("url", "")
-                                    if isinstance(vote.get("anchor"), dict)
-                                    else "",
+                                    raw_url=raw_url,
                                 )
                             )
                 except Exception as e:
-                    logger.debug("Error fetching votes for proposal %s: %s", proposal_id, e)
+                    logger.debug("Error fetching votes for proposal %s#%s: %s", action.tx_hash, action.index, e)
                     continue
 
             logger.info("Fetched %d total CC votes", len(all_votes))
@@ -355,17 +382,15 @@ async def get_voting_stats(
         client = get_client()
 
         try:
-            proposal_id = _make_gov_action_id(tx_hash, index)
-
-            # Get votes for this proposal
-            votes = await _run_in_executor(client.get_proposal_votes, proposal_id, page=1, count=100)
+            # Get votes for this proposal using proper endpoint format
+            votes = await _run_in_executor(client.get_proposal_votes, tx_hash, index, page=1, count=100)
 
             # Count votes by role
             cc_voted = 0
             drep_voted = 0
 
             for vote in votes:
-                voter_role = vote.get("voter", {}).get("role") if isinstance(vote.get("voter"), dict) else None
+                voter_role = vote.get("voter_role")
 
                 if voter_role == "constitutional_committee":
                     cc_voted += 1

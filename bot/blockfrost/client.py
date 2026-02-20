@@ -68,6 +68,10 @@ class BlockfrostClient:
         """Get transaction details."""
         return self._request("GET", f"/txs/{tx_hash}")
 
+    def get_transaction_utxos(self, tx_hash: str) -> dict:
+        """Get transaction UTXOs (inputs and outputs)."""
+        return self._request("GET", f"/txs/{tx_hash}/utxos")
+
     def get_transaction_metadata(self, tx_hash: str) -> list[dict]:
         """Get transaction metadata."""
         return self._request("GET", f"/txs/{tx_hash}/metadata")
@@ -80,29 +84,98 @@ class BlockfrostClient:
         """Get the latest block."""
         return self._request("GET", "/blocks/latest")
 
-    # Governance endpoints (note: these may need adjustment based on actual Blockfrost API availability)
+    # Governance endpoints - using Blockfrost's dedicated governance API
 
-    def list_governance_proposals(self, page: int = 1, count: int = 100, order: str = "desc") -> list[dict]:
+    def list_governance_proposals(self, page: int = 1, count: int = 100, order: str = "asc") -> list[dict]:
         """List all governance proposals.
 
-        Note: This endpoint might not be available in all Blockfrost versions.
-        If not available, we'll need to parse transactions for governance actions.
+        Returns:
+            List of proposals with tx_hash, cert_index, and other proposal data
         """
-        try:
-            return self._request("GET", "/governance/proposals", params={"page": page, "count": count, "order": order})
-        except requests.HTTPError as e:
-            if e.response.status_code == 404:
-                logger.warning("Governance proposals endpoint not available, falling back to transaction parsing")
-                return []
-            raise
+        return self._request("GET", "/governance/proposals", params={"page": page, "count": count, "order": order})
 
-    def get_governance_proposal(self, proposal_id: str) -> dict:
-        """Get specific governance proposal details."""
-        return self._request("GET", f"/governance/proposals/{proposal_id}")
+    def get_proposal_by_tx(self, tx_hash: str, cert_index: int) -> dict:
+        """Get specific governance proposal by transaction hash and certificate index.
 
-    def get_proposal_votes(self, proposal_id: str, page: int = 1, count: int = 100) -> list[dict]:
-        """Get votes for a governance proposal."""
-        return self._request("GET", f"/governance/proposals/{proposal_id}/votes", params={"page": page, "count": count})
+        Args:
+            tx_hash: Transaction hash containing the proposal
+            cert_index: Index of the certificate within the transaction
+
+        Returns:
+            Proposal details including type, status, anchor URL, etc.
+        """
+        return self._request("GET", f"/governance/proposals/{tx_hash}/{cert_index}")
+
+    def get_proposal_by_gov_action_id(self, gov_action_id: str) -> dict:
+        """Get specific governance proposal by GovActionID (CIP-0129 bech32 format).
+
+        Args:
+            gov_action_id: Bech32-encoded governance action identifier
+
+        Returns:
+            Proposal details
+        """
+        return self._request("GET", f"/governance/proposals/{gov_action_id}")
+
+    def get_proposal_metadata(self, tx_hash: str, cert_index: int) -> dict:
+        """Get metadata for a specific proposal.
+
+        Args:
+            tx_hash: Transaction hash containing the proposal
+            cert_index: Index of the certificate within the transaction
+
+        Returns:
+            Proposal metadata including URL, hash, and body
+        """
+        return self._request("GET", f"/governance/proposals/{tx_hash}/{cert_index}/metadata")
+
+    def get_proposal_votes(
+        self, tx_hash: str, cert_index: int, page: int = 1, count: int = 100, order: str = "asc"
+    ) -> list[dict]:
+        """Get votes for a governance proposal.
+
+        Args:
+            tx_hash: Transaction hash containing the proposal
+            cert_index: Index of the certificate within the transaction
+            page: Page number for pagination
+            count: Number of results per page
+            order: Sort order (asc or desc)
+
+        Returns:
+            List of votes with voter, vote decision, and transaction info
+        """
+        return self._request(
+            "GET",
+            f"/governance/proposals/{tx_hash}/{cert_index}/votes",
+            params={"page": page, "count": count, "order": order},
+        )
+
+    def get_drep(self, drep_id: str) -> dict:
+        """Get information about a specific DRep.
+
+        Args:
+            drep_id: Bech32 or hexadecimal DRep ID
+
+        Returns:
+            DRep information
+        """
+        return self._request("GET", f"/governance/dreps/{drep_id}")
+
+    def get_drep_votes(self, drep_id: str, page: int = 1, count: int = 100, order: str = "asc") -> list[dict]:
+        """Get voting history for a specific DRep.
+
+        Args:
+            drep_id: Bech32 or hexadecimal DRep ID
+            page: Page number for pagination
+            count: Number of results per page
+            order: Sort order (asc or desc)
+
+        Returns:
+            List of votes by this DRep
+        """
+        return self._request(
+            "GET", f"/governance/dreps/{drep_id}/votes", params={"page": page, "count": count, "order": order}
+        )
 
 
 # Singleton instance
