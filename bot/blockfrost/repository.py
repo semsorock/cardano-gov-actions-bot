@@ -1,8 +1,9 @@
 """Blockfrost-based data repository for governance actions and votes.
 
 This module provides async data access functions using Blockfrost's dedicated
-governance API endpoints. The webhook serves as a trigger only - we poll the
-/governance/proposals endpoint and track state in Firestore.
+governance API endpoints via the blockfrost-python library. The webhook serves 
+as a trigger only - we poll the /governance/proposals endpoint and track state 
+in Firestore.
 """
 
 from __future__ import annotations
@@ -10,7 +11,7 @@ from __future__ import annotations
 import asyncio
 from typing import Any
 
-import requests
+from blockfrost import ApiError
 
 from bot.blockfrost.client import get_client
 from bot.logging import get_logger
@@ -29,10 +30,10 @@ _epoch_cache: dict[str, int] = {}
 _lock = asyncio.Lock()
 
 
-async def _run_in_executor(func, *args) -> Any:
+async def _run_in_executor(func, *args, **kwargs) -> Any:
     """Run a blocking function in an executor to avoid blocking the event loop."""
     loop = asyncio.get_event_loop()
-    return await loop.run_in_executor(None, func, *args)
+    return await loop.run_in_executor(None, lambda: func(*args, **kwargs))
 
 
 async def get_gov_actions(block_no: int) -> list[GovAction]:
@@ -63,7 +64,9 @@ async def get_gov_actions(block_no: int) -> list[GovAction]:
             latest_proposal = None
 
             while page <= 10:  # Limit to 10 pages per webhook call
-                proposals = await _run_in_executor(client.list_governance_proposals, page=page, count=100, order="asc")
+                proposals = await _run_in_executor(
+                    client.governance_proposals, page=page, count=100, order="asc", return_type="json"
+                )
 
                 if not proposals:
                     break
@@ -81,7 +84,9 @@ async def get_gov_actions(block_no: int) -> list[GovAction]:
                     # Process this new proposal
                     try:
                         # Get proposal metadata for the anchor URL
-                        metadata = await _run_in_executor(client.get_proposal_metadata, tx_hash, cert_index)
+                        metadata = await _run_in_executor(
+                            client.governance_proposal_metadata, tx_hash, cert_index, return_type="json"
+                        )
                         raw_url = metadata.get("url", "")
                     except Exception:
                         raw_url = ""
@@ -134,7 +139,7 @@ async def get_cc_votes(block_no: int) -> list[CcVote]:
             last_vote_tx = last_vote_checkpoint.get("tx_hash") if last_vote_checkpoint else None
 
             # Get recent proposals (descending order - newest first)
-            proposals = await _run_in_executor(client.list_governance_proposals, page=1, count=100, order="desc")
+            proposals = await _run_in_executor(client.governance_proposals, page=1, count=100, order="desc", return_type="json")
 
             latest_vote_tx = None
             found_checkpoint = last_vote_tx is None
@@ -145,7 +150,7 @@ async def get_cc_votes(block_no: int) -> list[CcVote]:
 
                 try:
                     # Get votes for this proposal
-                    votes = await _run_in_executor(client.get_proposal_votes, tx_hash, cert_index, page=1, count=100)
+                    votes = await _run_in_executor(client.governance_proposal_votes, tx_hash, cert_index, page=1, count=100, return_type="json")
 
                     for vote in votes:
                         vote_tx_hash = vote.get("tx_hash", "")
@@ -181,8 +186,8 @@ async def get_cc_votes(block_no: int) -> list[CcVote]:
                                 )
                             )
 
-                except requests.HTTPError as e:
-                    if e.response.status_code != 404:
+                except ApiError as e:
+                    if e.status_code != 404:
                         logger.debug("Error fetching votes for proposal %s#%s: %s", tx_hash, cert_index, e)
                 except Exception as e:
                     logger.debug("Error processing votes %s#%s: %s", tx_hash, cert_index, e)
@@ -209,7 +214,7 @@ async def get_ga_expirations(epoch_no: int) -> list[GaExpiration]:
         client = get_client()
 
         try:
-            proposals = await _run_in_executor(client.list_governance_proposals, page=1, count=100, order="desc")
+            proposals = await _run_in_executor(client.governance_proposals, page=1, count=100, order="desc", return_type="json")
 
             expirations = []
 
@@ -244,7 +249,7 @@ async def get_block_epoch(block_hash: str) -> int | None:
         client = get_client()
 
         try:
-            block_data = await _run_in_executor(client.get_block, block_hash)
+            block_data = await _run_in_executor(client.block, block_hash, return_type="json")
             epoch = block_data.get("epoch")
 
             if epoch is not None:
@@ -270,7 +275,7 @@ async def get_all_gov_actions() -> list[GovAction]:
 
         try:
             while True:
-                proposals = await _run_in_executor(client.list_governance_proposals, page=page, count=100, order="asc")
+                proposals = await _run_in_executor(client.governance_proposals, page=page, count=100, order="asc", return_type="json")
 
                 if not proposals:
                     break
@@ -317,7 +322,12 @@ async def get_all_cc_votes() -> list[CcVote]:
             for action in proposals:
                 try:
                     votes = await _run_in_executor(
-                        client.get_proposal_votes, action.tx_hash, action.index, page=1, count=100
+                        client.governance_proposal_votes,
+                        action.tx_hash,
+                        action.index,
+                        page=1,
+                        count=100,
+                        return_type="json",
                     )
 
                     for vote in votes:
@@ -359,7 +369,7 @@ async def get_active_gov_actions(epoch_no: int) -> list[ActiveGovAction]:
         client = get_client()
 
         try:
-            proposals = await _run_in_executor(client.list_governance_proposals, page=1, count=100, order="desc")
+            proposals = await _run_in_executor(client.governance_proposals, page=1, count=100, order="desc", return_type="json")
 
             active_actions = []
 
@@ -408,7 +418,7 @@ async def get_voting_stats(
 
         try:
             # Get votes for this proposal using proper endpoint format
-            votes = await _run_in_executor(client.get_proposal_votes, tx_hash, index, page=1, count=100)
+            votes = await _run_in_executor(client.governance_proposal_votes, tx_hash, index, page=1, count=100, return_type="json")
 
             # Count votes by role
             cc_voted = 0

@@ -156,7 +156,6 @@ Every push to the `main` branch automatically triggers:
 │       ├── client.py            # XDK posting client
 │       ├── formatter.py         # Tweet composition logic
 │       └── templates.py         # Editable tweet templates
-│       └── templates.py         # Editable tweet templates
 ├── data/
 │   └── cc_profiles.yaml         # CC member profile mappings
 ├── scripts/
