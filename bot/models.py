@@ -12,15 +12,30 @@ def camel_case_to_spaced(value: str | None) -> str | None:
 
 
 @dataclass(frozen=True)
+class ProposalMetadata:
+    """Metadata for a governance proposal."""
+
+    url: str
+    hash: str
+    json_metadata: dict | None = None
+
+
+@dataclass(frozen=True)
 class GovAction:
     tx_hash: str
     action_type: str
     index: int
-    raw_url: str
+    id: str  # Governance action ID (CIP-0129)
+    metadata: ProposalMetadata | None = None
 
     @property
     def action_type_display(self) -> str | None:
         return camel_case_to_spaced(self.action_type)
+
+    @property
+    def raw_url(self) -> str:
+        """Legacy property for backward compatibility."""
+        return self.metadata.url if self.metadata else ""
 
 
 @dataclass(frozen=True)

@@ -1,4 +1,3 @@
-
 from bot.models import GaExpiration, GovAction, VotingProgress, camel_case_to_spaced
 
 # ---------------------------------------------------------------------------
@@ -33,12 +32,36 @@ class TestCamelCaseToSpaced:
 
 class TestGovAction:
     def test_action_type_display(self):
-        action = GovAction(tx_hash="abc", action_type="ParameterChange", index=0, raw_url="http://example.com")
+        from bot.models import ProposalMetadata
+
+        metadata = ProposalMetadata(url="http://example.com", hash="abc123")
+        action = GovAction(
+            tx_hash="abc", action_type="ParameterChange", index=0, id="gov_action1abc", metadata=metadata
+        )
         assert action.action_type_display == "Parameter Change"
+        assert action.raw_url == "http://example.com"  # Test backward compatibility
 
     def test_action_type_display_single_word(self):
-        action = GovAction(tx_hash="abc", action_type="InfoAction", index=0, raw_url="http://example.com")
+        from bot.models import ProposalMetadata
+
+        metadata = ProposalMetadata(url="http://example.com", hash="abc123")
+        action = GovAction(tx_hash="abc", action_type="InfoAction", index=0, id="gov_action1xyz", metadata=metadata)
         assert action.action_type_display == "Info Action"
+
+    def test_raw_url_backward_compatibility(self):
+        """Test that raw_url property works for backward compatibility."""
+        from bot.models import ProposalMetadata
+
+        metadata = ProposalMetadata(url="http://example.com", hash="abc123")
+        action = GovAction(
+            tx_hash="abc", action_type="ParameterChange", index=0, id="gov_action1abc", metadata=metadata
+        )
+        assert action.raw_url == "http://example.com"
+
+    def test_raw_url_no_metadata(self):
+        """Test raw_url when metadata is None."""
+        action = GovAction(tx_hash="abc", action_type="ParameterChange", index=0, id="gov_action1abc", metadata=None)
+        assert action.raw_url == ""
 
 
 # ---------------------------------------------------------------------------

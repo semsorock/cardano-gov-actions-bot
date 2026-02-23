@@ -1,9 +1,9 @@
 """Blockfrost-based data repository for governance actions and votes.
 
 This module provides async data access functions using Blockfrost's dedicated
-governance API endpoints via the blockfrost-python library. The webhook serves 
-as a trigger only - we poll the /governance/proposals endpoint and track state 
-in Firestore.
+governance API endpoints via the blockfrost-python library. The webhook serves
+as a trigger only - we poll the /governance/proposals endpoint and track state
+in Firestore using offset-based pagination.
 """
 
 from __future__ import annotations
@@ -15,19 +15,18 @@ from blockfrost import ApiError
 
 from bot.blockfrost.client import get_client
 from bot.logging import get_logger
-from bot.models import ActiveGovAction, CcVote, GaExpiration, GovAction, VotingProgress
+from bot.models import ActiveGovAction, CcVote, GaExpiration, GovAction, ProposalMetadata, VotingProgress
 from bot.state_store import (
-    get_last_processed_proposal,
     get_last_processed_vote,
-    set_last_processed_proposal,
+    get_proposals_offset,
     set_last_processed_vote,
+    set_proposals_offset,
 )
 
 logger = get_logger("blockfrost.repository")
 
 # Cache for storing block->epoch mapping
 _epoch_cache: dict[str, int] = {}
-_lock = asyncio.Lock()
 
 
 async def _run_in_executor(func, *args, **kwargs) -> Any:
@@ -40,81 +39,94 @@ async def get_gov_actions(block_no: int) -> list[GovAction]:
     """Get new governance actions since last check.
 
     The block_no parameter is now used for logging only - we poll the proposals
-    API and track state in Firestore instead of iterating through block transactions.
+    API and track state in Firestore using offset-based pagination.
 
     Strategy:
-    1. Get last processed proposal from Firestore
-    2. Query /governance/proposals endpoint in ascending order
-    3. Process new proposals since last checkpoint
-    4. Update Firestore checkpoint
+    1. Get latest processed offset for proposals endpoint
+    2. Query /governance/proposals endpoint in ascending order with the offset
+    3. Process new proposals if any
+    4. Update processed offset in Firestore
     """
-    async with _lock:
-        client = get_client()
-        gov_actions = []
+    client = get_client()
+    gov_actions = []
 
-        try:
-            # Get last processed proposal from Firestore
-            last_checkpoint = get_last_processed_proposal()
-            last_tx_hash = last_checkpoint.get("tx_hash") if last_checkpoint else None
-            last_cert_index = last_checkpoint.get("cert_index") if last_checkpoint else None
+    try:
+        # Get last processed offset from Firestore
+        current_offset = get_proposals_offset()
 
-            # Fetch proposals in ascending order (oldest first)
-            page = 1
-            found_checkpoint = last_tx_hash is None  # If no checkpoint, process all
-            latest_proposal = None
+        # Fetch proposals starting from the offset in ascending order (oldest first)
+        # The page number starts from 1, so we calculate which page to start from
+        # Each page has 100 items, so page = (offset // 100) + 1
+        start_page = (current_offset // 100) + 1
+        items_to_skip_in_first_page = current_offset % 100
 
-            while page <= 10:  # Limit to 10 pages per webhook call
-                proposals = await _run_in_executor(
-                    client.governance_proposals, page=page, count=100, order="asc", return_type="json"
-                )
+        page = start_page
+        items_processed = 0
+        total_new_items = 0
 
-                if not proposals:
-                    break
+        while page <= start_page + 10:  # Limit to 10 pages per webhook call
+            proposals = await _run_in_executor(
+                client.governance_proposals, page=page, count=100, order="asc", return_type="json"
+            )
 
-                for proposal in proposals:
-                    tx_hash = proposal.get("tx_hash", "")
-                    cert_index = proposal.get("cert_index", 0)
+            if not proposals:
+                break
 
-                    # Skip until we find our checkpoint
-                    if not found_checkpoint:
-                        if tx_hash == last_tx_hash and cert_index == last_cert_index:
-                            found_checkpoint = True
-                        continue
+            for i, proposal in enumerate(proposals):
+                # Skip items in the first page that we've already processed
+                if page == start_page and i < items_to_skip_in_first_page:
+                    continue
 
-                    # Process this new proposal
-                    try:
-                        # Get proposal metadata for the anchor URL
-                        metadata = await _run_in_executor(
-                            client.governance_proposal_metadata, tx_hash, cert_index, return_type="json"
+                tx_hash = proposal.get("tx_hash", "")
+                cert_index = proposal.get("cert_index", 0)
+                proposal_id = proposal.get("id", "")
+
+                # Process this new proposal
+                try:
+                    # Extract metadata from proposal
+                    metadata_raw = proposal.get("metadata")
+                    metadata = None
+                    if metadata_raw:
+                        metadata = ProposalMetadata(
+                            url=metadata_raw.get("url", ""),
+                            hash=metadata_raw.get("hash", ""),
+                            json_metadata=metadata_raw.get("json_metadata"),
                         )
-                        raw_url = metadata.get("url", "")
-                    except Exception:
-                        raw_url = ""
 
                     gov_actions.append(
                         GovAction(
                             tx_hash=tx_hash,
                             action_type=proposal.get("type", ""),
                             index=cert_index,
-                            raw_url=raw_url,
+                            id=proposal_id,
+                            metadata=metadata,
                         )
                     )
 
-                    # Track the latest proposal for checkpoint update
-                    latest_proposal = (tx_hash, cert_index)
+                    items_processed += 1
+                    total_new_items += 1
+                except Exception as e:
+                    logger.warning("Error processing proposal %s#%s: %s", tx_hash, cert_index, e)
 
-                page += 1
+            page += 1
 
-            # Update checkpoint to latest processed proposal
-            if latest_proposal:
-                set_last_processed_proposal(latest_proposal[0], latest_proposal[1])
+        # Update offset to reflect processed items
+        if items_processed > 0:
+            new_offset = current_offset + items_processed
+            set_proposals_offset(new_offset)
 
-            logger.info("Found %d new governance actions (triggered by block %s)", len(gov_actions), block_no)
-            return gov_actions
+        logger.info(
+            "Found %d new governance actions (offset: %d -> %d, triggered by block %s)",
+            total_new_items,
+            current_offset,
+            current_offset + items_processed,
+            block_no,
+        )
+        return gov_actions
 
-        except Exception as e:
-            logger.error("Error fetching governance actions: %s", e)
-            return []
+    except Exception as e:
+        logger.error("Error fetching governance actions: %s", e)
+        return []
 
 
 async def get_cc_votes(block_no: int) -> list[CcVote]:
@@ -129,79 +141,82 @@ async def get_cc_votes(block_no: int) -> list[CcVote]:
     3. Track which votes we've already processed in Firestore
     4. Return only new CC votes
     """
-    async with _lock:
-        client = get_client()
-        cc_votes = []
+    client = get_client()
+    cc_votes = []
 
-        try:
-            # Get last processed vote transaction from Firestore
-            last_vote_checkpoint = get_last_processed_vote()
-            last_vote_tx = last_vote_checkpoint.get("tx_hash") if last_vote_checkpoint else None
+    try:
+        # Get last processed vote transaction from Firestore
+        last_vote_checkpoint = get_last_processed_vote()
+        last_vote_tx = last_vote_checkpoint.get("tx_hash") if last_vote_checkpoint else None
 
-            # Get recent proposals (descending order - newest first)
-            proposals = await _run_in_executor(client.governance_proposals, page=1, count=100, order="desc", return_type="json")
+        # Get recent proposals (descending order - newest first)
+        proposals = await _run_in_executor(
+            client.governance_proposals, page=1, count=100, order="desc", return_type="json"
+        )
 
-            latest_vote_tx = None
-            found_checkpoint = last_vote_tx is None
+        latest_vote_tx = None
+        found_checkpoint = last_vote_tx is None
 
-            for proposal in proposals:
-                tx_hash = proposal.get("tx_hash", "")
-                cert_index = proposal.get("cert_index", 0)
+        for proposal in proposals:
+            tx_hash = proposal.get("tx_hash", "")
+            cert_index = proposal.get("cert_index", 0)
 
-                try:
-                    # Get votes for this proposal
-                    votes = await _run_in_executor(client.governance_proposal_votes, tx_hash, cert_index, page=1, count=100, return_type="json")
+            try:
+                # Get votes for this proposal
+                votes = await _run_in_executor(
+                    client.governance_proposal_votes, tx_hash, cert_index, page=1, count=100, return_type="json"
+                )
 
-                    for vote in votes:
-                        vote_tx_hash = vote.get("tx_hash", "")
+                for vote in votes:
+                    vote_tx_hash = vote.get("tx_hash", "")
 
-                        # Skip until we find our checkpoint
-                        if not found_checkpoint:
-                            if vote_tx_hash == last_vote_tx:
-                                found_checkpoint = True
-                            continue
+                    # Skip until we find our checkpoint
+                    if not found_checkpoint:
+                        if vote_tx_hash == last_vote_tx:
+                            found_checkpoint = True
+                        continue
 
-                        # Track latest vote for checkpoint
-                        if latest_vote_tx is None:
-                            latest_vote_tx = vote_tx_hash
+                    # Track latest vote for checkpoint
+                    if latest_vote_tx is None:
+                        latest_vote_tx = vote_tx_hash
 
-                        # Filter for Constitutional Committee votes
-                        voter_role = vote.get("voter_role")
-                        if voter_role == "constitutional_committee":
-                            # Get metadata URL if available
-                            try:
-                                vote_metadata = vote.get("metadata", {})
-                                raw_url = vote_metadata.get("url", "") if isinstance(vote_metadata, dict) else ""
-                            except Exception:
-                                raw_url = ""
+                    # Filter for Constitutional Committee votes
+                    voter_role = vote.get("voter_role")
+                    if voter_role == "constitutional_committee":
+                        # Get metadata URL if available
+                        try:
+                            vote_metadata = vote.get("metadata", {})
+                            raw_url = vote_metadata.get("url", "") if isinstance(vote_metadata, dict) else ""
+                        except Exception:
+                            raw_url = ""
 
-                            cc_votes.append(
-                                CcVote(
-                                    ga_tx_hash=tx_hash,
-                                    ga_index=cert_index,
-                                    vote_tx_hash=vote_tx_hash,
-                                    voter_hash=vote.get("voter", ""),
-                                    vote=vote.get("vote", ""),
-                                    raw_url=raw_url,
-                                )
+                        cc_votes.append(
+                            CcVote(
+                                ga_tx_hash=tx_hash,
+                                ga_index=cert_index,
+                                vote_tx_hash=vote_tx_hash,
+                                voter_hash=vote.get("voter", ""),
+                                vote=vote.get("vote", ""),
+                                raw_url=raw_url,
                             )
+                        )
 
-                except ApiError as e:
-                    if e.status_code != 404:
-                        logger.debug("Error fetching votes for proposal %s#%s: %s", tx_hash, cert_index, e)
-                except Exception as e:
-                    logger.debug("Error processing votes %s#%s: %s", tx_hash, cert_index, e)
+            except ApiError as e:
+                if e.status_code != 404:
+                    logger.debug("Error fetching votes for proposal %s#%s: %s", tx_hash, cert_index, e)
+            except Exception as e:
+                logger.debug("Error processing votes %s#%s: %s", tx_hash, cert_index, e)
 
-            # Update checkpoint to latest processed vote
-            if latest_vote_tx:
-                set_last_processed_vote(latest_vote_tx)
+        # Update checkpoint to latest processed vote
+        if latest_vote_tx:
+            set_last_processed_vote(latest_vote_tx)
 
-            logger.info("Found %d new CC votes (triggered by block %s)", len(cc_votes), block_no)
-            return cc_votes
+        logger.info("Found %d new CC votes (triggered by block %s)", len(cc_votes), block_no)
+        return cc_votes
 
-        except Exception as e:
-            logger.error("Error fetching CC votes: %s", e)
-            return []
+    except Exception as e:
+        logger.error("Error fetching CC votes: %s", e)
+        return []
 
 
 async def get_ga_expirations(epoch_no: int) -> list[GaExpiration]:
@@ -210,56 +225,56 @@ async def get_ga_expirations(epoch_no: int) -> list[GaExpiration]:
     Note: This requires iterating through all active proposals and checking
     their expiration epochs.
     """
-    async with _lock:
-        client = get_client()
+    client = get_client()
 
-        try:
-            proposals = await _run_in_executor(client.governance_proposals, page=1, count=100, order="desc", return_type="json")
+    try:
+        proposals = await _run_in_executor(
+            client.governance_proposals, page=1, count=100, order="desc", return_type="json"
+        )
 
-            expirations = []
+        expirations = []
 
-            for proposal in proposals:
-                expiration = proposal.get("expiration_epoch")
-                status = proposal.get("status", "").lower()
+        for proposal in proposals:
+            expiration = proposal.get("expiration_epoch")
+            status = proposal.get("status", "").lower()
 
-                # Only include proposals expiring at this epoch that aren't already enacted/ratified/dropped
-                if expiration == epoch_no and status not in ["ratified", "enacted", "dropped", "expired"]:
-                    expirations.append(
-                        GaExpiration(
-                            tx_hash=proposal.get("tx_hash", ""),
-                            index=proposal.get("index", 0),
-                        )
+            # Only include proposals expiring at this epoch that aren't already enacted/ratified/dropped
+            if expiration == epoch_no and status not in ["ratified", "enacted", "dropped", "expired"]:
+                expirations.append(
+                    GaExpiration(
+                        tx_hash=proposal.get("tx_hash", ""),
+                        index=proposal.get("index", 0),
                     )
+                )
 
-            logger.debug("Found %d expiring actions for epoch %s", len(expirations), epoch_no)
-            return expirations
+        logger.debug("Found %d expiring actions for epoch %s", len(expirations), epoch_no)
+        return expirations
 
-        except Exception as e:
-            logger.error("Error fetching expirations for epoch %s: %s", epoch_no, e)
-            return []
+    except Exception as e:
+        logger.error("Error fetching expirations for epoch %s: %s", epoch_no, e)
+        return []
 
 
 async def get_block_epoch(block_hash: str) -> int | None:
     """Return the epoch number for a block identified by its hex hash."""
-    async with _lock:
-        # Check cache first
-        if block_hash in _epoch_cache:
-            return _epoch_cache[block_hash]
+    # Check cache first
+    if block_hash in _epoch_cache:
+        return _epoch_cache[block_hash]
 
-        client = get_client()
+    client = get_client()
 
-        try:
-            block_data = await _run_in_executor(client.block, block_hash, return_type="json")
-            epoch = block_data.get("epoch")
+    try:
+        block_data = await _run_in_executor(client.block, block_hash, return_type="json")
+        epoch = block_data.get("epoch")
 
-            if epoch is not None:
-                _epoch_cache[block_hash] = epoch
+        if epoch is not None:
+            _epoch_cache[block_hash] = epoch
 
-            return epoch
+        return epoch
 
-        except Exception as e:
-            logger.error("Error fetching epoch for block %s: %s", block_hash, e)
-            return None
+    except Exception as e:
+        logger.error("Error fetching epoch for block %s: %s", block_hash, e)
+        return None
 
 
 async def get_all_gov_actions() -> list[GovAction]:
@@ -267,140 +282,150 @@ async def get_all_gov_actions() -> list[GovAction]:
 
     Note: This will paginate through all proposals in Blockfrost.
     """
-    async with _lock:
-        client = get_client()
+    client = get_client()
 
-        all_actions = []
-        page = 1
+    all_actions = []
+    page = 1
 
-        try:
-            while True:
-                proposals = await _run_in_executor(client.governance_proposals, page=page, count=100, order="asc", return_type="json")
+    try:
+        while True:
+            proposals = await _run_in_executor(
+                client.governance_proposals, page=page, count=100, order="asc", return_type="json"
+            )
 
-                if not proposals:
-                    break
+            if not proposals:
+                break
 
-                for proposal in proposals:
-                    all_actions.append(
-                        GovAction(
-                            tx_hash=proposal.get("tx_hash", ""),
-                            action_type=proposal.get("type", ""),
-                            index=proposal.get("index", 0),
-                            raw_url=proposal.get("anchor", {}).get("url", "")
-                            if isinstance(proposal.get("anchor"), dict)
-                            else "",
-                        )
+            for proposal in proposals:
+                # Extract metadata from proposal
+                metadata_raw = proposal.get("metadata")
+                metadata = None
+                if metadata_raw:
+                    metadata = ProposalMetadata(
+                        url=metadata_raw.get("url", ""),
+                        hash=metadata_raw.get("hash", ""),
+                        json_metadata=metadata_raw.get("json_metadata"),
                     )
 
-                page += 1
+                all_actions.append(
+                    GovAction(
+                        tx_hash=proposal.get("tx_hash", ""),
+                        action_type=proposal.get("type", ""),
+                        index=proposal.get("cert_index", 0),
+                        id=proposal.get("id", ""),
+                        metadata=metadata,
+                    )
+                )
 
-                # Safety limit to prevent infinite loops
-                if page > 1000:
-                    logger.warning("Reached page limit (1000) while fetching all governance actions")
-                    break
+            page += 1
 
-            logger.info("Fetched %d total governance actions", len(all_actions))
-            return all_actions
+            # Safety limit to prevent infinite loops
+            if page > 1000:
+                logger.warning("Reached page limit (1000) while fetching all governance actions")
+                break
 
-        except Exception as e:
-            logger.error("Error fetching all governance actions: %s", e)
-            return all_actions  # Return what we have so far
+        logger.info("Fetched %d total governance actions", len(all_actions))
+        return all_actions
+
+    except Exception as e:
+        logger.error("Error fetching all governance actions: %s", e)
+        return all_actions  # Return what we have so far
 
 
 async def get_all_cc_votes() -> list[CcVote]:
     """Return all CC member votes (for backfill)."""
-    async with _lock:
-        client = get_client()
+    client = get_client()
 
-        all_votes = []
+    all_votes = []
 
-        try:
-            # Get all proposals first
-            proposals = await get_all_gov_actions()
+    try:
+        # Get all proposals first
+        proposals = await get_all_gov_actions()
 
-            # For each proposal, get votes
-            for action in proposals:
-                try:
-                    votes = await _run_in_executor(
-                        client.governance_proposal_votes,
-                        action.tx_hash,
-                        action.index,
-                        page=1,
-                        count=100,
-                        return_type="json",
-                    )
+        # For each proposal, get votes
+        for action in proposals:
+            try:
+                votes = await _run_in_executor(
+                    client.governance_proposal_votes,
+                    action.tx_hash,
+                    action.index,
+                    page=1,
+                    count=100,
+                    return_type="json",
+                )
 
-                    for vote in votes:
-                        voter_role = vote.get("voter_role")
+                for vote in votes:
+                    voter_role = vote.get("voter_role")
 
-                        if voter_role == "constitutional_committee":
-                            # Get metadata URL if available
-                            try:
-                                vote_metadata = vote.get("metadata", {})
-                                raw_url = vote_metadata.get("url", "") if isinstance(vote_metadata, dict) else ""
-                            except Exception:
-                                raw_url = ""
+                    if voter_role == "constitutional_committee":
+                        # Get metadata URL if available
+                        try:
+                            vote_metadata = vote.get("metadata", {})
+                            raw_url = vote_metadata.get("url", "") if isinstance(vote_metadata, dict) else ""
+                        except Exception:
+                            raw_url = ""
 
-                            all_votes.append(
-                                CcVote(
-                                    ga_tx_hash=action.tx_hash,
-                                    ga_index=action.index,
-                                    vote_tx_hash=vote.get("tx_hash", ""),
-                                    voter_hash=vote.get("voter", ""),
-                                    vote=vote.get("vote", ""),
-                                    raw_url=raw_url,
-                                )
+                        all_votes.append(
+                            CcVote(
+                                ga_tx_hash=action.tx_hash,
+                                ga_index=action.index,
+                                vote_tx_hash=vote.get("tx_hash", ""),
+                                voter_hash=vote.get("voter", ""),
+                                vote=vote.get("vote", ""),
+                                raw_url=raw_url,
                             )
-                except Exception as e:
-                    logger.debug("Error fetching votes for proposal %s#%s: %s", action.tx_hash, action.index, e)
-                    continue
+                        )
+            except Exception as e:
+                logger.debug("Error fetching votes for proposal %s#%s: %s", action.tx_hash, action.index, e)
+                continue
 
-            logger.info("Fetched %d total CC votes", len(all_votes))
-            return all_votes
+        logger.info("Fetched %d total CC votes", len(all_votes))
+        return all_votes
 
-        except Exception as e:
-            logger.error("Error fetching all CC votes: %s", e)
-            return all_votes
+    except Exception as e:
+        logger.error("Error fetching all CC votes: %s", e)
+        return all_votes
 
 
 async def get_active_gov_actions(epoch_no: int) -> list[ActiveGovAction]:
     """Return all active governance actions for the given epoch."""
-    async with _lock:
-        client = get_client()
+    client = get_client()
 
-        try:
-            proposals = await _run_in_executor(client.governance_proposals, page=1, count=100, order="desc", return_type="json")
+    try:
+        proposals = await _run_in_executor(
+            client.governance_proposals, page=1, count=100, order="desc", return_type="json"
+        )
 
-            active_actions = []
+        active_actions = []
 
-            for proposal in proposals:
-                created_epoch = proposal.get("created_epoch")
-                expiration = proposal.get("expiration_epoch")
-                status = proposal.get("status", "").lower()
+        for proposal in proposals:
+            created_epoch = proposal.get("created_epoch")
+            expiration = proposal.get("expiration_epoch")
+            status = proposal.get("status", "").lower()
 
-                # Include if created before this epoch, not yet ratified/enacted/dropped/expired,
-                # and expiration is at or after this epoch
-                if (
-                    created_epoch is not None
-                    and created_epoch < epoch_no
-                    and status not in ["ratified", "enacted", "dropped", "expired"]
-                    and (expiration is None or expiration >= epoch_no)
-                ):
-                    active_actions.append(
-                        ActiveGovAction(
-                            tx_hash=proposal.get("tx_hash", ""),
-                            index=proposal.get("index", 0),
-                            created_epoch=created_epoch,
-                            expiration=expiration or 0,
-                        )
+            # Include if created before this epoch, not yet ratified/enacted/dropped/expired,
+            # and expiration is at or after this epoch
+            if (
+                created_epoch is not None
+                and created_epoch < epoch_no
+                and status not in ["ratified", "enacted", "dropped", "expired"]
+                and (expiration is None or expiration >= epoch_no)
+            ):
+                active_actions.append(
+                    ActiveGovAction(
+                        tx_hash=proposal.get("tx_hash", ""),
+                        index=proposal.get("index", 0),
+                        created_epoch=created_epoch,
+                        expiration=expiration or 0,
                     )
+                )
 
-            logger.debug("Found %d active actions for epoch %s", len(active_actions), epoch_no)
-            return active_actions
+        logger.debug("Found %d active actions for epoch %s", len(active_actions), epoch_no)
+        return active_actions
 
-        except Exception as e:
-            logger.error("Error fetching active actions for epoch %s: %s", epoch_no, e)
-            return []
+    except Exception as e:
+        logger.error("Error fetching active actions for epoch %s: %s", epoch_no, e)
+        return []
 
 
 async def get_voting_stats(
@@ -413,41 +438,42 @@ async def get_voting_stats(
     - DRep distribution data
     - Vote counts from proposal votes
     """
-    async with _lock:
-        client = get_client()
+    client = get_client()
 
-        try:
-            # Get votes for this proposal using proper endpoint format
-            votes = await _run_in_executor(client.governance_proposal_votes, tx_hash, index, page=1, count=100, return_type="json")
+    try:
+        # Get votes for this proposal using proper endpoint format
+        votes = await _run_in_executor(
+            client.governance_proposal_votes, tx_hash, index, page=1, count=100, return_type="json"
+        )
 
-            # Count votes by role
-            cc_voted = 0
-            drep_voted = 0
+        # Count votes by role
+        cc_voted = 0
+        drep_voted = 0
 
-            for vote in votes:
-                voter_role = vote.get("voter_role")
+        for vote in votes:
+            voter_role = vote.get("voter_role")
 
-                if voter_role == "constitutional_committee":
-                    cc_voted += 1
-                elif voter_role == "drep":
-                    drep_voted += 1
+            if voter_role == "constitutional_committee":
+                cc_voted += 1
+            elif voter_role == "drep":
+                drep_voted += 1
 
-            # Note: Getting total CC members and DReps requires additional Blockfrost calls
-            # For now, we'll use placeholder values or make additional API calls
-            # TODO: Implement proper CC member and DRep count queries
+        # Note: Getting total CC members and DReps requires additional Blockfrost calls
+        # For now, we'll use placeholder values or make additional API calls
+        # TODO: Implement proper CC member and DRep count queries
 
-            return VotingProgress(
-                tx_hash=tx_hash,
-                index=index,
-                cc_voted=cc_voted,
-                cc_total=7,  # Placeholder - would need to query active CC members
-                drep_voted=drep_voted,
-                drep_total=100,  # Placeholder - would need to query active DReps
-                current_epoch=epoch_no,
-                created_epoch=created_epoch,
-                expiration=expiration,
-            )
+        return VotingProgress(
+            tx_hash=tx_hash,
+            index=index,
+            cc_voted=cc_voted,
+            cc_total=7,  # Placeholder - would need to query active CC members
+            drep_voted=drep_voted,
+            drep_total=100,  # Placeholder - would need to query active DReps
+            current_epoch=epoch_no,
+            created_epoch=created_epoch,
+            expiration=expiration,
+        )
 
-        except Exception as e:
-            logger.error("Error fetching voting stats for %s#%s: %s", tx_hash, index, e)
-            return None
+    except Exception as e:
+        logger.error("Error fetching voting stats for %s#%s: %s", tx_hash, index, e)
+        return None

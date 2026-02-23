@@ -179,6 +179,48 @@ def set_checkpoint(name: str, block_no: int, epoch_no: int | None = None) -> Non
         logger.warning("Failed to write checkpoint to Firestore [%s]", name, exc_info=True)
 
 
+def get_proposals_offset() -> int:
+    """Get the last processed proposal offset from Firestore.
+
+    Returns:
+        Offset (count of processed proposals), defaults to 0
+    """
+    client = _get_firestore_client()
+    if client is None:
+        return 0
+
+    try:
+        doc = client.collection(CHECKPOINTS_COLLECTION).document("proposals_offset").get()
+        if doc.exists:
+            data = doc.to_dict()
+            return data.get("offset", 0)
+        return 0
+    except Exception:
+        logger.warning("Failed to read proposals offset from Firestore", exc_info=True)
+        return 0
+
+
+def set_proposals_offset(offset: int) -> None:
+    """Store the proposals offset in Firestore.
+
+    Args:
+        offset: Number of proposals processed
+    """
+    client = _get_firestore_client()
+    if client is None:
+        return
+
+    payload: dict[str, Any] = {"offset": offset}
+    timestamp = _server_timestamp()
+    if timestamp is not None:
+        payload["updated_at"] = timestamp
+
+    try:
+        client.collection(CHECKPOINTS_COLLECTION).document("proposals_offset").set(payload, merge=True)
+    except Exception:
+        logger.warning("Failed to write proposals offset to Firestore", exc_info=True)
+
+
 def get_last_processed_proposal() -> dict[str, Any] | None:
     """Get the last processed proposal from Firestore.
 
