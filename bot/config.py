@@ -46,10 +46,6 @@ class Config:
     # Feature flags
     tweet_posting_enabled: bool = False
 
-    # GitHub integration (for rationale archiving)
-    github_token: str = ""
-    github_repo: str = ""
-
     # Firestore integration (for persistent runtime state)
     firestore_project_id: str = ""
     firestore_database: str = "(default)"
@@ -72,8 +68,6 @@ class Config:
             ),
             blockfrost_webhook_auth_token=os.environ.get("BLOCKFROST_WEBHOOK_AUTH_TOKEN", ""),
             tweet_posting_enabled=_parse_bool(os.environ.get("TWEET_POSTING_ENABLED"), default=False),
-            github_token=os.environ.get("GITHUB_TOKEN", ""),
-            github_repo=os.environ.get("GITHUB_REPO", ""),
             firestore_project_id=os.environ.get("FIRESTORE_PROJECT_ID", ""),
             firestore_database=os.environ.get("FIRESTORE_DATABASE", "(default)"),
             ssh_host=os.environ.get("SSH_HOST", ""),

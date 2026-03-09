@@ -26,7 +26,6 @@ async def test_process_gov_actions_saves_action_state(monkeypatch):
     monkeypatch.setattr(main, "validate_gov_action_rationale", lambda *_: [])
     monkeypatch.setattr(main, "format_gov_action_tweet", lambda *_: "tweet text")
     monkeypatch.setattr(main, "post_tweet", lambda *_: "tweet-123")
-    monkeypatch.setattr(main, "archive_gov_action", lambda *_args, **_kwargs: None)
 
     save_calls = []
     monkeypatch.setattr(
@@ -41,7 +40,7 @@ async def test_process_gov_actions_saves_action_state(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_process_cc_votes_falls_back_to_github_tweet_id(monkeypatch):
+async def test_process_cc_votes_posts_regular_tweet_when_no_action_tweet_id(monkeypatch):
     vote = CcVote(
         ga_tx_hash="b" * 64,
         ga_index=1,
@@ -59,14 +58,16 @@ async def test_process_cc_votes_falls_back_to_github_tweet_id(monkeypatch):
     monkeypatch.setattr(main, "fetch_metadata", lambda *_: {"body": {"summary": "s"}})
     monkeypatch.setattr(main, "validate_cc_vote_rationale", lambda *_: [])
     monkeypatch.setattr(main, "get_action_tweet_id", lambda *_: None)
-    monkeypatch.setattr(main, "get_action_tweet_id_from_github", lambda *_: "tweet-from-github")
     monkeypatch.setattr(main, "get_x_handle_for_voter_hash", lambda *_: "cc_member")
     monkeypatch.setattr(main, "format_cc_vote_tweet", lambda *_args, **_kwargs: "cc vote tweet")
-    monkeypatch.setattr(main, "archive_cc_vote", lambda *_args, **_kwargs: None)
 
-    quote_calls = []
-    monkeypatch.setattr(main, "post_quote_tweet", lambda text, quote_id: quote_calls.append((text, quote_id)))
-    monkeypatch.setattr(main, "post_tweet", lambda *_: (_ for _ in ()).throw(AssertionError("unexpected post_tweet")))
+    post_calls = []
+
+    def _unexpected_quote(*_args, **_kwargs):
+        raise AssertionError("unexpected post_quote_tweet")
+
+    monkeypatch.setattr(main, "post_quote_tweet", _unexpected_quote)
+    monkeypatch.setattr(main, "post_tweet", lambda text: post_calls.append(text))
 
     cc_state_calls = []
     monkeypatch.setattr(
@@ -79,7 +80,8 @@ async def test_process_cc_votes_falls_back_to_github_tweet_id(monkeypatch):
 
     await main._process_cc_votes(654)
 
-    assert quote_calls == [("cc vote tweet", "tweet-from-github")]
+    # No tweet ID found, so posts regular tweet instead of quote tweet
+    assert post_calls == ["cc vote tweet"]
     assert cc_state_calls == [(vote.ga_tx_hash, vote.ga_index, vote.voter_hash, 654)]
 
 
