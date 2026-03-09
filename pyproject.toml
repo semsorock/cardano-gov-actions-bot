@@ -16,7 +16,7 @@ dependencies = [
     "pygithub>=2,<3",
     "google-cloud-firestore>=2.20,<3",
     "xdk>=0.8.1",
-    "sshtunnel>=0.4,<1",
+    "paramiko>=3",
 ]
 
 [dependency-groups]
