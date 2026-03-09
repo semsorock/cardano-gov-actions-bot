@@ -2,7 +2,7 @@
 
 ## Project Purpose
 
-This is a **Cardano blockchain governance monitoring bot** that watches for new governance actions and Constitutional Committee (CC) votes, posts summaries to Twitter/X, and archives governance rationale files to GitHub. It's deployed as a Google Cloud Run service (FastAPI + uvicorn) triggered by Blockfrost block webhooks (`POST /`).
+This is a **Cardano blockchain governance monitoring bot** that watches for new governance actions and Constitutional Committee (CC) votes and posts summaries to Twitter/X. It's deployed as a Google Cloud Run service (FastAPI + uvicorn) triggered by Blockfrost block webhooks (`POST /`).
 
 ## Architecture Overview
 
@@ -16,7 +16,6 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
    - **Gov Actions**: posted as new tweets
    - **CC Votes**: posted as quote-tweets when action tweet ID is known, else normal tweets
 6. **Persist runtime state** to Firestore (`tweet_id`, checkpoints)
-7. **Archive rationale** JSON to GitHub (direct commit to `main`)
 
 ### Project Structure
 
@@ -32,7 +31,6 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │   ├── main.py                  # FastAPI app + async webhook handler
 │   ├── webhook_auth.py          # Blockfrost HMAC-SHA256 signature verification
 │   ├── state_store.py           # Firestore-backed runtime state helpers
-│   ├── rationale_archiver.py    # Archive rationales to GitHub via direct commits (PyGithub)
 │   ├── rationale_validator.py   # CIP-0108/CIP-0136 metadata validation
 │   ├── db/
 │   │   ├── __init__.py
@@ -47,8 +45,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │       ├── formatter.py         # Tweet text builders for all event types
 │       └── templates.py         # Editable tweet text templates
 ├── scripts/
-│   ├── backfill_rationales.py   # One-off: fetch all historical rationales from DB-Sync
-│   └── backfill_tweet_ids.py    # One-off: backfill tweet_id.txt from historical posts
+│   └── backfill_rationales.py   # One-off: fetch all historical rationales from DB-Sync
 ├── data/
 │   └── cc_profiles.yaml         # CC profile mappings (voter hash -> X handle)
 ├── rationales/                  # Archived rationale JSON files
@@ -107,8 +104,6 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 - `bot/main.py`: FastAPI `app` instance with async `POST /` webhook handler. All processing functions (`_process_gov_actions`, `_process_cc_votes`, `_process_voting_progress`, etc.) are async. Handles epoch transitions and posts voting progress updates for active actions.
 
 - `bot/state_store.py`: Firestore-backed persistence for gov action tweet IDs, CC vote archive state, and block checkpoints.
-
-- `bot/rationale_archiver.py`: Archives rationale JSON to GitHub via PyGithub (create/update files directly on `main`). Skips gracefully if `GITHUB_TOKEN` not set.
 
 - `bot/rationale_validator.py`: Non-blocking CIP-0108/CIP-0136 validation. Returns warning lists — tweets always sent regardless.
 
@@ -222,10 +217,6 @@ API_KEY, API_SECRET_KEY            # Twitter OAuth 1.0a
 ACCESS_TOKEN, ACCESS_TOKEN_SECRET  # Twitter access credentials
 TWEET_POSTING_ENABLED              # "true" to enable tweet posting (default: false)
 
-# GitHub (optional for rationale archiving)
-GITHUB_TOKEN                       # Personal access token
-GITHUB_REPO                        # e.g. "semsorock/cardano-gov-actions-bot"
-
 # Firestore runtime state (optional override, uses ADC project by default)
 FIRESTORE_PROJECT_ID               # optional GCP project override
 FIRESTORE_DATABASE                 # Firestore DB id (default: (default))
@@ -304,7 +295,6 @@ VOTES_MAPPING = {
 ### Feature Flags
 
 - **Tweet posting**: Controlled by `TWEET_POSTING_ENABLED` env var (default: off)
-- **Rationale archiving**: Controlled by `GITHUB_TOKEN` + `GITHUB_REPO` (skipped if not set)
 - **Webhook signature verification**: Skipped if `BLOCKFROST_WEBHOOK_AUTH_TOKEN` not set
 
 ### Voting Progress Updates
@@ -358,7 +348,6 @@ psycopg[binary]>=3,<4       # Async PostgreSQL adapter (psycopg v3)
 requests>=2.32,<3           # HTTP client for IPFS
 tenacity>=9,<10             # Retry/backoff decorator
 python-dotenv>=1.2.1        # .env file loading
-pygithub>=2,<3              # GitHub API for rationale archiving
 google-cloud-firestore>=2.20,<3  # Firestore state store client
 
 # Dev

@@ -17,8 +17,6 @@ from bot.db.repository import (
 )
 from bot.logging import get_logger, setup_logging
 from bot.metadata.fetcher import fetch_metadata, sanitise_url
-from bot.rationale_archiver import archive_cc_vote, archive_gov_action
-from bot.rationale_archiver import get_action_tweet_id as get_action_tweet_id_from_github
 from bot.rationale_validator import validate_cc_vote_rationale, validate_gov_action_rationale
 from bot.state_store import (
     get_action_tweet_id,
@@ -86,7 +84,6 @@ async def _process_gov_actions(block_no: int) -> None:
 
         tweet = format_gov_action_tweet(action, metadata)
         tweet_id = post_tweet(tweet)
-        archive_gov_action(action, metadata, tweet_id=tweet_id)
         save_action_tweet_id(action.tx_hash, action.index, tweet_id or "", source_block=block_no)
 
 
@@ -108,8 +105,6 @@ async def _process_cc_votes(block_no: int) -> None:
 
         # Look up the original gov action tweet for quote-tweeting.
         quote_id = get_action_tweet_id(vote.ga_tx_hash, vote.ga_index)
-        if not quote_id:
-            quote_id = get_action_tweet_id_from_github(vote.ga_tx_hash, vote.ga_index)
         voter_x_handle = get_x_handle_for_voter_hash(vote.voter_hash)
         if not voter_x_handle:
             logger.warning("No X handle mapping for CC voter hash: %s", vote.voter_hash)
@@ -131,7 +126,6 @@ async def _process_cc_votes(block_no: int) -> None:
             )
             post_tweet(tweet)
 
-        archive_cc_vote(vote, metadata)
         mark_cc_vote_archived(
             vote.ga_tx_hash,
             vote.ga_index,
