@@ -20,9 +20,7 @@ Blockfrost Webhook (POST /) → FastAPI on Cloud Run → Query DB-Sync (async) �
 
 - 🚨 **New governance actions** — proposals submitted on-chain
 - 📜 **CC member votes** — Constitutional Committee voting activity
-- 📊 **Voting progress** — periodic updates on active governance action voting status
 - 💸 **Treasury donations** — per-epoch donation statistics
-- ⏰ **Action expirations** — warnings when governance actions are about to expire
 
 ## Prerequisites
 
@@ -46,6 +44,10 @@ The bot loads `.env` locally (`python-dotenv`) and can also read from Cloud Run 
 | `TWEET_POSTING_ENABLED` | Set to `true` to enable posting tweets (default: `false`) |
 | `FIRESTORE_PROJECT_ID` | Optional Firestore project override; default uses ADC project |
 | `FIRESTORE_DATABASE` | Firestore database ID (default: `(default)`) |
+| `SSH_HOST` | Optional bastion host for SSH tunnel to DB |
+| `SSH_PORT` | SSH port (default: `22`) |
+| `SSH_USER` | SSH username for tunnel |
+| `SSH_KEY_PATH` | Path to SSH private key file |
 
 ## Local Development
 
@@ -135,7 +137,7 @@ Every push to the `main` branch automatically triggers:
 │   ├── rationale_validator.py   # CIP-0108/CIP-0136 warning-only validation
 │   ├── webhook_auth.py          # Blockfrost HMAC signature verification
 │   ├── state_store.py           # Firestore-backed runtime state (tweet IDs, checkpoints)
-│   ├── db/                      # SQL constants + async repository layer
+│   ├── db/                      # SQL constants + async repository layer + SSH tunnel
 │   ├── metadata/                # IPFS URL sanitisation and metadata fetch
 │   └── twitter/
 │       ├── client.py            # XDK posting client

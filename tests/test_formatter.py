@@ -1,10 +1,8 @@
-from bot.models import CcVote, GaExpiration, GovAction, TreasuryDonation, VotingProgress
+from bot.models import CcVote, GovAction, TreasuryDonation
 from bot.twitter.formatter import (
     format_cc_vote_tweet,
-    format_ga_expiration_tweet,
     format_gov_action_tweet,
     format_treasury_donations_tweet,
-    format_voting_progress_tweet,
 )
 
 MAX_TWEET_LENGTH = 280
@@ -87,15 +85,6 @@ class TestFormatCcVoteTweet:
         assert "Voted by: CC member (deadbeef)" in tweet
 
 
-class TestFormatGaExpirationTweet:
-    def test_basic(self):
-        exp = GaExpiration(tx_hash="aabb", index=0)
-        tweet = format_ga_expiration_tweet(exp)
-        assert "Expiry Notice" in tweet
-        assert "explorer.cardano.org" in tweet
-        assert len(tweet) <= MAX_TWEET_LENGTH
-
-
 class TestFormatTreasuryDonationsTweet:
     def test_single_donation(self):
         donations = [TreasuryDonation(block_no=1, tx_hash="aabb", amount_lovelace=5_000_000)]
@@ -113,59 +102,3 @@ class TestFormatTreasuryDonationsTweet:
         tweet = format_treasury_donations_tweet(donations)
         assert "Transactions: 2" in tweet
         assert "3" in tweet  # 1 + 2 = 3 ADA
-
-
-class TestFormatVotingProgressTweet:
-    def test_basic_progress(self):
-        progress = VotingProgress(
-            tx_hash="aabbccdd",
-            index=0,
-            cc_voted=3,
-            cc_total=7,
-            drep_voted=1234,
-            drep_total=5000,
-            current_epoch=500,
-            created_epoch=495,
-            expiration=505,
-        )
-        tweet = format_voting_progress_tweet(progress)
-        assert "Voting Progress Update" in tweet
-        assert "Epoch 6 of 10" in tweet  # 500-495+1 = 6, 505-495 = 10
-        assert "CC Members: 3/7" in tweet
-        assert "24.7%" in tweet  # 1234/5000 = 24.68%
-        assert "adastat.net" not in tweet  # Link removed since it's a reply
-        assert len(tweet) <= MAX_TWEET_LENGTH
-
-    def test_zero_dreps(self):
-        progress = VotingProgress(
-            tx_hash="aabbccdd",
-            index=1,
-            cc_voted=5,
-            cc_total=7,
-            drep_voted=0,
-            drep_total=0,
-            current_epoch=500,
-            created_epoch=495,
-            expiration=505,
-        )
-        tweet = format_voting_progress_tweet(progress)
-        assert "CC Members: 5/7" in tweet
-        assert "0.0%" in tweet  # No division by zero error
-        assert len(tweet) <= MAX_TWEET_LENGTH
-
-    def test_full_participation(self):
-        progress = VotingProgress(
-            tx_hash="aabbccdd",
-            index=2,
-            cc_voted=7,
-            cc_total=7,
-            drep_voted=1000,
-            drep_total=1000,
-            current_epoch=500,
-            created_epoch=495,
-            expiration=505,
-        )
-        tweet = format_voting_progress_tweet(progress)
-        assert "CC Members: 7/7" in tweet
-        assert "100.0%" in tweet
-        assert len(tweet) <= MAX_TWEET_LENGTH
