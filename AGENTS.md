@@ -2,7 +2,7 @@
 
 ## Project Purpose
 
-This is a **Cardano blockchain governance monitoring bot** that watches for new governance actions and Constitutional Committee (CC) votes and posts summaries to Twitter/X. It's deployed as a Google Cloud Run service (FastAPI + uvicorn) triggered by Blockfrost block webhooks (`POST /`).
+This is a **Cardano blockchain governance monitoring bot** that watches for new governance actions and Constitutional Committee (CC) votes, and posts summaries to Twitter/X. It's deployed as a Google Cloud Run service (FastAPI + uvicorn) triggered by Blockfrost block webhooks (`POST /`).
 
 ## Architecture Overview
 
@@ -26,7 +26,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │   ├── cc_profiles.py           # CC voter hash -> X handle lookup loader
 │   ├── config.py                # Centralised config (.env via dotenv), validation + feature flags
 │   ├── logging.py               # Logging setup (setup_logging, get_logger)
-│   ├── models.py                # Dataclasses: GovAction, CcVote, GaExpiration, TreasuryDonation
+│   ├── models.py                # Dataclasses: GovAction, CcVote, TreasuryDonation
 │   ├── links.py                 # External link builders (AdaStat, GovTools, CExplorer)
 │   ├── main.py                  # FastAPI app + async webhook handler
 │   ├── webhook_auth.py          # Blockfrost HMAC-SHA256 signature verification
@@ -35,7 +35,8 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │   ├── db/
 │   │   ├── __init__.py
 │   │   ├── queries.py           # SQL query constants
-│   │   └── repository.py        # Async data access layer (typed query functions)
+│   │   ├── repository.py        # Async data access layer (typed query functions)
+│   │   └── ssh_tunnel.py        # SSH tunnel for bastion-host DB access (paramiko)
 │   ├── metadata/
 │   │   ├── __init__.py
 │   │   └── fetcher.py           # IPFS URL sanitisation & JSON metadata fetching
@@ -53,7 +54,7 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │       ├── action.json           # Gov action rationale (CIP-0108)
 │       └── cc_votes/
 │           └── <voter_hash>.json # CC vote rationale (CIP-0136)
-├── tests/                       # Pytest test suite (currently 94 tests)
+├── tests/                       # Pytest test suite (currently 79 tests)
 ├── .github/workflows/ci.yml     # CI pipeline (ruff + pytest)
 ├── .env.example                 # Template for required env vars
 ├── .dockerignore                # Docker build context exclusions
@@ -71,12 +72,11 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 - `bot/models.py`: Typed dataclasses for all domain objects. Replaces raw tuple indexing. Includes:
   - `GovAction`: Governance action proposals
   - `CcVote`: Constitutional Committee votes
-  - `GaExpiration`: Actions expiring soon
   - `TreasuryDonation`: Treasury donation records
-  - `ActiveGovAction`: Currently active governance actions
-  - `VotingProgress`: Voting statistics for active actions (CC + DRep participation)
 
 - `bot/db/repository.py`: Async data access functions returning typed model instances. Uses a shared `psycopg.AsyncConnection` (lazy init) with an `asyncio.Lock` to serialise queries. On connection errors, closes and resets the connection so the next call reconnects.
+
+- `bot/db/ssh_tunnel.py`: SSH port-forwarding tunnel using `paramiko` for accessing PostgreSQL through a bastion host. Creates a local TCP server that forwards connections through the SSH transport.
 
 - `bot/metadata/fetcher.py`: `fetch_metadata()` with retry (tenacity) and `sanitise_url()` for IPFS.
 
@@ -85,23 +85,19 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 - `bot/twitter/formatter.py`: Pure functions that build tweet text strings for each event type:
   - `format_gov_action_tweet()`: New governance action announcements
   - `format_cc_vote_tweet()`: CC vote updates
-  - `format_ga_expiration_tweet()`: Expiration warnings
   - `format_treasury_donations_tweet()`: Epoch treasury donation summaries
-  - `format_voting_progress_tweet()`: Voting progress updates for active actions
 
 - `bot/twitter/templates.py`: Centralised tweet copy templates used by formatters:
   - `GOV_ACTION`: New governance action template
   - `CC_VOTE`: CC vote with quote-tweet template
   - `CC_VOTE_NO_QUOTE`: CC vote standalone template
-  - `GA_EXPIRATION`: Expiration warning template
   - `TREASURY_DONATIONS`: Treasury donations summary template
-  - `VOTING_PROGRESS`: Voting progress update template
 
 - `bot/cc_profiles.py`: Loads `data/cc_profiles.yaml` and maps CC voter hashes to X handles.
 
 - `bot/links.py`: URL builders for AdaStat, GovTools, CExplorer.
 
-- `bot/main.py`: FastAPI `app` instance with async `POST /` webhook handler. All processing functions (`_process_gov_actions`, `_process_cc_votes`, `_process_voting_progress`, etc.) are async. Handles epoch transitions and posts voting progress updates for active actions.
+- `bot/main.py`: FastAPI `app` instance with async `POST /` webhook handler. All processing functions (`_process_gov_actions`, `_process_cc_votes`, `_process_treasury_donations`) are async. Handles epoch transitions and posts treasury donation summaries. Manages SSH tunnel lifecycle via FastAPI lifespan if `SSH_HOST` is configured.
 
 - `bot/state_store.py`: Firestore-backed persistence for gov action tweet IDs, CC vote archive state, and block checkpoints.
 
@@ -131,13 +127,10 @@ All SQL is in `bot/db/queries.py`:
 
 - `QUERY_GOV_ACTIONS`: Get governance actions by block number
 - `QUERY_CC_VOTES`: Get CC votes by block number
-- `QUERY_GA_EXPIRATIONS`: Get actions expiring next epoch
-- `QUERY_TREASURY_DONATIONS`: Sum donations per epoch
+- `QUERY_TREASURY_DONATIONS`: Get treasury donations for an epoch
 - `QUERY_BLOCK_EPOCH`: Get epoch number for a block by hash
 - `QUERY_ALL_GOV_ACTIONS`: All gov actions (backfill)
 - `QUERY_ALL_CC_VOTES`: All CC votes (backfill)
-- `QUERY_ACTIVE_GOV_ACTIONS`: Get active governance actions for an epoch
-- `QUERY_VOTING_STATS`: Get voting statistics (CC + DRep) for a specific action
 
 **Important**: Governance actions are identified by `tx_hash + index`, forming a compound key.
 
@@ -220,6 +213,12 @@ TWEET_POSTING_ENABLED              # "true" to enable tweet posting (default: fa
 # Firestore runtime state (optional override, uses ADC project by default)
 FIRESTORE_PROJECT_ID               # optional GCP project override
 FIRESTORE_DATABASE                 # Firestore DB id (default: (default))
+
+# SSH tunnel (optional — for accessing DB through bastion host)
+SSH_HOST                           # Bastion host address
+SSH_PORT                           # SSH port (default: 22)
+SSH_USER                           # SSH username
+SSH_KEY_PATH                       # Path to SSH private key file
 ```
 
 ### Code Style & Patterns
@@ -241,9 +240,9 @@ Google Cloud Run (FastAPI + uvicorn, containerized)
 - Continuously deployed from GitHub via Cloud Run source-based deployment
 - Docker image built automatically by Cloud Build on push to `main`
 - Entry point: `uvicorn bot.main:app` (root `main.py` re-exports `app`)
-- `POST /` handles Blockfrost block events (governance actions, CC votes, epoch donation checks, voting progress updates)
+- `POST /` handles Blockfrost block events (governance actions, CC votes, epoch donation checks)
 - Epoch transitions are detected by comparing current vs previous block epoch
-- On epoch transition, posts voting progress updates for all active governance actions
+- On epoch transition, posts treasury donation summaries for the completed epoch
 - Returns JSON responses with appropriate HTTP status codes
 
 ### Local Development
@@ -295,15 +294,8 @@ VOTES_MAPPING = {
 ### Feature Flags
 
 - **Tweet posting**: Controlled by `TWEET_POSTING_ENABLED` env var (default: off)
+- **SSH tunnel**: Enabled when `SSH_HOST` is set in config
 - **Webhook signature verification**: Skipped if `BLOCKFROST_WEBHOOK_AUTH_TOKEN` not set
-
-### Voting Progress Updates
-
-- Posted at **epoch transitions** for all active governance actions
-- Posted as **reply tweets** to the original governance action tweet (when tweet ID is available)
-- Includes CC member voting counts and DRep participation percentage
-- Shows epoch progress (e.g., "Epoch 3 of 5")
-- Only processes actions that are not yet ratified, enacted, dropped, or expired
 
 ## When Modifying Code
 
@@ -348,6 +340,7 @@ psycopg[binary]>=3,<4       # Async PostgreSQL adapter (psycopg v3)
 requests>=2.32,<3           # HTTP client for IPFS
 tenacity>=9,<10             # Retry/backoff decorator
 python-dotenv>=1.2.1        # .env file loading
+paramiko>=3                 # SSH tunnel for bastion-host DB access
 google-cloud-firestore>=2.20,<3  # Firestore state store client
 
 # Dev
