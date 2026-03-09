@@ -20,6 +20,13 @@ from bot.models import ActiveGovAction, CcVote, GaExpiration, GovAction, Treasur
 
 _conn: psycopg.AsyncConnection | None = None
 _lock = asyncio.Lock()
+_effective_db_url: str = config.db_sync_url
+
+
+def set_db_url(url: str) -> None:
+    """Override the DB connection URL (e.g. after SSH tunnel setup)."""
+    global _effective_db_url
+    _effective_db_url = url
 
 
 async def _get_conn() -> psycopg.AsyncConnection:
@@ -27,7 +34,7 @@ async def _get_conn() -> psycopg.AsyncConnection:
     global _conn
     if _conn is None or _conn.closed:
         _conn = await psycopg.AsyncConnection.connect(
-            conninfo=config.db_sync_url,
+            conninfo=_effective_db_url,
             autocommit=True,
         )
     return _conn

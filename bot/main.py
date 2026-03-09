@@ -1,5 +1,7 @@
 """Cardano Governance Actions Bot — webhook entry point."""
 
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
@@ -39,7 +41,26 @@ logger = get_logger("main")
 # Validate config at startup — fail fast on missing required vars.
 config.validate()
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Manage SSH tunnel lifecycle (if configured)."""
+    tunnel = None
+    if config.ssh_host:
+        from bot.db.repository import set_db_url
+        from bot.db.ssh_tunnel import get_tunneled_url, start_tunnel
+
+        tunnel = start_tunnel(config)
+        set_db_url(get_tunneled_url(config, tunnel))
+
+    yield
+
+    if tunnel is not None:
+        tunnel.stop()
+        logger.info("SSH tunnel stopped")
+
+
+app = FastAPI(lifespan=lifespan)
 
 
 # ---------------------------------------------------------------------------
