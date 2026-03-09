@@ -54,6 +54,12 @@ class Config:
     firestore_project_id: str = ""
     firestore_database: str = "(default)"
 
+    # SSH tunnel (optional — only used when ssh_host is set)
+    ssh_host: str = ""
+    ssh_port: int = 22
+    ssh_user: str = ""
+    ssh_key_path: str = ""
+
     @classmethod
     def from_env(cls) -> "Config":
         return cls(
@@ -70,6 +76,10 @@ class Config:
             github_repo=os.environ.get("GITHUB_REPO", ""),
             firestore_project_id=os.environ.get("FIRESTORE_PROJECT_ID", ""),
             firestore_database=os.environ.get("FIRESTORE_DATABASE", "(default)"),
+            ssh_host=os.environ.get("SSH_HOST", ""),
+            ssh_port=int(os.environ.get("SSH_PORT", "22")),
+            ssh_user=os.environ.get("SSH_USER", ""),
+            ssh_key_path=os.environ.get("SSH_KEY_PATH", ""),
         )
 
     def validate(self) -> None:
