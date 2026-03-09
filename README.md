@@ -20,9 +20,7 @@ Blockfrost Webhook (POST /) → FastAPI on Cloud Run → Query DB-Sync (async) �
 
 - 🚨 **New governance actions** — proposals submitted on-chain
 - 📜 **CC member votes** — Constitutional Committee voting activity
-- 📊 **Voting progress** — periodic updates on active governance action voting status
-- 💸 **Treasury donations** — per-epoch donation statistics
-- ⏰ **Action expirations** — warnings when governance actions are about to expire
+- � **Treasury donations** — per-epoch donation statistics
 
 ## Prerequisites
 

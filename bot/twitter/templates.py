@@ -32,17 +32,6 @@ Rationale: {rationale_url}
 @IntersectMBO
 #Cardano #Governance"""
 
-GA_EXPIRATION = """\
-Governance Action Expiry Notice
-
-1 epoch (5 days) left to vote on this action.
-
-Action: {link}
-Review and vote if applicable.
-
-@IntersectMBO
-#Cardano #Governance"""
-
 TREASURY_DONATIONS = """\
 Treasury Donations Summary (Previous Epoch)
 
@@ -51,14 +40,3 @@ Total Donated: {total_ada} ADA
 
 @IntersectMBO
 #Cardano #Treasury #Governance"""
-
-VOTING_PROGRESS = """\
-Voting Progress Update
-
-{epoch_progress}
-
-CC Members: {cc_voted}/{cc_total} voted
-DReps: {drep_percentage}% participated
-
-@IntersectMBO
-#Cardano #Governance"""
