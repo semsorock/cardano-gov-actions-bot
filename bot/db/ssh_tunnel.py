@@ -32,10 +32,7 @@ class SshTunnel:
         """Return whether the local listener and SSH transport are both usable."""
         transport = self.ssh_client.get_transport()
         return (
-            self._server is not None
-            and self._server.fileno() != -1
-            and transport is not None
-            and transport.is_active()
+            self._server is not None and self._server.fileno() != -1 and transport is not None and transport.is_active()
         )
 
     def stop(self) -> None:
