@@ -40,19 +40,25 @@ config.validate()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Manage SSH tunnel lifecycle (if configured)."""
-    tunnel = None
+    tunnel_manager = None
+    from bot.db.repository import close_conn, set_db_url_provider
+
     if config.ssh_host:
         from bot.db.repository import set_db_url
-        from bot.db.ssh_tunnel import get_tunneled_url, start_tunnel
+        from bot.db.ssh_tunnel import SshTunnelManager
 
-        tunnel = start_tunnel(config)
-        set_db_url(get_tunneled_url(config, tunnel))
+        tunnel_manager = SshTunnelManager(config)
+        set_db_url_provider(tunnel_manager.get_tunneled_url)
+        set_db_url(tunnel_manager.get_tunneled_url())
 
-    yield
-
-    if tunnel is not None:
-        tunnel.stop()
-        logger.info("SSH tunnel stopped")
+    try:
+        yield
+    finally:
+        await close_conn()
+        set_db_url_provider(None)
+        if tunnel_manager is not None:
+            tunnel_manager.stop()
+            logger.info("SSH tunnel stopped")
 
 
 app = FastAPI(lifespan=lifespan)
