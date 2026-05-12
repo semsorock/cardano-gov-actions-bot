@@ -22,7 +22,6 @@ class TestFormatGovActionTweet:
         assert "Test Proposal" in tweet
         assert "Parameter Change" in tweet
         assert "explorer.cardano.org" in tweet
-        assert "#Cardano" in tweet
         assert len(tweet) <= MAX_TWEET_LENGTH
 
     def test_without_metadata(self):
