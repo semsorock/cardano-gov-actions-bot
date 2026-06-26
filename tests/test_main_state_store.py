@@ -20,7 +20,11 @@ async def test_process_gov_actions_saves_action_state(monkeypatch):
     async def _fake_get_gov_actions(*_):
         return [action]
 
+    async def _fake_get_threshold_context(*_):
+        return None
+
     monkeypatch.setattr(main, "get_gov_actions", _fake_get_gov_actions)
+    monkeypatch.setattr(main, "get_threshold_context", _fake_get_threshold_context)
     monkeypatch.setattr(main, "sanitise_url", lambda url: url)
     monkeypatch.setattr(main, "fetch_metadata", lambda *_: {"body": {"title": "t"}})
     monkeypatch.setattr(main, "validate_gov_action_rationale", lambda *_: [])

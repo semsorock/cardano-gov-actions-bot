@@ -124,6 +124,19 @@ class EpochThresholds:
 
 
 @dataclass(frozen=True)
+class ThresholdContext:
+    """Block-level voting context shared by every action in a block.
+
+    The epoch thresholds and committee quorum are identical for all actions in a
+    block, so they are fetched once and reused (only ParameterChange group
+    detection is per-action).
+    """
+
+    params: EpochThresholds
+    committee_quorum: float | None = None
+
+
+@dataclass(frozen=True)
 class ParamChangeGroups:
     """Which protocol-parameter groups a ParameterChange action touches."""
 

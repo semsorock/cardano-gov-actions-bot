@@ -23,6 +23,7 @@ from bot.thresholds import (
     EpochThresholds,
     GovThresholds,
     ParamChangeGroups,
+    ThresholdContext,
     compute_thresholds,
 )
 
@@ -166,26 +167,35 @@ async def _get_param_change_groups(action: GovAction) -> ParamChangeGroups | Non
     )
 
 
-async def get_gov_thresholds(action: GovAction) -> GovThresholds | None:
-    """Return the ratification thresholds applicable to a governance action.
+async def get_threshold_context() -> ThresholdContext | None:
+    """Fetch the block-level voting context (epoch thresholds + committee quorum).
 
-    Reads live protocol parameters and committee quorum from DB-Sync. Returns
-    ``None`` if thresholds are unavailable (e.g. pre-Conway data), so callers
-    can omit the line rather than show wrong numbers.
+    These values are identical for every action in a block, so callers should
+    fetch this once per block and pass it to :func:`get_gov_thresholds` for each
+    action. Returns ``None`` if thresholds are unavailable (e.g. pre-Conway
+    data), so callers can omit the thresholds line rather than show wrong numbers.
     """
     params = await _get_epoch_thresholds()
     if params is None:
         return None
-
     committee_quorum = await _get_committee_quorum()
+    return ThresholdContext(params=params, committee_quorum=committee_quorum)
+
+
+async def get_gov_thresholds(action: GovAction, context: ThresholdContext) -> GovThresholds:
+    """Return the ratification thresholds applicable to a single governance action.
+
+    Reuses the shared ``context`` (so the epoch/committee reads happen once per
+    block) and only queries per-action data for ParameterChange group detection.
+    """
     param_groups = None
     if action.action_type == "ParameterChange":
         param_groups = await _get_param_change_groups(action)
 
     return compute_thresholds(
         action.action_type,
-        params,
-        committee_quorum,
+        context.params,
+        context.committee_quorum,
         param_groups=param_groups,
     )
 
