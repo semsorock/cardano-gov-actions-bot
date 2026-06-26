@@ -8,7 +8,7 @@ GOV_ACTION = """\
 Governance Action Update
 
 {title_line}{authors_line}Type: {action_type}
-Action: {link}
+{thresholds_line}Action: {link}
 """
 
 CC_VOTE = """\

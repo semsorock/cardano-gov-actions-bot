@@ -3,6 +3,7 @@ from decimal import Decimal
 from bot.links import make_governance_action_link
 from bot.metadata.fetcher import sanitise_url
 from bot.models import CcVote, GovAction, TreasuryDonation
+from bot.thresholds import GovThresholds
 from bot.twitter import templates
 
 VOTES_MAPPING = {
@@ -10,6 +11,33 @@ VOTES_MAPPING = {
     "NO": "Unconstitutional",
     "ABSTAIN": "Abstain",
 }
+
+
+def _pct(ratio: float) -> str:
+    """Render a 0..1 approval ratio as a whole-number percentage, e.g. '67%'."""
+    return f"{round(ratio * 100)}%"
+
+
+def _thresholds_line(thresholds: GovThresholds | None) -> str:
+    """Build the 'Thresholds: ...' line, omitting bodies that don't vote.
+
+    Returns an empty string when no thresholds are available, so the line is
+    dropped entirely from the tweet.
+    """
+    if thresholds is None or thresholds.is_empty:
+        return ""
+    if thresholds.note:
+        return f"Thresholds: {thresholds.note}\n"
+    parts = []
+    if thresholds.drep is not None:
+        parts.append(f"DRep {_pct(thresholds.drep)}")
+    if thresholds.spo is not None:
+        parts.append(f"SPO {_pct(thresholds.spo)}")
+    if thresholds.cc is not None:
+        parts.append(f"CC {_pct(thresholds.cc)}")
+    if not parts:
+        return ""
+    return f"Thresholds: {' · '.join(parts)}\n"
 
 
 def _vote_display(vote: str) -> str:
@@ -34,7 +62,11 @@ def _authors_line(metadata: dict | None, *, label: str = "Authors", emoji: str =
     return f"{emoji_prefix}{label}: {', '.join(names)}\n"
 
 
-def format_gov_action_tweet(action: GovAction, metadata: dict | None) -> str:
+def format_gov_action_tweet(
+    action: GovAction,
+    metadata: dict | None,
+    thresholds: GovThresholds | None = None,
+) -> str:
     title = metadata.get("body", {}).get("title") if metadata else None
     title_line = f"Title: {title}\n" if title else ""
     authors_line = _authors_line(metadata, label="Authors")
@@ -43,6 +75,7 @@ def format_gov_action_tweet(action: GovAction, metadata: dict | None) -> str:
         title_line=title_line,
         authors_line=authors_line,
         action_type=action.action_type_display,
+        thresholds_line=_thresholds_line(thresholds),
         link=make_governance_action_link(action.tx_hash, action.index),
     )
 

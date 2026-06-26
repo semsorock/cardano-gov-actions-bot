@@ -11,6 +11,7 @@ from bot.db.repository import (
     get_block_epoch,
     get_cc_votes,
     get_gov_actions,
+    get_gov_thresholds,
     get_treasury_donations,
 )
 from bot.logging import get_logger, setup_logging
@@ -85,7 +86,9 @@ async def _process_gov_actions(block_no: int) -> None:
         for w in warnings:
             logger.warning("CIP-0108 validation [%s#%s]: %s", action.tx_hash[:8], action.index, w)
 
-        tweet = format_gov_action_tweet(action, metadata)
+        thresholds = await get_gov_thresholds(action)
+
+        tweet = format_gov_action_tweet(action, metadata, thresholds)
         tweet_id = post_tweet(tweet)
         save_action_tweet_id(action.tx_hash, action.index, tweet_id or "", source_block=block_no)
 
