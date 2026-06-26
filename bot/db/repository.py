@@ -7,15 +7,25 @@ import psycopg
 
 from bot.config import config
 from bot.db.queries import (
+    QUERY_ACTIVE_COMMITTEE_QUORUM,
     QUERY_ALL_CC_VOTES,
     QUERY_ALL_GOV_ACTIONS,
     QUERY_BLOCK_EPOCH,
     QUERY_CC_VOTES,
     QUERY_GOV_ACTIONS,
+    QUERY_LATEST_THRESHOLDS,
+    QUERY_PARAM_CHANGE_GROUPS,
     QUERY_TREASURY_DONATIONS,
 )
 from bot.logging import get_logger
 from bot.models import CcVote, GovAction, TreasuryDonation
+from bot.thresholds import (
+    EpochThresholds,
+    GovThresholds,
+    ParamChangeGroups,
+    ThresholdContext,
+    compute_thresholds,
+)
 
 logger = get_logger("db_repository")
 
@@ -126,6 +136,68 @@ async def get_gov_actions(block_no: int) -> list[GovAction]:
         )
         for row in rows
     ]
+
+
+async def _get_epoch_thresholds() -> EpochThresholds | None:
+    """Fetch the current epoch's governance voting thresholds."""
+    rows = await _query(QUERY_LATEST_THRESHOLDS, ())
+    if not rows:
+        return None
+    return EpochThresholds(*rows[0])
+
+
+async def _get_committee_quorum() -> float | None:
+    """Fetch the active Constitutional Committee's approval ratio."""
+    rows = await _query(QUERY_ACTIVE_COMMITTEE_QUORUM, ())
+    return rows[0][0] if rows and rows[0] else None
+
+
+async def _get_param_change_groups(action: GovAction) -> ParamChangeGroups | None:
+    """Fetch which protocol-parameter groups a ParameterChange action touches."""
+    rows = await _query(QUERY_PARAM_CHANGE_GROUPS, (action.tx_hash, action.index))
+    if not rows:
+        return None
+    network, economic, technical, governance, security = rows[0]
+    return ParamChangeGroups(
+        network=bool(network),
+        economic=bool(economic),
+        technical=bool(technical),
+        governance=bool(governance),
+        security=bool(security),
+    )
+
+
+async def get_threshold_context() -> ThresholdContext | None:
+    """Fetch the block-level voting context (epoch thresholds + committee quorum).
+
+    These values are identical for every action in a block, so callers should
+    fetch this once per block and pass it to :func:`get_gov_thresholds` for each
+    action. Returns ``None`` if thresholds are unavailable (e.g. pre-Conway
+    data), so callers can omit the thresholds line rather than show wrong numbers.
+    """
+    params = await _get_epoch_thresholds()
+    if params is None:
+        return None
+    committee_quorum = await _get_committee_quorum()
+    return ThresholdContext(params=params, committee_quorum=committee_quorum)
+
+
+async def get_gov_thresholds(action: GovAction, context: ThresholdContext) -> GovThresholds:
+    """Return the ratification thresholds applicable to a single governance action.
+
+    Reuses the shared ``context`` (so the epoch/committee reads happen once per
+    block) and only queries per-action data for ParameterChange group detection.
+    """
+    param_groups = None
+    if action.action_type == "ParameterChange":
+        param_groups = await _get_param_change_groups(action)
+
+    return compute_thresholds(
+        action.action_type,
+        context.params,
+        context.committee_quorum,
+        param_groups=param_groups,
+    )
 
 
 async def get_cc_votes(block_no: int) -> list[CcVote]:

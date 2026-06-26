@@ -11,6 +11,8 @@ from bot.db.repository import (
     get_block_epoch,
     get_cc_votes,
     get_gov_actions,
+    get_gov_thresholds,
+    get_threshold_context,
     get_treasury_donations,
 )
 from bot.logging import get_logger, setup_logging
@@ -76,6 +78,10 @@ async def _process_gov_actions(block_no: int) -> None:
         logger.info("No gov actions for block: %s", block_no)
         return
 
+    # Epoch thresholds + committee quorum are the same for every action in the
+    # block, so fetch them once here and reuse per action.
+    threshold_context = await get_threshold_context()
+
     for action in actions:
         url = sanitise_url(action.raw_url)
         metadata = fetch_metadata(url)
@@ -85,7 +91,9 @@ async def _process_gov_actions(block_no: int) -> None:
         for w in warnings:
             logger.warning("CIP-0108 validation [%s#%s]: %s", action.tx_hash[:8], action.index, w)
 
-        tweet = format_gov_action_tweet(action, metadata)
+        thresholds = await get_gov_thresholds(action, threshold_context) if threshold_context else None
+
+        tweet = format_gov_action_tweet(action, metadata, thresholds)
         tweet_id = post_tweet(tweet)
         save_action_tweet_id(action.tx_hash, action.index, tweet_id or "", source_block=block_no)
 
