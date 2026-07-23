@@ -42,27 +42,27 @@ class TestFormatGovActionTweet:
     def test_no_thresholds_omits_line(self):
         action = self._make_action()
         tweet = format_gov_action_tweet(action, None)
-        assert "Thresholds:" not in tweet
+        assert "thresholds:" not in tweet.lower()
 
     def test_thresholds_line_shows_applicable_bodies(self):
         action = self._make_action()
         thresholds = GovThresholds(drep=0.67, spo=0.51, cc=0.67)
         tweet = format_gov_action_tweet(action, None, thresholds)
-        assert "Thresholds: DRep 67% · SPO 51% · CC 67%" in tweet
+        assert "Current thresholds: DRep 67% · SPO 51% · CC 67%" in tweet
         assert len(tweet) <= MAX_TWEET_LENGTH
 
     def test_thresholds_line_omits_non_voting_body(self):
         action = self._make_action(action_type="TreasuryWithdrawals")
         thresholds = GovThresholds(drep=0.67, cc=0.67)
         tweet = format_gov_action_tweet(action, None, thresholds)
-        assert "Thresholds: DRep 67% · CC 67%" in tweet
+        assert "Current thresholds: DRep 67% · CC 67%" in tweet
         assert "SPO" not in tweet
 
     def test_thresholds_note_for_info_action(self):
         action = self._make_action(action_type="InfoAction")
         thresholds = GovThresholds(note="none (informational)")
         tweet = format_gov_action_tweet(action, None, thresholds)
-        assert "Thresholds: none (informational)" in tweet
+        assert "Current thresholds: none (informational)" in tweet
 
 
 class TestFormatCcVoteTweet:

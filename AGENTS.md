@@ -4,18 +4,23 @@
 
 This is a **Cardano blockchain governance monitoring bot** that watches for new governance actions and Constitutional Committee (CC) votes, and posts summaries to Twitter/X. It's deployed as a Google Cloud Run service (FastAPI + uvicorn) triggered by Blockfrost block webhooks (`POST /`).
 
+**Blockfrost is the sole Cardano data provider.** There is no DB-Sync / PostgreSQL / SSH dependency (removed in the issue #34 migration).
+
 ## Architecture Overview
 
 ### Core Data Flow
 
-1. **Blockfrost webhook** → Cloud Run `/` endpoint
-2. **Query Cardano DB-Sync** (PostgreSQL) for governance data
-3. **Fetch metadata** from IPFS URLs (governance action details, vote rationales)
-4. **Validate metadata** against CIP-0108/CIP-0136 standards (warnings only)
-5. **Post tweets** via X API (XDK) with formatted summaries
-   - **Gov Actions**: posted as new tweets
-   - **CC Votes**: posted as quote-tweets when action tweet ID is known, else normal tweets
-6. **Persist runtime state** to Firestore (`tweet_id`, checkpoints)
+1. **Blockfrost webhook** → Cloud Run `/` endpoint (one webhook per new block)
+2. **Scan Blockfrost feeds** — governance proposals + committee votes — processing items newer than the persisted watermarks (primary discovery)
+3. **Read block CBOR** (`/blocks/{hash}/txs/cbor`) to accumulate treasury donations (transaction-body key `22`)
+4. **Fetch metadata** — from Blockfrost's validated `json_metadata`, falling back to fetching the IPFS/HTTP anchor ourselves
+5. **Validate metadata** against CIP-0108/CIP-0136 standards (warnings only)
+6. **Post tweets** via X API (XDK) with formatted summaries
+   - **Gov Actions**: posted as new tweets (with a `Current thresholds:` line when available)
+   - **CC Votes**: posted as quote-tweets when the action tweet ID is known, else normal tweets
+7. **Persist runtime state** to Firestore (tweet IDs, feed watermarks, committee snapshots, treasury accumulation, checkpoints)
+
+Feed watermarks bound how far each scan pages back; per-item idempotency keys make duplicate and out-of-order webhook deliveries safe.
 
 ### Project Structure
 
@@ -23,20 +28,23 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 ├── main.py                      # Entry point shim — re-exports FastAPI `app` from bot.main
 ├── bot/
 │   ├── __init__.py
-│   ├── cc_profiles.py           # CC voter hash -> X handle lookup loader
+│   ├── cc_profiles.py           # CC voter (cold) hash -> X handle lookup loader
 │   ├── config.py                # Centralised config (.env via dotenv), validation + feature flags
 │   ├── logging.py               # Logging setup (setup_logging, get_logger)
 │   ├── models.py                # Dataclasses: GovAction, CcVote, TreasuryDonation
 │   ├── links.py                 # External link builders (AdaStat, GovTools, CExplorer)
-│   ├── main.py                  # FastAPI app + async webhook handler
+│   ├── main.py                  # FastAPI app + async webhook handler / orchestration
 │   ├── webhook_auth.py          # Blockfrost HMAC-SHA256 signature verification
 │   ├── state_store.py           # Firestore-backed runtime state helpers
 │   ├── rationale_validator.py   # CIP-0108/CIP-0136 metadata validation
-│   ├── db/
+│   ├── thresholds.py            # Ratification-threshold engine + param-group classification
+│   ├── blockfrost/
 │   │   ├── __init__.py
-│   │   ├── queries.py           # SQL query constants
-│   │   ├── repository.py        # Async data access layer (typed query functions)
-│   │   └── ssh_tunnel.py        # SSH tunnel for bastion-host DB access (paramiko)
+│   │   ├── client.py            # Async httpx client + bounded retry/backoff
+│   │   ├── feeds.py             # Feed pagination + watermark scanning
+│   │   ├── mapping.py           # governance_type/vote mapping -> domain models
+│   │   ├── committee.py         # /governance/committee snapshot parsing
+│   │   └── cbor.py              # Treasury-donation extraction from tx CBOR
 │   ├── metadata/
 │   │   ├── __init__.py
 │   │   └── fetcher.py           # IPFS URL sanitisation & JSON metadata fetching
@@ -46,164 +54,99 @@ This is a **Cardano blockchain governance monitoring bot** that watches for new 
 │       ├── formatter.py         # Tweet text builders for all event types
 │       └── templates.py         # Editable tweet text templates
 ├── scripts/
-│   └── backfill_rationales.py   # One-off: fetch all historical rationales from DB-Sync
+│   └── backfill_rationales.py   # One-off: archive historical rationales from Blockfrost
 ├── data/
-│   └── cc_profiles.yaml         # CC profile mappings (voter hash -> X handle)
+│   └── cc_profiles.yaml         # CC profile mappings (cold voter hash -> X handle)
 ├── rationales/                  # Archived rationale JSON files
 │   └── <tx_hash>_<index>/
 │       ├── action.json           # Gov action rationale (CIP-0108)
 │       └── cc_votes/
 │           └── <voter_hash>.json # CC vote rationale (CIP-0136)
-├── tests/                       # Pytest test suite (currently 79 tests)
+├── tests/                       # Pytest test suite
 ├── .github/workflows/ci.yml     # CI pipeline (ruff + pytest)
 ├── .env.example                 # Template for required env vars
-├── .dockerignore                # Docker build context exclusions
 ├── pyproject.toml               # Project config, dependencies, ruff & pytest settings
 ├── uv.lock                      # Locked dependency versions
 ├── Dockerfile                   # Container image (uses uv, non-root user)
-├── docs/                        # Reference docs (DB-Sync schema, CIP-0108, CIP-0136)
-└── drafts/                      # Development drafts and sample data (not deployed)
+└── docs/                        # Reference docs (CIP-0108, CIP-0136)
 ```
 
 ### Key Components
 
-- `bot/config.py`: All env vars loaded into a frozen `Config` dataclass via `python-dotenv` (`.env` overrides system vars). Includes feature flags.
+- `bot/config.py`: All env vars loaded into a frozen `Config` dataclass. `BLOCKFROST_PROJECT_ID` is required; Twitter creds required only when `TWEET_POSTING_ENABLED=true`.
 
-- `bot/models.py`: Typed dataclasses for all domain objects. Replaces raw tuple indexing. Includes:
-  - `GovAction`: Governance action proposals
-  - `CcVote`: Constitutional Committee votes
-  - `TreasuryDonation`: Treasury donation records
+- `bot/models.py`: Typed frozen dataclasses — `GovAction`, `CcVote`, `TreasuryDonation`.
 
-- `bot/db/repository.py`: Async data access functions returning typed model instances. Uses a shared `psycopg.AsyncConnection` (lazy init) with an `asyncio.Lock` to serialise queries. On connection errors, closes and resets the connection so the next call reconnects.
+- `bot/blockfrost/client.py`: `BlockfrostClient` — async `httpx` wrapper. Every request carries the `project_id` header and retries transient failures (timeouts, `429`, `5xx`) with bounded exponential backoff, honouring `Retry-After`. `404` raises `BlockfrostNotFound`. A module-level singleton (`get_client`/`set_client`/`close_client`) is owned by the FastAPI lifespan.
 
-- `bot/db/ssh_tunnel.py`: SSH port-forwarding tunnel using `paramiko` for accessing PostgreSQL through a bastion host. Creates a local TCP server that forwards connections through the SSH transport.
+- `bot/blockfrost/feeds.py`: `collect_new_items()` — scans a desc-ordered feed against a watermark. Steady state is one request (tip == watermark). On first run it adopts the tip as the watermark and processes nothing (history is the backfill script's job). The returned watermark is only persisted by the caller *after* processing succeeds.
+
+- `bot/blockfrost/committee.py`: `parse_committee_snapshot()` → `CommitteeSnapshot` (quorum, dissolution, active-member count, hot→cold credential map).
+
+- `bot/blockfrost/cbor.py`: `extract_block_donations()` — decodes each transaction's CBOR and reads body key `22` (treasury donation, Lovelace).
+
+- `bot/blockfrost/mapping.py`: translates Blockfrost `governance_type`/`vote` strings to the CIP-1694 PascalCase names used elsewhere, and builds `GovAction`/`CcVote` records. Stable feed identities via `proposal_key()` / `committee_vote_key()`.
+
+- `bot/thresholds.py`: `compute_thresholds()` maps an action type + `ThresholdContext` (epoch params + committee state) to the bodies that vote. `classify_parameters()` classifies a proposal's changed `parameters` into voting groups. No fabricated fallbacks. `min_fee_ref_script_cost_per_byte` is Economic + Security.
 
 - `bot/metadata/fetcher.py`: `fetch_metadata()` with retry (tenacity) and `sanitise_url()` for IPFS.
 
-- `bot/twitter/client.py`: `post_tweet()` / `post_quote_tweet()` / `post_reply_tweet()` via XDK — logs content and only posts when `TWEET_POSTING_ENABLED=true`. All post functions return the tweet ID (extracted via `_extract_post_id()`) or `None`.
+- `bot/twitter/client.py`: `post_tweet()` / `post_quote_tweet()` / `post_reply_tweet()` — logs content and only posts when `TWEET_POSTING_ENABLED=true`. Returns the tweet ID or `None`.
 
-- `bot/twitter/formatter.py`: Pure functions that build tweet text strings for each event type:
-  - `format_gov_action_tweet()`: New governance action announcements
-  - `format_cc_vote_tweet()`: CC vote updates
-  - `format_treasury_donations_tweet()`: Epoch treasury donation summaries
+- `bot/twitter/formatter.py` & `templates.py`: pure tweet-text builders + editable templates.
 
-- `bot/twitter/templates.py`: Centralised tweet copy templates used by formatters:
-  - `GOV_ACTION`: New governance action template
-  - `CC_VOTE`: CC vote with quote-tweet template
-  - `CC_VOTE_NO_QUOTE`: CC vote standalone template
-  - `TREASURY_DONATIONS`: Treasury donations summary template
+- `bot/state_store.py`: Firestore persistence — action tweet IDs + idempotency (`gov_action_state`), CC vote idempotency (`cc_vote_state`), feed watermarks (`feed_watermarks`), committee snapshots per epoch (`committee_snapshots`), treasury accumulation (`treasury_epoch_donations`), checkpoints. Every helper degrades to a no-op when Firestore is unavailable.
 
-- `bot/cc_profiles.py`: Loads `data/cc_profiles.yaml` and maps CC voter hashes to X handles.
+- `bot/main.py`: FastAPI `app` with async `POST /` webhook handler. Primary discovery (`_process_governance`) scans both feeds; a failure returns `500` so Blockfrost retries. Secondary work (`_process_treasury`, epoch summaries) never fails the webhook.
 
-- `bot/links.py`: URL builders for AdaStat, GovTools, CExplorer.
+## Blockfrost Integration
 
-- `bot/main.py`: FastAPI `app` instance with async `POST /` webhook handler. All processing functions (`_process_gov_actions`, `_process_cc_votes`, `_process_treasury_donations`) are async. Handles epoch transitions and posts treasury donation summaries. Manages SSH tunnel lifecycle via FastAPI lifespan if `SSH_HOST` is configured.
+### Endpoints used
 
-- `bot/state_store.py`: Firestore-backed persistence for gov action tweet IDs, CC vote archive state, and block checkpoints.
+- `GET /governance/proposals?order=desc` — proposals feed (`{id, tx_hash, cert_index, governance_type}`)
+- `GET /governance/proposals/{tx}/{cert}` / `/metadata` / `/parameters` — proposal detail, anchor + `json_metadata`, proposed params
+- `GET /governance/committee` — committee snapshot (quorum, `is_dissolved`, members, hot/cold)
+- `GET /governance/committee/votes?order=desc` — committee votes feed
+- `GET /epochs/{epoch}/parameters` — epoch-specific DRep/SPO thresholds + `committee_min_size`
+- `GET /blocks/{hash}/txs/cbor` — block transactions' CBOR (treasury donation = body key `22`)
+- `GET /txs/{hash}` + `GET /blocks/{hash_or_number}` — resolve a proposal's inclusion epoch (backfill only)
 
-- `bot/rationale_validator.py`: Non-blocking CIP-0108/CIP-0136 validation. Returns warning lists — tweets always sent regardless.
+**Important**: Governance actions are identified by `tx_hash + cert_index`, a compound key.
 
-- `bot/logging.py`: `setup_logging()` + `get_logger()` — stdlib logging, structured for Cloud Run.
+### Feeds, watermarks and idempotency
 
-## Database Integration
-
-### DB-Sync Schema (PostgreSQL)
-
-The bot queries a **Cardano DB-Sync instance** - a full blockchain database. Key tables:
-
-- `gov_action_proposal`: Governance actions with type, index, voting anchor, expiration
-
-- `voting_procedure`: Individual votes from CC members, DReps, SPOs
-
-- `voting_anchor`: IPFS/web URLs containing governance metadata
-
-- `tx` / `block`: Transaction and block data including `treasury_donation` field
-
-- `committee_hash`: Constitutional Committee member identifiers
-
-### Queries
-
-All SQL is in `bot/db/queries.py`:
-
-- `QUERY_GOV_ACTIONS`: Get governance actions by block number
-- `QUERY_CC_VOTES`: Get CC votes by block number
-- `QUERY_TREASURY_DONATIONS`: Get treasury donations for an epoch
-- `QUERY_BLOCK_EPOCH`: Get epoch number for a block by hash
-- `QUERY_ALL_GOV_ACTIONS`: All gov actions (backfill)
-- `QUERY_ALL_CC_VOTES`: All CC votes (backfill)
-
-**Important**: Governance actions are identified by `tx_hash + index`, forming a compound key.
+- Feeds are scanned newest-first; items newer than the watermark are processed oldest-first.
+- Watermarks (`feed_watermarks`) bound the scan; correctness comes from per-item domain idempotency (`gov_action_state.archived_action`, `cc_vote_state.archived_vote`).
+- A watermark is advanced only after the batch processes successfully; on failure the webhook returns `500` and Blockfrost retries.
 
 ## External Dependencies & Patterns
 
-### IPFS URL Handling
+### Metadata Handling
 
-- Governance actions/votes reference metadata via `voting_anchor.url`
+- Prefer Blockfrost's already-validated `json_metadata`; fall back to fetching the anchor URL over IPFS/HTTP via `sanitise_url()` + `fetch_metadata()`.
+- `ipfs://` URIs are rewritten to the `https://ipfs.io/ipfs/` gateway.
+- Metadata follows CIP-100/CIP-108/CIP-136 JSON-LD standards.
 
-- URLs may be `ipfs://` URIs → convert to `https://ipfs.io/ipfs/` gateway
+**Governance Action** (CIP-108): `{ "body": { "title", "abstract", "motivation", "rationale" }, "authors": [{"name"}] }`
 
-- Use `sanitise_url()` from `bot/metadata/fetcher.py` before fetching
-
-- Metadata follows CIP-100/CIP-108/CIP-136 JSON-LD standards
-
-### Metadata Structure Examples
-
-**Governance Action** (CIP-108):
-
-```json
-{
-  "body": {
-    "title": "...",
-    "abstract": "...",
-    "motivation": "...",
-    "rationale": "..."
-  },
-  "authors": [{"name": "..."}]
-}
-```
-
-**CC Vote** (CIP-136):
-
-```json
-{
-  "body": {
-    "summary": "...",
-    "rationaleStatement": "..."
-  },
-  "authors": [{"name": "..."}]
-}
-```
-
-### External Links
-
-The bot generates links to governance explorers via `bot/links.py`:
-
-- **AdaStat**: `make_adastat_link(tx_hash, index)` - ACTIVE
-- **GovTools**: `make_gov_tools_link(tx_hash, index)`
-- **CExplorer**: `make_vote_tx_link(tx_hash)` for vote transactions
+**CC Vote** (CIP-136): `{ "body": { "summary", "rationaleStatement" }, "authors": [{"name"}] }`
 
 ## Development Patterns
 
-### Error Handling & Resilience
+### Reliability
 
-- Uses `tenacity` library with `@retry` decorator (3 attempts, exponential backoff)
-
-- Applied to `fetch_metadata()` in `bot/metadata/fetcher.py` (30s timeout)
-
-- Async PostgreSQL via `psycopg` (v3) with a shared `AsyncConnection` (lazy init, `autocommit=True`)
-
-  - Managed in `bot/db/repository.py` — all queries go through async `_query()` helper, serialised by an `asyncio.Lock`
-
-  - On connection errors, `_query()` closes the broken connection and resets it to `None` so the next call reconnects automatically
+- `bot/blockfrost/client.py` retries timeouts / `429` / `5xx` with bounded exponential backoff + `Retry-After`.
+- Primary feed-discovery failure → `500` (Blockfrost retries; watermarks unadvanced). Metadata/threshold enrichment failures degrade gracefully (omit the line / title).
 
 ### Environment Variables
 
-Loaded from `.env` file (overrides system env vars) via `python-dotenv`.
-
 ```bash
 # Required
-DB_SYNC_URL                        # PostgreSQL connection string
+BLOCKFROST_PROJECT_ID              # Blockfrost mainnet project ID
 BLOCKFROST_WEBHOOK_AUTH_TOKEN      # Blockfrost webhook HMAC secret
+
+# Optional
+BLOCKFROST_API_BASE_URL            # API base URL override (default: mainnet)
 
 # Twitter (required if TWEET_POSTING_ENABLED=true)
 API_KEY, API_SECRET_KEY            # Twitter OAuth 1.0a
@@ -213,149 +156,70 @@ TWEET_POSTING_ENABLED              # "true" to enable tweet posting (default: fa
 # Firestore runtime state (optional override, uses ADC project by default)
 FIRESTORE_PROJECT_ID               # optional GCP project override
 FIRESTORE_DATABASE                 # Firestore DB id (default: (default))
-
-# SSH tunnel (optional — for accessing DB through bastion host)
-SSH_HOST                           # Bastion host address
-SSH_PORT                           # SSH port (default: 22)
-SSH_USER                           # SSH username
-SSH_KEY_PATH                       # Path to SSH private key file
 ```
 
 ### Code Style & Patterns
 
-- **Formatter & linter**: ruff (configured in `pyproject.toml`)
-- Line length: 120 chars
-- Lint rules: `E`, `F`, `W`, `I` (isort), `UP` (pyupgrade)
-- All domain objects are frozen dataclasses in `bot/models.py`
-- Tweet formatting is pure (functions return strings, no side effects)
-- `post_tweet()` is the single point for Twitter output — gated by config flag
-- Uses stdlib `logging` everywhere (no `print()` calls)
+- **Formatter & linter**: ruff (configured in `pyproject.toml`). Line length 120. Rules: `E`, `F`, `W`, `I`, `UP`.
+- All domain objects are frozen dataclasses in `bot/models.py`.
+- Tweet formatting is pure (functions return strings, no side effects).
+- `post_tweet()` is the single point for Twitter output — gated by config flag.
+- Uses stdlib `logging` everywhere (no `print()`).
 
 ## Workflow & Commands
 
 ### Deployment Target
 
-Google Cloud Run (FastAPI + uvicorn, containerized)
+Google Cloud Run (FastAPI + uvicorn, containerized), continuously deployed from GitHub. Entry point: `uvicorn bot.main:app` (root `main.py` re-exports `app`). `POST /` handles Blockfrost block events.
 
-- Continuously deployed from GitHub via Cloud Run source-based deployment
-- Docker image built automatically by Cloud Build on push to `main`
-- Entry point: `uvicorn bot.main:app` (root `main.py` re-exports `app`)
-- `POST /` handles Blockfrost block events (governance actions, CC votes, epoch donation checks)
-- Epoch transitions are detected by comparing current vs previous block epoch
-- On epoch transition, posts treasury donation summaries for the completed epoch
-- Returns JSON responses with appropriate HTTP status codes
+**Bootstrapping**: first deploy with `TWEET_POSTING_ENABLED=false` so feed watermarks anchor at the current tips (history left to the backfill script); observe dry-run logs ~24h, then enable posting.
 
 ### Local Development
 
 ```bash
-# Install uv (if not already installed)
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Sync dependencies (creates .venv automatically)
 uv sync
-
-# Run locally
-uv run uvicorn bot.main:app --reload --port 8080
-# Access at http://localhost:8080/
-# Endpoint: POST / (Blockfrost)
-
-# Run tests
+uv run uvicorn bot.main:app --reload --port 8080   # POST / (Blockfrost)
 uv run pytest -v
-
-# Format & lint
-uv run ruff format .
-uv run ruff check --fix .
+uv run ruff format . && uv run ruff check --fix .
 ```
-
-### Testing Workflow
-
-1. **SQL Query Development**: Use `drafts/draft_SELECT.sql` to test queries against DB-Sync
-
-2. **Metadata Testing**: Reference sample files in `drafts/samples/actions/` and `drafts/samples/votes/`
-
-3. **Webhook Simulation**: Sample payloads are in code comments in `bot/main.py`
-
-4. **Local Testing**: Set environment variables, then POST webhook JSON to `/` (Blockfrost)
-
-## Important Quirks & Edge Cases
-
-### Vote Classification
-
-Vote strings map to human-readable text in `bot/twitter/formatter.py`:
-
-```python
-VOTES_MAPPING = {
-    "YES": "Constitutional",
-    "NO": "Unconstitutional",
-    "ABSTAIN": "Abstain"
-}
-```
-
-### Feature Flags
-
-- **Tweet posting**: Controlled by `TWEET_POSTING_ENABLED` env var (default: off)
-- **SSH tunnel**: Enabled when `SSH_HOST` is set in config
-- **Webhook signature verification**: Skipped if `BLOCKFROST_WEBHOOK_AUTH_TOKEN` not set
 
 ## When Modifying Code
 
-### Adding New Governance Event Types
+### Adding a New Governance Event Type
 
-1. Add query constant to `bot/db/queries.py`
-
-2. Add data model to `bot/models.py`
-
-3. Add repository function to `bot/db/repository.py`
-
-4. Add formatter function to `bot/twitter/formatter.py`
-
-5. Add orchestration in `bot/main.py` (`process_block()` or `process_epoch()`)
+1. Add mapping in `bot/blockfrost/mapping.py` (governance_type ↔ action type)
+2. Add/extend data model in `bot/models.py`
+3. Add formatter function in `bot/twitter/formatter.py` (+ template)
+4. Wire orchestration in `bot/main.py`
 
 ### Changing Tweet Format
 
-- Modify formatter functions in `bot/twitter/formatter.py`
-
-- Keep under 280 characters (Twitter limit not enforced in code)
-
-- Use emoji consistently: 🚨 (alerts), 📢 (titles), 🔗 (links), 💸 (treasury)
-
-### Database Query Changes
-
-- Test queries in `draft_SELECT.sql` first
-
-- Schema reference in `docs/db_sync_schema.sql`
-
-- Always join through `tx` and `block` tables for block/epoch filtering
+- Modify `bot/twitter/formatter.py` / `templates.py`. Keep under 280 characters.
 
 ## Dependencies Summary
 
-Managed via `uv` (see `pyproject.toml`). Lockfile: `uv.lock`.
+Managed via `uv` (see `pyproject.toml`, lockfile `uv.lock`).
 
 ```text
 # Production
-fastapi>=0.115,<1           # Async web framework
-uvicorn[standard]>=0.34,<1  # ASGI server
-xdk>=0.8.1                  # X API SDK (OAuth 1.0a + posts client)
-psycopg[binary]>=3,<4       # Async PostgreSQL adapter (psycopg v3)
-requests>=2.32,<3           # HTTP client for IPFS
-tenacity>=9,<10             # Retry/backoff decorator
-python-dotenv>=1.2.1        # .env file loading
-paramiko>=3                 # SSH tunnel for bastion-host DB access
-google-cloud-firestore>=2.20,<3  # Firestore state store client
+fastapi                     # Async web framework
+uvicorn[standard]           # ASGI server
+httpx                       # Async HTTP client (Blockfrost)
+cbor2                       # Transaction CBOR decoding (treasury donations)
+requests                    # HTTP client for IPFS metadata
+tenacity                    # Retry/backoff decorator (metadata fetch)
+python-dotenv               # .env file loading
+google-cloud-firestore      # Firestore state store client
+xdk                         # X API SDK (OAuth 1.0a + posts client)
 
 # Dev
-pytest>=8                   # Test runner
-pytest-asyncio>=0.25        # Async test support (asyncio_mode = "auto")
-httpx>=0.28                 # Async HTTP client (FastAPI TestClient)
-ruff>=0.9                   # Formatter + linter
+pytest, pytest-asyncio, ruff
 ```
 
 ## Related Documentation
 
+- [CIP-1694](https://github.com/cardano-foundation/CIPs/blob/master/CIP-1694/README.md): Conway governance
 - [CIP-100](https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md): Governance metadata standard
-
 - [CIP-108](https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md): Governance action metadata
-
 - [CIP-136](https://github.com/cardano-foundation/CIPs/blob/master/CIP-0136/README.md): CC vote rationale metadata
-
-- [Cardano DB-Sync](https://github.com/IntersectMBO/cardano-db-sync): Database schema source
+- [Blockfrost API](https://docs.blockfrost.io/): Cardano data provider

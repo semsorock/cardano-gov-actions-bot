@@ -100,9 +100,92 @@ def test_mark_cc_vote_archived_writes_state(monkeypatch):
     monkeypatch.setattr(state_store, "_get_firestore_client", lambda: fake_client)
     monkeypatch.setattr(state_store, "firestore", _FakeFirestoreModule())
 
-    state_store.mark_cc_vote_archived("ga_hash", 5, "voter_hash", source_block=42)
+    vote_key = "votetx_gatx_5_cchot1abc"
+    assert state_store.is_cc_vote_archived(vote_key) is False
 
-    doc = fake_client.collection(state_store.CC_VOTE_STATE_COLLECTION).document("ga_hash_5_voter_hash").get().to_dict()
+    state_store.mark_cc_vote_archived(
+        vote_key,
+        ga_tx_hash="ga_hash",
+        ga_index=5,
+        voter_hash="voter_hash",
+        source_block=42,
+    )
+
+    doc = fake_client.collection(state_store.CC_VOTE_STATE_COLLECTION).document(vote_key).get().to_dict()
     assert doc["archived_vote"] is True
+    assert doc["ga_tx_hash"] == "ga_hash"
     assert doc["source_block"] == 42
     assert doc["last_updated_at"] == "SERVER_TS"
+    assert state_store.is_cc_vote_archived(vote_key) is True
+
+
+def test_is_action_archived(monkeypatch):
+    _reset_state_store(monkeypatch)
+    fake_client = _FakeFirestoreClient()
+    monkeypatch.setattr(state_store, "_get_firestore_client", lambda: fake_client)
+    monkeypatch.setattr(state_store, "firestore", _FakeFirestoreModule())
+
+    assert state_store.is_action_archived("tx", 0) is False
+    state_store.save_action_tweet_id("tx", 0, "123", source_block=5)
+    assert state_store.is_action_archived("tx", 0) is True
+
+
+def test_feed_watermark_roundtrip(monkeypatch):
+    _reset_state_store(monkeypatch)
+    fake_client = _FakeFirestoreClient()
+    monkeypatch.setattr(state_store, "_get_firestore_client", lambda: fake_client)
+    monkeypatch.setattr(state_store, "firestore", _FakeFirestoreModule())
+
+    assert state_store.get_feed_watermark("governance_proposals") is None
+    state_store.set_feed_watermark("governance_proposals", "gov_action1abc")
+    assert state_store.get_feed_watermark("governance_proposals") == "gov_action1abc"
+
+
+def test_committee_snapshot_roundtrip(monkeypatch):
+    _reset_state_store(monkeypatch)
+    fake_client = _FakeFirestoreClient()
+    monkeypatch.setattr(state_store, "_get_firestore_client", lambda: fake_client)
+    monkeypatch.setattr(state_store, "firestore", _FakeFirestoreModule())
+
+    assert state_store.get_committee_snapshot(500) is None
+    snapshot = {"quorum": {"numerator": 2, "denominator": 3}, "members": []}
+    state_store.save_committee_snapshot(500, snapshot)
+    assert state_store.get_committee_snapshot(500) == snapshot
+
+
+def test_treasury_donation_accumulation_is_idempotent(monkeypatch):
+    _reset_state_store(monkeypatch)
+    fake_client = _FakeFirestoreClient()
+    monkeypatch.setattr(state_store, "_get_firestore_client", lambda: fake_client)
+    monkeypatch.setattr(state_store, "firestore", _FakeFirestoreModule())
+
+    from bot.models import TreasuryDonation
+
+    state_store.record_treasury_donations(510, [TreasuryDonation(block_no=1, tx_hash="aa", amount_lovelace=1_000_000)])
+    state_store.record_treasury_donations(
+        510,
+        [
+            TreasuryDonation(block_no=1, tx_hash="aa", amount_lovelace=1_000_000),  # duplicate
+            TreasuryDonation(block_no=2, tx_hash="bb", amount_lovelace=2_000_000),
+        ],
+    )
+
+    doc = state_store.get_treasury_epoch(510)
+    assert doc["donations"] == {"aa": 1_000_000, "bb": 2_000_000}
+    assert sum(doc["donations"].values()) == 3_000_000
+
+    assert not doc.get("summarized")
+    state_store.mark_treasury_epoch_summarized(510)
+    assert state_store.get_treasury_epoch(510)["summarized"] is True
+
+
+def test_donation_start_epoch_is_set_once(monkeypatch):
+    _reset_state_store(monkeypatch)
+    fake_client = _FakeFirestoreClient()
+    monkeypatch.setattr(state_store, "_get_firestore_client", lambda: fake_client)
+    monkeypatch.setattr(state_store, "firestore", _FakeFirestoreModule())
+
+    assert state_store.get_donation_start_epoch() is None
+    state_store.ensure_donation_start_epoch(500)
+    state_store.ensure_donation_start_epoch(501)  # ignored — first wins
+    assert state_store.get_donation_start_epoch() == 500

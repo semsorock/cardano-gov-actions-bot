@@ -19,7 +19,7 @@ def _pct(ratio: float) -> str:
 
 
 def _thresholds_line(thresholds: GovThresholds | None) -> str:
-    """Build the 'Thresholds: ...' line, omitting bodies that don't vote.
+    """Build the 'Current thresholds: ...' line, omitting bodies that don't vote.
 
     Returns an empty string when no thresholds are available, so the line is
     dropped entirely from the tweet.
@@ -27,7 +27,7 @@ def _thresholds_line(thresholds: GovThresholds | None) -> str:
     if thresholds is None or thresholds.is_empty:
         return ""
     if thresholds.note:
-        return f"Thresholds: {thresholds.note}\n"
+        return f"Current thresholds: {thresholds.note}\n"
     parts = []
     if thresholds.drep is not None:
         parts.append(f"DRep {_pct(thresholds.drep)}")
@@ -37,7 +37,7 @@ def _thresholds_line(thresholds: GovThresholds | None) -> str:
         parts.append(f"CC {_pct(thresholds.cc)}")
     if not parts:
         return ""
-    return f"Thresholds: {' · '.join(parts)}\n"
+    return f"Current thresholds: {' · '.join(parts)}\n"
 
 
 def _vote_display(vote: str) -> str:
