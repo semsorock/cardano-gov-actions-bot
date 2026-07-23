@@ -17,6 +17,10 @@ def fetch_metadata(url: str) -> dict | None:
     try:
         response = requests.get(url, timeout=30)
         if response.status_code == 200:
+            # JSON is UTF-8 per RFC 8259. Some hosts (e.g. IPFS gateways) serve it
+            # as text/* with no charset, which makes requests default to Latin-1 and
+            # mangle non-ASCII characters. Force UTF-8 so response.json() decodes right.
+            response.encoding = "utf-8"
             return response.json()
         logger.warning("Error retrieving metadata (HTTP %s): %s", response.status_code, url)
         return None
