@@ -39,7 +39,7 @@ class TestFetchMetadata:
         requests defaults response.encoding to ISO-8859-1. Without forcing UTF-8,
         response.json() double-decodes non-ASCII characters into mojibake.
         """
-        title = 'Name the Protocol Version 12 hard fork “von Bergen”'
+        title = "Name the Protocol Version 12 hard fork “von Bergen”"
         body = json.dumps({"body": {"title": title}}, ensure_ascii=False)
 
         response = requests.models.Response()
