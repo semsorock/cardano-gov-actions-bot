@@ -10,6 +10,8 @@ load_dotenv(override=True)
 
 logger = get_logger("config")
 
+DEFAULT_BLOCKFROST_API_BASE_URL = "https://cardano-mainnet.blockfrost.io/api/v0"
+
 
 class ConfigError(Exception):
     """Raised when required configuration is missing."""
@@ -34,8 +36,9 @@ class TwitterConfig:
 class Config:
     """Centralised application configuration loaded from environment variables."""
 
-    # Database
-    db_sync_url: str = ""
+    # Blockfrost — sole Cardano data provider.
+    blockfrost_project_id: str = ""
+    blockfrost_api_base_url: str = DEFAULT_BLOCKFROST_API_BASE_URL
 
     # Twitter credentials
     twitter: TwitterConfig = field(default_factory=TwitterConfig)
@@ -50,16 +53,12 @@ class Config:
     firestore_project_id: str = ""
     firestore_database: str = "(default)"
 
-    # SSH tunnel (optional — only used when ssh_host is set)
-    ssh_host: str = ""
-    ssh_port: int = 22
-    ssh_user: str = ""
-    ssh_key_path: str = ""
-
     @classmethod
     def from_env(cls) -> "Config":
         return cls(
-            db_sync_url=os.environ.get("DB_SYNC_URL", ""),
+            blockfrost_project_id=os.environ.get("BLOCKFROST_PROJECT_ID", ""),
+            blockfrost_api_base_url=os.environ.get("BLOCKFROST_API_BASE_URL", "").strip()
+            or DEFAULT_BLOCKFROST_API_BASE_URL,
             twitter=TwitterConfig(
                 api_key=os.environ.get("API_KEY", ""),
                 api_secret_key=os.environ.get("API_SECRET_KEY", ""),
@@ -70,18 +69,14 @@ class Config:
             tweet_posting_enabled=_parse_bool(os.environ.get("TWEET_POSTING_ENABLED"), default=False),
             firestore_project_id=os.environ.get("FIRESTORE_PROJECT_ID", ""),
             firestore_database=os.environ.get("FIRESTORE_DATABASE", "(default)"),
-            ssh_host=os.environ.get("SSH_HOST", ""),
-            ssh_port=int(os.environ.get("SSH_PORT", "22")),
-            ssh_user=os.environ.get("SSH_USER", ""),
-            ssh_key_path=os.environ.get("SSH_KEY_PATH", ""),
         )
 
     def validate(self) -> None:
         """Check that all required config is present. Call at startup."""
         missing = []
 
-        if not self.db_sync_url:
-            missing.append("DB_SYNC_URL")
+        if not self.blockfrost_project_id:
+            missing.append("BLOCKFROST_PROJECT_ID")
 
         if self.tweet_posting_enabled:
             for field_name, env_name in [

@@ -1,4 +1,5 @@
 import os
 
-# Ensure config singleton can be imported in test environments that do not set DB_SYNC_URL.
-os.environ.setdefault("DB_SYNC_URL", "postgresql://localhost/test")
+# Ensure the config singleton can be imported in test environments that do not
+# set Blockfrost credentials.
+os.environ.setdefault("BLOCKFROST_PROJECT_ID", "test-project-id")

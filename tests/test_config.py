@@ -1,22 +1,22 @@
 import pytest
 
-from bot.config import Config, ConfigError, TwitterConfig
+from bot.config import DEFAULT_BLOCKFROST_API_BASE_URL, Config, ConfigError, TwitterConfig
 
 
 class TestConfigValidate:
     def test_valid_minimal(self):
-        """DB_SYNC_URL set, tweeting disabled — should pass."""
-        cfg = Config(db_sync_url="postgresql://localhost/test")
+        """BLOCKFROST_PROJECT_ID set, tweeting disabled — should pass."""
+        cfg = Config(blockfrost_project_id="mainnetXXXX")
         cfg.validate()  # no exception
 
-    def test_missing_db_url(self):
-        cfg = Config(db_sync_url="")
-        with pytest.raises(ConfigError, match="DB_SYNC_URL"):
+    def test_missing_blockfrost_project_id(self):
+        cfg = Config(blockfrost_project_id="")
+        with pytest.raises(ConfigError, match="BLOCKFROST_PROJECT_ID"):
             cfg.validate()
 
     def test_tweeting_enabled_without_creds(self):
         cfg = Config(
-            db_sync_url="postgresql://localhost/test",
+            blockfrost_project_id="mainnetXXXX",
             tweet_posting_enabled=True,
             twitter=TwitterConfig(),
         )
@@ -25,7 +25,7 @@ class TestConfigValidate:
 
     def test_tweeting_enabled_with_creds(self):
         cfg = Config(
-            db_sync_url="postgresql://localhost/test",
+            blockfrost_project_id="mainnetXXXX",
             tweet_posting_enabled=True,
             twitter=TwitterConfig(
                 api_key="k",
@@ -35,3 +35,7 @@ class TestConfigValidate:
             ),
         )
         cfg.validate()  # no exception
+
+    def test_default_api_base_url(self):
+        cfg = Config(blockfrost_project_id="mainnetXXXX")
+        assert cfg.blockfrost_api_base_url == DEFAULT_BLOCKFROST_API_BASE_URL

@@ -7,14 +7,21 @@ X bot account: [@GovActions](https://x.com/GovActions)
 ## How It Works
 
 ```
-Blockfrost Webhook (POST /) → FastAPI on Cloud Run → Query DB-Sync (async) → Fetch IPFS metadata → Post to X
+Blockfrost Webhook (POST /) → FastAPI on Cloud Run → Scan Blockfrost feeds (async) → Fetch IPFS metadata → Post to X
 ```
 
 1. **Blockfrost** sends block webhooks to `/`
-2. The bot queries a **Cardano DB-Sync** PostgreSQL database for governance actions, CC votes, and epoch donations
-3. Metadata is fetched from **IPFS** and validated (CIP-0108 / CIP-0136 warnings only)
+2. On each webhook the bot scans the Blockfrost **governance proposals** and
+   **committee votes** feeds, processing items newer than the persisted
+   watermarks, and reads the block's transaction CBOR for treasury donations
+3. Metadata is fetched from **IPFS** (or Blockfrost's validated `json_metadata`)
+   and validated (CIP-0108 / CIP-0136 warnings only)
 4. Formatted summaries are posted to **Twitter/X** via `xdk`
-5. Mutable runtime state (tweet IDs, checkpoints) is stored in **Google Cloud Firestore**
+5. Mutable runtime state (tweet IDs, feed watermarks, committee snapshots,
+   checkpoints) is stored in **Google Cloud Firestore**
+
+**Blockfrost is the sole Cardano data provider.** Feed watermarks plus per-item
+idempotency keys make duplicate and out-of-order webhook deliveries safe.
 
 ### What It Monitors
 
@@ -25,9 +32,8 @@ Blockfrost Webhook (POST /) → FastAPI on Cloud Run → Query DB-Sync (async) �
 ## Prerequisites
 
 - **Google Cloud Platform** account with a project
-- **Cardano DB-Sync** PostgreSQL database access
+- **Blockfrost** account (mainnet project ID) with a block webhook configured
 - **Twitter/X API** credentials (OAuth 1.0a user tokens + app bearer token)
-- **Blockfrost** account with webhook configured
 
 ## Environment Variables
 
@@ -39,15 +45,12 @@ The bot loads `.env` locally (`python-dotenv`) and can also read from Cloud Run 
 | `API_SECRET_KEY` | Twitter OAuth 1.0a consumer secret |
 | `ACCESS_TOKEN` | Twitter access token |
 | `ACCESS_TOKEN_SECRET` | Twitter access token secret |
-| `DB_SYNC_URL` | PostgreSQL connection string (e.g. `postgresql://user:pass@host:5432/dbname`) |
+| `BLOCKFROST_PROJECT_ID` | Blockfrost mainnet project ID (**required**) |
+| `BLOCKFROST_API_BASE_URL` | Optional API base URL override (default: `https://cardano-mainnet.blockfrost.io/api/v0`) |
 | `BLOCKFROST_WEBHOOK_AUTH_TOKEN` | Shared secret used to verify `Blockfrost-Signature` |
 | `TWEET_POSTING_ENABLED` | Set to `true` to enable posting tweets (default: `false`) |
 | `FIRESTORE_PROJECT_ID` | Optional Firestore project override; default uses ADC project |
 | `FIRESTORE_DATABASE` | Firestore database ID (default: `(default)`) |
-| `SSH_HOST` | Optional bastion host for SSH tunnel to DB |
-| `SSH_PORT` | SSH port (default: `22`) |
-| `SSH_USER` | SSH username for tunnel |
-| `SSH_KEY_PATH` | Path to SSH private key file |
 
 ## Local Development
 
@@ -87,7 +90,7 @@ docker run --rm -p 8080:8080 \
   -e API_SECRET_KEY=your_secret \
   -e ACCESS_TOKEN=your_token \
   -e ACCESS_TOKEN_SECRET=your_token_secret \
-  -e DB_SYNC_URL=postgresql://user:pass@host:5432/dbname \
+  -e BLOCKFROST_PROJECT_ID=mainnetXXXXXXXX \
   -e BLOCKFROST_WEBHOOK_AUTH_TOKEN=your_webhook_secret \
   -e TWEET_POSTING_ENABLED=false \
   gov-actions-bot
@@ -102,7 +105,7 @@ The bot is deployed to **Google Cloud Run** with continuous deployment from this
 1. **Store secrets** in Google Secret Manager for your GCP project:
   - `api-key`, `api-secret-key`, `access-token`, `access-token-secret`
   - `bearer-token`
-  - `db-sync-url`, `blockfrost-webhook-auth-token`
+  - `blockfrost-project-id`, `blockfrost-webhook-auth-token`
 
 
 2. **Create a Cloud Run service**:
@@ -136,8 +139,9 @@ Every push to the `main` branch automatically triggers:
 │   ├── models.py                # Domain dataclasses
 │   ├── rationale_validator.py   # CIP-0108/CIP-0136 warning-only validation
 │   ├── webhook_auth.py          # Blockfrost HMAC signature verification
-│   ├── state_store.py           # Firestore-backed runtime state (tweet IDs, checkpoints)
-│   ├── db/                      # SQL constants + async repository layer + SSH tunnel
+│   ├── state_store.py           # Firestore runtime state (tweet IDs, watermarks, snapshots)
+│   ├── blockfrost/              # Async Blockfrost client + feed/committee/CBOR adapters
+│   ├── thresholds.py            # Ratification-threshold engine (epoch params + committee)
 │   ├── metadata/                # IPFS URL sanitisation and metadata fetch
 │   └── twitter/
 │       ├── client.py            # XDK posting client
@@ -146,15 +150,22 @@ Every push to the `main` branch automatically triggers:
 ├── data/
 │   └── cc_profiles.yaml         # CC member profile mappings
 ├── scripts/
-│   └── backfill_rationales.py   # Backfill historical rationales from DB-Sync
+│   └── backfill_rationales.py   # Backfill historical rationales from Blockfrost
 ├── rationales/                  # Archived rationale files
 ├── tests/                       # Pytest test suite
-├── docs/                        # Reference docs (schema + CIPs)
+├── docs/                        # Reference docs (CIPs)
 ├── pyproject.toml               # Dependency/tool config
 ├── uv.lock                      # Locked dependency versions
 ├── Dockerfile                   # Container image
 └── .env.example                 # Environment variable template
 ```
+
+## Bootstrapping
+
+On first deploy the feeds have no watermarks. Bring the bot up with
+`TWEET_POSTING_ENABLED=false` so it adopts the current feed tips as watermarks
+and processes only *new* items (history is left to `scripts/backfill_rationales.py`).
+Observe the dry-run logs for ~24 hours, then set `TWEET_POSTING_ENABLED=true`.
 
 ## License
 
