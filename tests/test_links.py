@@ -1,4 +1,4 @@
-from bot.links import make_adastat_link, make_gov_tools_link, make_governance_action_link
+from bot.links import make_adastat_link, make_gov_tools_link, make_governance_action_link, make_super_cardano_link
 
 
 class TestMakeGovernanceActionLink:
@@ -45,3 +45,21 @@ class TestMakeGovToolsLink:
     def test_with_index(self):
         link = make_gov_tools_link("aabbcc", 5)
         assert link == "https://gov.tools/governance_actions/aabbcc#5"
+
+
+class TestMakeSuperCardanoLink:
+    def test_index_zero(self):
+        link = make_super_cardano_link("aabbcc", 0)
+        assert link == "https://supercardano.com/governance-action/aabbcc00"
+
+    def test_index_single_digit(self):
+        link = make_super_cardano_link("aabbcc", 5)
+        assert link == "https://supercardano.com/governance-action/aabbcc05"
+
+    def test_index_two_digits(self):
+        link = make_super_cardano_link("aabbcc", 16)
+        assert link == "https://supercardano.com/governance-action/aabbcc10"
+
+    def test_index_large(self):
+        link = make_super_cardano_link("aabbcc", 255)
+        assert link == "https://supercardano.com/governance-action/aabbccff"
